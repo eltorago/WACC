@@ -1,0 +1,8 @@
+{
+  "integrated_commits": {
+    "0001-GUI-a-card-view-the-risk-statement-on-screen-and-two.patch": "eeac7e72500695850ebb71980e5909c92ab3ada9",
+    "0001-Round-trip-the-corpus-against-the-source-documents.patch": "50eea1ca0f2c2cf89ff480139ae3453839c84561",
+    "0002-Essential-Eight-validate-the-linking-strategy-by-str.patch": "9bf4d1d9c6e24e50fa27aea4d3bdde281a1fb2e6",
+    "0003-patches-track-which-have-been-applied-by-content.patch": "5f98781417ffd48706b47b1c5900827f1b36c85e"
+  }
+}
