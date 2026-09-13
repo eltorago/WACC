@@ -28,7 +28,7 @@ ROOT = os.path.dirname(HERE)
 LAYERS: List[Tuple[str, str, List[str]]] = [
     ("vocabulary", "spelling, stemming, aliases and concepts", ["test_terms.py"]),
     ("corpus", "what loaded, under what licence, and quoting which table",
-     ["test_source_permissions.py", "test_packaging.py", "test_extracts.py"]),
+     ["test_source_permissions.py", "test_patch_integration.py", "test_packaging.py", "test_extracts.py"]),
     ("retrieval", "exact identifiers, then topical search",
      ["test_identifier_lookup.py", "test_topical_search.py"]),
     ("structure", "hierarchy, links, the threat layer and the maturity model",

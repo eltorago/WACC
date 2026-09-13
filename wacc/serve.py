@@ -155,7 +155,7 @@ def _handler(state: State):
                     "text/markdown", "wacc-test-plan.md",
                 )
             if parsed.path in ("/", "/index.html"):
-                view = (params.get("view") or ["grid"])[0]
+                view = (params.get("view") or ["cards"])[0]
                 derivations = state.derivations(payload) if view == "cards" else {}
                 return self._send(
                     html.render(

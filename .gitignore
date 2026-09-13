@@ -15,10 +15,12 @@
 .vscode/
 __pycache__/
 *.log
+*.patch
 *.pyc
 *.pyo
 *.swp
 *.tmp
+MANIFEST.json
 
 # Excluded in full, whatever they hold
 /data/raw/

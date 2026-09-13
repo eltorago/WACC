@@ -620,6 +620,7 @@ def run() -> int:
         refused = []
         for path in (
             "/?q=multi-factor+authentication",
+            "/?q=multi-factor+authentication&view=grid",
             "/?q=multi-factor+authentication&view=cards",
             "/?q=multi-factor+authentication&view=cards&limit=10",
             "/?q=AC-6(5)",
@@ -684,10 +685,14 @@ def run() -> int:
         )
         check.expect(
             'class="cardcol"' in wide and 'class="cardcol"' not in
-            results["/?q=multi-factor+authentication"][2].decode("utf-8"),
+            results["/?q=multi-factor+authentication&view=grid"][2].decode("utf-8"),
             "server", "the view in the URL decides the layout, so a link carries it",
             "density is how one person reads and stays local; which view and how many "
             "controls are part of the question and belong in the URL",
+        )
+        check.expect(
+            'class="cardcol"' in results["/?q=multi-factor+authentication"][2].decode("utf-8"),
+            "server", "controls open as cards by default",
         )
         # The page prints the publisher's identifier, not the internal uid, so the check
         # is on what a reader sees: one control, and the one that was asked for.

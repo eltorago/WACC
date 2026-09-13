@@ -1,31 +1,24 @@
-# patches
+# Delivered patches
 
-Changes from a working session land here as `.patch` files, numbered in the order they
-should be applied.
+All four delivered patches have been integrated. See APPLIED.json for the actual local
+commit IDs and application order. Original patch headers refer to commits in Claude's
+source repository; git am produces different IDs here.
 
-```
-git am patches\*.patch
-del patches\*.patch
-```
-
-Each patch carries its own commit message, so the history says what changed and why
-rather than recording one undifferentiated import. `git am --abort` backs the whole thing
-out if one will not apply.
-
-## MANIFEST.json
-
-Written beside the patches. For each one it records the SHA-256 of every file that patch
-leaves behind, and of every file as it was before, so a session can tell whether a patch
-has been applied without reading your repository — the bridge that writes files to this
-machine refuses to touch a `.git` directory, and that is the right rule.
+The GUI patch was already applied to the working files before the remaining series.
+The source-text and Essential Eight patches applied cleanly. The patch-status change
+was merged manually to preserve the reviewed source-file permissions.
 
 ```
-python tools\patch_status.py --check .
+python tools/patch_status.py --record
+python tools/patch_status.py --check .
 ```
 
-`applied`, `not applied`, or `EDITED SINCE` if the files match neither state. It will say
-`cannot tell` rather than guess when it cannot read the files it needs.
+The tool uses APPLIED.json when present, then fingerprints the corresponding commits.
+It refuses to overwrite the manifest if a required commit cannot be resolved. The
+check compares file content, so later edits may legitimately report a mismatch.
 
-Neither the patches nor the manifest are tracked in git. They are transport: a session
-writes them, `git am` consumes them, and they are regenerable from the history they
-carry. This file is tracked, so the folder exists in a clone.
+Existing patch files and the manifest remain tracked as the delivery record. New patch
+transport is ignored and omitted from packaged builds. Source permissions are recorded
+separately in sources/permissions.json and are not affected by these transport rules.
+
+Do not run git am over this directory again: the patches are already integrated.

@@ -56,7 +56,8 @@ EXCLUDED_DIRECTORIES = (
 
 # Not licence questions, just noise that should not be in a package.
 NOISE = ("__pycache__", ".git", ".pytest_cache", ".mypy_cache", ".idea", ".vscode")
-NOISE_SUFFIXES = (".pyc", ".pyo", ".log", ".tmp", ".swp")
+NOISE_SUFFIXES = (".pyc", ".pyo", ".log", ".tmp", ".swp", ".patch")
+TRANSPORT = ("MANIFEST.json",)
 
 
 @dataclass
@@ -121,7 +122,7 @@ def would_ship(root: str) -> List[str]:
                 if path in approved:
                     kept.append(path)
                 continue
-            if name.endswith(NOISE_SUFFIXES):
+            if name.endswith(NOISE_SUFFIXES) or name in TRANSPORT:
                 continue
             if name.lower().endswith(SOURCE_SUFFIXES):
                 continue
@@ -229,6 +230,7 @@ def gitignore() -> str:
     lines = [GITIGNORE_HEADER, "# Noise"]
     lines.extend(sorted("%s/" % name for name in NOISE if name != ".git"))
     lines.extend(sorted("*%s" % suffix for suffix in NOISE_SUFFIXES))
+    lines.extend(sorted(TRANSPORT))
 
     lines.append("")
     lines.append("# Excluded in full, whatever they hold")

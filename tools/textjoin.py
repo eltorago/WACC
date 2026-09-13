@@ -27,7 +27,7 @@ _BREAK = re.compile(r"(?<=[A-Za-z])-\s+(?=[a-z])")
 def mend_hyphen(text: str) -> str:
     """Close a hyphen that a line break left with a space after it."""
     def close(match: re.Match) -> str:
-        tail = text[match.end():].split(" ", 1)[0].strip(".,;:)")
+        tail = re.match(r"[A-Za-z]+", text[match.end():]).group(0)
         return "- " if tail.lower() in _SUSPENDED else "-"
 
     return _BREAK.sub(close, text or "")
@@ -40,9 +40,7 @@ def join_wrapped(parts: Iterable[str]) -> str:
         piece = " ".join((part or "").split())
         if not piece:
             continue
-        if joined.endswith("-"):
-            joined += piece
-        elif joined:
+        if joined:
             joined += " " + piece
         else:
             joined = piece
