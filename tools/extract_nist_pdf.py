@@ -27,6 +27,9 @@ from typing import Dict, List, Optional, Tuple
 
 import pdfplumber
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from textjoin import mend_hyphen  # noqa: E402
+
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOCUMENTS = os.path.join(HERE, "data", "raw", "documents")
 CORPUS = os.path.join(HERE, "data", "corpus")
@@ -216,7 +219,7 @@ _WELDED_FOOTNOTE = re.compile(
 
 def _clean(cell: Optional[str]) -> str:
     text = re.sub(r"\s+", " ", (cell or "").replace("\n", " ")).strip()
-    return _WELDED_FOOTNOTE.sub(r"\1", text)
+    return mend_hyphen(_WELDED_FOOTNOTE.sub(r"\1", text))
 
 
 # --------------------------------------------------------------------------
@@ -289,7 +292,7 @@ def sentence_records(sections: List[Dict[str, object]]) -> List[Dict[str, object
     for section in sections:
         body = " ".join(str(x) for x in section.get("body", []))  # type: ignore[union-attr]
         for sentence in _SENTENCE.split(body):
-            sentence = re.sub(r"\s+", " ", sentence).strip()
+            sentence = mend_hyphen(re.sub(r"\s+", " ", sentence).strip())
             if len(sentence) < 45 or len(sentence) > 600:
                 continue
             if sentence.count("(cid:") or sentence.count("  "):

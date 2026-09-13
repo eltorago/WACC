@@ -60,6 +60,9 @@ KEY_SIZE = re.compile(r"\b[Lkfn]\s*=\s*\d+")
 # Advances in factoring..." — a paragraph, not a row.
 PROSE = re.compile(r"[a-z]\.\s+[A-Z]")
 
+# A word the page wrapped inside, joined with a space: "enterprise- wide".
+BROKEN_WORD = re.compile(r"[A-Za-z]-\s[a-z]")
+
 # A footnote marker welded to a time unit: '< 2 years61' stated a cryptoperiod that the
 # threshold reader could not see at all.
 WELDED = re.compile(
@@ -167,6 +170,61 @@ def run() -> int:
         % len(strengths),
         "the same swap in the other direction, and a check that only looks one way "
         "passes when both tables are empty",
+    )
+
+    # -- words the page broke, mended ----------------------------------------
+    #
+    # Found by round-tripping the corpus against the source documents, which is the only
+    # check that reads the publisher's text rather than the corpus's shape. Ten controls
+    # across six extractors read "enterprise- wide", "need- to-know", "internet- facing"
+    # and "user- addressable" — a PDF wrapping inside a word, joined with a space. The
+    # exception is real English: a suspended hyphen is followed by "and" or "or", and
+    # NIST writes "security- and privacy-related documentation".
+    from wacc.build import build as _build  # noqa: E402
+
+    corpus, _report = _build(verbose=False)
+    broken = []
+    for control in corpus.controls.values():
+        for match in BROKEN_WORD.finditer(control.text or ""):
+            tail = (control.text or "")[match.end() - 1:].split(" ", 1)[0].strip(".,;:)")
+            if tail.lower() not in ("and", "or"):
+                broken.append((control.uid, match.group(0)))
+                break
+    check.expect(
+        not broken,
+        "wrapping", "no control carries a word the page broke across a line "
+        "(%d controls read)" % len(corpus.controls),
+        "; ".join("%s %r" % pair for pair in broken[:3]),
+    )
+    suspended = [
+        c.uid for c in corpus.controls.values()
+        if "security- and" in (c.text or "")
+    ]
+    check.expect(
+        bool(suspended),
+        "wrapping", "a real suspended hyphen survives the mending (%s)"
+        % ", ".join(suspended[:2]),
+        "closing 'security- and privacy-related' would produce 'security-and', so the "
+        "rule has to tell the two apart and this is the case that proves it still can",
+    )
+    # The rule itself, not only its effect on a corpus already written. tools/textjoin.py
+    # is stdlib, so the suite can call it even though the extractors around it cannot run
+    # on a machine without pdfplumber.
+    sys.path.insert(0, os.path.join(ROOT, "tools"))
+    from textjoin import mend_hyphen  # noqa: E402
+
+    mended = [
+        ("enterprise- wide risk", "enterprise-wide risk"),
+        ("need- to-know basis", "need-to-know basis"),
+        ("user- addressable storage", "user-addressable storage"),
+        ("security- and privacy-related", "security- and privacy-related"),
+        ("hardware- or software-based", "hardware- or software-based"),
+    ]
+    wrong = [(a, mend_hyphen(a), b) for a, b in mended if mend_hyphen(a) != b]
+    check.expect(
+        not wrong,
+        "wrapping", "the mending rule closes a broken word and leaves a suspended hyphen",
+        "; ".join("%r became %r, wanted %r" % w for w in wrong[:2]),
     )
 
     # -- one tool owns one corpus file ---------------------------------------

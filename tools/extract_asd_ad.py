@@ -20,6 +20,9 @@ from typing import Dict, List, Optional, Tuple
 
 import pdfplumber
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from textjoin import mend_hyphen  # noqa: E402
+
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SOURCE = os.path.join(
     HERE, "data", "raw", "documents",
@@ -103,7 +106,11 @@ def extract() -> Tuple[List[Dict[str, object]], int]:
                     # to the first mitigation and swallows it.
                     continue
                 if records and records[-1].get("_marker") == (index, marker):
-                    records[-1]["text"] = (str(records[-1]["text"]) + " " + text).strip()
+                    # Mended here as well as at the emit, because this is the join where
+                    # a word broken at a line end actually meets its other half.
+                    records[-1]["text"] = mend_hyphen(
+                        (str(records[-1]["text"]) + " " + text).strip()
+                    )
                     continue
                 records.append(
                     {
@@ -115,7 +122,7 @@ def extract() -> Tuple[List[Dict[str, object]], int]:
                         "obligation": "",
                         "parameters": ["mitigation"],
                         "kind": "statement",
-                        "text": text,
+                        "text": mend_hyphen(text),
                         "_marker": (index, marker),
                     }
                 )

@@ -34,6 +34,9 @@ from typing import Dict, List, Optional, Tuple
 
 import pdfplumber
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from textjoin import mend_hyphen  # noqa: E402
+
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOCUMENTS = os.path.join(HERE, "data", "raw", "documents")
 CORPUS = os.path.join(HERE, "data", "corpus")
@@ -258,6 +261,8 @@ def extract() -> Tuple[List[Dict[str, object]], Dict[str, object]]:
 
 def main() -> int:
     practices, report = extract()
+    for practice in practices:
+        practice["text"] = mend_hyphen(str(practice["text"]))
     by_domain: Dict[str, int] = {}
     for practice in practices:
         by_domain[str(practice["domain"])] = by_domain.get(str(practice["domain"]), 0) + 1

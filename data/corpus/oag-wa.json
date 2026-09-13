@@ -212,7 +212,7 @@
      "section_number": "2.1",
      "section_title": "Identify and maintain an accurate inventory of",
      "heading": "Get to know critical assets",
-     "text": "Document critical asset details including their location, importance, software and firmware information and supporting vendor, where applicable. Access to this information should be granted on a need- to-know basis.",
+     "text": "Document critical asset details including their location, importance, software and firmware information and supporting vendor, where applicable. Access to this information should be granted on a need-to-know basis.",
      "page": 13,
      "identifier": "Report-24 2.1.2"
     },
@@ -228,7 +228,7 @@
      "section_number": "2.1",
      "section_title": "Identify and maintain an accurate inventory of",
      "heading": "Maintain an inventory",
-     "text": "Keep the register of critical assets current. Update it when changes are made or assets are disposed. Periodically confirm the . register’s accuracy Securely dispose assets when they are no longer required or reach their end- of-life. Any information including configurations should be erased prior to disposal.",
+     "text": "Keep the register of critical assets current. Update it when changes are made or assets are disposed. Periodically confirm the . register’s accuracy Securely dispose assets when they are no longer required or reach their end-of-life. Any information including configurations should be erased prior to disposal.",
      "page": 13,
      "identifier": "Report-24 2.1.4"
     },
@@ -340,7 +340,7 @@
      "section_number": "2.5",
      "section_title": "Implement effective access management procedures",
      "heading": "Govern and review privileged access",
-     "text": "Accounts should be granted access using the principle of least privilege. Only assign super privileges where a role requires it. Where appropriate, use just- in-time access to avoid ongoing privileged access. Monitor the use of privileged activity such as provisioning of new access or changes to OT configurations.",
+     "text": "Accounts should be granted access using the principle of least privilege. Only assign super privileges where a role requires it. Where appropriate, use just-in-time access to avoid ongoing privileged access. Monitor the use of privileged activity such as provisioning of new access or changes to OT configurations.",
      "page": 17,
      "identifier": "Report-24 2.5.2"
     },

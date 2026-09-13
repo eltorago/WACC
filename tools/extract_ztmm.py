@@ -73,6 +73,15 @@ _CELL_OPENS = re.compile(r"^(Agency|Agencies)\b")
 _BOLD = "Bold"
 _LINE_TOLERANCE = 3.0
 
+# A footnote reference is a superscript digit and arrives as a word of its own, so the
+# corpus read "Agency sets some policies 26 for the lifecycle" and "encryption for all
+# applicable internal and 28 external traffic protocols". Both are the document's
+# footnote numbers standing in the middle of a sentence, and the second one puts a bare
+# quantity where the threshold reader can see it. Only a bare number set smaller than the
+# body is dropped; FIDO2 and SHA-256 are words with digits in them and are left alone.
+_BARE_NUMBER = re.compile(r"^\d{1,3}$")
+FOOTNOTE_SIZE_GAP = 1.0
+
 
 def _lines(page):
     """Words grouped into visual lines, each keeping its x position."""
@@ -81,6 +90,39 @@ def _lines(page):
         key = round(word["top"] / _LINE_TOLERANCE)
         rows.setdefault(key, []).append(word)
     return [sorted(rows[k], key=lambda w: w["x0"]) for k in sorted(rows)]
+
+
+def _body_size(pdf) -> float:
+    """The size most of this document's words are set at, for spotting superscripts."""
+    counts: Dict[float, int] = {}
+    for page in pdf.pages[: min(20, len(pdf.pages))]:
+        for word in page.extract_words(extra_attrs=["size"]):
+            size = round(float(word["size"]), 1)
+            counts[size] = counts.get(size, 0) + len(word["text"])
+    return max(counts, key=lambda s: counts[s]) if counts else 11.0
+
+
+def _join_lines(parts: List[str]) -> str:
+    """Join a cell's lines, closing the gap where a word was broken at a line end.
+
+    Every one of the twenty-two breaks in this document falls on a hyphen the document
+    itself writes — enterprise-wide, password-less, on-premises, case-by-case,
+    anomaly-based, network-connected. So the space is removed and the hyphen kept.
+    Removing the hyphen as well would invent 'enterprisewide', which is not what CISA
+    wrote and is not what a reader would search for.
+    """
+    joined = ""
+    for part in parts:
+        piece = " ".join((part or "").split())
+        if not piece:
+            continue
+        if joined.endswith("-"):
+            joined += piece
+        elif joined:
+            joined += " " + piece
+        else:
+            joined = piece
+    return joined
 
 
 def _header_columns(line) -> Optional[List[float]]:
@@ -113,6 +155,7 @@ def extract(path: str) -> List[dict]:
 
     with pdfplumber.open(path) as pdf:
         previous_was_table = False
+        body_size = _body_size(pdf)
         for page in pdf.pages:
             lines = _lines(page)
 
@@ -152,6 +195,13 @@ def extract(path: str) -> List[dict]:
                     # only bold text in the table, which is what separates them from a
                     # footnote or the running header that crept past the x tolerance.
                     if column == 0 and _BOLD not in (word.get("fontname") or ""):
+                        continue
+                    if (
+                        column > 0
+                        and _BARE_NUMBER.match(word["text"])
+                        and body_size - float(word.get("size") or body_size)
+                        > FOOTNOTE_SIZE_GAP
+                    ):
                         continue
                     buckets.setdefault(column, []).append(word["text"])
                 opener = " ".join(buckets.get(0, [])).strip()
@@ -231,7 +281,7 @@ def extract(path: str) -> List[dict]:
                 "name": _ANNOTATION.sub("", name).strip(),
                 "note": annotation.group(1) if annotation else "",
                 "stages": {
-                    stage: " ".join(" ".join(parts).split())
+                    stage: _join_lines(parts)
                     for stage, parts in record["stages"].items()
                 },
             }

@@ -28,6 +28,9 @@ from typing import Dict, List, Optional, Tuple
 import pdfplumber
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from textjoin import mend_hyphen  # noqa: E402
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from extract_nist_pdf import _SENTENCE, parameters_in, walk_sections, _body_size  # noqa: E402
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -104,7 +107,7 @@ def main() -> int:
                 "obligation": keyword.group(1).upper() if keyword else "",
                 "parameters": parameters_in(text) or ["method"],
                 "kind": "statement",
-                "text": text,
+                "text": mend_hyphen(text),
             }
         )
 

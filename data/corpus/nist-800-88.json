@@ -16,7 +16,7 @@
       "method"
      ],
      "kind": "statement",
-     "text": "This method applies logical techniques to sanitize data in all user- addressable storage locations of an ISM for protection against simple, non-invasive data recovery techniques using the same interface that is available to the user (e.g., host interface)."
+     "text": "This method applies logical techniques to sanitize data in all user-addressable storage locations of an ISM for protection against simple, non-invasive data recovery techniques using the same interface that is available to the user (e.g., host interface)."
     },
     {
      "section_number": "3.1.1",

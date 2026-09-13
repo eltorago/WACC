@@ -679,6 +679,32 @@ MATRIX: List[Injection] = [
         caught_by=["no figure has a footnote marker welded to its unit"],
     ),
     Injection(
+        key="wrapped-word",
+        defect="a word the page broke across a line is joined with a space",
+        was="ten controls across six extractors read 'enterprise- wide', 'need- to-know', "
+            "'internet- facing' and 'user- addressable'. A PDF has no line-break "
+            "character, so an extractor joining a wrapped line with a space breaks the "
+            "word, and what reaches the corpus is not what the publisher wrote",
+        path="data/corpus/c2m2.json",
+        edits=[(
+            "coordinated with the organization\u2019s enterprise-wide risk management",
+            "coordinated with the organization\u2019s enterprise- wide risk management",
+        )],
+        suites=["test_extracts.py"],
+        caught_by=["no control carries a word the page broke"],
+    ),
+    Injection(
+        key="suspended-hyphen-closed",
+        defect="a real suspended hyphen is closed up as though it were a break",
+        was="NIST writes 'security- and privacy-related documentation'. Mending that the "
+            "way a wrapped word is mended produces 'security-and', so the rule has to "
+            "tell a suspended hyphen from a broken word",
+        path="tools/textjoin.py",
+        edits=[('_SUSPENDED = ("and", "or")\n', "_SUSPENDED = ()\n")],
+        suites=["test_extracts.py"],
+        caught_by=["leaves a suspended hyphen"],
+    ),
+    Injection(
         key="corpus-clobbered",
         defect="a curated corpus file is overwritten by another tool",
         was="tools/extract_nist_pdf.py also had SP 800-88 in its document list and wrote "

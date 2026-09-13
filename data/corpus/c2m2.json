@@ -453,7 +453,7 @@
    "identifier": "THREAT-1i",
    "mil": 2,
    "page": 41,
-   "text": "Information on discovered cybersecurity vulnerabilities is shared with organization- defined stakeholders"
+   "text": "Information on discovered cybersecurity vulnerabilities is shared with organization-defined stakeholders"
   },
   {
    "domain": "THREAT",
@@ -743,7 +743,7 @@
    "identifier": "RISK-1h",
    "mil": 3,
    "page": 44,
-   "text": "The cyber risk management program is coordinated with the organization’s enterprise- wide risk management program"
+   "text": "The cyber risk management program is coordinated with the organization’s enterprise-wide risk management program"
   },
   {
    "domain": "RISK",
@@ -2223,7 +2223,7 @@
    "identifier": "THIRD-PARTIES-1e",
    "mil": 2,
    "page": 58,
-   "text": "Escalated prioritization is assigned to suppliers and other third parties whose compromise or disruption could cause significant consequences (for example, single- source suppliers, suppliers with privileged access)"
+   "text": "Escalated prioritization is assigned to suppliers and other third parties whose compromise or disruption could cause significant consequences (for example, single-source suppliers, suppliers with privileged access)"
   },
   {
    "domain": "THIRD-PARTIES",

@@ -1205,7 +1205,7 @@
   },
   {
    "req_number": "211",
-   "Release 26 Requirement": "A Technology Asset Stocktake and Technology Security Risk Management Plan is created to identify and manage the entity's internet- facing systems or services is maintained to ensure continuous visibility and monitoring of the entity’s resource and technology estate.",
+   "Release 26 Requirement": "A Technology Asset Stocktake and Technology Security Risk Management Plan is created to identify and manage the entity's internet-facing systems or services is maintained to ensure continuous visibility and monitoring of the entity’s resource and technology estate.",
    "Domain": "TECH",
    "Section": "13. Technology Lifecycle Management",
    "Applicability (All, Dept of State, Security Service Provider Entity, Technical Authority Entity, Authorised Vetting Agency)": "All entities",
@@ -2129,7 +2129,7 @@
   },
   {
    "req_number": "165",
-   "Release 26 Requirement": "The Sponsoring Entity monitors and manages compliance with any conditional security clearance requirements and reports any non- compliance to the Authorised Vetting Agency.",
+   "Release 26 Requirement": "The Sponsoring Entity monitors and manages compliance with any conditional security clearance requirements and reports any non-compliance to the Authorised Vetting Agency.",
    "Domain": "PER",
    "Section": "21. Maintenance and Ongoing Assessment",
    "Applicability (All, Dept of State, Security Service Provider Entity, Technical Authority Entity, Authorised Vetting Agency)": "All entities",

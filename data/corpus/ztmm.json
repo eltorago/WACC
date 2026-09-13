@@ -14,9 +14,9 @@
    "name": "Authentication",
    "note": "",
    "stages": {
-    "Traditional": "Agency authenticates identity using either passwords or multi-factor authentication 21 (MFA) with static access for entity identity. at: https://www.cisa.gov/mfa.",
+    "Traditional": "Agency authenticates identity using either passwords or multi-factor authentication (MFA) with static access for entity identity. at: https://www.cisa.gov/mfa.",
     "Initial": "Agency authenticates identity using MFA, which may include passwords as one factor and requires validation of multiple entity attributes (e.g., locale or activity).",
-    "Advanced": "Agency begins to authenticate all identity using phishing-resistant MFA and attributes, including initial implementation of password- less MFA via FIDO2 22 or PIV 23 .",
+    "Advanced": "Agency begins to authenticate all identity using phishing-resistant MFA and attributes, including initial implementation of password-less MFA via FIDO2 or PIV .",
     "Optimal": "Agency continuously validates identity with phishing-resistant MFA, not just when access is initially granted. April 2023"
    }
   },
@@ -25,8 +25,8 @@
    "name": "Identity Stores",
    "note": "",
    "stages": {
-    "Traditional": "Agency only uses self- managed, on-premises (i.e., planned, deployed, and maintained by agency) identity stores.",
-    "Initial": "Agency has a combination of self-managed identity stores and hosted identity store(s) (e.g., cloud or other agency) with minimal integration between the store(s) (e.g., Single Sign- on.).",
+    "Traditional": "Agency only uses self-managed, on-premises (i.e., planned, deployed, and maintained by agency) identity stores.",
+    "Initial": "Agency has a combination of self-managed identity stores and hosted identity store(s) (e.g., cloud or other agency) with minimal integration between the store(s) (e.g., Single Sign-on.).",
     "Advanced": "Agency begins to securely consolidate and integrate some self-managed and hosted identity stores.",
     "Optimal": "Agency securely integrates their identity stores across all partners and environments as appropriate."
    }
@@ -48,8 +48,8 @@
    "note": "New Function",
    "stages": {
     "Traditional": "Agency authorizes permanent access with periodic review for both privileged and unprivileged accounts. in collaboration by the Fast passwordless authentication. This Authentication Standards More Authentication: An API for accessing Protocol. Proposed Standard, PIV credential is a U.S. federal government-wide level. https://playbooks.idmanagement.gov/piv/.",
-    "Initial": "Agency authorizes access, including for privileged access requests, that expires with automated review. IDentity Online (FIDO) Alliance approach leverages W3C’s WebAuthn Secure than Passwords . https://fidoalliance.org/. Public Key Credentials. June 2021. https://fidoalliance.org/specs/fido-v2.1-ps-20210615/fido-client-to- credential used",
-    "Advanced": "Agency authorizes need- based and session-based access, including for privileged access request, that is tailored to actions and resources. and World Wide Web Consortium protocol and the FIDO https://www.w3.org/TR/2021/REC-webauthn-2-20210408/. to access federally controlled facilities",
+    "Initial": "Agency authorizes access, including for privileged access requests, that expires with automated review. IDentity Online (FIDO) Alliance approach leverages W3C’s WebAuthn Secure than Passwords . https://fidoalliance.org/. Public Key Credentials. June 2021. https://fidoalliance.org/specs/fido-v2.1-ps-20210615/fido-client-to-credential used",
+    "Advanced": "Agency authorizes need-based and session-based access, including for privileged access request, that is tailored to actions and resources. and World Wide Web Consortium protocol and the FIDO https://www.w3.org/TR/2021/REC-webauthn-2-20210408/. to access federally controlled facilities",
     "Optimal": "Agency uses automation to authorize just-in-time and just-enough access tailored to individual actions and individual resource needs. (W3C). FIDO2 is Alliance’s Client to and information April 2023"
    }
   },
@@ -83,7 +83,7 @@
     "Traditional": "Agency implements identity policies (authentication, credentials, access, lifecycle, etc.) with enforcement via static technical mechanisms and manual review.",
     "Initial": "Agency defines and begins implementing identity policies for enterprise-wide enforcement with minimal automation and manual updates.",
     "Advanced": "Agency implements identity policies for enterprise-wide enforcement with automation and updates policies periodically.",
-    "Optimal": "Agency implements and fully automates enterprise- wide identity policies for all users and entities across all systems with continuous enforcement and dynamic updates. April 2023"
+    "Optimal": "Agency implements and fully automates enterprise-wide identity policies for all users and entities across all systems with continuous enforcement and dynamic updates. April 2023"
    }
   },
   {
@@ -102,10 +102,10 @@
    "name": "Asset & Supply Chain Risk Management",
    "note": "New Function",
    "stages": {
-    "Traditional": "Agency does not track physical or virtual assets in an enterprise-wide or cross- vendor manner and manages its own supply chain acquisition of devices and services in ad hoc fashion with a limited view of enterprise risks.",
-    "Initial": "Agency tracks all physical and some virtual assets and manages supply chain risks by establishing policies and control baselines according to federal recommendations using a robust framework, (e.g., NIST SCRM.) 25",
+    "Traditional": "Agency does not track physical or virtual assets in an enterprise-wide or cross-vendor manner and manages its own supply chain acquisition of devices and services in ad hoc fashion with a limited view of enterprise risks.",
+    "Initial": "Agency tracks all physical and some virtual assets and manages supply chain risks by establishing policies and control baselines according to federal recommendations using a robust framework, (e.g., NIST SCRM.)",
     "Advanced": "Agency begins to develop a comprehensive enterprise view of physical and virtual assets via automated processes that can function across multiple vendors to verify acquisitions, track development cycles, and provide third-party assessments.",
-    "Optimal": "Agency has a comprehensive, at-or near- real-time view of all assets across vendors and service providers, automates its supply chain risk management as applicable, builds operations that tolerate supply chain failures, and incorporates best practices."
+    "Optimal": "Agency has a comprehensive, at-or near-real-time view of all assets across vendors and service providers, automates its supply chain risk management as applicable, builds operations that tolerate supply chain failures, and incorporates best practices."
    }
   },
   {
@@ -138,7 +138,7 @@
     "Traditional": "Agency uses a physically labeled inventory and limited software monitoring to review devices on a regular basis with some manual analysis.",
     "Initial": "Agency uses digital identifiers (e.g., interface addresses, digital tags) alongside a manual inventory and endpoint monitoring of devices when available. Some agency devices and virtual assets are under automated analysis (e.g., software-based scanning) for anomaly detection based on risk.",
     "Advanced": "Agency automates both inventory collection (including endpoint monitoring on all standard user devices, e.g., desktops and laptops, mobile phones, tablets, and their virtual assets) and anomaly detection to detect unauthorized devices.",
-    "Optimal": "Agency automates status collection of all network- connected devices and virtual assets while correlating with identities, conducting endpoint monitoring, and performing anomaly detection to inform resource access. Agency tracks patterns of provisioning and/or de- provisioning of virtual assets for anomalies."
+    "Optimal": "Agency automates status collection of all network-connected devices and virtual assets while correlating with identities, conducting endpoint monitoring, and performing anomaly detection to inform resource access. Agency tracks patterns of provisioning and/or de-provisioning of virtual assets for anomalies."
    }
   },
   {
@@ -157,10 +157,10 @@
    "name": "Governance Capability",
    "note": "",
    "stages": {
-    "Traditional": "Agency sets some policies 26 for the lifecycle of their traditional and peripheral computing devices and relies on manual processes to maintain (e.g., update, patch, sanitize) these devices. tracking, monitoring, an open communications medium as well as other potential traditional perimeter-focused segment activity, and data, and other resources treated uniquely by the network These network application pertaining to zero trust and the of networks.",
+    "Traditional": "Agency sets some policies for the lifecycle of their traditional and peripheral computing devices and relies on manual processes to maintain (e.g., update, patch, sanitize) these devices. tracking, monitoring, an open communications medium as well as other potential traditional perimeter-focused segment activity, and data, and other resources treated uniquely by the network These network application pertaining to zero trust and the of networks.",
     "Initial": "Agency sets and enforces policies for the procurement of new devices, the lifecycle of non-traditional computing devices and virtual assets, and for regularly conducting monitoring and scanning of devices. updating, using, sanitizing, deprovisioning, including typical channels channels such as cellular and messages. approaches to security and permit enhance enterprise-wide network and augment traditional for its demands on access, demands can be captured as considerations for Visibility Table 4: Networks Pillar",
     "Advanced": "Agency sets enterprise-wide policies for the lifecycle of devices and virtual assets, including their enumeration and accountability, with some automated enforcement mechanisms. and recovering devices. such as agency internal networks, application-level channels agencies to manage internal visibility. ZTAs permit network-based protections and priority, reachability, connections an application profile, and repeated and Analytics , Automation and",
-    "Optimal": "Agency automates policies for the lifecycle of all network-connected devices and virtual assets across the enterprise. April 2023 wireless used to transport and external traffic security controls to be improve defense-in- to dependency profiles can then be Orchestration , and"
+    "Optimal": "Agency automates policies for the lifecycle of all network-connected devices and virtual assets across the enterprise. April 2023 wireless used to transport and external traffic security controls to be improve defense-in-to dependency profiles can then be Orchestration , and"
    }
   },
   {
@@ -168,10 +168,10 @@
    "name": "Network Segmentation",
    "note": "",
    "stages": {
-    "Traditional": "Agency defines their network architecture using large perimeter/macro- segmentation with minimal restrictions on reachability within network segments. Agency may also rely on multi-service interconnections (e.g., bulk traffic VPN tunnels). Agency manually",
+    "Traditional": "Agency defines their network architecture using large perimeter/macro-segmentation with minimal restrictions on reachability within network segments. Agency may also rely on multi-service interconnections (e.g., bulk traffic VPN tunnels). Agency manually",
     "Initial": "Agency begins to deploy network architecture with the isolation of critical workloads, constraining connectivity to least function principles, and a transition toward service-specific interconnections. Agency establishes",
-    "Advanced": "Agency expands deployment of endpoint and application profile isolation mechanisms to more of their network architecture with ingress/egress micro- perimeters and service- specific interconnections. Agency implements dynamic",
-    "Optimal": "Agency network architecture consists of fully distributed ingress/egress micro- perimeters and extensive micro-segmentation based around application profiles with dynamic just-in-time and just-enough connectivity for service-specific interconnections. Agency implements dynamic"
+    "Advanced": "Agency expands deployment of endpoint and application profile isolation mechanisms to more of their network architecture with ingress/egress micro-perimeters and service-specific interconnections. Agency implements dynamic",
+    "Optimal": "Agency network architecture consists of fully distributed ingress/egress micro-perimeters and extensive micro-segmentation based around application profiles with dynamic just-in-time and just-enough connectivity for service-specific interconnections. Agency implements dynamic"
    }
   },
   {
@@ -191,9 +191,9 @@
    "note": "Formerly Encryption",
    "stages": {
     "Traditional": "Agency encrypts minimal traffic and relies on manual or ad hoc processes to manage and secure encryption keys.",
-    "Initial": "Agency begins to encrypt all traffic to internal applications, to prefer encryption for traffic to external applications 27 , to formalize key management policies, and to secure server/service encryption keys.",
-    "Advanced": "Agency ensures encryption for all applicable internal and 28 external traffic protocols, manages issuance and rotation of keys and certificates, and begins to incorporate best practices for cryptographic agility. 29",
-    "Optimal": "Agency continues to encrypt traffic as appropriate, enforces least privilege principles for secure key management enterprise- wide, and incorporates best practices for cryptographic agility as widely as possible."
+    "Initial": "Agency begins to encrypt all traffic to internal applications, to prefer encryption for traffic to external applications , to formalize key management policies, and to secure server/service encryption keys.",
+    "Advanced": "Agency ensures encryption for all applicable internal and external traffic protocols, manages issuance and rotation of keys and certificates, and begins to incorporate best practices for cryptographic agility.",
+    "Optimal": "Agency continues to encrypt traffic as appropriate, enforces least privilege principles for secure key management enterprise-wide, and incorporates best practices for cryptographic agility as widely as possible."
    }
   },
   {
@@ -201,7 +201,7 @@
    "name": "Network Resilience",
    "note": "New Function",
    "stages": {
-    "Traditional": "Agency configures network capabilities on a case-by- case basis to only match individual application availability demands with limited resilience mechanisms for workloads not deemed mission critical.",
+    "Traditional": "Agency configures network capabilities on a case-by-case basis to only match individual application availability demands with limited resilience mechanisms for workloads not deemed mission critical.",
     "Initial": "Agency begins to configure network capabilities to manage availability demands for additional applications and expand resilience mechanisms for workloads not deemed mission critical.",
     "Advanced": "Agency has configured network capabilities to dynamically manage the availability demands and resilience mechanisms for the majority of their applications.",
     "Optimal": "Agency integrates holistic delivery and awareness in adapting to changes in availability demands for all workloads and provides proportionate resilience."
@@ -214,7 +214,7 @@
    "stages": {
     "Traditional": "Agency incorporates limited boundary-focused network monitoring capabilities with and HTTPS options are available, agencies should review in regard M-15-13, M-19-26, M-22-09, May 12, 2022. https://www.dhs.gov/publication/cryptographic-agility-infographic. minimal analysis to start developing centralized situational awareness.",
     "Initial": "Agency employs network monitoring capabilities based on known indicators of policies and settings prefer HTTPS. to encrypting and decrypting network DHS Binding Operational Directive compromise (including network enumeration) to develop situational awareness in each environment and begins to correlate telemetry across traffic types and environments for analysis and threat hunting activities.",
-    "Advanced": "Agency deploys anomaly- based network detection capabilities to develop traffic (or not) for inspection 18-01, NIST SP 800-207, situational awareness across all environments, begins to correlate telemetry from multiple sources for analysis, and incorporates automated processes for robust threat hunting activities.",
+    "Advanced": "Agency deploys anomaly-based network detection capabilities to develop traffic (or not) for inspection 18-01, NIST SP 800-207, situational awareness across all environments, begins to correlate telemetry from multiple sources for analysis, and incorporates automated processes for robust threat hunting activities.",
     "Optimal": "Agency maintains visibility into communication across all agency networks and and visibility needs as among others. See also: April 2023 environments while enabling enterprise-wide situational awareness and advanced monitoring capabilities that automate telemetry correlation across all detection sources."
    }
   },
@@ -248,7 +248,7 @@
     "Traditional": "Agency authorizes access to applications primarily based on local authorization and static attributes.",
     "Initial": "Agency begins to implement authorizing access capabilities to applications that incorporate contextual information (e.g., identity, device compliance, and/or other attributes) per request with expiration.",
     "Advanced": "Agency automates application access decisions with expanded contextual information and enforced expiration conditions that adhere to least privilege principles.",
-    "Optimal": "Agency continuously authorizes application access, incorporating real- time risk analytics and factors such as behavior or usage patterns."
+    "Optimal": "Agency continuously authorizes application access, incorporating real-time risk analytics and factors such as behavior or usage patterns."
    }
   },
   {
@@ -257,7 +257,7 @@
    "note": "Formerly Threat Protections",
    "stages": {
     "Traditional": "Agency threat protections have minimal integration with application workflows, applying general purpose of DevSecOps for a Microservices-based protections for known threats.",
-    "Initial": "Agency integrates threat protections into mission critical application workflows, applying Application with protections against known threats and some application- specific threats.",
+    "Initial": "Agency integrates threat protections into mission critical application workflows, applying Application with protections against known threats and some application-specific threats.",
     "Advanced": "Agency integrates threat protections into all application workflows, protecting against some Service Mesh. March 8, 2022. application-specific and targeted threats.",
     "Optimal": "Agency integrates advanced threat protections into all application workflows, offering real-time visibility April 2023 and content-aware protections against sophisticated attacks tailored to applications."
    }
@@ -267,7 +267,7 @@
    "name": "Accessible Applications",
    "note": "Formerly Accessibility",
    "stages": {
-    "Traditional": "Agency makes some mission critical applications 32 available only over private networks and protected public network connections (e.g., VPN) with monitoring.",
+    "Traditional": "Agency makes some mission critical applications available only over private networks and protected public network connections (e.g., VPN) with monitoring.",
     "Initial": "Agency makes some of their applicable mission critical applications available over open public networks to authorized users with need via brokered connections.",
     "Advanced": "Agency makes most of their applicable mission critical applications available over open public network connections to authorized users as needed.",
     "Optimal": "Agency makes all applicable applications available over open public networks to authorized users and devices, where appropriate, as needed."
@@ -324,7 +324,7 @@
    "stages": {
     "Traditional": "Agency relies primarily on manual enforcement policies for application access, development, deployment, software asset management, security testing and evaluation (ST&E) at technology insertion, patching, and tracking software dependencies. and unstructured files and infrastructure, and backups on devices, in applications, data at rest and in transit; governance policies to ensure to zero trust, as well as",
     "Initial": "Agency begins to automate policy enforcement for application development (including access to development infrastructure), deployment, software asset management, ST&E at technology insertion, patching, and tracking software dependencies based upon mission needs (for example, with Software Bill of Materials). fragments that reside or have (including on-premises and metadata. and on networks in accordance and deploy mechanisms to detect all data lifecycle security aspects the considerations for Visibility Table 6: Data",
-    "Advanced": "Agency implements tiered, tailored policies enterprise- wide for applications and all aspects of the application development and deployment lifecycles and leverages automation, where possible, to support enforcement. resided in federal systems, virtual environments) as well with federal requirements. and stop data exfiltration. are appropriately enforced and Analytics, Automation",
+    "Advanced": "Agency implements tiered, tailored policies enterprise-wide for applications and all aspects of the application development and deployment lifecycles and leverages automation, where possible, to support enforcement. resided in federal systems, virtual environments) as well with federal requirements. and stop data exfiltration. are appropriately enforced and Analytics, Automation",
     "Optimal": "Agency fully automates policies governing applications development and deployment, including incorporating dynamic updates for applications through the CI/CD pipeline. April 2023 devices, networks, as the associated Agencies should inventory, Agencies should across the enterprise. and Orchestration, and"
    }
   },
@@ -356,7 +356,7 @@
    "note": "New Function",
    "stages": {
     "Traditional": "Agency primarily makes data available from on-premises data stores with some off-site backups.",
-    "Initial": "Agency makes some data available from redundant, highly available data stores (e.g., cloud) and maintains off-site backups for on- premises data.",
+    "Initial": "Agency makes some data available from redundant, highly available data stores (e.g., cloud) and maintains off-site backups for on-premises data.",
     "Advanced": "Agency primarily makes data available from redundant, highly available data stores and ensures access to historical data.",
     "Optimal": "Agency uses dynamic methods to optimize data availability, including historical data, according to user and entity need."
    }
@@ -378,9 +378,9 @@
    "note": "",
    "stages": {
     "Traditional": "Agency encrypts minimal agency data at rest and in transit and relies on manual or ad hoc processes to manage and secure encryption keys.",
-    "Initial": "Agency encrypts all data in transit and, where feasible, data at rest (e.g., mission critical data and data stored in external environments) and begins to formalize key management policies and secure encryption keys. 34",
+    "Initial": "Agency encrypts all data in transit and, where feasible, data at rest (e.g., mission critical data and data stored in external environments) and begins to formalize key management policies and secure encryption keys.",
     "Advanced": "Agency encrypts all data at rest and in transit across the enterprise to the maximum extent possible, begins to incorporate cryptographic agility, and protects encryption keys (i.e., secrets are not hard coded and are rotated on a regular basis).",
-    "Optimal": "Agency encrypts data in use where appropriate, enforces least privilege principles for secure key management enterprise-wide, and applies encryption using up-to-date standards and cryptographic agility to the extent 35 possible."
+    "Optimal": "Agency encrypts data in use where appropriate, enforces least privilege principles for secure key management enterprise-wide, and applies encryption using up-to-date standards and cryptographic agility to the extent possible."
    }
   },
   {
@@ -390,7 +390,7 @@
    "stages": {
     "Traditional": "Agency has limited visibility into data including location, access, and usage, with analysis consisting primarily of manual processes. key stores and reduce and updates such as: (1) https://www.nist.gov/itl/fips-general-information, Agency implements data",
     "Initial": "Agency obtains visibility based on data inventory management, categorization, encryption, and access attempts, with some reliance on one-off or siloed key automated analysis and correlation. Agency uses some",
-    "Advanced": "Agency maintains data visibility in a more comprehensive, enterprise- wide manner with automated analysis and correlation and stores. (2) https://www.nist.gov/cryptography, begins to employ predictive analytics. Agency implements data",
+    "Advanced": "Agency maintains data visibility in a more comprehensive, enterprise-wide manner with automated analysis and correlation and stores. (2) https://www.nist.gov/cryptography, begins to employ predictive analytics. Agency implements data",
     "Optimal": "Agency has visibility across the full data lifecycle with robust analytics, including predictive analytics, that support comprehensive views of agency data and and (3) April 2023 continuous security posture assessment. Agency automates, to the"
    }
   },
@@ -445,7 +445,7 @@
    "stages": {
     "Traditional": "Agency implements policies in an ad hoc manner across the enterprise, with policies enforced via manual processes or static technical mechanisms.",
     "Initial": "Agency defines and begins implementing policies for enterprise-wide enforcement with minimal automation and manual updates.",
-    "Advanced": "Agency implements tiered, tailored policies enterprise- wide and leverages automation where possible to support enforcement. Access policy decisions incorporate contextual information from multiple sources.",
+    "Advanced": "Agency implements tiered, tailored policies enterprise-wide and leverages automation where possible to support enforcement. Access policy decisions incorporate contextual information from multiple sources.",
     "Optimal": "Agency implements and fully automates enterprise-wide policies that enable tailored local controls with continuous enforcement and dynamic updates. April 2023 April 2023"
    }
   }

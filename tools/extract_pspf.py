@@ -11,6 +11,9 @@ reflows text by x-coordinate guesswork.
 import json
 import os
 import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from textjoin import mend_hyphen  # noqa: E402
 from typing import Dict, List, Optional
 
 import pdfplumber
@@ -36,7 +39,12 @@ EXPECTED_COLUMNS = [
 
 
 def _clean(value: Optional[str]) -> str:
-    return " ".join((value or "").split())
+    """Cell text, with anything the table broke across a line mended.
+
+    A requirement read "identify and manage the entity's internet- facing systems", which
+    is the table wrapping inside a cell rather than anything the PSPF wrote.
+    """
+    return mend_hyphen(" ".join((value or "").split()))
 
 
 def _find_header(rows: List[List[Optional[str]]]) -> Optional[int]:

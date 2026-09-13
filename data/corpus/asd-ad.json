@@ -737,7 +737,7 @@
       "mitigation"
      ],
      "kind": "statement",
-     "text": "Only use Microsoft Entra Connect servers for Microsoft Entra Connect and ensure no other non-security- related services or applications are installed."
+     "text": "Only use Microsoft Entra Connect servers for Microsoft Entra Connect and ensure no other non-security-related services or applications are installed."
     },
     {
      "section_number": "Mitigating a Microsoft Entra Connect compromise",

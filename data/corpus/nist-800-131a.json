@@ -327,7 +327,7 @@
      ],
      "kind": "table row",
      "caption": "Table 5: Approval Status for the RSA-based Key Agreement and Key",
-     "text": "Table 5: Approval Status for the RSA-based Key Agreement and Key — Non-SP 800-56B- compliant Key Agreement and Key Transport schemes; Implementation Details: len(n) < 2048; Status: Disallowed"
+     "text": "Table 5: Approval Status for the RSA-based Key Agreement and Key — Non-SP 800-56B-compliant Key Agreement and Key Transport schemes; Implementation Details: len(n) < 2048; Status: Disallowed"
     },
     {
      "section_number": "7",

@@ -18,6 +18,9 @@ from typing import Dict, List, Optional, Tuple
 
 import pdfplumber
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from textjoin import mend_hyphen  # noqa: E402
+
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOCUMENTS = os.path.join(HERE, "data", "raw", "documents")
 OUTPUT = os.path.join(HERE, "data", "corpus", "oag-wa.json")
@@ -207,7 +210,7 @@ def _emit(
             "section_number": section_number,
             "section_title": section_title or "",
             "heading": " ".join(heading).strip(),
-            "text": " ".join(body).strip(),
+            "text": mend_hyphen(" ".join(body).strip()),
             "page": page_index + 1,
         }
     )
