@@ -1,0 +1,29 @@
+{
+ "patches": [
+  {
+   "patch": "0001-GUI-a-card-view-the-risk-statement-on-screen-and-two.patch",
+   "commit": "004c4eeb961b0cd7587d75b2ac6efad0f1d6003a",
+   "subject": "GUI: a card view, the risk statement on screen, and two",
+   "files_after": {
+    "tests/injected.py": "b0c41445726aab017be0d8ba81bb7ece4871ff8c01362dfca7160ccd32fd949c",
+    "tests/test_render.py": "f838db01c2537b9eb2e0572be9d23f96fe3bc00d6857f9d5f4dc94f413fdcfa8",
+    "wacc/cli.py": "940c78a35b2afe6c1a5c33ad402bbf12b5db0fd4703508fb11ee7ff630c00dfb",
+    "wacc/render/export.py": "1df8a3ef5a4196a9cc58e7d4c056cc8247a240e55c55ff4d4c40e6f10bdfe3f5",
+    "wacc/render/highlight.py": "9ad724b0d55f8963867c177e191892e9d1f23f9f7f3caa338aa5c9a5de501caa",
+    "wacc/render/html.py": "30eed89bdc385295feeef0d9f9d328cec67dfbcd7f7f1a97873bdd98cc19fbe3",
+    "wacc/render/layout.py": "dca60e7e41a66a2e1437574f9170b9a72b2081f78e93b0dd8fdf978d53760f7c",
+    "wacc/serve.py": "e5edb2825732ba405a53a2abf1377258dafa9d2ca7a13c27aec0317dc29f9dbe"
+   },
+   "files_before": {
+    "tests/injected.py": "96f127824601450f6a5da1f9faf17921f49dc492aad8324b92a919c2d8b6c748",
+    "tests/test_render.py": "373ad739484bc5e2f9101c18f5c3ca291fab46dffbf6401ed9d0032bacd2c417",
+    "wacc/cli.py": "1e1b2a0b91561f0fe40583210aa93edb9ae51b6d86dd329334ec8ee1e54f1454",
+    "wacc/render/export.py": "91c006ab63aa08bc8653c0278dee726a7bebb4c116ef3162ccdf18645224fd63",
+    "wacc/render/highlight.py": null,
+    "wacc/render/html.py": "fa7f7ddb83874881d2b065f5bdef4234da3219c6491d8ac3335d826c328690fd",
+    "wacc/render/layout.py": "aa0d0697e35b6b7d5ef5aa65e548e81d340b0df0862bed047bc2b17aa2f83479",
+    "wacc/serve.py": "1849b7d4a8c7cf6b93fbf5bb4f080fdb166dbac627f9cfb4957ac221aba55c45"
+   }
+  }
+ ]
+}
