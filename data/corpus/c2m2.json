@@ -1,0 +1,3569 @@
+{
+ "key": "C2M2 Version 2.1",
+ "title": "Cybersecurity Capability Maturity Model, Version 2.1",
+ "source_file": "C2M2 Version 2.1 June 2022.pdf",
+ "stated_practices": 356,
+ "stated_domains": 10,
+ "practices": [
+  {
+   "domain": "ASSET",
+   "objective_number": 1,
+   "objective": "Manage IT and OT Asset Inventory",
+   "letter": "a",
+   "identifier": "ASSET-1a",
+   "mil": 1,
+   "page": 38,
+   "text": "IT and OT assets that are important to the delivery of the function are inventoried, at least in an ad hoc manner"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 1,
+   "objective": "Manage IT and OT Asset Inventory",
+   "letter": "b",
+   "identifier": "ASSET-1b",
+   "mil": 2,
+   "page": 38,
+   "text": "The IT and OT asset inventory includes assets within the function that may be leveraged to achieve a threat objective"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 1,
+   "objective": "Manage IT and OT Asset Inventory",
+   "letter": "c",
+   "identifier": "ASSET-1c",
+   "mil": 2,
+   "page": 38,
+   "text": "Inventoried IT and OT assets are prioritized based on defined criteria that include importance to the delivery of the function"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 1,
+   "objective": "Manage IT and OT Asset Inventory",
+   "letter": "d",
+   "identifier": "ASSET-1d",
+   "mil": 2,
+   "page": 38,
+   "text": "Prioritization criteria include consideration of the degree to which an asset within the function may be leveraged to achieve a threat objective"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 1,
+   "objective": "Manage IT and OT Asset Inventory",
+   "letter": "e",
+   "identifier": "ASSET-1e",
+   "mil": 2,
+   "page": 38,
+   "text": "The IT and OT inventory includes attributes that support cybersecurity activities (for example, location, asset priority, asset owner, operating system, and firmware versions)"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 1,
+   "objective": "Manage IT and OT Asset Inventory",
+   "letter": "f",
+   "identifier": "ASSET-1f",
+   "mil": 3,
+   "page": 38,
+   "text": "The IT and OT asset inventory is complete (the inventory includes all assets within the function)"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 1,
+   "objective": "Manage IT and OT Asset Inventory",
+   "letter": "g",
+   "identifier": "ASSET-1g",
+   "mil": 3,
+   "page": 38,
+   "text": "The IT and OT asset inventory is current, that is, it is updated periodically and according to defined triggers, such as system changes"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 1,
+   "objective": "Manage IT and OT Asset Inventory",
+   "letter": "h",
+   "identifier": "ASSET-1h",
+   "mil": 3,
+   "page": 38,
+   "text": "Data is destroyed or securely removed from IT and OT assets prior to redeployment and at end of life"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 2,
+   "objective": "Manage Information Asset Inventory",
+   "letter": "a",
+   "identifier": "ASSET-2a",
+   "mil": 1,
+   "page": 38,
+   "text": "Information assets that are important to the delivery of the function (for example, SCADA set points and customer information) are inventoried, at least in an ad hoc manner"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 2,
+   "objective": "Manage Information Asset Inventory",
+   "letter": "b",
+   "identifier": "ASSET-2b",
+   "mil": 2,
+   "page": 38,
+   "text": "The information asset inventory includes information assets within the function that may be leveraged to achieve a threat objective"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 2,
+   "objective": "Manage Information Asset Inventory",
+   "letter": "c",
+   "identifier": "ASSET-2c",
+   "mil": 2,
+   "page": 38,
+   "text": "Inventoried information assets are categorized based on defined criteria that includes importance to the delivery of the function"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 2,
+   "objective": "Manage Information Asset Inventory",
+   "letter": "d",
+   "identifier": "ASSET-2d",
+   "mil": 2,
+   "page": 38,
+   "text": "Categorization criteria include consideration of the degree to which an asset within the function may be leveraged to achieve a threat objective"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 2,
+   "objective": "Manage Information Asset Inventory",
+   "letter": "e",
+   "identifier": "ASSET-2e",
+   "mil": 2,
+   "page": 38,
+   "text": "The information asset inventory includes attributes that support cybersecurity activities (for example, asset category, backup locations and frequencies, storage locations, asset owner, cybersecurity requirements)"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 2,
+   "objective": "Manage Information Asset Inventory",
+   "letter": "f",
+   "identifier": "ASSET-2f",
+   "mil": 3,
+   "page": 38,
+   "text": "The information asset inventory is complete (the inventory includes all assets within the function)"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 2,
+   "objective": "Manage Information Asset Inventory",
+   "letter": "g",
+   "identifier": "ASSET-2g",
+   "mil": 3,
+   "page": 38,
+   "text": "The information asset inventory is current, that is, it is updated periodically and according to defined triggers, such as system changes"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 2,
+   "objective": "Manage Information Asset Inventory",
+   "letter": "h",
+   "identifier": "ASSET-2h",
+   "mil": 3,
+   "page": 38,
+   "text": "Information assets are sanitized or destroyed at end of life using techniques appropriate to their cybersecurity requirements"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 3,
+   "objective": "Manage IT and OT Asset Configuration",
+   "letter": "a",
+   "identifier": "ASSET-3a",
+   "mil": 1,
+   "page": 39,
+   "text": "Configuration baselines are established, at least in an ad hoc manner"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 3,
+   "objective": "Manage IT and OT Asset Configuration",
+   "letter": "b",
+   "identifier": "ASSET-3b",
+   "mil": 2,
+   "page": 39,
+   "text": "Configuration baselines are used to configure assets at deployment and restoration"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 3,
+   "objective": "Manage IT and OT Asset Configuration",
+   "letter": "c",
+   "identifier": "ASSET-3c",
+   "mil": 2,
+   "page": 39,
+   "text": "Configuration baselines incorporate applicable requirements from the cybersecurity architecture (ARCHITECTURE-1f)"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 3,
+   "objective": "Manage IT and OT Asset Configuration",
+   "letter": "d",
+   "identifier": "ASSET-3d",
+   "mil": 2,
+   "page": 39,
+   "text": "Configuration baselines are reviewed and updated periodically and according to defined triggers, such as system changes and changes to the cybersecurity architecture"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 3,
+   "objective": "Manage IT and OT Asset Configuration",
+   "letter": "e",
+   "identifier": "ASSET-3e",
+   "mil": 3,
+   "page": 39,
+   "text": "Asset configurations are monitored for consistency with baselines throughout the assets’ lifecycles"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 4,
+   "objective": "Manage Changes to IT and OT Assets",
+   "letter": "a",
+   "identifier": "ASSET-4a",
+   "mil": 1,
+   "page": 39,
+   "text": "Changes to assets are evaluated and approved before being implemented, at least in an ad hoc manner"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 4,
+   "objective": "Manage Changes to IT and OT Assets",
+   "letter": "b",
+   "identifier": "ASSET-4b",
+   "mil": 1,
+   "page": 39,
+   "text": "Changes to assets are documented, at least in an ad hoc manner"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 4,
+   "objective": "Manage Changes to IT and OT Assets",
+   "letter": "c",
+   "identifier": "ASSET-4c",
+   "mil": 2,
+   "page": 39,
+   "text": "Documentation requirements for asset changes are established and maintained"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 4,
+   "objective": "Manage Changes to IT and OT Assets",
+   "letter": "d",
+   "identifier": "ASSET-4d",
+   "mil": 2,
+   "page": 39,
+   "text": "Changes to higher priority assets are tested prior to being deployed"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 4,
+   "objective": "Manage Changes to IT and OT Assets",
+   "letter": "e",
+   "identifier": "ASSET-4e",
+   "mil": 2,
+   "page": 39,
+   "text": "Changes and updates are implemented in a secure manner"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 4,
+   "objective": "Manage Changes to IT and OT Assets",
+   "letter": "f",
+   "identifier": "ASSET-4f",
+   "mil": 2,
+   "page": 39,
+   "text": "The capability to reverse changes is established and maintained for assets that are important to the delivery of the function"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 4,
+   "objective": "Manage Changes to IT and OT Assets",
+   "letter": "g",
+   "identifier": "ASSET-4g",
+   "mil": 2,
+   "page": 39,
+   "text": "Change management practices address the full lifecycle of assets (for example, acquisition, deployment, operation, retirement)"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 4,
+   "objective": "Manage Changes to IT and OT Assets",
+   "letter": "h",
+   "identifier": "ASSET-4h",
+   "mil": 3,
+   "page": 39,
+   "text": "Changes to higher priority assets are tested for cybersecurity impact prior to being deployed"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 4,
+   "objective": "Manage Changes to IT and OT Assets",
+   "letter": "i",
+   "identifier": "ASSET-4i",
+   "mil": 3,
+   "page": 39,
+   "text": "Change logs include information about modifications that impact the cybersecurity requirements of assets"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 5,
+   "objective": "Management Activities for the ASSET domain",
+   "letter": "a",
+   "identifier": "ASSET-5a",
+   "mil": 2,
+   "page": 39,
+   "text": "Documented procedures are established, followed, and maintained for activities in the ASSET domain"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 5,
+   "objective": "Management Activities for the ASSET domain",
+   "letter": "b",
+   "identifier": "ASSET-5b",
+   "mil": 2,
+   "page": 39,
+   "text": "Adequate resources (people, funding, and tools) are provided to support activities in the ASSET domain"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 5,
+   "objective": "Management Activities for the ASSET domain",
+   "letter": "c",
+   "identifier": "ASSET-5c",
+   "mil": 3,
+   "page": 39,
+   "text": "Up-to-date policies or other organizational directives define requirements for activities in the ASSET domain"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 5,
+   "objective": "Management Activities for the ASSET domain",
+   "letter": "d",
+   "identifier": "ASSET-5d",
+   "mil": 3,
+   "page": 39,
+   "text": "Responsibility, accountability, and authority for the performance of activities in the ASSET domain are assigned to personnel"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 5,
+   "objective": "Management Activities for the ASSET domain",
+   "letter": "e",
+   "identifier": "ASSET-5e",
+   "mil": 3,
+   "page": 39,
+   "text": "Personnel performing activities in the ASSET domain have the skills and knowledge needed to perform their assigned responsibilities"
+  },
+  {
+   "domain": "ASSET",
+   "objective_number": 5,
+   "objective": "Management Activities for the ASSET domain",
+   "letter": "f",
+   "identifier": "ASSET-5f",
+   "mil": 3,
+   "page": 39,
+   "text": "The effectiveness of activities in the ASSET domain is evaluated and tracked"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 1,
+   "objective": "Reduce Cybersecurity Vulnerabilities",
+   "letter": "a",
+   "identifier": "THREAT-1a",
+   "mil": 1,
+   "page": 41,
+   "text": "Information sources to support cybersecurity vulnerability discovery are identified, at least in an ad hoc manner"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 1,
+   "objective": "Reduce Cybersecurity Vulnerabilities",
+   "letter": "b",
+   "identifier": "THREAT-1b",
+   "mil": 1,
+   "page": 41,
+   "text": "Cybersecurity vulnerability information is gathered and interpreted for the function, at least in an ad hoc manner"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 1,
+   "objective": "Reduce Cybersecurity Vulnerabilities",
+   "letter": "c",
+   "identifier": "THREAT-1c",
+   "mil": 1,
+   "page": 41,
+   "text": "Cybersecurity vulnerability assessments are performed, at least in an ad hoc manner"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 1,
+   "objective": "Reduce Cybersecurity Vulnerabilities",
+   "letter": "d",
+   "identifier": "THREAT-1d",
+   "mil": 1,
+   "page": 41,
+   "text": "Cybersecurity vulnerabilities that are relevant to the delivery of the function are mitigated, at least in an ad hoc manner"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 1,
+   "objective": "Reduce Cybersecurity Vulnerabilities",
+   "letter": "e",
+   "identifier": "THREAT-1e",
+   "mil": 2,
+   "page": 41,
+   "text": "Cybersecurity vulnerability information sources that collectively address higher priority assets are monitored"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 1,
+   "objective": "Reduce Cybersecurity Vulnerabilities",
+   "letter": "f",
+   "identifier": "THREAT-1f",
+   "mil": 2,
+   "page": 41,
+   "text": "Cybersecurity vulnerability assessments are performed periodically and according to defined triggers, such as system changes and external events"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 1,
+   "objective": "Reduce Cybersecurity Vulnerabilities",
+   "letter": "g",
+   "identifier": "THREAT-1g",
+   "mil": 2,
+   "page": 41,
+   "text": "Identified cybersecurity vulnerabilities are analyzed and prioritized, and are addressed accordingly"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 1,
+   "objective": "Reduce Cybersecurity Vulnerabilities",
+   "letter": "h",
+   "identifier": "THREAT-1h",
+   "mil": 2,
+   "page": 41,
+   "text": "Operational impact to the function is evaluated prior to deploying patches or other mitigations"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 1,
+   "objective": "Reduce Cybersecurity Vulnerabilities",
+   "letter": "i",
+   "identifier": "THREAT-1i",
+   "mil": 2,
+   "page": 41,
+   "text": "Information on discovered cybersecurity vulnerabilities is shared with organization- defined stakeholders"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 1,
+   "objective": "Reduce Cybersecurity Vulnerabilities",
+   "letter": "j",
+   "identifier": "THREAT-1j",
+   "mil": 3,
+   "page": 41,
+   "text": "Cybersecurity vulnerability information sources that collectively address all IT and OT assets within the function are monitored"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 1,
+   "objective": "Reduce Cybersecurity Vulnerabilities",
+   "letter": "k",
+   "identifier": "THREAT-1k",
+   "mil": 3,
+   "page": 41,
+   "text": "Cybersecurity vulnerability assessments are performed by parties that are independent of the operations of the function"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 1,
+   "objective": "Reduce Cybersecurity Vulnerabilities",
+   "letter": "l",
+   "identifier": "THREAT-1l",
+   "mil": 3,
+   "page": 41,
+   "text": "Vulnerability monitoring activities include review to confirm that actions taken in response to cybersecurity vulnerabilities were effective"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 1,
+   "objective": "Reduce Cybersecurity Vulnerabilities",
+   "letter": "m",
+   "identifier": "THREAT-1m",
+   "mil": 3,
+   "page": 41,
+   "text": "Mechanisms are established and maintained to receive and respond to reports from the public or external parties of potential vulnerabilities related to the organization’s IT and OT assets, such as public-facing websites or mobile applications"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 2,
+   "objective": "Respond to Threats and Share Threat Information",
+   "letter": "a",
+   "identifier": "THREAT-2a",
+   "mil": 1,
+   "page": 42,
+   "text": "Internal and external information sources to support threat management activities are identified, at least in an ad hoc manner"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 2,
+   "objective": "Respond to Threats and Share Threat Information",
+   "letter": "b",
+   "identifier": "THREAT-2b",
+   "mil": 1,
+   "page": 42,
+   "text": "Information about cybersecurity threats is gathered and interpreted for the function, at least in an ad hoc manner"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 2,
+   "objective": "Respond to Threats and Share Threat Information",
+   "letter": "c",
+   "identifier": "THREAT-2c",
+   "mil": 1,
+   "page": 42,
+   "text": "Threat objectives for the function are identified, at least in an ad hoc manner"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 2,
+   "objective": "Respond to Threats and Share Threat Information",
+   "letter": "d",
+   "identifier": "THREAT-2d",
+   "mil": 1,
+   "page": 42,
+   "text": "Threats that are relevant to the delivery of the function are addressed, at least in an ad hoc manner"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 2,
+   "objective": "Respond to Threats and Share Threat Information",
+   "letter": "e",
+   "identifier": "THREAT-2e",
+   "mil": 2,
+   "page": 42,
+   "text": "A threat profile for the function is established that includes threat objectives and additional threat characteristics (for example, threat actor types, motives, capabilities, and targets)"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 2,
+   "objective": "Respond to Threats and Share Threat Information",
+   "letter": "f",
+   "identifier": "THREAT-2f",
+   "mil": 2,
+   "page": 42,
+   "text": "Threat information sources that collectively address all components of the threat profile are prioritized and monitored"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 2,
+   "objective": "Respond to Threats and Share Threat Information",
+   "letter": "g",
+   "identifier": "THREAT-2g",
+   "mil": 2,
+   "page": 42,
+   "text": "Identified threats are analyzed and prioritized and are addressed accordingly"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 2,
+   "objective": "Respond to Threats and Share Threat Information",
+   "letter": "h",
+   "identifier": "THREAT-2h",
+   "mil": 2,
+   "page": 42,
+   "text": "Threat information is exchanged with stakeholders (for example, executives, operations staff, government, connected organizations, vendors, sector organizations, regulators, Information Sharing and Analysis Centers [ISACs])"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 2,
+   "objective": "Respond to Threats and Share Threat Information",
+   "letter": "i",
+   "identifier": "THREAT-2i",
+   "mil": 3,
+   "page": 42,
+   "text": "The threat profile for the function is updated periodically and according to defined triggers, such as system changes and external events"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 2,
+   "objective": "Respond to Threats and Share Threat Information",
+   "letter": "j",
+   "identifier": "THREAT-2j",
+   "mil": 3,
+   "page": 42,
+   "text": "Threat monitoring and response activities leverage and trigger predefined states of operation (SITUATION-3g)"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 2,
+   "objective": "Respond to Threats and Share Threat Information",
+   "letter": "k",
+   "identifier": "THREAT-2k",
+   "mil": 3,
+   "page": 42,
+   "text": "Secure, near-real-time methods are used for receiving and sharing threat information to enable rapid analysis and action"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 3,
+   "objective": "Management Activities for the THREAT domain",
+   "letter": "a",
+   "identifier": "THREAT-3a",
+   "mil": 2,
+   "page": 42,
+   "text": "Documented procedures are established, followed, and maintained for activities in the THREAT domain"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 3,
+   "objective": "Management Activities for the THREAT domain",
+   "letter": "b",
+   "identifier": "THREAT-3b",
+   "mil": 2,
+   "page": 42,
+   "text": "Adequate resources (people, funding, and tools) are provided to support activities in the THREAT domain"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 3,
+   "objective": "Management Activities for the THREAT domain",
+   "letter": "c",
+   "identifier": "THREAT-3c",
+   "mil": 3,
+   "page": 42,
+   "text": "Up-to-date policies or other organizational directives define requirements for activities in the THREAT domain"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 3,
+   "objective": "Management Activities for the THREAT domain",
+   "letter": "d",
+   "identifier": "THREAT-3d",
+   "mil": 3,
+   "page": 42,
+   "text": "Responsibility, accountability, and authority for the performance of activities in the THREAT domain are assigned to personnel"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 3,
+   "objective": "Management Activities for the THREAT domain",
+   "letter": "e",
+   "identifier": "THREAT-3e",
+   "mil": 3,
+   "page": 42,
+   "text": "Personnel performing activities in the THREAT domain have the skills and knowledge needed to perform their assigned responsibilities"
+  },
+  {
+   "domain": "THREAT",
+   "objective_number": 3,
+   "objective": "Management Activities for the THREAT domain",
+   "letter": "f",
+   "identifier": "THREAT-3f",
+   "mil": 3,
+   "page": 42,
+   "text": "The effectiveness of activities in the THREAT domain is evaluated and tracked"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 1,
+   "objective": "Establish and Maintain Cyber Risk Management Strategy and Program",
+   "letter": "a",
+   "identifier": "RISK-1a",
+   "mil": 1,
+   "page": 44,
+   "text": "The organization has a strategy for cyber risk management, which may be developed and managed in an ad hoc manner"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 1,
+   "objective": "Establish and Maintain Cyber Risk Management Strategy and Program",
+   "letter": "b",
+   "identifier": "RISK-1b",
+   "mil": 2,
+   "page": 44,
+   "text": "A strategy for cyber risk management is established and maintained in alignment with the organization’s cybersecurity program strategy (PROGRAM-1b) and enterprise architecture"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 1,
+   "objective": "Establish and Maintain Cyber Risk Management Strategy and Program",
+   "letter": "c",
+   "identifier": "RISK-1c",
+   "mil": 2,
+   "page": 44,
+   "text": "The cyber risk management program is established and maintained to perform cyber risk management activities according to the cyber risk management strategy"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 1,
+   "objective": "Establish and Maintain Cyber Risk Management Strategy and Program",
+   "letter": "d",
+   "identifier": "RISK-1d",
+   "mil": 2,
+   "page": 44,
+   "text": "Information from RISK domain activities is communicated to relevant stakeholders"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 1,
+   "objective": "Establish and Maintain Cyber Risk Management Strategy and Program",
+   "letter": "e",
+   "identifier": "RISK-1e",
+   "mil": 2,
+   "page": 44,
+   "text": "Governance for the cyber risk management program is established and maintained"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 1,
+   "objective": "Establish and Maintain Cyber Risk Management Strategy and Program",
+   "letter": "f",
+   "identifier": "RISK-1f",
+   "mil": 2,
+   "page": 44,
+   "text": "Senior management sponsorship for the cyber risk management program is visible and active"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 1,
+   "objective": "Establish and Maintain Cyber Risk Management Strategy and Program",
+   "letter": "g",
+   "identifier": "RISK-1g",
+   "mil": 3,
+   "page": 44,
+   "text": "The cyber risk management program aligns with the organization's mission and objectives"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 1,
+   "objective": "Establish and Maintain Cyber Risk Management Strategy and Program",
+   "letter": "h",
+   "identifier": "RISK-1h",
+   "mil": 3,
+   "page": 44,
+   "text": "The cyber risk management program is coordinated with the organization’s enterprise- wide risk management program"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 2,
+   "objective": "Identify Cyber Risk",
+   "letter": "a",
+   "identifier": "RISK-2a",
+   "mil": 1,
+   "page": 45,
+   "text": "Cyber risks are identified, at least in an ad hoc manner"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 2,
+   "objective": "Identify Cyber Risk",
+   "letter": "b",
+   "identifier": "RISK-2b",
+   "mil": 2,
+   "page": 45,
+   "text": "A defined method is used to identify cyber risks"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 2,
+   "objective": "Identify Cyber Risk",
+   "letter": "c",
+   "identifier": "RISK-2c",
+   "mil": 2,
+   "page": 45,
+   "text": "Stakeholders from appropriate operations and business areas participate in the identification of cyber risks"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 2,
+   "objective": "Identify Cyber Risk",
+   "letter": "d",
+   "identifier": "RISK-2d",
+   "mil": 2,
+   "page": 45,
+   "text": "Identified cyber risks are consolidated into categories (for example, data breaches, insider mistakes, ransomware, OT control takeover) to facilitate management at the category level"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 2,
+   "objective": "Identify Cyber Risk",
+   "letter": "e",
+   "identifier": "RISK-2e",
+   "mil": 2,
+   "page": 45,
+   "text": "Cyber risk categories and cyber risks are documented in a risk register or other artifact"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 2,
+   "objective": "Identify Cyber Risk",
+   "letter": "f",
+   "identifier": "RISK-2f",
+   "mil": 2,
+   "page": 45,
+   "text": "Cyber risk categories and cyber risks are assigned to risk owners"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 2,
+   "objective": "Identify Cyber Risk",
+   "letter": "g",
+   "identifier": "RISK-2g",
+   "mil": 2,
+   "page": 45,
+   "text": "Cyber risk identification activities are performed periodically and according to defined triggers, such as system changes and external events"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 2,
+   "objective": "Identify Cyber Risk",
+   "letter": "h",
+   "identifier": "RISK-2h",
+   "mil": 3,
+   "page": 45,
+   "text": "Cyber risk identification activities leverage asset inventory and prioritization information from the ASSET domain, such as IT and OT asset end of support, single points of failure, information asset risk of disclosure, tampering, or destruction"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 2,
+   "objective": "Identify Cyber Risk",
+   "letter": "i",
+   "identifier": "RISK-2i",
+   "mil": 3,
+   "page": 45,
+   "text": "Vulnerability management information from THREAT domain activities is used to update cyber risks and identify new risks (such as risks arising from vulnerabilities that pose an ongoing risk to the organization or newly identified vulnerabilities)"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 2,
+   "objective": "Identify Cyber Risk",
+   "letter": "j",
+   "identifier": "RISK-2j",
+   "mil": 3,
+   "page": 45,
+   "text": "Threat management information from THREAT domain activities is used to update cyber risks and identify new risks"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 2,
+   "objective": "Identify Cyber Risk",
+   "letter": "k",
+   "identifier": "RISK-2k",
+   "mil": 3,
+   "page": 45,
+   "text": "Information from THIRD-PARTIES domain activities is used to update cyber risks and identify new risks"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 2,
+   "objective": "Identify Cyber Risk",
+   "letter": "l",
+   "identifier": "RISK-2l",
+   "mil": 3,
+   "page": 45,
+   "text": "Information from ARCHITECTURE domain activities (such as unmitigated architectural conformance gaps) is used to update cyber risks and identify new risks"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 2,
+   "objective": "Identify Cyber Risk",
+   "letter": "m",
+   "identifier": "RISK-2m",
+   "mil": 3,
+   "page": 45,
+   "text": "Cyber risk identification considers risks that may arise from or impact critical infrastructure or other interdependent organizations"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 3,
+   "objective": "Analyze Cyber Risk",
+   "letter": "a",
+   "identifier": "RISK-3a",
+   "mil": 1,
+   "page": 45,
+   "text": "Cyber risks are prioritized based on estimated impact, at least in an ad hoc manner"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 3,
+   "objective": "Analyze Cyber Risk",
+   "letter": "b",
+   "identifier": "RISK-3b",
+   "mil": 2,
+   "page": 45,
+   "text": "Defined criteria are used to prioritize cyber risks (for example, impact to the organization, impact to the community, likelihood, susceptibility, risk tolerance)"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 3,
+   "objective": "Analyze Cyber Risk",
+   "letter": "c",
+   "identifier": "RISK-3c",
+   "mil": 2,
+   "page": 45,
+   "text": "A defined method is used to estimate impact for higher priority cyber risks (for example, comparison to actual events, risk quantification)"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 3,
+   "objective": "Analyze Cyber Risk",
+   "letter": "d",
+   "identifier": "RISK-3d",
+   "mil": 2,
+   "page": 45,
+   "text": "Defined methods are used to analyze higher priority cyber risks (for example, analyzing the prevalence of types of attacks to estimate likelihood, using the results of controls assessments to estimate susceptibility)"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 3,
+   "objective": "Analyze Cyber Risk",
+   "letter": "e",
+   "identifier": "RISK-3e",
+   "mil": 2,
+   "page": 45,
+   "text": "Organizational stakeholders from appropriate operations and business functions participate in the analysis of higher priority cyber risks"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 3,
+   "objective": "Analyze Cyber Risk",
+   "letter": "f",
+   "identifier": "RISK-3f",
+   "mil": 2,
+   "page": 45,
+   "text": "Cyber risks are removed from the risk register or other artifact used to document and manage identified risks when they no longer require tracking or response"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 3,
+   "objective": "Analyze Cyber Risk",
+   "letter": "g",
+   "identifier": "RISK-3g",
+   "mil": 3,
+   "page": 45,
+   "text": "Cyber risk analyses are updated periodically and according to defined triggers, such as system changes, external events, and information from other model domains"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 4,
+   "objective": "Respond to Cyber Risk",
+   "letter": "a",
+   "identifier": "RISK-4a",
+   "mil": 1,
+   "page": 46,
+   "text": "Risk responses (such as mitigate, accept, avoid, or transfer) are implemented to address cyber risks, at least in an ad hoc manner"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 4,
+   "objective": "Respond to Cyber Risk",
+   "letter": "b",
+   "identifier": "RISK-4b",
+   "mil": 2,
+   "page": 46,
+   "text": "A defined method is used to select and implement risk responses based on analysis and prioritization"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 4,
+   "objective": "Respond to Cyber Risk",
+   "letter": "c",
+   "identifier": "RISK-4c",
+   "mil": 3,
+   "page": 46,
+   "text": "Cybersecurity controls are evaluated to determine whether they are designed appropriately and are operating as intended to mitigate identified cyber risks"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 4,
+   "objective": "Respond to Cyber Risk",
+   "letter": "d",
+   "identifier": "RISK-4d",
+   "mil": 3,
+   "page": 46,
+   "text": "Results from cyber risk impact analyses and cybersecurity control evaluations are reviewed together by enterprise leadership to determine whether cyber risks are sufficiently mitigated, and risk tolerances are not exceeded"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 4,
+   "objective": "Respond to Cyber Risk",
+   "letter": "e",
+   "identifier": "RISK-4e",
+   "mil": 3,
+   "page": 46,
+   "text": "Risk responses (such as mitigate, accept, avoid, or transfer) are reviewed periodically by leadership to determine whether they are still appropriate"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 5,
+   "objective": "Management Activities for the RISK domain",
+   "letter": "a",
+   "identifier": "RISK-5a",
+   "mil": 2,
+   "page": 46,
+   "text": "Documented procedures are established, followed, and maintained for activities in the RISK domain"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 5,
+   "objective": "Management Activities for the RISK domain",
+   "letter": "b",
+   "identifier": "RISK-5b",
+   "mil": 2,
+   "page": 46,
+   "text": "Adequate resources (people, funding, and tools) are provided to support activities in the RISK domain"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 5,
+   "objective": "Management Activities for the RISK domain",
+   "letter": "c",
+   "identifier": "RISK-5c",
+   "mil": 3,
+   "page": 46,
+   "text": "Up-to-date policies or other organizational directives define requirements for activities in the RISK domain"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 5,
+   "objective": "Management Activities for the RISK domain",
+   "letter": "d",
+   "identifier": "RISK-5d",
+   "mil": 3,
+   "page": 46,
+   "text": "Responsibility, accountability, and authority for the performance of activities in the RISK domain are assigned to personnel"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 5,
+   "objective": "Management Activities for the RISK domain",
+   "letter": "e",
+   "identifier": "RISK-5e",
+   "mil": 3,
+   "page": 46,
+   "text": "Personnel performing activities in the RISK domain have the skills and knowledge needed to perform their assigned responsibilities"
+  },
+  {
+   "domain": "RISK",
+   "objective_number": 5,
+   "objective": "Management Activities for the RISK domain",
+   "letter": "f",
+   "identifier": "RISK-5f",
+   "mil": 3,
+   "page": 46,
+   "text": "The effectiveness of activities in the RISK domain is evaluated and tracked"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 1,
+   "objective": "Establish Identities and Manage Authentication",
+   "letter": "a",
+   "identifier": "ACCESS-1a",
+   "mil": 1,
+   "page": 48,
+   "text": "Identities are provisioned, at least in an ad hoc manner, for personnel and other entities such as services and devices that require access to assets (note that this does not preclude shared identities)"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 1,
+   "objective": "Establish Identities and Manage Authentication",
+   "letter": "b",
+   "identifier": "ACCESS-1b",
+   "mil": 1,
+   "page": 48,
+   "text": "Credentials (such as passwords, smartcards, certificates, and keys) are issued for personnel and other entities that require access to assets, at least in an ad hoc manner"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 1,
+   "objective": "Establish Identities and Manage Authentication",
+   "letter": "c",
+   "identifier": "ACCESS-1c",
+   "mil": 1,
+   "page": 48,
+   "text": "Identities are deprovisioned, at least in an ad hoc manner, when no longer required"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 1,
+   "objective": "Establish Identities and Manage Authentication",
+   "letter": "d",
+   "identifier": "ACCESS-1d",
+   "mil": 2,
+   "page": 48,
+   "text": "Password strength and reuse restrictions are defined and enforced"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 1,
+   "objective": "Establish Identities and Manage Authentication",
+   "letter": "e",
+   "identifier": "ACCESS-1e",
+   "mil": 2,
+   "page": 48,
+   "text": "Identity repositories are reviewed and updated periodically and according to defined triggers, such as system changes and changes to organizational structure"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 1,
+   "objective": "Establish Identities and Manage Authentication",
+   "letter": "f",
+   "identifier": "ACCESS-1f",
+   "mil": 2,
+   "page": 48,
+   "text": "Identities are deprovisioned within organization-defined time thresholds when no longer required"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 1,
+   "objective": "Establish Identities and Manage Authentication",
+   "letter": "g",
+   "identifier": "ACCESS-1g",
+   "mil": 2,
+   "page": 48,
+   "text": "The use of privileged credentials is limited to processes for which they are required"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 1,
+   "objective": "Establish Identities and Manage Authentication",
+   "letter": "h",
+   "identifier": "ACCESS-1h",
+   "mil": 2,
+   "page": 48,
+   "text": "Stronger credentials, multifactor authentication, or single use credentials are required for higher risk access (such as privileged accounts, service accounts, shared accounts, and remote access)"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 1,
+   "objective": "Establish Identities and Manage Authentication",
+   "letter": "i",
+   "identifier": "ACCESS-1i",
+   "mil": 3,
+   "page": 48,
+   "text": "Multifactor authentication is required for all access, where feasible"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 1,
+   "objective": "Establish Identities and Manage Authentication",
+   "letter": "j",
+   "identifier": "ACCESS-1j",
+   "mil": 3,
+   "page": 48,
+   "text": "Identities are disabled after a defined period of inactivity, where feasible"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 2,
+   "objective": "Control Logical Access",
+   "letter": "a",
+   "identifier": "ACCESS-2a",
+   "mil": 1,
+   "page": 48,
+   "text": "Logical access controls are implemented, at least in an ad hoc manner"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 2,
+   "objective": "Control Logical Access",
+   "letter": "b",
+   "identifier": "ACCESS-2b",
+   "mil": 1,
+   "page": 48,
+   "text": "Logical access privileges are revoked when no longer needed, at least in an ad hoc manner"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 2,
+   "objective": "Control Logical Access",
+   "letter": "c",
+   "identifier": "ACCESS-2c",
+   "mil": 2,
+   "page": 48,
+   "text": "Logical access requirements are established and maintained (for example, rules for which types of entities are allowed to access an asset, limits of allowed access, constraints on remote access, authentication parameters)"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 2,
+   "objective": "Control Logical Access",
+   "letter": "d",
+   "identifier": "ACCESS-2d",
+   "mil": 2,
+   "page": 48,
+   "text": "Logical access requirements incorporate the principle of least privilege"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 2,
+   "objective": "Control Logical Access",
+   "letter": "e",
+   "identifier": "ACCESS-2e",
+   "mil": 2,
+   "page": 48,
+   "text": "Logical access requirements incorporate the principle of separation of duties"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 2,
+   "objective": "Control Logical Access",
+   "letter": "f",
+   "identifier": "ACCESS-2f",
+   "mil": 2,
+   "page": 48,
+   "text": "Logical access requests are reviewed and approved by the asset owner"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 2,
+   "objective": "Control Logical Access",
+   "letter": "g",
+   "identifier": "ACCESS-2g",
+   "mil": 2,
+   "page": 48,
+   "text": "Logical access privileges that pose higher risk to the function receive additional scrutiny and monitoring"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 2,
+   "objective": "Control Logical Access",
+   "letter": "h",
+   "identifier": "ACCESS-2h",
+   "mil": 3,
+   "page": 48,
+   "text": "Logical access privileges are reviewed and updated to ensure conformance with access requirements periodically and according to defined triggers, such as changes to organizational structure, and after any temporary elevation of privileges"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 2,
+   "objective": "Control Logical Access",
+   "letter": "i",
+   "identifier": "ACCESS-2i",
+   "mil": 3,
+   "page": 48,
+   "text": "Anomalous logical access attempts are monitored as indicators of cybersecurity events"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 3,
+   "objective": "Control Physical Access",
+   "letter": "a",
+   "identifier": "ACCESS-3a",
+   "mil": 1,
+   "page": 49,
+   "text": "Physical access controls (such as fences, locks, and signage) are implemented, at least in an ad hoc manner"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 3,
+   "objective": "Control Physical Access",
+   "letter": "b",
+   "identifier": "ACCESS-3b",
+   "mil": 1,
+   "page": 49,
+   "text": "Physical access privileges are revoked when no longer needed, at least in an ad hoc manner"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 3,
+   "objective": "Control Physical Access",
+   "letter": "c",
+   "identifier": "ACCESS-3c",
+   "mil": 1,
+   "page": 49,
+   "text": "Physical access logs are maintained, at least in an ad hoc manner"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 3,
+   "objective": "Control Physical Access",
+   "letter": "d",
+   "identifier": "ACCESS-3d",
+   "mil": 2,
+   "page": 49,
+   "text": "Physical access requirements are established and maintained (for example, rules for who is allowed to access an asset, how access is granted, limits of allowed access)"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 3,
+   "objective": "Control Physical Access",
+   "letter": "e",
+   "identifier": "ACCESS-3e",
+   "mil": 2,
+   "page": 49,
+   "text": "Physical access requirements incorporate the principle of least privilege"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 3,
+   "objective": "Control Physical Access",
+   "letter": "f",
+   "identifier": "ACCESS-3f",
+   "mil": 2,
+   "page": 49,
+   "text": "Physical access requirements incorporate the principle of separation of duties"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 3,
+   "objective": "Control Physical Access",
+   "letter": "g",
+   "identifier": "ACCESS-3g",
+   "mil": 2,
+   "page": 49,
+   "text": "Physical access requests are reviewed and approved by the asset owner"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 3,
+   "objective": "Control Physical Access",
+   "letter": "h",
+   "identifier": "ACCESS-3h",
+   "mil": 2,
+   "page": 49,
+   "text": "Physical access privileges that pose higher risk to the function receive additional scrutiny and monitoring"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 3,
+   "objective": "Control Physical Access",
+   "letter": "i",
+   "identifier": "ACCESS-3i",
+   "mil": 3,
+   "page": 49,
+   "text": "Physical access privileges are reviewed and updated"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 3,
+   "objective": "Control Physical Access",
+   "letter": "j",
+   "identifier": "ACCESS-3j",
+   "mil": 3,
+   "page": 49,
+   "text": "Physical access is monitored to identify potential cybersecurity events"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 4,
+   "objective": "Management Activities for the ACCESS domain",
+   "letter": "a",
+   "identifier": "ACCESS-4a",
+   "mil": 2,
+   "page": 49,
+   "text": "Documented procedures are established, followed, and maintained for activities in the ACCESS domain"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 4,
+   "objective": "Management Activities for the ACCESS domain",
+   "letter": "b",
+   "identifier": "ACCESS-4b",
+   "mil": 2,
+   "page": 49,
+   "text": "Adequate resources (people, funding, and tools) are provided to support activities in the ACCESS domain"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 4,
+   "objective": "Management Activities for the ACCESS domain",
+   "letter": "c",
+   "identifier": "ACCESS-4c",
+   "mil": 3,
+   "page": 49,
+   "text": "Up-to-date policies or other organizational directives define requirements for activities in the ACCESS domain"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 4,
+   "objective": "Management Activities for the ACCESS domain",
+   "letter": "d",
+   "identifier": "ACCESS-4d",
+   "mil": 3,
+   "page": 49,
+   "text": "Responsibility, accountability, and authority for the performance of activities in the ACCESS domain are assigned to personnel"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 4,
+   "objective": "Management Activities for the ACCESS domain",
+   "letter": "e",
+   "identifier": "ACCESS-4e",
+   "mil": 3,
+   "page": 49,
+   "text": "Personnel performing activities in the ACCESS domain have the skills and knowledge needed to perform their assigned responsibilities"
+  },
+  {
+   "domain": "ACCESS",
+   "objective_number": 4,
+   "objective": "Management Activities for the ACCESS domain",
+   "letter": "f",
+   "identifier": "ACCESS-4f",
+   "mil": 3,
+   "page": 49,
+   "text": "The effectiveness of activities in the ACCESS domain is evaluated and tracked"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 1,
+   "objective": "Perform Logging",
+   "letter": "a",
+   "identifier": "SITUATION-1a",
+   "mil": 1,
+   "page": 51,
+   "text": "Logging is occurring for assets that are important to the delivery of the function, at least in an ad hoc manner"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 1,
+   "objective": "Perform Logging",
+   "letter": "b",
+   "identifier": "SITUATION-1b",
+   "mil": 2,
+   "page": 51,
+   "text": "Logging is occurring for assets within the function that may be leveraged to achieve a threat objective, wherever feasible"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 1,
+   "objective": "Perform Logging",
+   "letter": "c",
+   "identifier": "SITUATION-1c",
+   "mil": 2,
+   "page": 51,
+   "text": "Logging requirements are established and maintained for IT and OT assets that are important to the delivery of the function and assets within the function that may be leveraged to achieve a threat objective"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 1,
+   "objective": "Perform Logging",
+   "letter": "d",
+   "identifier": "SITUATION-1d",
+   "mil": 2,
+   "page": 51,
+   "text": "Logging requirements are established and maintained for network and host monitoring infrastructure (for example, web gateways, endpoint detection and response software, intrusion detection and prevention systems)"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 1,
+   "objective": "Perform Logging",
+   "letter": "e",
+   "identifier": "SITUATION-1e",
+   "mil": 2,
+   "page": 51,
+   "text": "Log data are being aggregated within the function"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 1,
+   "objective": "Perform Logging",
+   "letter": "f",
+   "identifier": "SITUATION-1f",
+   "mil": 3,
+   "page": 51,
+   "text": "More rigorous logging is performed for higher priority assets"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 2,
+   "objective": "Perform Monitoring",
+   "letter": "a",
+   "identifier": "SITUATION-2a",
+   "mil": 1,
+   "page": 51,
+   "text": "Periodic reviews of log data or other cybersecurity monitoring activities are performed, at least in an ad hoc manner"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 2,
+   "objective": "Perform Monitoring",
+   "letter": "b",
+   "identifier": "SITUATION-2b",
+   "mil": 1,
+   "page": 51,
+   "text": "Data and alerts from network and host monitoring infrastructure assets are periodically reviewed, at least in an ad hoc manner"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 2,
+   "objective": "Perform Monitoring",
+   "letter": "c",
+   "identifier": "SITUATION-2c",
+   "mil": 2,
+   "page": 51,
+   "text": "Monitoring and analysis requirements are established and maintained for the function and address timely review of event data"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 2,
+   "objective": "Perform Monitoring",
+   "letter": "d",
+   "identifier": "SITUATION-2d",
+   "mil": 2,
+   "page": 51,
+   "text": "Indicators of anomalous activity are established and maintained based on system logs, data flows, network baselines, cybersecurity events, and architecture and are monitored across the IT and OT environments"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 2,
+   "objective": "Perform Monitoring",
+   "letter": "e",
+   "identifier": "SITUATION-2e",
+   "mil": 2,
+   "page": 51,
+   "text": "Alarms and alerts are configured and maintained to support the identification of cybersecurity events"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 2,
+   "objective": "Perform Monitoring",
+   "letter": "f",
+   "identifier": "SITUATION-2f",
+   "mil": 2,
+   "page": 51,
+   "text": "Monitoring activities are aligned with the threat profile (THREAT-2e)"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 2,
+   "objective": "Perform Monitoring",
+   "letter": "g",
+   "identifier": "SITUATION-2g",
+   "mil": 3,
+   "page": 51,
+   "text": "More rigorous monitoring is performed for higher priority assets"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 2,
+   "objective": "Perform Monitoring",
+   "letter": "h",
+   "identifier": "SITUATION-2h",
+   "mil": 3,
+   "page": 51,
+   "text": "Risk analysis information (RISK-3d) is used to identify indicators of anomalous activity"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 2,
+   "objective": "Perform Monitoring",
+   "letter": "i",
+   "identifier": "SITUATION-2i",
+   "mil": 3,
+   "page": 51,
+   "text": "Indicators of anomalous activity are evaluated and updated periodically and according to defined triggers, such as system changes and external events"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 3,
+   "objective": "Establish and Maintain Situational Awareness",
+   "letter": "a",
+   "identifier": "SITUATION-3a",
+   "mil": 2,
+   "page": 52,
+   "text": "Methods of communicating the current state of cybersecurity for the function are established and maintained"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 3,
+   "objective": "Establish and Maintain Situational Awareness",
+   "letter": "b",
+   "identifier": "SITUATION-3b",
+   "mil": 2,
+   "page": 52,
+   "text": "Monitoring data are aggregated to provide an understanding of the operational state of the function"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 3,
+   "objective": "Establish and Maintain Situational Awareness",
+   "letter": "c",
+   "identifier": "SITUATION-3c",
+   "mil": 2,
+   "page": 52,
+   "text": "Relevant information from across the organization is available to enhance situational awareness"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 3,
+   "objective": "Establish and Maintain Situational Awareness",
+   "letter": "d",
+   "identifier": "SITUATION-3d",
+   "mil": 3,
+   "page": 52,
+   "text": "Situational awareness reporting requirements have been defined and address timely dissemination of cybersecurity information to organization-defined stakeholders"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 3,
+   "objective": "Establish and Maintain Situational Awareness",
+   "letter": "e",
+   "identifier": "SITUATION-3e",
+   "mil": 3,
+   "page": 52,
+   "text": "Relevant information from outside the organization is collected and made available across the organization to enhance situational awareness"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 3,
+   "objective": "Establish and Maintain Situational Awareness",
+   "letter": "f",
+   "identifier": "SITUATION-3f",
+   "mil": 3,
+   "page": 52,
+   "text": "A capability is established and maintained to aggregate, correlate, and analyze the outputs of cybersecurity monitoring activities and provide a near-real-time understanding of the cybersecurity state of the function"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 3,
+   "objective": "Establish and Maintain Situational Awareness",
+   "letter": "g",
+   "identifier": "SITUATION-3g",
+   "mil": 3,
+   "page": 52,
+   "text": "Predefined states of operation are documented and can be implemented based on the cybersecurity state of the function or when triggered by activities in other domains"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 4,
+   "objective": "Management Activities for the SITUATION domain",
+   "letter": "a",
+   "identifier": "SITUATION-4a",
+   "mil": 2,
+   "page": 52,
+   "text": "Documented procedures are established, followed, and maintained for activities in the SITUATION domain"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 4,
+   "objective": "Management Activities for the SITUATION domain",
+   "letter": "b",
+   "identifier": "SITUATION-4b",
+   "mil": 2,
+   "page": 52,
+   "text": "Adequate resources (people, funding, and tools) are provided to support activities in the SITUATION domain"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 4,
+   "objective": "Management Activities for the SITUATION domain",
+   "letter": "c",
+   "identifier": "SITUATION-4c",
+   "mil": 3,
+   "page": 52,
+   "text": "Up-to-date policies or other organizational directives define requirements for activities in the SITUATION domain"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 4,
+   "objective": "Management Activities for the SITUATION domain",
+   "letter": "d",
+   "identifier": "SITUATION-4d",
+   "mil": 3,
+   "page": 52,
+   "text": "Responsibility, accountability, and authority for the performance of activities in the SITUATION domain are assigned to personnel"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 4,
+   "objective": "Management Activities for the SITUATION domain",
+   "letter": "e",
+   "identifier": "SITUATION-4e",
+   "mil": 3,
+   "page": 52,
+   "text": "Personnel performing activities in the SITUATION domain have the skills and knowledge needed to perform their assigned responsibilities"
+  },
+  {
+   "domain": "SITUATION",
+   "objective_number": 4,
+   "objective": "Management Activities for the SITUATION domain",
+   "letter": "f",
+   "identifier": "SITUATION-4f",
+   "mil": 3,
+   "page": 52,
+   "text": "The effectiveness of activities in the SITUATION domain is evaluated and tracked"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 1,
+   "objective": "Detect Cybersecurity Events",
+   "letter": "a",
+   "identifier": "RESPONSE-1a",
+   "mil": 1,
+   "page": 54,
+   "text": "Detected cybersecurity events are reported to a specified person or role and documented, at least in an ad hoc manner"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 1,
+   "objective": "Detect Cybersecurity Events",
+   "letter": "b",
+   "identifier": "RESPONSE-1b",
+   "mil": 2,
+   "page": 54,
+   "text": "Criteria are established for cybersecurity event detection (for example, what constitutes a cybersecurity event, where to look for cybersecurity events)"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 1,
+   "objective": "Detect Cybersecurity Events",
+   "letter": "c",
+   "identifier": "RESPONSE-1c",
+   "mil": 2,
+   "page": 54,
+   "text": "Cybersecurity events are documented based on the established criteria"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 1,
+   "objective": "Detect Cybersecurity Events",
+   "letter": "d",
+   "identifier": "RESPONSE-1d",
+   "mil": 3,
+   "page": 54,
+   "text": "Event information is correlated to support incident analysis by identifying patterns, trends, and other common features"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 1,
+   "objective": "Detect Cybersecurity Events",
+   "letter": "e",
+   "identifier": "RESPONSE-1e",
+   "mil": 3,
+   "page": 54,
+   "text": "Cybersecurity event detection activities are adjusted based on identified risks and the organization’s threat profile (THREAT-2e)"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 1,
+   "objective": "Detect Cybersecurity Events",
+   "letter": "f",
+   "identifier": "RESPONSE-1f",
+   "mil": 3,
+   "page": 54,
+   "text": "Situational awareness for the function is monitored to support the identification of cybersecurity events"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 2,
+   "objective": "Analyze Cybersecurity Events and Declare Incidents",
+   "letter": "a",
+   "identifier": "RESPONSE-2a",
+   "mil": 1,
+   "page": 55,
+   "text": "Criteria for declaring cybersecurity incidents are established, at least in an ad hoc manner"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 2,
+   "objective": "Analyze Cybersecurity Events and Declare Incidents",
+   "letter": "b",
+   "identifier": "RESPONSE-2b",
+   "mil": 1,
+   "page": 55,
+   "text": "Cybersecurity events are analyzed to support the declaration of cybersecurity incidents, at least in an ad hoc manner"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 2,
+   "objective": "Analyze Cybersecurity Events and Declare Incidents",
+   "letter": "c",
+   "identifier": "RESPONSE-2c",
+   "mil": 2,
+   "page": 55,
+   "text": "Cybersecurity incident declaration criteria are formally established based on potential impact to the function"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 2,
+   "objective": "Analyze Cybersecurity Events and Declare Incidents",
+   "letter": "d",
+   "identifier": "RESPONSE-2d",
+   "mil": 2,
+   "page": 55,
+   "text": "Cybersecurity events are declared to be incidents based on established criteria"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 2,
+   "objective": "Analyze Cybersecurity Events and Declare Incidents",
+   "letter": "e",
+   "identifier": "RESPONSE-2e",
+   "mil": 2,
+   "page": 55,
+   "text": "Cybersecurity incident declaration criteria are updated periodically and according to defined triggers, such as organizational changes, lessons learned from plan execution, or newly identified threats"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 2,
+   "objective": "Analyze Cybersecurity Events and Declare Incidents",
+   "letter": "f",
+   "identifier": "RESPONSE-2f",
+   "mil": 2,
+   "page": 55,
+   "text": "There is a repository where cybersecurity events and incidents are documented and tracked to closure"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 2,
+   "objective": "Analyze Cybersecurity Events and Declare Incidents",
+   "letter": "g",
+   "identifier": "RESPONSE-2g",
+   "mil": 2,
+   "page": 55,
+   "text": "Internal and external stakeholders (for example, executives, attorneys, government agencies, connected organizations, vendors, sector organizations, regulators) are identified and notified of incidents based on situational awareness reporting requirements (SITUATION-3d)"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 2,
+   "objective": "Analyze Cybersecurity Events and Declare Incidents",
+   "letter": "h",
+   "identifier": "RESPONSE-2h",
+   "mil": 3,
+   "page": 55,
+   "text": "Criteria for cybersecurity incident declaration are aligned with cyber risk prioritization criteria (RISK-3b)"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 2,
+   "objective": "Analyze Cybersecurity Events and Declare Incidents",
+   "letter": "i",
+   "identifier": "RESPONSE-2i",
+   "mil": 3,
+   "page": 55,
+   "text": "Cybersecurity incidents are correlated to identify patterns, trends, and other common features across multiple incidents"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 3,
+   "objective": "Respond to Cybersecurity Incidents",
+   "letter": "a",
+   "identifier": "RESPONSE-3a",
+   "mil": 1,
+   "page": 55,
+   "text": "Cybersecurity incident response personnel are identified, and roles are assigned, at least in an ad hoc manner"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 3,
+   "objective": "Respond to Cybersecurity Incidents",
+   "letter": "b",
+   "identifier": "RESPONSE-3b",
+   "mil": 1,
+   "page": 55,
+   "text": "Responses to cybersecurity incidents are executed, at least in an ad hoc manner, to limit impact to the function and restore normal operations"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 3,
+   "objective": "Respond to Cybersecurity Incidents",
+   "letter": "c",
+   "identifier": "RESPONSE-3c",
+   "mil": 1,
+   "page": 55,
+   "text": "Reporting of incidents is performed (for example, internal reporting, ICS-CERT, relevant ISACs), at least in an ad hoc manner"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 3,
+   "objective": "Respond to Cybersecurity Incidents",
+   "letter": "d",
+   "identifier": "RESPONSE-3d",
+   "mil": 2,
+   "page": 55,
+   "text": "Cybersecurity incident response plans that address all phases of the incident lifecycle are established and maintained"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 3,
+   "objective": "Respond to Cybersecurity Incidents",
+   "letter": "e",
+   "identifier": "RESPONSE-3e",
+   "mil": 2,
+   "page": 55,
+   "text": "Cybersecurity incident response is executed according to defined plans and procedures"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 3,
+   "objective": "Respond to Cybersecurity Incidents",
+   "letter": "f",
+   "identifier": "RESPONSE-3f",
+   "mil": 2,
+   "page": 55,
+   "text": "Cybersecurity incident response plans include a communications plan for internal and external stakeholders"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 3,
+   "objective": "Respond to Cybersecurity Incidents",
+   "letter": "g",
+   "identifier": "RESPONSE-3g",
+   "mil": 2,
+   "page": 55,
+   "text": "Cybersecurity incident response plan exercises are conducted periodically and according to defined triggers, such as system changes and external events"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 3,
+   "objective": "Respond to Cybersecurity Incidents",
+   "letter": "h",
+   "identifier": "RESPONSE-3h",
+   "mil": 2,
+   "page": 55,
+   "text": "Cybersecurity incident lessons-learned activities are performed and corrective actions are taken, including updates to the incident response plan"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 3,
+   "objective": "Respond to Cybersecurity Incidents",
+   "letter": "i",
+   "identifier": "RESPONSE-3i",
+   "mil": 3,
+   "page": 55,
+   "text": "Cybersecurity incident root-cause analysis is performed and corrective actions are taken, including updates to the incident response plan"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 3,
+   "objective": "Respond to Cybersecurity Incidents",
+   "letter": "j",
+   "identifier": "RESPONSE-3j",
+   "mil": 3,
+   "page": 55,
+   "text": "Cybersecurity incident responses are coordinated with vendors, law enforcement, and other external entities as appropriate, including support for evidence collection and preservation"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 3,
+   "objective": "Respond to Cybersecurity Incidents",
+   "letter": "k",
+   "identifier": "RESPONSE-3k",
+   "mil": 3,
+   "page": 55,
+   "text": "Cybersecurity incident response personnel participate in joint cybersecurity exercises with other organizations"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 3,
+   "objective": "Respond to Cybersecurity Incidents",
+   "letter": "l",
+   "identifier": "RESPONSE-3l",
+   "mil": 3,
+   "page": 55,
+   "text": "Cybersecurity incident responses leverage and trigger predefined states of operation (SITUATION-3g)"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 4,
+   "objective": "Address Cybersecurity in Continuity of Operations",
+   "letter": "a",
+   "identifier": "RESPONSE-4a",
+   "mil": 1,
+   "page": 56,
+   "text": "Continuity plans are developed to sustain and restore operation of the function if a cybersecurity event or incident occurs, at least in an ad hoc manner"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 4,
+   "objective": "Address Cybersecurity in Continuity of Operations",
+   "letter": "b",
+   "identifier": "RESPONSE-4b",
+   "mil": 1,
+   "page": 56,
+   "text": "Data backups are available and tested, at least in an ad hoc manner"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 4,
+   "objective": "Address Cybersecurity in Continuity of Operations",
+   "letter": "c",
+   "identifier": "RESPONSE-4c",
+   "mil": 1,
+   "page": 56,
+   "text": "IT and OT assets requiring spares are identified, at least in an ad hoc manner"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 4,
+   "objective": "Address Cybersecurity in Continuity of Operations",
+   "letter": "d",
+   "identifier": "RESPONSE-4d",
+   "mil": 1,
+   "page": 56,
+   "text": "Continuity plans address potential impacts from cybersecurity incidents"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 4,
+   "objective": "Address Cybersecurity in Continuity of Operations",
+   "letter": "e",
+   "identifier": "RESPONSE-4e",
+   "mil": 1,
+   "page": 56,
+   "text": "The assets and activities necessary to sustain minimum operations of the function are identified and documented in continuity plans"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 4,
+   "objective": "Address Cybersecurity in Continuity of Operations",
+   "letter": "f",
+   "identifier": "RESPONSE-4f",
+   "mil": 1,
+   "page": 56,
+   "text": "Continuity plans address IT, OT, and information assets that are important to the delivery of the function, including the availability of backup data and replacement, redundant, and spare IT and OT assets"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 4,
+   "objective": "Address Cybersecurity in Continuity of Operations",
+   "letter": "g",
+   "identifier": "RESPONSE-4g",
+   "mil": 1,
+   "page": 56,
+   "text": "Recovery time objectives (RTOs) and recovery point objectives (RPOs) for assets that are important to the delivery of the function are incorporated into continuity plans"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 4,
+   "objective": "Address Cybersecurity in Continuity of Operations",
+   "letter": "h",
+   "identifier": "RESPONSE-4h",
+   "mil": 1,
+   "page": 56,
+   "text": "Cybersecurity incident criteria that trigger the execution of continuity plans are established and communicated to incident response and continuity management personnel"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 4,
+   "objective": "Address Cybersecurity in Continuity of Operations",
+   "letter": "i",
+   "identifier": "RESPONSE-4i",
+   "mil": 1,
+   "page": 56,
+   "text": "Continuity plans are tested through evaluations and exercises periodically and according to defined triggers, such as system changes and external events"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 4,
+   "objective": "Address Cybersecurity in Continuity of Operations",
+   "letter": "j",
+   "identifier": "RESPONSE-4j",
+   "mil": 1,
+   "page": 56,
+   "text": "Cybersecurity controls protecting backup data are equivalent to or more rigorous than controls protecting source data"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 4,
+   "objective": "Address Cybersecurity in Continuity of Operations",
+   "letter": "k",
+   "identifier": "RESPONSE-4k",
+   "mil": 1,
+   "page": 56,
+   "text": "Data backups are logically or physically separated from source data"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 4,
+   "objective": "Address Cybersecurity in Continuity of Operations",
+   "letter": "l",
+   "identifier": "RESPONSE-4l",
+   "mil": 1,
+   "page": 56,
+   "text": "Spares for selected IT and OT assets are available"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 4,
+   "objective": "Address Cybersecurity in Continuity of Operations",
+   "letter": "m",
+   "identifier": "RESPONSE-4m",
+   "mil": 1,
+   "page": 56,
+   "text": "Continuity plans are aligned with identified risks and the organization’s threat profile (THREAT-2e) to ensure coverage of identified risk categories and threats"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 4,
+   "objective": "Address Cybersecurity in Continuity of Operations",
+   "letter": "n",
+   "identifier": "RESPONSE-4n",
+   "mil": 1,
+   "page": 56,
+   "text": "Continuity plan exercises address higher priority risks"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 4,
+   "objective": "Address Cybersecurity in Continuity of Operations",
+   "letter": "o",
+   "identifier": "RESPONSE-4o",
+   "mil": 1,
+   "page": 56,
+   "text": "The results of continuity plan testing or activation are compared to recovery objectives, and plans are improved accordingly"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 4,
+   "objective": "Address Cybersecurity in Continuity of Operations",
+   "letter": "p",
+   "identifier": "RESPONSE-4p",
+   "mil": 1,
+   "page": 56,
+   "text": "Continuity plans are periodically reviewed and updated"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 5,
+   "objective": "Management Activities for the RESPONSE domain",
+   "letter": "a",
+   "identifier": "RESPONSE-5a",
+   "mil": 2,
+   "page": 56,
+   "text": "Documented procedures are established, followed, and maintained for activities in the RESPONSE domain"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 5,
+   "objective": "Management Activities for the RESPONSE domain",
+   "letter": "b",
+   "identifier": "RESPONSE-5b",
+   "mil": 2,
+   "page": 56,
+   "text": "Adequate resources (people, funding, and tools) are provided to support activities in the RESPONSE domain"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 5,
+   "objective": "Management Activities for the RESPONSE domain",
+   "letter": "c",
+   "identifier": "RESPONSE-5c",
+   "mil": 3,
+   "page": 56,
+   "text": "Up-to-date policies or other organizational directives define requirements for activities in the RESPONSE domain"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 5,
+   "objective": "Management Activities for the RESPONSE domain",
+   "letter": "d",
+   "identifier": "RESPONSE-5d",
+   "mil": 3,
+   "page": 56,
+   "text": "Responsibility, accountability, and authority for the performance of activities in the RESPONSE domain are assigned to personnel"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 5,
+   "objective": "Management Activities for the RESPONSE domain",
+   "letter": "e",
+   "identifier": "RESPONSE-5e",
+   "mil": 3,
+   "page": 56,
+   "text": "Personnel performing activities in the RESPONSE domain have the skills and knowledge needed to perform their assigned responsibilities"
+  },
+  {
+   "domain": "RESPONSE",
+   "objective_number": 5,
+   "objective": "Management Activities for the RESPONSE domain",
+   "letter": "f",
+   "identifier": "RESPONSE-5f",
+   "mil": 3,
+   "page": 56,
+   "text": "The effectiveness of activities in the RESPONSE domain is evaluated and tracked"
+  },
+  {
+   "domain": "THIRD-PARTIES",
+   "objective_number": 1,
+   "objective": "Identify and Prioritize Third Parties",
+   "letter": "a",
+   "identifier": "THIRD-PARTIES-1a",
+   "mil": 1,
+   "page": 58,
+   "text": "Important IT and OT third-party dependencies are identified (that is, internal and external parties on which the delivery of the function depends, including operating partners), at least in an ad hoc manner"
+  },
+  {
+   "domain": "THIRD-PARTIES",
+   "objective_number": 1,
+   "objective": "Identify and Prioritize Third Parties",
+   "letter": "b",
+   "identifier": "THIRD-PARTIES-1b",
+   "mil": 1,
+   "page": 58,
+   "text": "Third parties that have access to, control of, or custody of any IT, OT, or information assets that are important to the delivery of the function are identified, at least in an ad hoc manner"
+  },
+  {
+   "domain": "THIRD-PARTIES",
+   "objective_number": 1,
+   "objective": "Identify and Prioritize Third Parties",
+   "letter": "c",
+   "identifier": "THIRD-PARTIES-1c",
+   "mil": 2,
+   "page": 58,
+   "text": "A defined method is followed to identify risks arising from suppliers and other third parties"
+  },
+  {
+   "domain": "THIRD-PARTIES",
+   "objective_number": 1,
+   "objective": "Identify and Prioritize Third Parties",
+   "letter": "d",
+   "identifier": "THIRD-PARTIES-1d",
+   "mil": 2,
+   "page": 58,
+   "text": "Third parties are prioritized according to established criteria (for example, importance to the delivery of the function, impact of a compromise or disruption, ability to negotiate cybersecurity requirements within contracts)"
+  },
+  {
+   "domain": "THIRD-PARTIES",
+   "objective_number": 1,
+   "objective": "Identify and Prioritize Third Parties",
+   "letter": "e",
+   "identifier": "THIRD-PARTIES-1e",
+   "mil": 2,
+   "page": 58,
+   "text": "Escalated prioritization is assigned to suppliers and other third parties whose compromise or disruption could cause significant consequences (for example, single- source suppliers, suppliers with privileged access)"
+  },
+  {
+   "domain": "THIRD-PARTIES",
+   "objective_number": 1,
+   "objective": "Identify and Prioritize Third Parties",
+   "letter": "f",
+   "identifier": "THIRD-PARTIES-1f",
+   "mil": 3,
+   "page": 58,
+   "text": "Prioritization of suppliers and other third parties is updated periodically and according to defined triggers, such as system changes and external events"
+  },
+  {
+   "domain": "THIRD-PARTIES",
+   "objective_number": 2,
+   "objective": "Manage Third-Party Risk",
+   "letter": "a",
+   "identifier": "THIRD-PARTIES-2a",
+   "mil": 1,
+   "page": 59,
+   "text": "The selection of suppliers and other third parties includes consideration of their cybersecurity qualifications, at least in an ad hoc manner"
+  },
+  {
+   "domain": "THIRD-PARTIES",
+   "objective_number": 2,
+   "objective": "Manage Third-Party Risk",
+   "letter": "b",
+   "identifier": "THIRD-PARTIES-2b",
+   "mil": 1,
+   "page": 59,
+   "text": "The selection of products and services includes consideration of their cybersecurity capabilities, at least in an ad hoc manner"
+  },
+  {
+   "domain": "THIRD-PARTIES",
+   "objective_number": 2,
+   "objective": "Manage Third-Party Risk",
+   "letter": "c",
+   "identifier": "THIRD-PARTIES-2c",
+   "mil": 2,
+   "page": 59,
+   "text": "A defined method is followed to identify cybersecurity requirements and implement associated controls that protect against the risks arising from suppliers and other third parties"
+  },
+  {
+   "domain": "THIRD-PARTIES",
+   "objective_number": 2,
+   "objective": "Manage Third-Party Risk",
+   "letter": "d",
+   "identifier": "THIRD-PARTIES-2d",
+   "mil": 2,
+   "page": 59,
+   "text": "A defined method is followed to evaluate and select suppliers and other third parties"
+  },
+  {
+   "domain": "THIRD-PARTIES",
+   "objective_number": 2,
+   "objective": "Manage Third-Party Risk",
+   "letter": "e",
+   "identifier": "THIRD-PARTIES-2e",
+   "mil": 2,
+   "page": 59,
+   "text": "More rigorous cybersecurity controls are implemented for higher priority suppliers and other third parties"
+  },
+  {
+   "domain": "THIRD-PARTIES",
+   "objective_number": 2,
+   "objective": "Manage Third-Party Risk",
+   "letter": "f",
+   "identifier": "THIRD-PARTIES-2f",
+   "mil": 2,
+   "page": 59,
+   "text": "Cybersecurity requirements (for example, vulnerability notification, incident-related SLA requirements) are formalized in agreements with suppliers and other third parties"
+  },
+  {
+   "domain": "THIRD-PARTIES",
+   "objective_number": 2,
+   "objective": "Manage Third-Party Risk",
+   "letter": "g",
+   "identifier": "THIRD-PARTIES-2g",
+   "mil": 2,
+   "page": 59,
+   "text": "Suppliers and other third parties periodically attest to their ability to meet cybersecurity requirements"
+  },
+  {
+   "domain": "THIRD-PARTIES",
+   "objective_number": 2,
+   "objective": "Manage Third-Party Risk",
+   "letter": "h",
+   "identifier": "THIRD-PARTIES-2h",
+   "mil": 3,
+   "page": 59,
+   "text": "Cybersecurity requirements for suppliers and other third parties include secure software and secure product development requirements where appropriate"
+  },
+  {
+   "domain": "THIRD-PARTIES",
+   "objective_number": 2,
+   "objective": "Manage Third-Party Risk",
+   "letter": "i",
+   "identifier": "THIRD-PARTIES-2i",
+   "mil": 3,
+   "page": 59,
+   "text": "Selection criteria for products include consideration of end-of-life and end-of-support timelines"
+  },
+  {
+   "domain": "THIRD-PARTIES",
+   "objective_number": 2,
+   "objective": "Manage Third-Party Risk",
+   "letter": "j",
+   "identifier": "THIRD-PARTIES-2j",
+   "mil": 3,
+   "page": 59,
+   "text": "Selection criteria include consideration of safeguards against counterfeit or compromised software, hardware, and services"
+  },
+  {
+   "domain": "THIRD-PARTIES",
+   "objective_number": 2,
+   "objective": "Manage Third-Party Risk",
+   "letter": "k",
+   "identifier": "THIRD-PARTIES-2k",
+   "mil": 3,
+   "page": 59,
+   "text": "Selection criteria for higher priority assets include evaluation of bills of material for key asset elements, such as hardware and software"
+  },
+  {
+   "domain": "THIRD-PARTIES",
+   "objective_number": 2,
+   "objective": "Manage Third-Party Risk",
+   "letter": "l",
+   "identifier": "THIRD-PARTIES-2l",
+   "mil": 3,
+   "page": 59,
+   "text": "Selection criteria for higher priority assets include evaluation of any associated third-party hosting environments and source data"
+  },
+  {
+   "domain": "THIRD-PARTIES",
+   "objective_number": 2,
+   "objective": "Manage Third-Party Risk",
+   "letter": "m",
+   "identifier": "THIRD-PARTIES-2m",
+   "mil": 3,
+   "page": 59,
+   "text": "Acceptance testing of procured assets includes consideration of cybersecurity requirements"
+  },
+  {
+   "domain": "THIRD-PARTIES",
+   "objective_number": 3,
+   "objective": "Management Activities for the THIRD-PARTIES domain",
+   "letter": "a",
+   "identifier": "THIRD-PARTIES-3a",
+   "mil": 2,
+   "page": 59,
+   "text": "Documented procedures are established, followed, and maintained for activities in the THIRD-PARTIES domain"
+  },
+  {
+   "domain": "THIRD-PARTIES",
+   "objective_number": 3,
+   "objective": "Management Activities for the THIRD-PARTIES domain",
+   "letter": "b",
+   "identifier": "THIRD-PARTIES-3b",
+   "mil": 2,
+   "page": 59,
+   "text": "Adequate resources (people, funding, and tools) are provided to support activities in the THIRD-PARTIES domain"
+  },
+  {
+   "domain": "THIRD-PARTIES",
+   "objective_number": 3,
+   "objective": "Management Activities for the THIRD-PARTIES domain",
+   "letter": "c",
+   "identifier": "THIRD-PARTIES-3c",
+   "mil": 3,
+   "page": 59,
+   "text": "Up-to-date policies or other organizational directives define requirements for activities in the THIRD-PARTIES domain"
+  },
+  {
+   "domain": "THIRD-PARTIES",
+   "objective_number": 3,
+   "objective": "Management Activities for the THIRD-PARTIES domain",
+   "letter": "d",
+   "identifier": "THIRD-PARTIES-3d",
+   "mil": 3,
+   "page": 59,
+   "text": "Responsibility, accountability, and authority for the performance of activities in the THIRD- PARTIES domain are assigned to personnel"
+  },
+  {
+   "domain": "THIRD-PARTIES",
+   "objective_number": 3,
+   "objective": "Management Activities for the THIRD-PARTIES domain",
+   "letter": "e",
+   "identifier": "THIRD-PARTIES-3e",
+   "mil": 3,
+   "page": 59,
+   "text": "Personnel performing activities in the THIRD-PARTIES domain have the skills and knowledge needed to perform their assigned responsibilities"
+  },
+  {
+   "domain": "THIRD-PARTIES",
+   "objective_number": 3,
+   "objective": "Management Activities for the THIRD-PARTIES domain",
+   "letter": "f",
+   "identifier": "THIRD-PARTIES-3f",
+   "mil": 3,
+   "page": 59,
+   "text": "The effectiveness of activities in the THIRD-PARTIES domain is evaluated and tracked"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 1,
+   "objective": "Implement Workforce Controls",
+   "letter": "a",
+   "identifier": "WORKFORCE-1a",
+   "mil": 1,
+   "page": 61,
+   "text": "Personnel vetting (for example, background checks, drug tests) is performed at hire, at least in an ad hoc manner"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 1,
+   "objective": "Implement Workforce Controls",
+   "letter": "b",
+   "identifier": "WORKFORCE-1b",
+   "mil": 1,
+   "page": 61,
+   "text": "Personnel separation procedures address cybersecurity, at least in an ad hoc manner"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 1,
+   "objective": "Implement Workforce Controls",
+   "letter": "c",
+   "identifier": "WORKFORCE-1c",
+   "mil": 2,
+   "page": 61,
+   "text": "Personnel vetting is performed at hire and periodically for positions that have access to assets that are important to the delivery of the function"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 1,
+   "objective": "Implement Workforce Controls",
+   "letter": "d",
+   "identifier": "WORKFORCE-1d",
+   "mil": 2,
+   "page": 61,
+   "text": "Personnel separation and transfer procedures address cybersecurity, including supplementary vetting as appropriate"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 1,
+   "objective": "Implement Workforce Controls",
+   "letter": "e",
+   "identifier": "WORKFORCE-1e",
+   "mil": 2,
+   "page": 61,
+   "text": "Personnel are made aware of their responsibilities for protection and acceptable use of IT, OT, and information assets"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 1,
+   "objective": "Implement Workforce Controls",
+   "letter": "f",
+   "identifier": "WORKFORCE-1f",
+   "mil": 3,
+   "page": 61,
+   "text": "Vetting is performed for all positions (including employees, vendors, and contractors) at a level commensurate with position risk"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 1,
+   "objective": "Implement Workforce Controls",
+   "letter": "g",
+   "identifier": "WORKFORCE-1g",
+   "mil": 3,
+   "page": 61,
+   "text": "A formal accountability process that includes disciplinary actions is implemented for personnel who fail to comply with established security policies and procedures"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 2,
+   "objective": "Increase Cybersecurity Awareness",
+   "letter": "a",
+   "identifier": "WORKFORCE-2a",
+   "mil": 1,
+   "page": 62,
+   "text": "Cybersecurity awareness activities occur, at least in an ad hoc manner"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 2,
+   "objective": "Increase Cybersecurity Awareness",
+   "letter": "b",
+   "identifier": "WORKFORCE-2b",
+   "mil": 2,
+   "page": 62,
+   "text": "Cybersecurity awareness objectives are established and maintained"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 2,
+   "objective": "Increase Cybersecurity Awareness",
+   "letter": "c",
+   "identifier": "WORKFORCE-2c",
+   "mil": 2,
+   "page": 62,
+   "text": "Cybersecurity awareness objectives are aligned with the defined threat profile (THREAT- 2e)"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 2,
+   "objective": "Increase Cybersecurity Awareness",
+   "letter": "d",
+   "identifier": "WORKFORCE-2d",
+   "mil": 2,
+   "page": 62,
+   "text": "Cybersecurity awareness activities are conducted periodically"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 2,
+   "objective": "Increase Cybersecurity Awareness",
+   "letter": "e",
+   "identifier": "WORKFORCE-2e",
+   "mil": 3,
+   "page": 62,
+   "text": "Cybersecurity awareness activities are tailored to job role"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 2,
+   "objective": "Increase Cybersecurity Awareness",
+   "letter": "f",
+   "identifier": "WORKFORCE-2f",
+   "mil": 3,
+   "page": 62,
+   "text": "Cybersecurity awareness activities address predefined states of operation (SITUATION-3g)"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 2,
+   "objective": "Increase Cybersecurity Awareness",
+   "letter": "g",
+   "identifier": "WORKFORCE-2g",
+   "mil": 3,
+   "page": 62,
+   "text": "The effectiveness of cybersecurity awareness activities is evaluated periodically and according to defined triggers, such as system changes and external events, and improvements are made as appropriate"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 3,
+   "objective": "Assign Cybersecurity Responsibilities",
+   "letter": "a",
+   "identifier": "WORKFORCE-3a",
+   "mil": 1,
+   "page": 62,
+   "text": "Cybersecurity responsibilities for the function are identified, at least in an ad hoc manner"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 3,
+   "objective": "Assign Cybersecurity Responsibilities",
+   "letter": "b",
+   "identifier": "WORKFORCE-3b",
+   "mil": 1,
+   "page": 62,
+   "text": "Cybersecurity responsibilities are assigned to specific people, at least in an ad hoc manner"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 3,
+   "objective": "Assign Cybersecurity Responsibilities",
+   "letter": "c",
+   "identifier": "WORKFORCE-3c",
+   "mil": 2,
+   "page": 62,
+   "text": "Cybersecurity responsibilities are assigned to specific roles, including external service providers"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 3,
+   "objective": "Assign Cybersecurity Responsibilities",
+   "letter": "d",
+   "identifier": "WORKFORCE-3d",
+   "mil": 2,
+   "page": 62,
+   "text": "Cybersecurity responsibilities are documented"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 3,
+   "objective": "Assign Cybersecurity Responsibilities",
+   "letter": "e",
+   "identifier": "WORKFORCE-3e",
+   "mil": 3,
+   "page": 62,
+   "text": "Cybersecurity responsibilities and job requirements are reviewed and updated periodically and according to defined triggers, such as system changes and changes to organizational structure"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 3,
+   "objective": "Assign Cybersecurity Responsibilities",
+   "letter": "f",
+   "identifier": "WORKFORCE-3f",
+   "mil": 3,
+   "page": 62,
+   "text": "Assigned cybersecurity responsibilities are managed to ensure adequacy and redundancy of coverage, including succession planning"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 4,
+   "objective": "Develop Cybersecurity Workforce",
+   "letter": "a",
+   "identifier": "WORKFORCE-4a",
+   "mil": 1,
+   "page": 62,
+   "text": "Cybersecurity training is made available to personnel with assigned cybersecurity responsibilities, at least in an ad hoc manner"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 4,
+   "objective": "Develop Cybersecurity Workforce",
+   "letter": "b",
+   "identifier": "WORKFORCE-4b",
+   "mil": 1,
+   "page": 62,
+   "text": "Cybersecurity knowledge, skill, and ability requirements and gaps are identified for both current and future operational needs, at least in an ad hoc manner"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 4,
+   "objective": "Develop Cybersecurity Workforce",
+   "letter": "c",
+   "identifier": "WORKFORCE-4c",
+   "mil": 2,
+   "page": 62,
+   "text": "Identified cybersecurity knowledge, skill, and ability gaps are addressed through training, recruiting, and retention efforts"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 4,
+   "objective": "Develop Cybersecurity Workforce",
+   "letter": "d",
+   "identifier": "WORKFORCE-4d",
+   "mil": 2,
+   "page": 62,
+   "text": "Cybersecurity training is provided as a prerequisite to granting access to assets that are important to the delivery of the function"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 4,
+   "objective": "Develop Cybersecurity Workforce",
+   "letter": "e",
+   "identifier": "WORKFORCE-4e",
+   "mil": 3,
+   "page": 62,
+   "text": "The effectiveness of training programs is evaluated periodically, and improvements are made as appropriate"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 4,
+   "objective": "Develop Cybersecurity Workforce",
+   "letter": "f",
+   "identifier": "WORKFORCE-4f",
+   "mil": 3,
+   "page": 62,
+   "text": "Training programs include continuing education and professional development opportunities for personnel with significant cybersecurity responsibilities"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 5,
+   "objective": "Management Activities for the WORKFORCE domain",
+   "letter": "a",
+   "identifier": "WORKFORCE-5a",
+   "mil": 2,
+   "page": 63,
+   "text": "Documented procedures are established, followed, and maintained for activities in the WORKFORCE domain"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 5,
+   "objective": "Management Activities for the WORKFORCE domain",
+   "letter": "b",
+   "identifier": "WORKFORCE-5b",
+   "mil": 2,
+   "page": 63,
+   "text": "Adequate resources (people, funding, and tools) are provided to support activities in the WORKFORCE domain"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 5,
+   "objective": "Management Activities for the WORKFORCE domain",
+   "letter": "c",
+   "identifier": "WORKFORCE-5c",
+   "mil": 3,
+   "page": 63,
+   "text": "Up-to-date policies or other organizational directives define requirements for activities in the WORKFORCE domain"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 5,
+   "objective": "Management Activities for the WORKFORCE domain",
+   "letter": "d",
+   "identifier": "WORKFORCE-5d",
+   "mil": 3,
+   "page": 63,
+   "text": "Responsibility, accountability, and authority for the performance of activities in the WORKFORCE domain are assigned to personnel"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 5,
+   "objective": "Management Activities for the WORKFORCE domain",
+   "letter": "e",
+   "identifier": "WORKFORCE-5e",
+   "mil": 3,
+   "page": 63,
+   "text": "Personnel performing activities in the WORKFORCE domain have the skills and knowledge needed to perform their assigned responsibilities"
+  },
+  {
+   "domain": "WORKFORCE",
+   "objective_number": 5,
+   "objective": "Management Activities for the WORKFORCE domain",
+   "letter": "f",
+   "identifier": "WORKFORCE-5f",
+   "mil": 3,
+   "page": 63,
+   "text": "The effectiveness of activities in the WORKFORCE domain is evaluated and tracked"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 1,
+   "objective": "Establish and Maintain Cybersecurity Architecture Strategy and Program",
+   "letter": "a",
+   "identifier": "ARCHITECTURE-1a",
+   "mil": 1,
+   "page": 65,
+   "text": "The organization has a strategy for cybersecurity architecture, which may be developed and managed in an ad hoc manner"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 1,
+   "objective": "Establish and Maintain Cybersecurity Architecture Strategy and Program",
+   "letter": "b",
+   "identifier": "ARCHITECTURE-1b",
+   "mil": 2,
+   "page": 65,
+   "text": "A strategy for cybersecurity architecture is established and maintained in alignment with the organization’s cybersecurity program strategy (PROGRAM-1b) and enterprise architecture"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 1,
+   "objective": "Establish and Maintain Cybersecurity Architecture Strategy and Program",
+   "letter": "c",
+   "identifier": "ARCHITECTURE-1c",
+   "mil": 2,
+   "page": 65,
+   "text": "A documented cybersecurity architecture is established and maintained that includes IT and OT systems and networks and aligns with system and asset categorization and prioritization"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 1,
+   "objective": "Establish and Maintain Cybersecurity Architecture Strategy and Program",
+   "letter": "d",
+   "identifier": "ARCHITECTURE-1d",
+   "mil": 2,
+   "page": 65,
+   "text": "Governance for cybersecurity architecture (such as an architecture review process) is established and maintained that includes provisions for periodic architectural reviews and an exceptions process"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 1,
+   "objective": "Establish and Maintain Cybersecurity Architecture Strategy and Program",
+   "letter": "e",
+   "identifier": "ARCHITECTURE-1e",
+   "mil": 2,
+   "page": 65,
+   "text": "Senior management sponsorship for the cybersecurity architecture program is visible and active"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 1,
+   "objective": "Establish and Maintain Cybersecurity Architecture Strategy and Program",
+   "letter": "f",
+   "identifier": "ARCHITECTURE-1f",
+   "mil": 2,
+   "page": 65,
+   "text": "The cybersecurity architecture establishes and maintains cybersecurity requirements for the organization’s assets"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 1,
+   "objective": "Establish and Maintain Cybersecurity Architecture Strategy and Program",
+   "letter": "g",
+   "identifier": "ARCHITECTURE-1g",
+   "mil": 2,
+   "page": 65,
+   "text": "Cybersecurity controls are selected and implemented to meet cybersecurity requirements"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 1,
+   "objective": "Establish and Maintain Cybersecurity Architecture Strategy and Program",
+   "letter": "h",
+   "identifier": "ARCHITECTURE-1h",
+   "mil": 3,
+   "page": 65,
+   "text": "The cybersecurity architecture strategy and program are aligned with the organization’s enterprise architecture strategy and program"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 1,
+   "objective": "Establish and Maintain Cybersecurity Architecture Strategy and Program",
+   "letter": "i",
+   "identifier": "ARCHITECTURE-1i",
+   "mil": 3,
+   "page": 65,
+   "text": "Conformance of the organization’s systems and networks to the cybersecurity architecture is evaluated periodically and according to defined triggers, such as system changes and external events"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 1,
+   "objective": "Establish and Maintain Cybersecurity Architecture Strategy and Program",
+   "letter": "j",
+   "identifier": "ARCHITECTURE-1j",
+   "mil": 3,
+   "page": 65,
+   "text": "The cybersecurity architecture is guided by the organization’s risk analysis information (RISK-3d) and threat profile (THREAT-2e)"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 1,
+   "objective": "Establish and Maintain Cybersecurity Architecture Strategy and Program",
+   "letter": "k",
+   "identifier": "ARCHITECTURE-1k",
+   "mil": 3,
+   "page": 65,
+   "text": "The cybersecurity architecture addresses predefined states of operation (SITUATION-3g)"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 2,
+   "objective": "Implement Network Protections as an Element of the Cybersecurity Architecture",
+   "letter": "a",
+   "identifier": "ARCHITECTURE-2a",
+   "mil": 1,
+   "page": 66,
+   "text": "Network protections are implemented, at least in an ad hoc manner"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 2,
+   "objective": "Implement Network Protections as an Element of the Cybersecurity Architecture",
+   "letter": "b",
+   "identifier": "ARCHITECTURE-2b",
+   "mil": 1,
+   "page": 66,
+   "text": "The organization’s IT systems are separated from OT systems through segmentation, either through physical means or logical means, at least in an ad hoc manner"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 2,
+   "objective": "Implement Network Protections as an Element of the Cybersecurity Architecture",
+   "letter": "c",
+   "identifier": "ARCHITECTURE-2c",
+   "mil": 2,
+   "page": 66,
+   "text": "Network protections are defined and enforced for selected asset types according to asset risk and priority (for example, internal assets, perimeter assets, assets connected to the organization’s Wi-Fi, cloud assets, remote access, and externally owned devices)"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 2,
+   "objective": "Implement Network Protections as an Element of the Cybersecurity Architecture",
+   "letter": "d",
+   "identifier": "ARCHITECTURE-2d",
+   "mil": 2,
+   "page": 66,
+   "text": "Assets that are important to the delivery of the function are logically or physically segmented into distinct security zones based on asset cybersecurity requirements"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 2,
+   "objective": "Implement Network Protections as an Element of the Cybersecurity Architecture",
+   "letter": "e",
+   "identifier": "ARCHITECTURE-2e",
+   "mil": 2,
+   "page": 66,
+   "text": "Network protections incorporate the principles of least privilege and least functionality"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 2,
+   "objective": "Implement Network Protections as an Element of the Cybersecurity Architecture",
+   "letter": "f",
+   "identifier": "ARCHITECTURE-2f",
+   "mil": 2,
+   "page": 66,
+   "text": "Network protections include monitoring, analysis, and control of network traffic for selected security zones (for example, firewalls, allowlisting, intrusion detection and prevention systems (IDPS))"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 2,
+   "objective": "Implement Network Protections as an Element of the Cybersecurity Architecture",
+   "letter": "g",
+   "identifier": "ARCHITECTURE-2g",
+   "mil": 2,
+   "page": 66,
+   "text": "Web traffic and email are monitored, analyzed, and controlled (for example, malicious link blocking, suspicious download blocking, email authentication techniques, IP address blocking)"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 2,
+   "objective": "Implement Network Protections as an Element of the Cybersecurity Architecture",
+   "letter": "h",
+   "identifier": "ARCHITECTURE-2h",
+   "mil": 2,
+   "page": 66,
+   "text": "All assets are segmented into distinct security zones based on cybersecurity requirements"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 2,
+   "objective": "Implement Network Protections as an Element of the Cybersecurity Architecture",
+   "letter": "i",
+   "identifier": "ARCHITECTURE-2i",
+   "mil": 2,
+   "page": 66,
+   "text": "Separate networks are implemented, where warranted, that logically or physically segment assets into security zones with independent authentication"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 2,
+   "objective": "Implement Network Protections as an Element of the Cybersecurity Architecture",
+   "letter": "j",
+   "identifier": "ARCHITECTURE-2j",
+   "mil": 2,
+   "page": 66,
+   "text": "OT systems are operationally independent from IT systems so that OT operations can be sustained during an outage of IT systems"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 2,
+   "objective": "Implement Network Protections as an Element of the Cybersecurity Architecture",
+   "letter": "k",
+   "identifier": "ARCHITECTURE-2k",
+   "mil": 2,
+   "page": 66,
+   "text": "Device connections to the network are controlled to ensure that only authorized devices can connect (for example, network access control (NAC))"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 2,
+   "objective": "Implement Network Protections as an Element of the Cybersecurity Architecture",
+   "letter": "l",
+   "identifier": "ARCHITECTURE-2l",
+   "mil": 2,
+   "page": 66,
+   "text": "The cybersecurity architecture enables the isolation of compromised assets"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 3,
+   "objective": "Implement IT and OT Asset Security as an Element of the Cybersecurity Architecture",
+   "letter": "a",
+   "identifier": "ARCHITECTURE-3a",
+   "mil": 1,
+   "page": 67,
+   "text": "Logical and physical access controls are implemented to protect assets that are important to the delivery of the function, where feasible, at least in an ad hoc manner"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 3,
+   "objective": "Implement IT and OT Asset Security as an Element of the Cybersecurity Architecture",
+   "letter": "b",
+   "identifier": "ARCHITECTURE-3b",
+   "mil": 1,
+   "page": 67,
+   "text": "Endpoint protections (such as secure configuration, security applications, and host monitoring) are implemented to protect assets that are important to the delivery of the function, where feasible, at least in an ad hoc manner"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 3,
+   "objective": "Implement IT and OT Asset Security as an Element of the Cybersecurity Architecture",
+   "letter": "c",
+   "identifier": "ARCHITECTURE-3c",
+   "mil": 2,
+   "page": 67,
+   "text": "The principle of least privilege (for example, limiting administrative access for users and service accounts) is enforced"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 3,
+   "objective": "Implement IT and OT Asset Security as an Element of the Cybersecurity Architecture",
+   "letter": "d",
+   "identifier": "ARCHITECTURE-3d",
+   "mil": 2,
+   "page": 67,
+   "text": "The principle of least functionality (for example, limiting services, limiting applications, limiting ports, limiting connected devices) is enforced"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 3,
+   "objective": "Implement IT and OT Asset Security as an Element of the Cybersecurity Architecture",
+   "letter": "e",
+   "identifier": "ARCHITECTURE-3e",
+   "mil": 2,
+   "page": 67,
+   "text": "Secure configurations are established and maintained as part of the asset deployment process where feasible"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 3,
+   "objective": "Implement IT and OT Asset Security as an Element of the Cybersecurity Architecture",
+   "letter": "f",
+   "identifier": "ARCHITECTURE-3f",
+   "mil": 2,
+   "page": 67,
+   "text": "Security applications are required as an element of device configuration where feasible (for example, endpoint detection and response, host-based firewalls)"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 3,
+   "objective": "Implement IT and OT Asset Security as an Element of the Cybersecurity Architecture",
+   "letter": "g",
+   "identifier": "ARCHITECTURE-3g",
+   "mil": 2,
+   "page": 67,
+   "text": "The use of removeable media is controlled (for example, limiting the use of USB devices, managing external hard drives)"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 3,
+   "objective": "Implement IT and OT Asset Security as an Element of the Cybersecurity Architecture",
+   "letter": "h",
+   "identifier": "ARCHITECTURE-3h",
+   "mil": 2,
+   "page": 67,
+   "text": "Cybersecurity controls are implemented for all assets within the function either at the asset level or as compensating controls where asset-level controls are not feasible"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 3,
+   "objective": "Implement IT and OT Asset Security as an Element of the Cybersecurity Architecture",
+   "letter": "i",
+   "identifier": "ARCHITECTURE-3i",
+   "mil": 2,
+   "page": 67,
+   "text": "Maintenance and capacity management activities are performed for all assets within the function"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 3,
+   "objective": "Implement IT and OT Asset Security as an Element of the Cybersecurity Architecture",
+   "letter": "j",
+   "identifier": "ARCHITECTURE-3j",
+   "mil": 2,
+   "page": 67,
+   "text": "The physical operating environment is controlled to protect the operation of assets within the function"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 3,
+   "objective": "Implement IT and OT Asset Security as an Element of the Cybersecurity Architecture",
+   "letter": "k",
+   "identifier": "ARCHITECTURE-3k",
+   "mil": 2,
+   "page": 67,
+   "text": "More rigorous cybersecurity controls are implemented for higher priority assets"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 3,
+   "objective": "Implement IT and OT Asset Security as an Element of the Cybersecurity Architecture",
+   "letter": "l",
+   "identifier": "ARCHITECTURE-3l",
+   "mil": 3,
+   "page": 67,
+   "text": "Configuration of and changes to firmware are controlled throughout the asset lifecycle"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 3,
+   "objective": "Implement IT and OT Asset Security as an Element of the Cybersecurity Architecture",
+   "letter": "m",
+   "identifier": "ARCHITECTURE-3m",
+   "mil": 3,
+   "page": 67,
+   "text": "Controls (such as allowlists, blocklists, and configuration settings) are implemented to prevent the execution of unauthorized code"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 4,
+   "objective": "Implement Software Security as an Element of the Cybersecurity Architecture",
+   "letter": "a",
+   "identifier": "ARCHITECTURE-4a",
+   "mil": 2,
+   "page": 67,
+   "text": "Software developed in-house for deployment on higher priority assets is developed using secure software development practices"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 4,
+   "objective": "Implement Software Security as an Element of the Cybersecurity Architecture",
+   "letter": "b",
+   "identifier": "ARCHITECTURE-4b",
+   "mil": 2,
+   "page": 67,
+   "text": "The selection of procured software for deployment on higher priority assets includes consideration of the vendor’s secure software development practices"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 4,
+   "objective": "Implement Software Security as an Element of the Cybersecurity Architecture",
+   "letter": "c",
+   "identifier": "ARCHITECTURE-4c",
+   "mil": 2,
+   "page": 67,
+   "text": "Secure software configurations are required as part of the software deployment process for both procured software and software developed in-house"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 4,
+   "objective": "Implement Software Security as an Element of the Cybersecurity Architecture",
+   "letter": "d",
+   "identifier": "ARCHITECTURE-4d",
+   "mil": 3,
+   "page": 67,
+   "text": "All software developed in-house is developed using secure software development practices"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 4,
+   "objective": "Implement Software Security as an Element of the Cybersecurity Architecture",
+   "letter": "e",
+   "identifier": "ARCHITECTURE-4e",
+   "mil": 3,
+   "page": 67,
+   "text": "The selection of all procured software includes consideration of the vendor’s secure software development practices"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 4,
+   "objective": "Implement Software Security as an Element of the Cybersecurity Architecture",
+   "letter": "f",
+   "identifier": "ARCHITECTURE-4f",
+   "mil": 3,
+   "page": 67,
+   "text": "The architecture review process evaluates the security of new and revised applications prior to deployment"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 4,
+   "objective": "Implement Software Security as an Element of the Cybersecurity Architecture",
+   "letter": "g",
+   "identifier": "ARCHITECTURE-4g",
+   "mil": 3,
+   "page": 67,
+   "text": "The authenticity of all software and firmware is validated prior to deployment"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 4,
+   "objective": "Implement Software Security as an Element of the Cybersecurity Architecture",
+   "letter": "h",
+   "identifier": "ARCHITECTURE-4h",
+   "mil": 3,
+   "page": 67,
+   "text": "Security testing (for example, static testing, dynamic testing, fuzz testing, penetration testing) is performed for in-house-developed and in-house-tailored applications periodically and according to defined triggers, such as system changes and external events"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 5,
+   "objective": "Implement Data Security as an Element of the Cybersecurity Architecture",
+   "letter": "a",
+   "identifier": "ARCHITECTURE-5a",
+   "mil": 1,
+   "page": 68,
+   "text": "Sensitive data is protected at rest, at least in an ad hoc manner"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 5,
+   "objective": "Implement Data Security as an Element of the Cybersecurity Architecture",
+   "letter": "b",
+   "identifier": "ARCHITECTURE-5b",
+   "mil": 2,
+   "page": 68,
+   "text": "All data at rest is protected for selected data categories"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 5,
+   "objective": "Implement Data Security as an Element of the Cybersecurity Architecture",
+   "letter": "c",
+   "identifier": "ARCHITECTURE-5c",
+   "mil": 2,
+   "page": 68,
+   "text": "All data in transit is protected for selected data categories"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 5,
+   "objective": "Implement Data Security as an Element of the Cybersecurity Architecture",
+   "letter": "d",
+   "identifier": "ARCHITECTURE-5d",
+   "mil": 2,
+   "page": 68,
+   "text": "Cryptographic controls are implemented for data at rest and data in transit for selected data categories"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 5,
+   "objective": "Implement Data Security as an Element of the Cybersecurity Architecture",
+   "letter": "e",
+   "identifier": "ARCHITECTURE-5e",
+   "mil": 2,
+   "page": 68,
+   "text": "Key management infrastructure (that is, key generation, key storage, key destruction, key update, and key revocation) is implemented to support cryptographic controls"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 5,
+   "objective": "Implement Data Security as an Element of the Cybersecurity Architecture",
+   "letter": "f",
+   "identifier": "ARCHITECTURE-5f",
+   "mil": 2,
+   "page": 68,
+   "text": "Controls to restrict the exfiltration of data (for example, data loss prevention tools) are implemented"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 5,
+   "objective": "Implement Data Security as an Element of the Cybersecurity Architecture",
+   "letter": "g",
+   "identifier": "ARCHITECTURE-5g",
+   "mil": 3,
+   "page": 68,
+   "text": "The cybersecurity architecture includes protections (such as full disk encryption) for data that is stored on assets that may be lost or stolen"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 5,
+   "objective": "Implement Data Security as an Element of the Cybersecurity Architecture",
+   "letter": "h",
+   "identifier": "ARCHITECTURE-5h",
+   "mil": 3,
+   "page": 68,
+   "text": "The cybersecurity architecture includes protections against unauthorized changes to software, firmware, and data"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 6,
+   "objective": "Management Activities for the ARCHITECTURE domain",
+   "letter": "a",
+   "identifier": "ARCHITECTURE-6a",
+   "mil": 2,
+   "page": 68,
+   "text": "Documented procedures are established, followed, and maintained for activities in the ARCHITECTURE domain"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 6,
+   "objective": "Management Activities for the ARCHITECTURE domain",
+   "letter": "b",
+   "identifier": "ARCHITECTURE-6b",
+   "mil": 2,
+   "page": 68,
+   "text": "Adequate resources (people, funding, and tools) are provided to support activities in the ARCHITECTURE domain"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 6,
+   "objective": "Management Activities for the ARCHITECTURE domain",
+   "letter": "c",
+   "identifier": "ARCHITECTURE-6c",
+   "mil": 2,
+   "page": 68,
+   "text": "Up-to-date policies or other organizational directives define requirements for activities in the ARCHITECTURE domain"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 6,
+   "objective": "Management Activities for the ARCHITECTURE domain",
+   "letter": "d",
+   "identifier": "ARCHITECTURE-6d",
+   "mil": 2,
+   "page": 68,
+   "text": "Responsibility, accountability, and authority for the performance of activities in the ARCHITECTURE domain are assigned to personnel"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 6,
+   "objective": "Management Activities for the ARCHITECTURE domain",
+   "letter": "e",
+   "identifier": "ARCHITECTURE-6e",
+   "mil": 2,
+   "page": 68,
+   "text": "Personnel performing activities in the ARCHITECTURE domain have the skills and knowledge needed to perform their assigned responsibilities"
+  },
+  {
+   "domain": "ARCHITECTURE",
+   "objective_number": 6,
+   "objective": "Management Activities for the ARCHITECTURE domain",
+   "letter": "f",
+   "identifier": "ARCHITECTURE-6f",
+   "mil": 2,
+   "page": 68,
+   "text": "The effectiveness of activities in the ARCHITECTURE domain is evaluated and tracked"
+  },
+  {
+   "domain": "PROGRAM",
+   "objective_number": 1,
+   "objective": "Establish Cybersecurity Program Strategy",
+   "letter": "a",
+   "identifier": "PROGRAM-1a",
+   "mil": 1,
+   "page": 70,
+   "text": "The organization has a cybersecurity program strategy, which may be developed and managed in an ad hoc manner"
+  },
+  {
+   "domain": "PROGRAM",
+   "objective_number": 1,
+   "objective": "Establish Cybersecurity Program Strategy",
+   "letter": "b",
+   "identifier": "PROGRAM-1b",
+   "mil": 2,
+   "page": 70,
+   "text": "The cybersecurity program strategy defines goals and objectives for the organization’s cybersecurity activities"
+  },
+  {
+   "domain": "PROGRAM",
+   "objective_number": 1,
+   "objective": "Establish Cybersecurity Program Strategy",
+   "letter": "c",
+   "identifier": "PROGRAM-1c",
+   "mil": 2,
+   "page": 70,
+   "text": "The cybersecurity program strategy and priorities are documented and aligned with the organization’s mission, strategic objectives, and risk to critical infrastructure"
+  },
+  {
+   "domain": "PROGRAM",
+   "objective_number": 1,
+   "objective": "Establish Cybersecurity Program Strategy",
+   "letter": "d",
+   "identifier": "PROGRAM-1d",
+   "mil": 2,
+   "page": 70,
+   "text": "The cybersecurity program strategy defines the organization’s approach to provide program oversight and governance for cybersecurity activities"
+  },
+  {
+   "domain": "PROGRAM",
+   "objective_number": 1,
+   "objective": "Establish Cybersecurity Program Strategy",
+   "letter": "e",
+   "identifier": "PROGRAM-1e",
+   "mil": 2,
+   "page": 70,
+   "text": "The cybersecurity program strategy defines the structure and organization of the cybersecurity program"
+  },
+  {
+   "domain": "PROGRAM",
+   "objective_number": 1,
+   "objective": "Establish Cybersecurity Program Strategy",
+   "letter": "f",
+   "identifier": "PROGRAM-1f",
+   "mil": 2,
+   "page": 70,
+   "text": "The cybersecurity program strategy identifies standards and guidelines intended to be followed by the program"
+  },
+  {
+   "domain": "PROGRAM",
+   "objective_number": 1,
+   "objective": "Establish Cybersecurity Program Strategy",
+   "letter": "g",
+   "identifier": "PROGRAM-1g",
+   "mil": 2,
+   "page": 70,
+   "text": "The cybersecurity program strategy identifies any applicable compliance requirements that must be satisfied by the program (for example, NERC CIP, TSA Pipeline Security Guidelines, PCI DSS, ISO, DoD CMMC)"
+  },
+  {
+   "domain": "PROGRAM",
+   "objective_number": 1,
+   "objective": "Establish Cybersecurity Program Strategy",
+   "letter": "h",
+   "identifier": "PROGRAM-1h",
+   "mil": 3,
+   "page": 70,
+   "text": "The cybersecurity program strategy is updated periodically and according to defined triggers, such as business changes, changes in the operating environment, and changes in the threat profile (THREAT-2e)"
+  },
+  {
+   "domain": "PROGRAM",
+   "objective_number": 2,
+   "objective": "Establish and Maintain Cybersecurity Program",
+   "letter": "a",
+   "identifier": "PROGRAM-2a",
+   "mil": 1,
+   "page": 70,
+   "text": "Senior management with proper authority provides support for the cybersecurity program, at least in an ad hoc manner"
+  },
+  {
+   "domain": "PROGRAM",
+   "objective_number": 2,
+   "objective": "Establish and Maintain Cybersecurity Program",
+   "letter": "b",
+   "identifier": "PROGRAM-2b",
+   "mil": 2,
+   "page": 70,
+   "text": "The cybersecurity program is established according to the cybersecurity program strategy"
+  },
+  {
+   "domain": "PROGRAM",
+   "objective_number": 2,
+   "objective": "Establish and Maintain Cybersecurity Program",
+   "letter": "c",
+   "identifier": "PROGRAM-2c",
+   "mil": 2,
+   "page": 70,
+   "text": "Senior management sponsorship for the cybersecurity program is visible and active"
+  },
+  {
+   "domain": "PROGRAM",
+   "objective_number": 2,
+   "objective": "Establish and Maintain Cybersecurity Program",
+   "letter": "d",
+   "identifier": "PROGRAM-2d",
+   "mil": 2,
+   "page": 70,
+   "text": "Senior management sponsorship is provided for the development, maintenance, and enforcement of cybersecurity policies"
+  },
+  {
+   "domain": "PROGRAM",
+   "objective_number": 2,
+   "objective": "Establish and Maintain Cybersecurity Program",
+   "letter": "e",
+   "identifier": "PROGRAM-2e",
+   "mil": 2,
+   "page": 70,
+   "text": "Responsibility for the cybersecurity program is assigned to a role with sufficient authority"
+  },
+  {
+   "domain": "PROGRAM",
+   "objective_number": 2,
+   "objective": "Establish and Maintain Cybersecurity Program",
+   "letter": "f",
+   "identifier": "PROGRAM-2f",
+   "mil": 2,
+   "page": 70,
+   "text": "Stakeholders for cybersecurity program management activities are identified and involved"
+  },
+  {
+   "domain": "PROGRAM",
+   "objective_number": 2,
+   "objective": "Establish and Maintain Cybersecurity Program",
+   "letter": "g",
+   "identifier": "PROGRAM-2g",
+   "mil": 3,
+   "page": 70,
+   "text": "Cybersecurity program activities are periodically reviewed to ensure that they align with the cybersecurity program strategy"
+  },
+  {
+   "domain": "PROGRAM",
+   "objective_number": 2,
+   "objective": "Establish and Maintain Cybersecurity Program",
+   "letter": "h",
+   "identifier": "PROGRAM-2h",
+   "mil": 3,
+   "page": 70,
+   "text": "Cybersecurity activities are independently reviewed to ensure conformance with cybersecurity policies and procedures, periodically and according to defined triggers, such as process changes"
+  },
+  {
+   "domain": "PROGRAM",
+   "objective_number": 2,
+   "objective": "Establish and Maintain Cybersecurity Program",
+   "letter": "i",
+   "identifier": "PROGRAM-2i",
+   "mil": 3,
+   "page": 70,
+   "text": "The cybersecurity program addresses and enables the achievement of legal and regulatory compliance, as appropriate"
+  },
+  {
+   "domain": "PROGRAM",
+   "objective_number": 2,
+   "objective": "Establish and Maintain Cybersecurity Program",
+   "letter": "j",
+   "identifier": "PROGRAM-2j",
+   "mil": 3,
+   "page": 70,
+   "text": "The organization collaborates with external entities to contribute to the development and implementation of cybersecurity standards, guidelines, leading practices, lessons learned, and emerging technologies"
+  },
+  {
+   "domain": "PROGRAM",
+   "objective_number": 3,
+   "objective": "Management Activities for the PROGRAM domain",
+   "letter": "a",
+   "identifier": "PROGRAM-3a",
+   "mil": 2,
+   "page": 71,
+   "text": "Documented procedures are established, followed, and maintained for activities in the PROGRAM domain"
+  },
+  {
+   "domain": "PROGRAM",
+   "objective_number": 3,
+   "objective": "Management Activities for the PROGRAM domain",
+   "letter": "b",
+   "identifier": "PROGRAM-3b",
+   "mil": 2,
+   "page": 71,
+   "text": "Adequate resources (people, funding, and tools) are provided to support activities in the PROGRAM domain"
+  },
+  {
+   "domain": "PROGRAM",
+   "objective_number": 3,
+   "objective": "Management Activities for the PROGRAM domain",
+   "letter": "c",
+   "identifier": "PROGRAM-3c",
+   "mil": 3,
+   "page": 71,
+   "text": "Up-to-date policies or other organizational directives define requirements for activities in the PROGRAM domain"
+  },
+  {
+   "domain": "PROGRAM",
+   "objective_number": 3,
+   "objective": "Management Activities for the PROGRAM domain",
+   "letter": "d",
+   "identifier": "PROGRAM-3d",
+   "mil": 3,
+   "page": 71,
+   "text": "Responsibility, accountability, and authority for the performance of activities in the PROGRAM domain are assigned to personnel"
+  },
+  {
+   "domain": "PROGRAM",
+   "objective_number": 3,
+   "objective": "Management Activities for the PROGRAM domain",
+   "letter": "e",
+   "identifier": "PROGRAM-3e",
+   "mil": 3,
+   "page": 71,
+   "text": "Personnel performing activities in the PROGRAM domain have the skills and knowledge needed to perform their assigned responsibilities"
+  },
+  {
+   "domain": "PROGRAM",
+   "objective_number": 3,
+   "objective": "Management Activities for the PROGRAM domain",
+   "letter": "f",
+   "identifier": "PROGRAM-3f",
+   "mil": 3,
+   "page": 71,
+   "text": "The effectiveness of activities in the PROGRAM domain is evaluated and tracked"
+  }
+ ]
+}

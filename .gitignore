@@ -1,0 +1,57 @@
+# Generated from wacc/packaging.py. Do not hand-edit.
+#
+# What may be committed is the same question as what may ship, and answering it in two
+# places is how the two drift apart. `python -m wacc.packaging --gitignore` rewrites this
+# file from the rules in that module, and a case in tests/test_packaging.py fails if the
+# file on disk no longer matches them.
+#
+# The repository is the tool. The publisher source documents live beside it and are not
+# tracked, because half of them may not be redistributed and a repository is a way of
+# redistributing something.
+
+# Noise
+.idea/
+.mypy_cache/
+.pytest_cache/
+.vscode/
+__pycache__/
+*.log
+*.pyc
+*.pyo
+*.swp
+*.tmp
+
+# Excluded in full, whatever they hold
+/data/raw/
+/data/corpus/detail/
+/data/review/
+
+# A publisher's own file is the publisher's, whatever its licence
+*.doc
+*.DOC
+*.docx
+*.DOCX
+*.epub
+*.EPUB
+*.pdf
+*.PDF
+*.xls
+*.XLS
+*.xlsm
+*.XLSM
+*.xlsx
+*.XLSX
+*.zip
+*.ZIP
+
+# Extracts of publisher text that has not been licensed for reuse
+aescsf.json
+cis-azure.json
+cis-chrome.json
+cis-controls.json
+cis-edge.json
+cis-m365.json
+cis-office.json
+cis-win11.json
+wa-circular.json
+wa-csp.json

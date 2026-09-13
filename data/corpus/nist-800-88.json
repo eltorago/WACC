@@ -1,0 +1,165 @@
+{
+ "revision": "Revision 2",
+ "revision_source": "cover page",
+ "groups": [
+  {
+   "key": "SP 800-88 Rev 2",
+   "title": "Guidelines for Media Sanitization",
+   "source_file": "NIST.SP.800-88r2.pdf",
+   "note": "This publication abbreviates 'information storage media' as ISM. In this tool ISM means the Information Security Manual.",
+   "records": [
+    {
+     "section_number": "3.1.1",
+     "section_title": "Clear Sanitization Method",
+     "obligation": "",
+     "parameters": [
+      "method"
+     ],
+     "kind": "statement",
+     "text": "This method applies logical techniques to sanitize data in all user- addressable storage locations of an ISM for protection against simple, non-invasive data recovery techniques using the same interface that is available to the user (e.g., host interface)."
+    },
+    {
+     "section_number": "3.1.1",
+     "section_title": "Clear Sanitization Method",
+     "obligation": "SHOULD",
+     "parameters": [
+      "method"
+     ],
+     "kind": "statement",
+     "text": "If additional assurances are needed, a more secure sanitization method in the form of purge (see Sec. 3.1.2) or destroy (see Sec. 3.1.3) should be used."
+    },
+    {
+     "section_number": "3.1.2",
+     "section_title": "Purge Sanitization Method",
+     "obligation": "",
+     "parameters": [
+      "method"
+     ],
+     "kind": "statement",
+     "text": "Purge sanitization techniques apply physical or logical techniques that make the recovery of target data infeasible using state-of-the-art laboratory techniques but preserves the ISM in a potentially reusable state."
+    },
+    {
+     "section_number": "3.1.2",
+     "section_title": "Purge Sanitization Method",
+     "obligation": "SHOULD",
+     "parameters": [
+      "method"
+     ],
+     "kind": "statement",
+     "text": "When possible, the purge sanitization method should be used instead of the clear sanitization method."
+    },
+    {
+     "section_number": "3.1.2",
+     "section_title": "Purge Sanitization Method",
+     "obligation": "SHOULD NOT",
+     "parameters": [
+      "method"
+     ],
+     "kind": "statement",
+     "text": "Degaussing should not be used for non-magnetic ISM (e.g., flash storage, such as SSDs)."
+    },
+    {
+     "section_number": "3.1.3",
+     "section_title": "Destroy Sanitization Method",
+     "obligation": "",
+     "parameters": [
+      "method"
+     ],
+     "kind": "statement",
+     "text": "Destroy sanitization techniques render target data recovery infeasible using state-of-the-art laboratory techniques and results in the subsequent inability to use the ISM for the storage of data."
+    },
+    {
+     "section_number": "3.1.3",
+     "section_title": "Destroy Sanitization Method",
+     "obligation": "SHOULD",
+     "parameters": [
+      "method"
+     ],
+     "kind": "statement",
+     "text": "Pulverize and shred techniques for ISM should be avoided for anything but the lowest security categories of data."
+    },
+    {
+     "section_number": "3.2",
+     "section_title": "Use of Cryptography and Cryptographic Erase",
+     "obligation": "MUST",
+     "parameters": [
+      "method"
+     ],
+     "kind": "statement",
+     "text": "Federal agencies must use encryption modules validated to the current FIPS-140 standard [1] in order to have assurance that the conditions stated above have been verified for the self-encrypting drive (SED)."
+    },
+    {
+     "section_number": "3.2.1",
+     "section_title": "Strength of Cryptography for CE",
+     "obligation": "",
+     "parameters": [
+      "length",
+      "bound"
+     ],
+     "kind": "statement",
+     "text": "ISO/IEC 27040 [15] addresses the strength of cryptography for CE by specifying: • The security strength of the cryptographic algorithm (including the mode of operation) used to encrypt the target data is at least 128 bits. • The level/bits of entropy of the random number sources are at least the number of bits of the cryptographic keys (e.g., encryption keys, wrapping keys, or keys used to derive these keys)."
+    },
+    {
+     "section_number": "3.2.2",
+     "section_title": "Applicability of CE",
+     "obligation": "SHOULD NOT",
+     "parameters": [
+      "method"
+     ],
+     "kind": "statement",
+     "text": "Sanitization using CE should not be trusted on ISM that have been backed up or escrowed unless the organization has a high level of confidence regarding how and where the keys were stored and managed outside of the ISM."
+    },
+    {
+     "section_number": "3.2.3",
+     "section_title": "Sanitization of Keys",
+     "obligation": "MUST",
+     "parameters": [
+      "method"
+     ],
+     "kind": "statement",
+     "text": "ISO/IEC 27040 [15] further specifies that all copies of the target cryptographic keys must be able to be sanitized."
+    },
+    {
+     "section_number": "3.2.4",
+     "section_title": "Quality of Cryptographic Implementations",
+     "obligation": "MUST",
+     "parameters": [
+      "method"
+     ],
+     "kind": "statement",
+     "text": "Federal agencies must use encryption modules that have been validated to the current FIPS- 140 in order to have assurance that the conditions stated above have been verified for the ISM."
+    },
+    {
+     "section_number": "4.5.1",
+     "section_title": "Sanitization Verification",
+     "obligation": "SHOULD",
+     "parameters": [
+      "method"
+     ],
+     "kind": "statement",
+     "text": "The sanitization results should be inspected to verify that the sanitization technique was completed successfully."
+    },
+    {
+     "section_number": "4.5.2",
+     "section_title": "Sanitization Validation",
+     "obligation": "SHOULD",
+     "parameters": [
+      "method"
+     ],
+     "kind": "statement",
+     "text": "Unacceptable data confidentiality risks associated with the sanitization operation should result in the sanitization not being accepted (i.e., rejected) as sufficient to ensure the confidentiality of sensitive data (i.e., an additional sanitization method is needed)."
+    },
+    {
+     "section_number": "4.6",
+     "section_title": "Documentation",
+     "obligation": "SHOULD",
+     "parameters": [
+      "method"
+     ],
+     "kind": "statement",
+     "text": "Following sanitization, a certificate of sanitization (see Appendix C) should be completed for each ISM that has been sanitized, per the organization’s policies."
+    }
+   ]
+  }
+ ]
+}

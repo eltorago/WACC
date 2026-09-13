@@ -1,0 +1,385 @@
+{
+ "groups": [
+  {
+   "key": "SP 800-57 Part 1 Rev 5",
+   "title": "Recommendation for Key Management: General",
+   "source_file": "nist.sp.800-57pt1r5.pdf",
+   "records": [
+    {
+     "section_number": "5.3.6",
+     "section_title": "Cryptoperiod Recommendations for Specific Key Types",
+     "obligation": "",
+     "parameters": [
+      "period"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Suggested cryptoperiods for key types",
+     "text": "Table 1: Suggested cryptoperiods for key types — 1. Private Signature Key; 1 to 3 years; −"
+    },
+    {
+     "section_number": "5.3.6",
+     "section_title": "Cryptoperiod Recommendations for Specific Key Types",
+     "obligation": "",
+     "parameters": [
+      "tabulated value"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Suggested cryptoperiods for key types",
+     "text": "Table 1: Suggested cryptoperiods for key types — 2. Public Signature-Verification Key; Several years (depends on key size)"
+    },
+    {
+     "section_number": "5.3.6",
+     "section_title": "Cryptoperiod Recommendations for Specific Key Types",
+     "obligation": "",
+     "parameters": [
+      "period"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Suggested cryptoperiods for key types",
+     "text": "Table 1: Suggested cryptoperiods for key types — 3. Symmetric Authentication Key; < 2 years; < OUP + 3 years"
+    },
+    {
+     "section_number": "5.3.6",
+     "section_title": "Cryptoperiod Recommendations for Specific Key Types",
+     "obligation": "",
+     "parameters": [
+      "period"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Suggested cryptoperiods for key types",
+     "text": "Table 1: Suggested cryptoperiods for key types — 4. Private Authentication Key; 1 to 2 years"
+    },
+    {
+     "section_number": "5.3.6",
+     "section_title": "Cryptoperiod Recommendations for Specific Key Types",
+     "obligation": "",
+     "parameters": [
+      "period"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Suggested cryptoperiods for key types",
+     "text": "Table 1: Suggested cryptoperiods for key types — 5. Public Authentication Key; 1 to 2 years"
+    },
+    {
+     "section_number": "5.3.6",
+     "section_title": "Cryptoperiod Recommendations for Specific Key Types",
+     "obligation": "",
+     "parameters": [
+      "period"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Suggested cryptoperiods for key types",
+     "text": "Table 1: Suggested cryptoperiods for key types — 6. Symmetric Data Encryption Keys; < 2 years; < OUP + 3 years"
+    },
+    {
+     "section_number": "5.3.6",
+     "section_title": "Cryptoperiod Recommendations for Specific Key Types",
+     "obligation": "",
+     "parameters": [
+      "period"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Suggested cryptoperiods for key types",
+     "text": "Table 1: Suggested cryptoperiods for key types — 7. Symmetric Key-Wrapping Key; < 2 years; < OUP + 3 years"
+    },
+    {
+     "section_number": "5.3.6",
+     "section_title": "Cryptoperiod Recommendations for Specific Key Types",
+     "obligation": "",
+     "parameters": [
+      "tabulated value"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Suggested cryptoperiods for key types",
+     "text": "Table 1: Suggested cryptoperiods for key types — 8. Symmetric RBG Keys; See SP 800-90; −"
+    },
+    {
+     "section_number": "5.3.6",
+     "section_title": "Cryptoperiod Recommendations for Specific Key Types",
+     "obligation": "",
+     "parameters": [
+      "period"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Suggested cryptoperiods for key types",
+     "text": "Table 1: Suggested cryptoperiods for key types — 9. Symmetric Master Key/Key Derivation Key; About 1 year; −"
+    },
+    {
+     "section_number": "5.3.6",
+     "section_title": "Cryptoperiod Recommendations for Specific Key Types",
+     "obligation": "",
+     "parameters": [
+      "period"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Suggested cryptoperiods for key types",
+     "text": "Table 1: Suggested cryptoperiods for key types — 10. Private Key Transport Key; < 2 years"
+    },
+    {
+     "section_number": "5.3.6",
+     "section_title": "Cryptoperiod Recommendations for Specific Key Types",
+     "obligation": "",
+     "parameters": [
+      "period"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Suggested cryptoperiods for key types",
+     "text": "Table 1: Suggested cryptoperiods for key types — 11. Public Key Transport Key; 1 to 2 years"
+    },
+    {
+     "section_number": "5.3.6",
+     "section_title": "Cryptoperiod Recommendations for Specific Key Types",
+     "obligation": "",
+     "parameters": [
+      "period"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Suggested cryptoperiods for key types",
+     "text": "Table 1: Suggested cryptoperiods for key types — 12. Symmetric Key Agreement Key; 1 to 2 years"
+    },
+    {
+     "section_number": "5.3.6",
+     "section_title": "Cryptoperiod Recommendations for Specific Key Types",
+     "obligation": "",
+     "parameters": [
+      "period"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Suggested cryptoperiods for key types",
+     "text": "Table 1: Suggested cryptoperiods for key types — 13. Private Static Key Agreement Key; 1 to 2 years"
+    },
+    {
+     "section_number": "5.3.6",
+     "section_title": "Cryptoperiod Recommendations for Specific Key Types",
+     "obligation": "",
+     "parameters": [
+      "period"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Suggested cryptoperiods for key types",
+     "text": "Table 1: Suggested cryptoperiods for key types — 14. Public Static Key Agreement Key; 1 to 2 years"
+    },
+    {
+     "section_number": "5.3.6",
+     "section_title": "Cryptoperiod Recommendations for Specific Key Types",
+     "obligation": "",
+     "parameters": [
+      "tabulated value"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Suggested cryptoperiods for key types",
+     "text": "Table 1: Suggested cryptoperiods for key types — 15. Private Ephemeral Key Agreement Key; One key-agreement transaction"
+    },
+    {
+     "section_number": "5.3.6",
+     "section_title": "Cryptoperiod Recommendations for Specific Key Types",
+     "obligation": "",
+     "parameters": [
+      "tabulated value"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Suggested cryptoperiods for key types",
+     "text": "Table 1: Suggested cryptoperiods for key types — 16. Public Ephemeral Key Agreement Key; One key-agreement transaction"
+    },
+    {
+     "section_number": "5.3.6",
+     "section_title": "Cryptoperiod Recommendations for Specific Key Types",
+     "obligation": "",
+     "parameters": [
+      "period"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Suggested cryptoperiods for key types",
+     "text": "Table 1: Suggested cryptoperiods for key types — 17. Symmetric Authorization Key; < 2 years"
+    },
+    {
+     "section_number": "5.3.6",
+     "section_title": "Cryptoperiod Recommendations for Specific Key Types",
+     "obligation": "",
+     "parameters": [
+      "period"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Suggested cryptoperiods for key types",
+     "text": "Table 1: Suggested cryptoperiods for key types — 18. Private Authorization Key; < 2 years"
+    },
+    {
+     "section_number": "5.4.2",
+     "section_title": "Assurance of Domain Parameter Validity",
+     "obligation": "",
+     "parameters": [
+      "period"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Suggested cryptoperiods for key types",
+     "text": "Table 1: Suggested cryptoperiods for key types — 19. Public Authorization Key; < 2 years"
+    },
+    {
+     "section_number": "5.6.1",
+     "section_title": "Comparable Algorithm Strengths",
+     "obligation": "",
+     "parameters": [
+      "tabulated value"
+     ],
+     "kind": "table row",
+     "caption": "Table 2: Comparable security strengths of symmetric block cipher and asymmetric-key algorithms",
+     "text": "Table 2: Comparable security strengths of symmetric block cipher and asymmetric-key algorithms — ≤ 80; Symmetric Key Algorithms: 2TDEA; L = 1024; IFC* (RSA): k = 1024; f = 160-223"
+    },
+    {
+     "section_number": "5.6.1",
+     "section_title": "Comparable Algorithm Strengths",
+     "obligation": "",
+     "parameters": [
+      "tabulated value"
+     ],
+     "kind": "table row",
+     "caption": "Table 2: Comparable security strengths of symmetric block cipher and asymmetric-key algorithms",
+     "text": "Table 2: Comparable security strengths of symmetric block cipher and asymmetric-key algorithms — 112; Symmetric Key Algorithms: 3TDEA68; FFC (DSA, DH, MQV): L = 2048 N = 224; IFC* (RSA): k = 2048; f = 224-255"
+    },
+    {
+     "section_number": "5.6.1",
+     "section_title": "Comparable Algorithm Strengths",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 2: Comparable security strengths of symmetric block cipher and asymmetric-key algorithms",
+     "text": "Table 2: Comparable security strengths of symmetric block cipher and asymmetric-key algorithms — 128; Symmetric Key Algorithms: AES-128; FFC (DSA, DH, MQV): L = 3072 N = 256; IFC* (RSA): k = 3072; f = 256-383"
+    },
+    {
+     "section_number": "5.6.1",
+     "section_title": "Comparable Algorithm Strengths",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 2: Comparable security strengths of symmetric block cipher and asymmetric-key algorithms",
+     "text": "Table 2: Comparable security strengths of symmetric block cipher and asymmetric-key algorithms — 192; Symmetric Key Algorithms: AES-192; FFC (DSA, DH, MQV): L = 7680 N = 384; IFC* (RSA): k = 7680; f = 384-511"
+    },
+    {
+     "section_number": "5.6.1",
+     "section_title": "Comparable Algorithm Strengths",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 2: Comparable security strengths of symmetric block cipher and asymmetric-key algorithms",
+     "text": "Table 2: Comparable security strengths of symmetric block cipher and asymmetric-key algorithms — 256; Symmetric Key Algorithms: AES-256; FFC (DSA, DH, MQV): L = 15360 N = 512; IFC* (RSA): k = 15360; f = 512+"
+    },
+    {
+     "section_number": "5.6.1",
+     "section_title": "Comparable Algorithm Strengths",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 3: Maximum security strengths for hash and hash-based functions",
+     "text": "Table 3: Maximum security strengths for hash and hash-based functions — 112; SHA-224, SHA-512/224, SHA3-224"
+    },
+    {
+     "section_number": "5.6.1",
+     "section_title": "Comparable Algorithm Strengths",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 3: Maximum security strengths for hash and hash-based functions",
+     "text": "Table 3: Maximum security strengths for hash and hash-based functions — 128; SHA-256, SHA-512/256, SHA3-256; SHA-1, KMAC128"
+    },
+    {
+     "section_number": "5.6.1",
+     "section_title": "Comparable Algorithm Strengths",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 3: Maximum security strengths for hash and hash-based functions",
+     "text": "Table 3: Maximum security strengths for hash and hash-based functions — 192; SHA-384, SHA3-384; SHA-224, SHA-512/224, SHA3-224"
+    },
+    {
+     "section_number": "5.6.1",
+     "section_title": "Comparable Algorithm Strengths",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 3: Maximum security strengths for hash and hash-based functions",
+     "text": "Table 3: Maximum security strengths for hash and hash-based functions — ≥ 256; SHA-512, SHA3-512; SHA-256, SHA-512/256, SHA-384, SHA-512, SHA3-256, SHA3-384, SHA3-512, KMAC256"
+    },
+    {
+     "section_number": "5.6.3",
+     "section_title": "Projected Security Strength Time Frames and Current Approval Status",
+     "obligation": "",
+     "parameters": [
+      "tabulated value"
+     ],
+     "kind": "table row",
+     "caption": "Table 4: Security strength time frames",
+     "text": "Table 4: Security strength time frames — < 112; Applying protection; Disallowed"
+    },
+    {
+     "section_number": "5.6.3",
+     "section_title": "Projected Security Strength Time Frames and Current Approval Status",
+     "obligation": "",
+     "parameters": [
+      "tabulated value"
+     ],
+     "kind": "table row",
+     "caption": "Table 4: Security strength time frames",
+     "text": "Table 4: Security strength time frames — Processing; Legacy use"
+    },
+    {
+     "section_number": "5.6.3",
+     "section_title": "Projected Security Strength Time Frames and Current Approval Status",
+     "obligation": "",
+     "parameters": [
+      "tabulated value"
+     ],
+     "kind": "table row",
+     "caption": "Table 4: Security strength time frames",
+     "text": "Table 4: Security strength time frames — 112; Applying protection; Acceptable; Disallowed"
+    },
+    {
+     "section_number": "5.6.3",
+     "section_title": "Projected Security Strength Time Frames and Current Approval Status",
+     "obligation": "",
+     "parameters": [
+      "tabulated value"
+     ],
+     "kind": "table row",
+     "caption": "Table 4: Security strength time frames",
+     "text": "Table 4: Security strength time frames — 128; Applying protection and processing information that is already protected; Acceptable; Acceptable"
+    },
+    {
+     "section_number": "5.6.3",
+     "section_title": "Projected Security Strength Time Frames and Current Approval Status",
+     "obligation": "",
+     "parameters": [
+      "tabulated value"
+     ],
+     "kind": "table row",
+     "caption": "Table 4: Security strength time frames",
+     "text": "Table 4: Security strength time frames — 192; Acceptable; Acceptable"
+    },
+    {
+     "section_number": "5.6.3",
+     "section_title": "Projected Security Strength Time Frames and Current Approval Status",
+     "obligation": "",
+     "parameters": [
+      "tabulated value"
+     ],
+     "kind": "table row",
+     "caption": "Table 4: Security strength time frames",
+     "text": "Table 4: Security strength time frames — 256; Acceptable; Acceptable"
+    }
+   ]
+  }
+ ]
+}

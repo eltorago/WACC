@@ -1,0 +1,640 @@
+{
+ "volumes": [
+  {
+   "volume": "63A",
+   "title": "Identity Proofing and Enrollment",
+   "source_file": "sp800-63a.html",
+   "records": [
+    {
+     "volume": "63A",
+     "section_number": "3.8",
+     "section_title": "Requirements for Confirmation Codes",
+     "obligation": "SHALL",
+     "parameters": [
+      "bound"
+     ],
+     "text": "Confirmation codes used for these purposes SHALL include at least 6 decimal digits (or equivalent) from an approved random bit generator (see Sec. 3.2.12 of [SP800-63B] ). The confirmation code may be presented as numeric or printable ASCII representation for manual entry, a secure (e.g., https) link containing a representation of the confirmation code, or a machine-readable optical label (e.g., QR code) that contains the confirmation code.",
+     "identifier": "63A §3.8",
+     "ordinal": 1
+    },
+    {
+     "volume": "63A",
+     "section_number": "3.9",
+     "section_title": "Requirements for Continuation Codes",
+     "obligation": "SHALL",
+     "parameters": [
+      "length",
+      "bound"
+     ],
+     "text": "Continuation codes SHALL include at least 64 bits from an approved random bit generator (see Sec. 3.2.12 of [SP800-63B] ).",
+     "identifier": "63A §3.9",
+     "ordinal": 2
+    },
+    {
+     "volume": "63A",
+     "section_number": "3.11",
+     "section_title": "Requirements for the Use of Biometrics",
+     "obligation": "SHALL",
+     "parameters": [
+      "bound"
+     ],
+     "text": "A 1:N search of an applicant’s collected biometric characteristics against a database is done to determine whether the applicant is already present in the database, possibly under a different name. The false positive identification rate (FPIR) refers to the proportion of 1:N searches in which a biometric system incorrectly identifies another person as a match, which is a false positive result. The performance metric of 1:1,000 means that a false positive outcome occurs for no more than 1 in every 1,000 searches. Tests that demonstrate this requirement SHALL employ a gallery no smaller than 90 % of the current or intended operational size (N).",
+     "identifier": "63A §3.11",
+     "ordinal": 3
+    },
+    {
+     "volume": "63A",
+     "section_number": "3.11",
+     "section_title": "Requirements for the Use of Biometrics",
+     "obligation": "SHALL",
+     "parameters": [
+      "bound"
+     ],
+     "text": "Biometric verification technologies SHALL provide performance for applicants of different demographic types that is no more than 25 % worse than the performance for the overall population. For example, if the measured false non-match rate (FNMR) for the overall population is 0.006, the FNMR for a specific demographic group cannot exceed 0.0075. Similarly, if the false match rate (FMR) for the overall population is 0.0001, the FMR for each demographic group cannot exceed 0.000125. The biometric system SHALL be configured with a fixed threshold; it is not feasible to change the threshold for each demographic group. Demographic categories to be considered SHALL include sex, age, and skin tone when these factors affect biometric performance.",
+     "identifier": "63A §3.11",
+     "ordinal": 4
+    }
+   ]
+  },
+  {
+   "volume": "63B",
+   "title": "Authentication and Authenticator Management",
+   "source_file": "sp800-63b.html",
+   "records": [
+    {
+     "volume": "63B",
+     "section_number": "2.1.2",
+     "section_title": "Authenticator and Verifier Requirements",
+     "obligation": "SHALL",
+     "parameters": [
+      "algorithm"
+     ],
+     "text": "Authenticators used at AAL1 SHALL use approved cryptography . In other words, they must use approved algorithms, but the implementation need not be validated under [FIPS140] .",
+     "identifier": "63B §2.1.2",
+     "ordinal": 1
+    },
+    {
+     "volume": "63B",
+     "section_number": "2.1.2",
+     "section_title": "Authenticator and Verifier Requirements",
+     "obligation": "SHALL",
+     "parameters": [
+      "algorithm"
+     ],
+     "text": "Cryptography used by verifiers operated by or on behalf of federal agencies at AAL1 SHALL be validated to meet the requirements of [FIPS140] Level 1.",
+     "identifier": "63B §2.1.2",
+     "ordinal": 2
+    },
+    {
+     "volume": "63B",
+     "section_number": "2.1.3",
+     "section_title": "Reauthentication",
+     "obligation": "SHALL",
+     "parameters": [
+      "period",
+      "bound"
+     ],
+     "text": "Periodic reauthentication of subscriber sessions SHALL be performed, as described in Sec. 5.2 . A definite reauthentication overall timeout SHALL be established, which SHOULD be no more than 30 days at AAL1. An inactivity timeout MAY be applied but is not required at AAL1.",
+     "identifier": "63B §2.1.3",
+     "ordinal": 3
+    },
+    {
+     "volume": "63B",
+     "section_number": "2.2.2",
+     "section_title": "Authenticator and Verifier Requirements",
+     "obligation": "SHALL",
+     "parameters": [
+      "algorithm"
+     ],
+     "text": "Authenticators used at AAL2 SHALL use approved cryptography. Cryptographic authenticators procured by federal agencies SHALL be validated to meet the requirements of [FIPS140] Level 1. At least one authenticator used at AAL2 SHALL be replay-resistant, as described in Sec. 3.2.7 . Authentication at AAL2 SHOULD demonstrate authentication intent from at least one authenticator, as discussed in Sec. 3.2.8 .",
+     "identifier": "63B §2.2.2",
+     "ordinal": 4
+    },
+    {
+     "volume": "63B",
+     "section_number": "2.2.2",
+     "section_title": "Authenticator and Verifier Requirements",
+     "obligation": "SHALL",
+     "parameters": [
+      "algorithm"
+     ],
+     "text": "Cryptography used by verifiers operated by or on behalf of federal agencies at AAL2 SHALL be validated to meet the requirements of [FIPS140] Level 1 unless otherwise specified.",
+     "identifier": "63B §2.2.2",
+     "ordinal": 5
+    },
+    {
+     "volume": "63B",
+     "section_number": "2.3.2",
+     "section_title": "Authenticator and Verifier Requirements",
+     "obligation": "SHALL",
+     "parameters": [
+      "algorithm"
+     ],
+     "text": "Authenticators used at AAL3 SHALL use approved cryptography. Communication between the claimant and verifier SHALL occur via one or more authenticated protected channels. The cryptographic authenticator used at AAL3 SHALL have a non-exportable private key and SHALL provide phishing resistance, as described in Sec. 3.2.5 . The cryptographic authentication protocol SHALL be replay-resistant, as described in Sec. 3.2.7 . All authentication and reauthentication processes at AAL3 SHALL demonstrate authentication intent from at least one authenticator, as described in Sec. 3.2.8 . Cryptographic authenticators used at AAL3 SHALL use public-key cryptography to protect the authentication secrets from compromise of the verifier.",
+     "identifier": "63B §2.3.2",
+     "ordinal": 6
+    },
+    {
+     "volume": "63B",
+     "section_number": "2.3.2",
+     "section_title": "Authenticator and Verifier Requirements",
+     "obligation": "SHALL",
+     "parameters": [
+      "algorithm"
+     ],
+     "text": "Single-factor and multi-factor authenticators used at AAL3 SHALL be validated to meet the requirements of [FIPS140] Level 1 or higher overall. As described in Sec. 3.2.12 , cryptographic authenticators used at AAL3 are required to provide a hardware-protected, isolated environment to prevent authentication keys from being leaked or extracted. Since syncable authenticators (described in Appendix B ) require the private key to be exportable, syncable authenticators SHALL NOT be used at AAL3.",
+     "identifier": "63B §2.3.2",
+     "ordinal": 7
+    },
+    {
+     "volume": "63B",
+     "section_number": "2.3.2",
+     "section_title": "Authenticator and Verifier Requirements",
+     "obligation": "SHALL",
+     "parameters": [
+      "algorithm"
+     ],
+     "text": "Cryptography used by verifiers at AAL3 SHALL be validated at [FIPS140] Level 1 or higher.",
+     "identifier": "63B §2.3.2",
+     "ordinal": 8
+    },
+    {
+     "volume": "63B",
+     "section_number": "2.3.3",
+     "section_title": "Reauthentication",
+     "obligation": "SHALL",
+     "parameters": [
+      "period",
+      "bound"
+     ],
+     "text": "Periodic reauthentication of subscriber sessions SHALL be performed, as described in Sec. 5.2 . At AAL3, the overall timeout for reauthentication SHALL be no more than 12 hours. The inactivity timeout SHOULD be no more than 15 minutes. Unlike AAL2, AAL3 reauthentication requirements are the same as for initial authentication at AAL3.",
+     "identifier": "63B §2.3.3",
+     "ordinal": 9
+    },
+    {
+     "volume": "63B",
+     "section_number": "3.1.1.2",
+     "section_title": "Password Verifiers",
+     "obligation": "SHALL",
+     "parameters": [
+      "length",
+      "bound"
+     ],
+     "text": "Verifiers and CSPs SHALL require passwords that are used as a single-factor authentication mechanism to be a minimum of 15 characters in length. Verifiers and CSPs MAY allow passwords that are only used as part of multi-factor authentication processes to be shorter but SHALL require them to be a minimum of eight characters in length.",
+     "identifier": "63B §3.1.1.2",
+     "ordinal": 10
+    },
+    {
+     "volume": "63B",
+     "section_number": "3.1.1.2",
+     "section_title": "Password Verifiers",
+     "obligation": "SHOULD",
+     "parameters": [
+      "length",
+      "bound"
+     ],
+     "text": "Verifiers and CSPs SHOULD permit a maximum password length of at least 64 characters.",
+     "identifier": "63B §3.1.1.2",
+     "ordinal": 11
+    },
+    {
+     "volume": "63B",
+     "section_number": "3.1.1.2",
+     "section_title": "Password Verifiers",
+     "obligation": "SHALL",
+     "parameters": [
+      "length",
+      "bound"
+     ],
+     "text": "The salt SHALL be at least 32 bits in length and chosen to minimize salt value collisions among stored hashes (i.e., to prevent multiple subscriber accounts from having the same hashed password). Both the salt value and the resulting hash SHALL be stored for each password. A reference to the password hashing scheme used, including the cost factor, SHOULD be stored for each password to allow migration to new algorithms and work factors.",
+     "identifier": "63B §3.1.1.2",
+     "ordinal": 12
+    },
+    {
+     "volume": "63B",
+     "section_number": "3.1.2.2",
+     "section_title": "Look-Up Secret Verifiers",
+     "obligation": "SHALL",
+     "parameters": [
+      "length",
+      "bound"
+     ],
+     "text": "Look-up secrets that are shorter than the minimum security strength specified in the latest revision of [SP800-131A] (i.e., 112 bits as of the date of this publication) SHALL be stored in a salted and hashed form using a suitable password hashing scheme, as described in Sec. 3.1.1.2 . The salt value SHALL be at least 32 bits in length and arbitrarily chosen to minimize salt value collisions among stored hashes. Both the salt value and the resulting hash SHALL be stored for each look-up secret.",
+     "identifier": "63B §3.1.2.2",
+     "ordinal": 13
+    },
+    {
+     "volume": "63B",
+     "section_number": "3.1.3.1",
+     "section_title": "Out-of-Band Authenticators",
+     "obligation": "SHALL",
+     "parameters": [
+      "algorithm"
+     ],
+     "text": "Using approved cryptography, establish a mutually authenticated protected channel (e.g., client-authenticated transport layer security (TLS) [RFC8446] ) with the verifier. Communication between the out-of-band authenticator and the verifier MAY use a trusted intermediary service to which each authenticates. The key used to establish the channel SHALL be provisioned in a mutually authenticated session during authenticator binding, as described in Sec. 4.1 .",
+     "identifier": "63B §3.1.3.1",
+     "ordinal": 14
+    },
+    {
+     "volume": "63B",
+     "section_number": "3.1.3.2",
+     "section_title": "Out-of-Band Verifiers",
+     "obligation": "SHALL",
+     "parameters": [
+      "period"
+     ],
+     "text": "In all cases, the authentication SHALL be considered invalid unless completed within 10 minutes. Verifiers SHALL accept a given authentication secret as valid only once during the validity period to provide replay resistance , as described in Sec. 3.2.7 .",
+     "identifier": "63B §3.1.3.2",
+     "ordinal": 15
+    },
+    {
+     "volume": "63B",
+     "section_number": "3.1.3.2",
+     "section_title": "Out-of-Band Verifiers",
+     "obligation": "SHALL",
+     "parameters": [
+      "length",
+      "bound"
+     ],
+     "text": "The verifier SHALL generate random authentication secrets that are at least six decimal digits (or equivalent) in length using an approved random bit generator as described in Sec. 3.2.12 . If the authentication secret is less than 64 bits long, the verifier SHALL implement a rate-limiting mechanism that effectively limits the total number of consecutive failed authentication attempts that can be made on the subscriber account as described in Sec. 3.2.2 . Generating a new authentication secret SHALL NOT reset the failed authentication count.",
+     "identifier": "63B §3.1.3.2",
+     "ordinal": 16
+    },
+    {
+     "volume": "63B",
+     "section_number": "3.1.4.1",
+     "section_title": "Single-Factor OTP Authenticators",
+     "obligation": "SHALL",
+     "parameters": [
+      "length"
+     ],
+     "text": "The secret key and its algorithm SHALL provide at least the minimum security strength specified in the latest revision of [SP800-131A] (i.e., 112 bits as of the date of this publication). The nonce SHALL be of sufficient length to ensure that it is unique for each operation of the authenticator over its lifetime. If a subscriber needs to change the device on which a software-based OTP authenticator resides, they SHOULD bind the authenticator application on the new device to their subscriber account, as described in Sec. 4.1.2 , and invalidate the authenticator application that will no longer be used. Alternatively, the subscriber MAY export the secret key and store it in a sync fabric that meets the requirements in Appendix B.2 and then retrieve the key with their new device.",
+     "identifier": "63B §3.1.4.1",
+     "ordinal": 17
+    },
+    {
+     "volume": "63B",
+     "section_number": "3.1.4.2",
+     "section_title": "Single-Factor OTP Verifiers",
+     "obligation": "SHALL",
+     "parameters": [
+      "algorithm"
+     ],
+     "text": "When binding a single-factor OTP authenticator to a subscriber account, the verifier or associated CSP SHALL use approved cryptography for key establishment to generate and exchange keys or to obtain the secrets required to duplicate the authenticator output.",
+     "identifier": "63B §3.1.4.2",
+     "ordinal": 18
+    },
+    {
+     "volume": "63B",
+     "section_number": "3.1.4.2",
+     "section_title": "Single-Factor OTP Verifiers",
+     "obligation": "SHOULD",
+     "parameters": [
+      "length",
+      "bound"
+     ],
+     "text": "The verifier SHOULD implement or, if the authenticator output is less than 64 bits in length, SHALL implement a rate-limiting mechanism that effectively limits the number of failed authentication attempts that can be made on the subscriber account, as described in Sec. 3.2.2 .",
+     "identifier": "63B §3.1.4.2",
+     "ordinal": 19
+    },
+    {
+     "volume": "63B",
+     "section_number": "3.1.5.2",
+     "section_title": "Multi-Factor OTP Verifiers",
+     "obligation": "SHALL",
+     "parameters": [
+      "algorithm"
+     ],
+     "text": "When binding a multi-factor OTP authenticator to a subscriber account, the verifier or associated CSP SHALL use approved cryptography for key establishment to generate and exchange keys or to obtain the secrets required to duplicate the authenticator output.",
+     "identifier": "63B §3.1.5.2",
+     "ordinal": 20
+    },
+    {
+     "volume": "63B",
+     "section_number": "3.1.6.2",
+     "section_title": "Single-Factor Cryptographic Verifiers",
+     "obligation": "SHALL",
+     "parameters": [
+      "length",
+      "bound",
+      "algorithm"
+     ],
+     "text": "The authentication key and its algorithm SHALL provide at least the minimum security strength specified in the latest revision of [SP800-131A] (i.e., 112 bits as of the date of this publication). The challenge nonce SHALL be at least 64 bits in length and SHALL either be unique over the authenticator’s lifetime or statistically unique (i.e., generated using an approved random bit generator, as described in Sec. 3.2.12 ). The verification operation SHALL use approved cryptography.",
+     "identifier": "63B §3.1.6.2",
+     "ordinal": 21
+    },
+    {
+     "volume": "63B",
+     "section_number": "3.2.2",
+     "section_title": "Rate Limiting (Throttling)",
+     "obligation": "SHALL",
+     "parameters": [
+      "bound"
+     ],
+     "text": "When required by the authenticator type descriptions in Sec. 3.1 , the verifier SHALL implement controls to protect against online guessing attacks . Unless otherwise specified in the description of a given authenticator, the verifier SHALL limit consecutive failed authentication attempts using a specific authenticator on a single subscriber account to no more than 100 by disabling that authenticator. If more than one authenticator is involved with an excessive number of authentication attempts (e.g., single-factor cryptographic authenticator and centrally verified password), both authenticators SHALL be disabled. Authenticators that have been disabled SHALL be required to rebind to the subscriber account, as described in Sec. 4.1 , to be usable in the future.",
+     "identifier": "63B §3.2.2",
+     "ordinal": 22
+    },
+    {
+     "volume": "63B",
+     "section_number": "3.2.3.1",
+     "section_title": "Biometric Accuracy",
+     "obligation": "SHALL",
+     "parameters": [
+      "bound"
+     ],
+     "text": "The biometric system SHALL operate with an FMR [ISO/IEC2382-37] of one in 10000 or better for all demographic groups. Demographic categories to be considered SHALL include sex and skin tone when these factors affect biometric performance. This FMR SHALL be achieved under the conditions of a conformant attack (i.e., zero-effort impostor attempt), as defined in [ISO/IEC30107-1] . The biometric system SHOULD demonstrate a false non-match rate (FNMR) of less than 5 %. Biometric performance SHALL be tested in accordance with [ISO/IEC19795-1] . The biometric system SHALL be configured with a fixed threshold; it is not feasible to change the threshold for each demographic.",
+     "identifier": "63B §3.2.3.1",
+     "ordinal": 23
+    },
+    {
+     "volume": "63B",
+     "section_number": "3.2.3.2",
+     "section_title": "Presentation Attack Detection",
+     "obligation": "SHOULD",
+     "parameters": [
+      "bound"
+     ],
+     "text": "The biometric system SHOULD implement PAD for iris and fingerprint modalities and SHALL implement PAD for facial recognition. Biometric comparison based on voice SHALL NOT be used. Testing the biometric system for deployment SHOULD demonstrate an impostor attack presentation accept rate (IAPAR) of less than 0.07. Presentation attack resistance SHOULD be tested in accordance with Clause 13 of [ISO/IEC30107-3] following security evaluation methodologies in [ISO/IEC19792] or [ISO/IEC19989-1] and [ISO/IEC19989-3] . The PAD decision MAY be made either locally on the claimant’s device or by a central verifier.",
+     "identifier": "63B §3.2.3.2",
+     "ordinal": 24
+    },
+    {
+     "volume": "63B",
+     "section_number": "3.2.3.3",
+     "section_title": "Injection Attack Detection",
+     "obligation": "SHALL",
+     "parameters": [
+      "period",
+      "bound"
+     ],
+     "text": "The biometric system SHALL allow no more than five consecutive failed authentication attempts or 10 consecutive failed attempts if PAD is implemented and meets the above requirements. Once that limit has been reached, the biometric authenticator SHALL impose a delay of at least 30 seconds before each subsequent attempt with an overall limit of no more than 50 consecutive failed authentication attempts or 100 if PAD is implemented due to the mitigation of presentation attacks. Once the overall limit is reached, the biometric system SHALL disable biometric authentication and offer another factor (e.g., a different biometric modality or an activation secret if it is not a required factor) if such an alternative method is already available. These limits are upper bounds, and agencies MAY make risk-based decisions to impose lower limits.",
+     "identifier": "63B §3.2.3.3",
+     "ordinal": 25
+    },
+    {
+     "volume": "63B",
+     "section_number": "3.2.4",
+     "section_title": "Attestation",
+     "obligation": "SHALL",
+     "parameters": [
+      "length"
+     ],
+     "text": "Attestations SHALL be signed using a digital signature that provides at least the minimum security strength specified in the latest revision of [SP800-131A] (i.e., 112 bits as of the date of this publication).",
+     "identifier": "63B §3.2.4",
+     "ordinal": 26
+    },
+    {
+     "volume": "63B",
+     "section_number": "3.2.5",
+     "section_title": "Phishing Resistance",
+     "obligation": "SHALL",
+     "parameters": [
+      "length"
+     ],
+     "text": "Approved cryptographic algorithms SHALL be used to establish phishing resistance where required. Keys used for this purpose SHALL provide at least the minimum security strength specified in the latest revision of [SP800-131A] (i.e., 112 bits as of the date of this publication).",
+     "identifier": "63B §3.2.5",
+     "ordinal": 27
+    },
+    {
+     "volume": "63B",
+     "section_number": "3.2.6",
+     "section_title": "Verifier-CSP or IdP Communications",
+     "obligation": "SHALL",
+     "parameters": [
+      "algorithm"
+     ],
+     "text": "If the verifier and CSP or IdP are separate entities (as shown by the dotted line in Fig. 3 of [SP800-63] ), communications between the verifier and CSP or IdP SHALL occur through a mutually authenticated protected channel (e.g., a client-authenticated TLS connection) using approved cryptography.",
+     "identifier": "63B §3.2.6",
+     "ordinal": 28
+    },
+    {
+     "volume": "63B",
+     "section_number": "3.2.10",
+     "section_title": "Activation Secrets",
+     "obligation": "SHALL",
+     "parameters": [
+      "bound"
+     ],
+     "text": "The authenticator or verifier SHALL implement a retry-limiting mechanism that limits the number of consecutive failed activation attempts using the authenticator to no more than 10. If an incorrect activation secret entry causes the authenticator to provide an invalid output to the central verifier, the verifier MAY implement this retry-limiting mechanism. Otherwise, retry limiting SHALL be implemented in the authenticator. Once the limit of attempts is reached, the authenticator SHALL be disabled, and a different authenticator SHALL be required for authentication.",
+     "identifier": "63B §3.2.10",
+     "ordinal": 29
+    },
+    {
+     "volume": "63B",
+     "section_number": "3.2.11.2",
+     "section_title": "Wireless Connections",
+     "obligation": "SHALL",
+     "parameters": [
+      "bound"
+     ],
+     "text": "The potential for such attacks on wireless connections depends on the technology’s effective range. To minimize the attack surface for threats to the authenticator-endpoint connection, the authentication process SHALL require physical proximity between the authenticator and endpoint by establishing a wireless connection with a range of no more than 240 meters. 3",
+     "identifier": "63B §3.2.11.2",
+     "ordinal": 30
+    },
+    {
+     "volume": "63B",
+     "section_number": "3.2.11.2",
+     "section_title": "Wireless Connections",
+     "obligation": "SHALL",
+     "parameters": [
+      "bound"
+     ],
+     "text": "When using a wireless technology with an effective range of less than 1 meter (e.g., NFC), any activation secret transmitted from the endpoint to the authenticator SHALL be encrypted using a key that is established between the devices. An authenticated connection SHOULD be used. A pairing code SHALL be used if the authenticator is configured to require authenticated pairing.",
+     "identifier": "63B §3.2.11.2",
+     "ordinal": 31
+    },
+    {
+     "volume": "63B",
+     "section_number": "3.2.11.3",
+     "section_title": "Hybrid Connections",
+     "obligation": "SHALL",
+     "parameters": [
+      "bound"
+     ],
+     "text": "By communicating initial keying information and the identity of the tunnel service to be used via a displayed QR code or similar visual representation coupled with the receipt by the endpoint of wireless data containing the additional information required to establish the tunnel connection. The wireless data SHALL be conveyed over a technology with a maximum effective range of no more than 240 meters.",
+     "identifier": "63B §3.2.11.3",
+     "ordinal": 32
+    },
+    {
+     "volume": "63B",
+     "section_number": "3.2.12",
+     "section_title": "Random Values",
+     "obligation": "SHALL",
+     "parameters": [
+      "length"
+     ],
+     "text": "Random values are extensively used in authentication processes in a variety of roles (e.g., nonces, authentication secrets). Unless otherwise specified, random values that reference this section SHALL be generated by an approved random bit generator [RBG] 5 that provides at least the minimum security strength specified in the latest revision of [SP800-131A] (i.e., 112 bits as of the date of this publication).",
+     "identifier": "63B §3.2.12",
+     "ordinal": 33
+    },
+    {
+     "volume": "63B",
+     "section_number": "3.2.13",
+     "section_title": "Exportability",
+     "obligation": "SHALL",
+     "parameters": [
+      "algorithm"
+     ],
+     "text": "To be considered non-exportable, an authenticator SHALL either be a separate piece of hardware or an embedded processor or execution environment (e.g., secure element, TEE, TPM). These hardware authenticators and embedded processors are separate from a host processor, such as the CPU on a laptop or mobile device. A non-exportable authenticator SHALL be designed to prohibit the export of the authentication secret to the host processor and SHALL NOT be capable of being reprogrammed by the host processor to allow the secret to be extracted. The authenticator is subject to applicable [FIPS140] requirements. Organizations SHOULD employ authenticators that have undergone independent security testing, such as authenticators validated to [FIPS140] security level 2 overall with level 3 physical security 6 or evaluated against relevant Common Criteria Protection Profiles.",
+     "identifier": "63B §3.2.13",
+     "ordinal": 34
+    },
+    {
+     "volume": "63B",
+     "section_number": "4.1.2.2",
+     "section_title": "Binding Across Endpoints",
+     "obligation": "SHALL",
+     "parameters": [
+      "length",
+      "bound"
+     ],
+     "text": "The CSP SHALL generate a binding code using an approved random bit generator, as described in Sec. 3.2.12 and send it to either the new authenticator endpoint or the authenticated endpoint approving the binding. The binding code SHALL be at least 40 bits in length if it is used with an identifier that was entered in the previous step. Otherwise, a binding code of at least 112 bits in length SHALL be required.",
+     "identifier": "63B §4.1.2.2",
+     "ordinal": 35
+    },
+    {
+     "volume": "63B",
+     "section_number": "4.1.2.2",
+     "section_title": "Binding Across Endpoints",
+     "obligation": "SHALL",
+     "parameters": [
+      "period",
+      "bound"
+     ],
+     "text": "The binding code SHALL be usable only once and SHALL be valid for a maximum of 10 minutes.",
+     "identifier": "63B §4.1.2.2",
+     "ordinal": 36
+    },
+    {
+     "volume": "63B",
+     "section_number": "4.2.1.1",
+     "section_title": "Saved Recovery Codes",
+     "obligation": "SHOULD",
+     "parameters": [
+      "length",
+      "bound"
+     ],
+     "text": "At enrollment, a CSP that supports this recovery option SHOULD issue a recovery code to the subscriber. The recovery code SHALL include at least 64 bits from an approved random bit generator. The saved recovery code may be presented as numeric or a printable ASCII representation (e.g., Base64) for manual entry or as a machine-readable optical label (e.g., QR code) that contains the recovery code. At any point following enrollment, the subscriber MAY request a replacement recovery code. The issuance of a replacement recovery code SHALL result in an account recovery notification, as described in Sec. 4.6 .",
+     "identifier": "63B §4.2.1.1",
+     "ordinal": 37
+    },
+    {
+     "volume": "63B",
+     "section_number": "B.2",
+     "section_title": "Cloning Authentication Keys",
+     "obligation": "SHALL",
+     "parameters": [
+      "algorithm"
+     ],
+     "text": "All keys SHALL be generated using approved cryptography.",
+     "identifier": "63B §B.2",
+     "ordinal": 38
+    },
+    {
+     "volume": "63B",
+     "section_number": "B.2",
+     "section_title": "Cloning Authentication Keys",
+     "obligation": "SHALL",
+     "parameters": [
+      "length"
+     ],
+     "text": "Authentication keys that are cloned or exported from a device to a sync fabric SHALL only be stored in an encrypted form using a key with the minimum security strength specified in the latest revision of [SP800-131A] (i.e., 112 bits as of the date of this publication). These keys SHOULD be encrypted using a method that employs a user-controlled secret.",
+     "identifier": "63B §B.2",
+     "ordinal": 39
+    }
+   ]
+  },
+  {
+   "volume": "63C",
+   "title": "Federation and Assertions",
+   "source_file": "sp800-63c.html",
+   "records": [
+    {
+     "volume": "63C",
+     "section_number": "2.2",
+     "section_title": "Federation Assurance Level 1 (FAL1)",
+     "obligation": "SHALL",
+     "parameters": [
+      "algorithm"
+     ],
+     "text": "At FAL1, the IdP SHALL sign the assertion using approved cryptography. The RP SHALL validate the signature using the verification key associated with the expected IdP. The signature protects the integrity of the assertion contents and allows for the IdP to be verified as the source of the assertion.",
+     "identifier": "63C §2.2",
+     "ordinal": 1
+    },
+    {
+     "volume": "63C",
+     "section_number": "2.3",
+     "section_title": "Federation Assurance Level 2 (FAL2)",
+     "obligation": "SHALL",
+     "parameters": [
+      "algorithm"
+     ],
+     "text": "IdPs operated by or on behalf of federal agencies that present assertions at FAL2 or higher SHALL protect signing keys that are used in the generation of assertions with mechanisms validated at [FIPS140] Level 1 or higher.",
+     "identifier": "63C §2.3",
+     "ordinal": 2
+    },
+    {
+     "volume": "63C",
+     "section_number": "3.6.2",
+     "section_title": "Cryptographic Key Storage",
+     "obligation": "SHALL",
+     "parameters": [
+      "algorithm"
+     ],
+     "text": "CSPs, IdPs (including subscriber-controlled wallets), and RPs SHALL store all signing keys, decryption keys, and symmetric keys in a secure fashion. Cryptographic key storage is subject to applicable [FIPS140] requirements, including applicable tamper resistance requirements.",
+     "identifier": "63C §3.6.2",
+     "ordinal": 3
+    },
+    {
+     "volume": "63C",
+     "section_number": "3.13.2",
+     "section_title": "Signed Assertion",
+     "obligation": "SHALL",
+     "parameters": [
+      "algorithm"
+     ],
+     "text": "The assertion signature SHALL either be a digital signature using asymmetric keys or a MAC using a symmetric key that is shared between the RP and issuer with approved cryptography.",
+     "identifier": "63C §3.13.2",
+     "ordinal": 4
+    },
+    {
+     "volume": "63C",
+     "section_number": "3.13.3",
+     "section_title": "Encrypted Assertion",
+     "obligation": "SHALL",
+     "parameters": [
+      "algorithm"
+     ],
+     "text": "When encrypting assertions, the IdP SHALL encrypt the contents of the assertion using the RP’s encryption key with approved cryptography. For example, a SAML assertion can be encrypted using XML-Encryption, while an OpenID Connect ID Token can be encrypted using JSON Web Encryption (JWE).",
+     "identifier": "63C §3.13.3",
+     "ordinal": 5
+    },
+    {
+     "volume": "63C",
+     "section_number": "4.6.4",
+     "section_title": "Attribute Synchronization",
+     "obligation": "SHOULD",
+     "parameters": [
+      "period"
+     ],
+     "text": "If the RP is granted access to an identity API, the IdP SHOULD allow the RP to access the identity API for sufficient time to perform synchronization operations after the federation transaction has concluded. While an identity API is most often used during the first login, especially with a just-in-time provisioning process, on subsequent logins it is possible that attributes could have changed since the RP last fetched them. Therefore, the RP ought to be given access to the identity API beyond the initial login process to allow the RP to update its cache of attributes in the RP subscriber account. For example, if the assertion is valid for five minutes, access to the identity API could be valid for 30 minutes to allow the RP to fetch and update attributes out of band if the RP has determined that the RP subscriber account is out of date.",
+     "identifier": "63C §4.6.4",
+     "ordinal": 6
+    },
+    {
+     "volume": "63C",
+     "section_number": "4.7",
+     "section_title": "Reauthentication and Session Requirements in Federated Environments",
+     "obligation": "SHALL",
+     "parameters": [
+      "period"
+     ],
+     "text": "At the time of a federated transaction request, the subscriber could have a pre-existing authenticated session at the IdP that MAY be used to generate an assertion to the RP. The IdP SHALL communicate to the RP any information that the IdP has regarding the recency of the subscriber’s latest authentication event at the IdP, and the RP MAY use this information to make authorization and access decisions. Depending on the capabilities of the federation protocol in use, the IdP SHOULD allow the RP to request that the subscriber provide a fresh authentication at the IdP, such as requesting a maximum time since the subscriber’s last authentication event. For example, suppose that the subscriber authenticates at the IdP for one transaction. The subscriber then starts a federation transaction at the RP 30 minutes later. Depending on xAL requirements, the subscriber’s existing session at the IdP can be used to avoid prompting the subscriber for their authenticators. The resulting assertion to the RP will indicate that the last time the subscriber authenticated to the RP was 30 minutes in the past. The RP can then use this information to determine whether this is reasonable for the RP’s needs. If the authentication time is not sufficient for the RP, the RP can request the IdP to prompt the subscriber for a fresh authentication event.",
+     "identifier": "63C §4.7",
+     "ordinal": 7
+    }
+   ]
+  }
+ ]
+}

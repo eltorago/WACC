@@ -1,0 +1,7 @@
+# Line endings normalised to LF everywhere, working tree included. The extractors write
+# LF, the corpus JSON is LF, and letting the checkout rewrite them to CRLF would make
+# every regenerated extract look like a whole-file change in the next diff.
+* text=auto eol=lf
+
+# Generated. Big, machine-written, and not worth reading in a diff.
+data/corpus/*.json linguist-generated=true diff=json

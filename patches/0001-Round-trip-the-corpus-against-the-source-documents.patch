@@ -1,0 +1,1308 @@
+From 9f40b2a9425babd3e70a71fd86d3fed70ecbcd6d Mon Sep 17 00:00:00 2001
+From: Aidan <eltorago@gmail.com>
+Date: Sun, 13 Sep 2026 03:14:09 +0000
+Subject: [PATCH] Round-trip the corpus against the source documents
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+tools/verify_against_source.py looks for every stored control in the document it
+came from, and reports order-preserving word coverage rather than a contiguous
+match. Contiguity is the wrong test: a maturity marker, a footnote digit or a
+running header sits between two words of a control on the page, and text that is
+entirely present fails a substring search. Calibrated on C2M2, whose extractor was
+already checked against the document's own count of 356, until it read 356 of 356.
+
+What it found, and what is fixed here:
+
+- 22 ZTMM stage texts read "enterprise- wide", "password- less", "case-by- case".
+  A PDF has no line-break character, so joining a wrapped line with a space breaks
+  the word. tools/textjoin.py mends it, keeping the hyphen and dropping the space,
+  because every break of this kind in these documents falls on a hyphen the
+  publisher writes. A suspended hyphen — NIST's "security- and privacy-related" —
+  is left alone, and there is a case for that so the rule cannot lose the
+  distinction.
+- 4 ZTMM stage texts carried a footnote number mid-sentence: "policies 26 for the
+  lifecycle", "internal and 28 external traffic". Superscript digits, dropped by
+  size the way the 800-57 welded footnotes were.
+- 10 more broken words across six extractors: oag-wa, pspf, c2m2, asd-ad, 800-88
+  and the NIST PDF route.
+
+Three cases in tests/test_extracts.py and two matrix entries. The suite reads all
+5,321 controls for the broken-word rule, so it cannot pass on an empty set.
+
+Round-trip after the fix: 4,584 texts, 3,713 verbatim, 399 joined, 34 near, 379
+partial, 59 absent. ZTMM is declared unreadable by this method rather than counted,
+because pdfplumber cannot read its tables in order and all forty came back absent
+when they are all present.
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+---
+ data/corpus/asd-ad.json        |   2 +-
+ data/corpus/c2m2.json          |   6 +-
+ data/corpus/nist-800-131a.json |   2 +-
+ data/corpus/nist-800-88.json   |   2 +-
+ data/corpus/oag-wa.json        |   6 +-
+ data/corpus/pspf.json          |   4 +-
+ data/corpus/ztmm.json          |  60 ++--
+ tests/injected.py              |  26 ++
+ tests/test_extracts.py         |  58 ++++
+ tools/curate_800_88.py         |   5 +-
+ tools/extract_asd_ad.py        |  11 +-
+ tools/extract_c2m2.py          |   5 +
+ tools/extract_nist_pdf.py      |   7 +-
+ tools/extract_oag.py           |   5 +-
+ tools/extract_pspf.py          |  10 +-
+ tools/extract_ztmm.py          |  52 +++-
+ tools/textjoin.py              |  49 ++++
+ tools/verify_against_source.py | 487 +++++++++++++++++++++++++++++++++
+ 18 files changed, 748 insertions(+), 49 deletions(-)
+ create mode 100644 tools/textjoin.py
+ create mode 100644 tools/verify_against_source.py
+
+diff --git a/data/corpus/asd-ad.json b/data/corpus/asd-ad.json
+index f7e4acd..75c14f0 100644
+--- a/data/corpus/asd-ad.json
++++ b/data/corpus/asd-ad.json
+@@ -737,7 +737,7 @@
+       "mitigation"
+      ],
+      "kind": "statement",
+-     "text": "Only use Microsoft Entra Connect servers for Microsoft Entra Connect and ensure no other non-security- related services or applications are installed."
++     "text": "Only use Microsoft Entra Connect servers for Microsoft Entra Connect and ensure no other non-security-related services or applications are installed."
+     },
+     {
+      "section_number": "Mitigating a Microsoft Entra Connect compromise",
+diff --git a/data/corpus/c2m2.json b/data/corpus/c2m2.json
+index 44162c6..6a8c482 100644
+--- a/data/corpus/c2m2.json
++++ b/data/corpus/c2m2.json
+@@ -453,7 +453,7 @@
+    "identifier": "THREAT-1i",
+    "mil": 2,
+    "page": 41,
+-   "text": "Information on discovered cybersecurity vulnerabilities is shared with organization- defined stakeholders"
++   "text": "Information on discovered cybersecurity vulnerabilities is shared with organization-defined stakeholders"
+   },
+   {
+    "domain": "THREAT",
+@@ -743,7 +743,7 @@
+    "identifier": "RISK-1h",
+    "mil": 3,
+    "page": 44,
+-   "text": "The cyber risk management program is coordinated with the organization’s enterprise- wide risk management program"
++   "text": "The cyber risk management program is coordinated with the organization’s enterprise-wide risk management program"
+   },
+   {
+    "domain": "RISK",
+@@ -2223,7 +2223,7 @@
+    "identifier": "THIRD-PARTIES-1e",
+    "mil": 2,
+    "page": 58,
+-   "text": "Escalated prioritization is assigned to suppliers and other third parties whose compromise or disruption could cause significant consequences (for example, single- source suppliers, suppliers with privileged access)"
++   "text": "Escalated prioritization is assigned to suppliers and other third parties whose compromise or disruption could cause significant consequences (for example, single-source suppliers, suppliers with privileged access)"
+   },
+   {
+    "domain": "THIRD-PARTIES",
+diff --git a/data/corpus/nist-800-131a.json b/data/corpus/nist-800-131a.json
+index 29918e8..74ef6ac 100644
+--- a/data/corpus/nist-800-131a.json
++++ b/data/corpus/nist-800-131a.json
+@@ -327,7 +327,7 @@
+      ],
+      "kind": "table row",
+      "caption": "Table 5: Approval Status for the RSA-based Key Agreement and Key",
+-     "text": "Table 5: Approval Status for the RSA-based Key Agreement and Key — Non-SP 800-56B- compliant Key Agreement and Key Transport schemes; Implementation Details: len(n) < 2048; Status: Disallowed"
++     "text": "Table 5: Approval Status for the RSA-based Key Agreement and Key — Non-SP 800-56B-compliant Key Agreement and Key Transport schemes; Implementation Details: len(n) < 2048; Status: Disallowed"
+     },
+     {
+      "section_number": "7",
+diff --git a/data/corpus/nist-800-88.json b/data/corpus/nist-800-88.json
+index 2e73ac5..0cd051b 100644
+--- a/data/corpus/nist-800-88.json
++++ b/data/corpus/nist-800-88.json
+@@ -16,7 +16,7 @@
+       "method"
+      ],
+      "kind": "statement",
+-     "text": "This method applies logical techniques to sanitize data in all user- addressable storage locations of an ISM for protection against simple, non-invasive data recovery techniques using the same interface that is available to the user (e.g., host interface)."
++     "text": "This method applies logical techniques to sanitize data in all user-addressable storage locations of an ISM for protection against simple, non-invasive data recovery techniques using the same interface that is available to the user (e.g., host interface)."
+     },
+     {
+      "section_number": "3.1.1",
+diff --git a/data/corpus/oag-wa.json b/data/corpus/oag-wa.json
+index e574965..84baabb 100644
+--- a/data/corpus/oag-wa.json
++++ b/data/corpus/oag-wa.json
+@@ -212,7 +212,7 @@
+      "section_number": "2.1",
+      "section_title": "Identify and maintain an accurate inventory of",
+      "heading": "Get to know critical assets",
+-     "text": "Document critical asset details including their location, importance, software and firmware information and supporting vendor, where applicable. Access to this information should be granted on a need- to-know basis.",
++     "text": "Document critical asset details including their location, importance, software and firmware information and supporting vendor, where applicable. Access to this information should be granted on a need-to-know basis.",
+      "page": 13,
+      "identifier": "Report-24 2.1.2"
+     },
+@@ -228,7 +228,7 @@
+      "section_number": "2.1",
+      "section_title": "Identify and maintain an accurate inventory of",
+      "heading": "Maintain an inventory",
+-     "text": "Keep the register of critical assets current. Update it when changes are made or assets are disposed. Periodically confirm the . register’s accuracy Securely dispose assets when they are no longer required or reach their end- of-life. Any information including configurations should be erased prior to disposal.",
++     "text": "Keep the register of critical assets current. Update it when changes are made or assets are disposed. Periodically confirm the . register’s accuracy Securely dispose assets when they are no longer required or reach their end-of-life. Any information including configurations should be erased prior to disposal.",
+      "page": 13,
+      "identifier": "Report-24 2.1.4"
+     },
+@@ -340,7 +340,7 @@
+      "section_number": "2.5",
+      "section_title": "Implement effective access management procedures",
+      "heading": "Govern and review privileged access",
+-     "text": "Accounts should be granted access using the principle of least privilege. Only assign super privileges where a role requires it. Where appropriate, use just- in-time access to avoid ongoing privileged access. Monitor the use of privileged activity such as provisioning of new access or changes to OT configurations.",
++     "text": "Accounts should be granted access using the principle of least privilege. Only assign super privileges where a role requires it. Where appropriate, use just-in-time access to avoid ongoing privileged access. Monitor the use of privileged activity such as provisioning of new access or changes to OT configurations.",
+      "page": 17,
+      "identifier": "Report-24 2.5.2"
+     },
+diff --git a/data/corpus/pspf.json b/data/corpus/pspf.json
+index 2622490..4f15548 100644
+--- a/data/corpus/pspf.json
++++ b/data/corpus/pspf.json
+@@ -1205,7 +1205,7 @@
+   },
+   {
+    "req_number": "211",
+-   "Release 26 Requirement": "A Technology Asset Stocktake and Technology Security Risk Management Plan is created to identify and manage the entity's internet- facing systems or services is maintained to ensure continuous visibility and monitoring of the entity’s resource and technology estate.",
++   "Release 26 Requirement": "A Technology Asset Stocktake and Technology Security Risk Management Plan is created to identify and manage the entity's internet-facing systems or services is maintained to ensure continuous visibility and monitoring of the entity’s resource and technology estate.",
+    "Domain": "TECH",
+    "Section": "13. Technology Lifecycle Management",
+    "Applicability (All, Dept of State, Security Service Provider Entity, Technical Authority Entity, Authorised Vetting Agency)": "All entities",
+@@ -2129,7 +2129,7 @@
+   },
+   {
+    "req_number": "165",
+-   "Release 26 Requirement": "The Sponsoring Entity monitors and manages compliance with any conditional security clearance requirements and reports any non- compliance to the Authorised Vetting Agency.",
++   "Release 26 Requirement": "The Sponsoring Entity monitors and manages compliance with any conditional security clearance requirements and reports any non-compliance to the Authorised Vetting Agency.",
+    "Domain": "PER",
+    "Section": "21. Maintenance and Ongoing Assessment",
+    "Applicability (All, Dept of State, Security Service Provider Entity, Technical Authority Entity, Authorised Vetting Agency)": "All entities",
+diff --git a/data/corpus/ztmm.json b/data/corpus/ztmm.json
+index 6c64cc6..97be10d 100644
+--- a/data/corpus/ztmm.json
++++ b/data/corpus/ztmm.json
+@@ -14,9 +14,9 @@
+    "name": "Authentication",
+    "note": "",
+    "stages": {
+-    "Traditional": "Agency authenticates identity using either passwords or multi-factor authentication 21 (MFA) with static access for entity identity. at: https://www.cisa.gov/mfa.",
++    "Traditional": "Agency authenticates identity using either passwords or multi-factor authentication (MFA) with static access for entity identity. at: https://www.cisa.gov/mfa.",
+     "Initial": "Agency authenticates identity using MFA, which may include passwords as one factor and requires validation of multiple entity attributes (e.g., locale or activity).",
+-    "Advanced": "Agency begins to authenticate all identity using phishing-resistant MFA and attributes, including initial implementation of password- less MFA via FIDO2 22 or PIV 23 .",
++    "Advanced": "Agency begins to authenticate all identity using phishing-resistant MFA and attributes, including initial implementation of password-less MFA via FIDO2 or PIV .",
+     "Optimal": "Agency continuously validates identity with phishing-resistant MFA, not just when access is initially granted. April 2023"
+    }
+   },
+@@ -25,8 +25,8 @@
+    "name": "Identity Stores",
+    "note": "",
+    "stages": {
+-    "Traditional": "Agency only uses self- managed, on-premises (i.e., planned, deployed, and maintained by agency) identity stores.",
+-    "Initial": "Agency has a combination of self-managed identity stores and hosted identity store(s) (e.g., cloud or other agency) with minimal integration between the store(s) (e.g., Single Sign- on.).",
++    "Traditional": "Agency only uses self-managed, on-premises (i.e., planned, deployed, and maintained by agency) identity stores.",
++    "Initial": "Agency has a combination of self-managed identity stores and hosted identity store(s) (e.g., cloud or other agency) with minimal integration between the store(s) (e.g., Single Sign-on.).",
+     "Advanced": "Agency begins to securely consolidate and integrate some self-managed and hosted identity stores.",
+     "Optimal": "Agency securely integrates their identity stores across all partners and environments as appropriate."
+    }
+@@ -48,8 +48,8 @@
+    "note": "New Function",
+    "stages": {
+     "Traditional": "Agency authorizes permanent access with periodic review for both privileged and unprivileged accounts. in collaboration by the Fast passwordless authentication. This Authentication Standards More Authentication: An API for accessing Protocol. Proposed Standard, PIV credential is a U.S. federal government-wide level. https://playbooks.idmanagement.gov/piv/.",
+-    "Initial": "Agency authorizes access, including for privileged access requests, that expires with automated review. IDentity Online (FIDO) Alliance approach leverages W3C’s WebAuthn Secure than Passwords . https://fidoalliance.org/. Public Key Credentials. June 2021. https://fidoalliance.org/specs/fido-v2.1-ps-20210615/fido-client-to- credential used",
+-    "Advanced": "Agency authorizes need- based and session-based access, including for privileged access request, that is tailored to actions and resources. and World Wide Web Consortium protocol and the FIDO https://www.w3.org/TR/2021/REC-webauthn-2-20210408/. to access federally controlled facilities",
++    "Initial": "Agency authorizes access, including for privileged access requests, that expires with automated review. IDentity Online (FIDO) Alliance approach leverages W3C’s WebAuthn Secure than Passwords . https://fidoalliance.org/. Public Key Credentials. June 2021. https://fidoalliance.org/specs/fido-v2.1-ps-20210615/fido-client-to-credential used",
++    "Advanced": "Agency authorizes need-based and session-based access, including for privileged access request, that is tailored to actions and resources. and World Wide Web Consortium protocol and the FIDO https://www.w3.org/TR/2021/REC-webauthn-2-20210408/. to access federally controlled facilities",
+     "Optimal": "Agency uses automation to authorize just-in-time and just-enough access tailored to individual actions and individual resource needs. (W3C). FIDO2 is Alliance’s Client to and information April 2023"
+    }
+   },
+@@ -83,7 +83,7 @@
+     "Traditional": "Agency implements identity policies (authentication, credentials, access, lifecycle, etc.) with enforcement via static technical mechanisms and manual review.",
+     "Initial": "Agency defines and begins implementing identity policies for enterprise-wide enforcement with minimal automation and manual updates.",
+     "Advanced": "Agency implements identity policies for enterprise-wide enforcement with automation and updates policies periodically.",
+-    "Optimal": "Agency implements and fully automates enterprise- wide identity policies for all users and entities across all systems with continuous enforcement and dynamic updates. April 2023"
++    "Optimal": "Agency implements and fully automates enterprise-wide identity policies for all users and entities across all systems with continuous enforcement and dynamic updates. April 2023"
+    }
+   },
+   {
+@@ -102,10 +102,10 @@
+    "name": "Asset & Supply Chain Risk Management",
+    "note": "New Function",
+    "stages": {
+-    "Traditional": "Agency does not track physical or virtual assets in an enterprise-wide or cross- vendor manner and manages its own supply chain acquisition of devices and services in ad hoc fashion with a limited view of enterprise risks.",
+-    "Initial": "Agency tracks all physical and some virtual assets and manages supply chain risks by establishing policies and control baselines according to federal recommendations using a robust framework, (e.g., NIST SCRM.) 25",
++    "Traditional": "Agency does not track physical or virtual assets in an enterprise-wide or cross-vendor manner and manages its own supply chain acquisition of devices and services in ad hoc fashion with a limited view of enterprise risks.",
++    "Initial": "Agency tracks all physical and some virtual assets and manages supply chain risks by establishing policies and control baselines according to federal recommendations using a robust framework, (e.g., NIST SCRM.)",
+     "Advanced": "Agency begins to develop a comprehensive enterprise view of physical and virtual assets via automated processes that can function across multiple vendors to verify acquisitions, track development cycles, and provide third-party assessments.",
+-    "Optimal": "Agency has a comprehensive, at-or near- real-time view of all assets across vendors and service providers, automates its supply chain risk management as applicable, builds operations that tolerate supply chain failures, and incorporates best practices."
++    "Optimal": "Agency has a comprehensive, at-or near-real-time view of all assets across vendors and service providers, automates its supply chain risk management as applicable, builds operations that tolerate supply chain failures, and incorporates best practices."
+    }
+   },
+   {
+@@ -138,7 +138,7 @@
+     "Traditional": "Agency uses a physically labeled inventory and limited software monitoring to review devices on a regular basis with some manual analysis.",
+     "Initial": "Agency uses digital identifiers (e.g., interface addresses, digital tags) alongside a manual inventory and endpoint monitoring of devices when available. Some agency devices and virtual assets are under automated analysis (e.g., software-based scanning) for anomaly detection based on risk.",
+     "Advanced": "Agency automates both inventory collection (including endpoint monitoring on all standard user devices, e.g., desktops and laptops, mobile phones, tablets, and their virtual assets) and anomaly detection to detect unauthorized devices.",
+-    "Optimal": "Agency automates status collection of all network- connected devices and virtual assets while correlating with identities, conducting endpoint monitoring, and performing anomaly detection to inform resource access. Agency tracks patterns of provisioning and/or de- provisioning of virtual assets for anomalies."
++    "Optimal": "Agency automates status collection of all network-connected devices and virtual assets while correlating with identities, conducting endpoint monitoring, and performing anomaly detection to inform resource access. Agency tracks patterns of provisioning and/or de-provisioning of virtual assets for anomalies."
+    }
+   },
+   {
+@@ -157,10 +157,10 @@
+    "name": "Governance Capability",
+    "note": "",
+    "stages": {
+-    "Traditional": "Agency sets some policies 26 for the lifecycle of their traditional and peripheral computing devices and relies on manual processes to maintain (e.g., update, patch, sanitize) these devices. tracking, monitoring, an open communications medium as well as other potential traditional perimeter-focused segment activity, and data, and other resources treated uniquely by the network These network application pertaining to zero trust and the of networks.",
++    "Traditional": "Agency sets some policies for the lifecycle of their traditional and peripheral computing devices and relies on manual processes to maintain (e.g., update, patch, sanitize) these devices. tracking, monitoring, an open communications medium as well as other potential traditional perimeter-focused segment activity, and data, and other resources treated uniquely by the network These network application pertaining to zero trust and the of networks.",
+     "Initial": "Agency sets and enforces policies for the procurement of new devices, the lifecycle of non-traditional computing devices and virtual assets, and for regularly conducting monitoring and scanning of devices. updating, using, sanitizing, deprovisioning, including typical channels channels such as cellular and messages. approaches to security and permit enhance enterprise-wide network and augment traditional for its demands on access, demands can be captured as considerations for Visibility Table 4: Networks Pillar",
+     "Advanced": "Agency sets enterprise-wide policies for the lifecycle of devices and virtual assets, including their enumeration and accountability, with some automated enforcement mechanisms. and recovering devices. such as agency internal networks, application-level channels agencies to manage internal visibility. ZTAs permit network-based protections and priority, reachability, connections an application profile, and repeated and Analytics , Automation and",
+-    "Optimal": "Agency automates policies for the lifecycle of all network-connected devices and virtual assets across the enterprise. April 2023 wireless used to transport and external traffic security controls to be improve defense-in- to dependency profiles can then be Orchestration , and"
++    "Optimal": "Agency automates policies for the lifecycle of all network-connected devices and virtual assets across the enterprise. April 2023 wireless used to transport and external traffic security controls to be improve defense-in-to dependency profiles can then be Orchestration , and"
+    }
+   },
+   {
+@@ -168,10 +168,10 @@
+    "name": "Network Segmentation",
+    "note": "",
+    "stages": {
+-    "Traditional": "Agency defines their network architecture using large perimeter/macro- segmentation with minimal restrictions on reachability within network segments. Agency may also rely on multi-service interconnections (e.g., bulk traffic VPN tunnels). Agency manually",
++    "Traditional": "Agency defines their network architecture using large perimeter/macro-segmentation with minimal restrictions on reachability within network segments. Agency may also rely on multi-service interconnections (e.g., bulk traffic VPN tunnels). Agency manually",
+     "Initial": "Agency begins to deploy network architecture with the isolation of critical workloads, constraining connectivity to least function principles, and a transition toward service-specific interconnections. Agency establishes",
+-    "Advanced": "Agency expands deployment of endpoint and application profile isolation mechanisms to more of their network architecture with ingress/egress micro- perimeters and service- specific interconnections. Agency implements dynamic",
+-    "Optimal": "Agency network architecture consists of fully distributed ingress/egress micro- perimeters and extensive micro-segmentation based around application profiles with dynamic just-in-time and just-enough connectivity for service-specific interconnections. Agency implements dynamic"
++    "Advanced": "Agency expands deployment of endpoint and application profile isolation mechanisms to more of their network architecture with ingress/egress micro-perimeters and service-specific interconnections. Agency implements dynamic",
++    "Optimal": "Agency network architecture consists of fully distributed ingress/egress micro-perimeters and extensive micro-segmentation based around application profiles with dynamic just-in-time and just-enough connectivity for service-specific interconnections. Agency implements dynamic"
+    }
+   },
+   {
+@@ -191,9 +191,9 @@
+    "note": "Formerly Encryption",
+    "stages": {
+     "Traditional": "Agency encrypts minimal traffic and relies on manual or ad hoc processes to manage and secure encryption keys.",
+-    "Initial": "Agency begins to encrypt all traffic to internal applications, to prefer encryption for traffic to external applications 27 , to formalize key management policies, and to secure server/service encryption keys.",
+-    "Advanced": "Agency ensures encryption for all applicable internal and 28 external traffic protocols, manages issuance and rotation of keys and certificates, and begins to incorporate best practices for cryptographic agility. 29",
+-    "Optimal": "Agency continues to encrypt traffic as appropriate, enforces least privilege principles for secure key management enterprise- wide, and incorporates best practices for cryptographic agility as widely as possible."
++    "Initial": "Agency begins to encrypt all traffic to internal applications, to prefer encryption for traffic to external applications , to formalize key management policies, and to secure server/service encryption keys.",
++    "Advanced": "Agency ensures encryption for all applicable internal and external traffic protocols, manages issuance and rotation of keys and certificates, and begins to incorporate best practices for cryptographic agility.",
++    "Optimal": "Agency continues to encrypt traffic as appropriate, enforces least privilege principles for secure key management enterprise-wide, and incorporates best practices for cryptographic agility as widely as possible."
+    }
+   },
+   {
+@@ -201,7 +201,7 @@
+    "name": "Network Resilience",
+    "note": "New Function",
+    "stages": {
+-    "Traditional": "Agency configures network capabilities on a case-by- case basis to only match individual application availability demands with limited resilience mechanisms for workloads not deemed mission critical.",
++    "Traditional": "Agency configures network capabilities on a case-by-case basis to only match individual application availability demands with limited resilience mechanisms for workloads not deemed mission critical.",
+     "Initial": "Agency begins to configure network capabilities to manage availability demands for additional applications and expand resilience mechanisms for workloads not deemed mission critical.",
+     "Advanced": "Agency has configured network capabilities to dynamically manage the availability demands and resilience mechanisms for the majority of their applications.",
+     "Optimal": "Agency integrates holistic delivery and awareness in adapting to changes in availability demands for all workloads and provides proportionate resilience."
+@@ -214,7 +214,7 @@
+    "stages": {
+     "Traditional": "Agency incorporates limited boundary-focused network monitoring capabilities with and HTTPS options are available, agencies should review in regard M-15-13, M-19-26, M-22-09, May 12, 2022. https://www.dhs.gov/publication/cryptographic-agility-infographic. minimal analysis to start developing centralized situational awareness.",
+     "Initial": "Agency employs network monitoring capabilities based on known indicators of policies and settings prefer HTTPS. to encrypting and decrypting network DHS Binding Operational Directive compromise (including network enumeration) to develop situational awareness in each environment and begins to correlate telemetry across traffic types and environments for analysis and threat hunting activities.",
+-    "Advanced": "Agency deploys anomaly- based network detection capabilities to develop traffic (or not) for inspection 18-01, NIST SP 800-207, situational awareness across all environments, begins to correlate telemetry from multiple sources for analysis, and incorporates automated processes for robust threat hunting activities.",
++    "Advanced": "Agency deploys anomaly-based network detection capabilities to develop traffic (or not) for inspection 18-01, NIST SP 800-207, situational awareness across all environments, begins to correlate telemetry from multiple sources for analysis, and incorporates automated processes for robust threat hunting activities.",
+     "Optimal": "Agency maintains visibility into communication across all agency networks and and visibility needs as among others. See also: April 2023 environments while enabling enterprise-wide situational awareness and advanced monitoring capabilities that automate telemetry correlation across all detection sources."
+    }
+   },
+@@ -248,7 +248,7 @@
+     "Traditional": "Agency authorizes access to applications primarily based on local authorization and static attributes.",
+     "Initial": "Agency begins to implement authorizing access capabilities to applications that incorporate contextual information (e.g., identity, device compliance, and/or other attributes) per request with expiration.",
+     "Advanced": "Agency automates application access decisions with expanded contextual information and enforced expiration conditions that adhere to least privilege principles.",
+-    "Optimal": "Agency continuously authorizes application access, incorporating real- time risk analytics and factors such as behavior or usage patterns."
++    "Optimal": "Agency continuously authorizes application access, incorporating real-time risk analytics and factors such as behavior or usage patterns."
+    }
+   },
+   {
+@@ -257,7 +257,7 @@
+    "note": "Formerly Threat Protections",
+    "stages": {
+     "Traditional": "Agency threat protections have minimal integration with application workflows, applying general purpose of DevSecOps for a Microservices-based protections for known threats.",
+-    "Initial": "Agency integrates threat protections into mission critical application workflows, applying Application with protections against known threats and some application- specific threats.",
++    "Initial": "Agency integrates threat protections into mission critical application workflows, applying Application with protections against known threats and some application-specific threats.",
+     "Advanced": "Agency integrates threat protections into all application workflows, protecting against some Service Mesh. March 8, 2022. application-specific and targeted threats.",
+     "Optimal": "Agency integrates advanced threat protections into all application workflows, offering real-time visibility April 2023 and content-aware protections against sophisticated attacks tailored to applications."
+    }
+@@ -267,7 +267,7 @@
+    "name": "Accessible Applications",
+    "note": "Formerly Accessibility",
+    "stages": {
+-    "Traditional": "Agency makes some mission critical applications 32 available only over private networks and protected public network connections (e.g., VPN) with monitoring.",
++    "Traditional": "Agency makes some mission critical applications available only over private networks and protected public network connections (e.g., VPN) with monitoring.",
+     "Initial": "Agency makes some of their applicable mission critical applications available over open public networks to authorized users with need via brokered connections.",
+     "Advanced": "Agency makes most of their applicable mission critical applications available over open public network connections to authorized users as needed.",
+     "Optimal": "Agency makes all applicable applications available over open public networks to authorized users and devices, where appropriate, as needed."
+@@ -324,7 +324,7 @@
+    "stages": {
+     "Traditional": "Agency relies primarily on manual enforcement policies for application access, development, deployment, software asset management, security testing and evaluation (ST&E) at technology insertion, patching, and tracking software dependencies. and unstructured files and infrastructure, and backups on devices, in applications, data at rest and in transit; governance policies to ensure to zero trust, as well as",
+     "Initial": "Agency begins to automate policy enforcement for application development (including access to development infrastructure), deployment, software asset management, ST&E at technology insertion, patching, and tracking software dependencies based upon mission needs (for example, with Software Bill of Materials). fragments that reside or have (including on-premises and metadata. and on networks in accordance and deploy mechanisms to detect all data lifecycle security aspects the considerations for Visibility Table 6: Data",
+-    "Advanced": "Agency implements tiered, tailored policies enterprise- wide for applications and all aspects of the application development and deployment lifecycles and leverages automation, where possible, to support enforcement. resided in federal systems, virtual environments) as well with federal requirements. and stop data exfiltration. are appropriately enforced and Analytics, Automation",
++    "Advanced": "Agency implements tiered, tailored policies enterprise-wide for applications and all aspects of the application development and deployment lifecycles and leverages automation, where possible, to support enforcement. resided in federal systems, virtual environments) as well with federal requirements. and stop data exfiltration. are appropriately enforced and Analytics, Automation",
+     "Optimal": "Agency fully automates policies governing applications development and deployment, including incorporating dynamic updates for applications through the CI/CD pipeline. April 2023 devices, networks, as the associated Agencies should inventory, Agencies should across the enterprise. and Orchestration, and"
+    }
+   },
+@@ -356,7 +356,7 @@
+    "note": "New Function",
+    "stages": {
+     "Traditional": "Agency primarily makes data available from on-premises data stores with some off-site backups.",
+-    "Initial": "Agency makes some data available from redundant, highly available data stores (e.g., cloud) and maintains off-site backups for on- premises data.",
++    "Initial": "Agency makes some data available from redundant, highly available data stores (e.g., cloud) and maintains off-site backups for on-premises data.",
+     "Advanced": "Agency primarily makes data available from redundant, highly available data stores and ensures access to historical data.",
+     "Optimal": "Agency uses dynamic methods to optimize data availability, including historical data, according to user and entity need."
+    }
+@@ -378,9 +378,9 @@
+    "note": "",
+    "stages": {
+     "Traditional": "Agency encrypts minimal agency data at rest and in transit and relies on manual or ad hoc processes to manage and secure encryption keys.",
+-    "Initial": "Agency encrypts all data in transit and, where feasible, data at rest (e.g., mission critical data and data stored in external environments) and begins to formalize key management policies and secure encryption keys. 34",
++    "Initial": "Agency encrypts all data in transit and, where feasible, data at rest (e.g., mission critical data and data stored in external environments) and begins to formalize key management policies and secure encryption keys.",
+     "Advanced": "Agency encrypts all data at rest and in transit across the enterprise to the maximum extent possible, begins to incorporate cryptographic agility, and protects encryption keys (i.e., secrets are not hard coded and are rotated on a regular basis).",
+-    "Optimal": "Agency encrypts data in use where appropriate, enforces least privilege principles for secure key management enterprise-wide, and applies encryption using up-to-date standards and cryptographic agility to the extent 35 possible."
++    "Optimal": "Agency encrypts data in use where appropriate, enforces least privilege principles for secure key management enterprise-wide, and applies encryption using up-to-date standards and cryptographic agility to the extent possible."
+    }
+   },
+   {
+@@ -390,7 +390,7 @@
+    "stages": {
+     "Traditional": "Agency has limited visibility into data including location, access, and usage, with analysis consisting primarily of manual processes. key stores and reduce and updates such as: (1) https://www.nist.gov/itl/fips-general-information, Agency implements data",
+     "Initial": "Agency obtains visibility based on data inventory management, categorization, encryption, and access attempts, with some reliance on one-off or siloed key automated analysis and correlation. Agency uses some",
+-    "Advanced": "Agency maintains data visibility in a more comprehensive, enterprise- wide manner with automated analysis and correlation and stores. (2) https://www.nist.gov/cryptography, begins to employ predictive analytics. Agency implements data",
++    "Advanced": "Agency maintains data visibility in a more comprehensive, enterprise-wide manner with automated analysis and correlation and stores. (2) https://www.nist.gov/cryptography, begins to employ predictive analytics. Agency implements data",
+     "Optimal": "Agency has visibility across the full data lifecycle with robust analytics, including predictive analytics, that support comprehensive views of agency data and and (3) April 2023 continuous security posture assessment. Agency automates, to the"
+    }
+   },
+@@ -445,7 +445,7 @@
+    "stages": {
+     "Traditional": "Agency implements policies in an ad hoc manner across the enterprise, with policies enforced via manual processes or static technical mechanisms.",
+     "Initial": "Agency defines and begins implementing policies for enterprise-wide enforcement with minimal automation and manual updates.",
+-    "Advanced": "Agency implements tiered, tailored policies enterprise- wide and leverages automation where possible to support enforcement. Access policy decisions incorporate contextual information from multiple sources.",
++    "Advanced": "Agency implements tiered, tailored policies enterprise-wide and leverages automation where possible to support enforcement. Access policy decisions incorporate contextual information from multiple sources.",
+     "Optimal": "Agency implements and fully automates enterprise-wide policies that enable tailored local controls with continuous enforcement and dynamic updates. April 2023 April 2023"
+    }
+   }
+diff --git a/tests/injected.py b/tests/injected.py
+index 6fe7584..91fda7c 100644
+--- a/tests/injected.py
++++ b/tests/injected.py
+@@ -673,6 +673,32 @@ MATRIX: List[Injection] = [
+         suites=["test_extracts.py"],
+         caught_by=["no figure has a footnote marker welded to its unit"],
+     ),
++    Injection(
++        key="wrapped-word",
++        defect="a word the page broke across a line is joined with a space",
++        was="ten controls across six extractors read 'enterprise- wide', 'need- to-know', "
++            "'internet- facing' and 'user- addressable'. A PDF has no line-break "
++            "character, so an extractor joining a wrapped line with a space breaks the "
++            "word, and what reaches the corpus is not what the publisher wrote",
++        path="data/corpus/c2m2.json",
++        edits=[(
++            "coordinated with the organization\u2019s enterprise-wide risk management",
++            "coordinated with the organization\u2019s enterprise- wide risk management",
++        )],
++        suites=["test_extracts.py"],
++        caught_by=["no control carries a word the page broke"],
++    ),
++    Injection(
++        key="suspended-hyphen-closed",
++        defect="a real suspended hyphen is closed up as though it were a break",
++        was="NIST writes 'security- and privacy-related documentation'. Mending that the "
++            "way a wrapped word is mended produces 'security-and', so the rule has to "
++            "tell a suspended hyphen from a broken word",
++        path="tools/textjoin.py",
++        edits=[('_SUSPENDED = ("and", "or")\n', "_SUSPENDED = ()\n")],
++        suites=["test_extracts.py"],
++        caught_by=["leaves a suspended hyphen"],
++    ),
+     Injection(
+         key="corpus-clobbered",
+         defect="a curated corpus file is overwritten by another tool",
+diff --git a/tests/test_extracts.py b/tests/test_extracts.py
+index 4c6ae06..b31f19e 100644
+--- a/tests/test_extracts.py
++++ b/tests/test_extracts.py
+@@ -60,6 +60,9 @@ KEY_SIZE = re.compile(r"\b[Lkfn]\s*=\s*\d+")
+ # Advances in factoring..." — a paragraph, not a row.
+ PROSE = re.compile(r"[a-z]\.\s+[A-Z]")
+ 
++# A word the page wrapped inside, joined with a space: "enterprise- wide".
++BROKEN_WORD = re.compile(r"[A-Za-z]-\s[a-z]")
++
+ # A footnote marker welded to a time unit: '< 2 years61' stated a cryptoperiod that the
+ # threshold reader could not see at all.
+ WELDED = re.compile(
+@@ -169,6 +172,61 @@ def run() -> int:
+         "passes when both tables are empty",
+     )
+ 
++    # -- words the page broke, mended ----------------------------------------
++    #
++    # Found by round-tripping the corpus against the source documents, which is the only
++    # check that reads the publisher's text rather than the corpus's shape. Ten controls
++    # across six extractors read "enterprise- wide", "need- to-know", "internet- facing"
++    # and "user- addressable" — a PDF wrapping inside a word, joined with a space. The
++    # exception is real English: a suspended hyphen is followed by "and" or "or", and
++    # NIST writes "security- and privacy-related documentation".
++    from wacc.build import build as _build  # noqa: E402
++
++    corpus, _report = _build(verbose=False)
++    broken = []
++    for control in corpus.controls.values():
++        for match in BROKEN_WORD.finditer(control.text or ""):
++            tail = (control.text or "")[match.end() - 1:].split(" ", 1)[0].strip(".,;:)")
++            if tail.lower() not in ("and", "or"):
++                broken.append((control.uid, match.group(0)))
++                break
++    check.expect(
++        not broken,
++        "wrapping", "no control carries a word the page broke across a line "
++        "(%d controls read)" % len(corpus.controls),
++        "; ".join("%s %r" % pair for pair in broken[:3]),
++    )
++    suspended = [
++        c.uid for c in corpus.controls.values()
++        if "security- and" in (c.text or "")
++    ]
++    check.expect(
++        bool(suspended),
++        "wrapping", "a real suspended hyphen survives the mending (%s)"
++        % ", ".join(suspended[:2]),
++        "closing 'security- and privacy-related' would produce 'security-and', so the "
++        "rule has to tell the two apart and this is the case that proves it still can",
++    )
++    # The rule itself, not only its effect on a corpus already written. tools/textjoin.py
++    # is stdlib, so the suite can call it even though the extractors around it cannot run
++    # on a machine without pdfplumber.
++    sys.path.insert(0, os.path.join(ROOT, "tools"))
++    from textjoin import mend_hyphen  # noqa: E402
++
++    mended = [
++        ("enterprise- wide risk", "enterprise-wide risk"),
++        ("need- to-know basis", "need-to-know basis"),
++        ("user- addressable storage", "user-addressable storage"),
++        ("security- and privacy-related", "security- and privacy-related"),
++        ("hardware- or software-based", "hardware- or software-based"),
++    ]
++    wrong = [(a, mend_hyphen(a), b) for a, b in mended if mend_hyphen(a) != b]
++    check.expect(
++        not wrong,
++        "wrapping", "the mending rule closes a broken word and leaves a suspended hyphen",
++        "; ".join("%r became %r, wanted %r" % w for w in wrong[:2]),
++    )
++
+     # -- one tool owns one corpus file ---------------------------------------
+ 
+     sanitisation = _records("nist-800-88")
+diff --git a/tools/curate_800_88.py b/tools/curate_800_88.py
+index 15663ff..2d08ea0 100644
+--- a/tools/curate_800_88.py
++++ b/tools/curate_800_88.py
+@@ -27,6 +27,9 @@ from typing import Dict, List, Optional, Tuple
+ 
+ import pdfplumber
+ 
++sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
++from textjoin import mend_hyphen  # noqa: E402
++
+ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+ from extract_nist_pdf import _SENTENCE, parameters_in, walk_sections, _body_size  # noqa: E402
+ 
+@@ -104,7 +107,7 @@ def main() -> int:
+                 "obligation": keyword.group(1).upper() if keyword else "",
+                 "parameters": parameters_in(text) or ["method"],
+                 "kind": "statement",
+-                "text": text,
++                "text": mend_hyphen(text),
+             }
+         )
+ 
+diff --git a/tools/extract_asd_ad.py b/tools/extract_asd_ad.py
+index e360ae5..f56dd83 100644
+--- a/tools/extract_asd_ad.py
++++ b/tools/extract_asd_ad.py
+@@ -20,6 +20,9 @@ from typing import Dict, List, Optional, Tuple
+ 
+ import pdfplumber
+ 
++sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
++from textjoin import mend_hyphen  # noqa: E402
++
+ HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ SOURCE = os.path.join(
+     HERE, "data", "raw", "documents",
+@@ -103,7 +106,11 @@ def extract() -> Tuple[List[Dict[str, object]], int]:
+                     # to the first mitigation and swallows it.
+                     continue
+                 if records and records[-1].get("_marker") == (index, marker):
+-                    records[-1]["text"] = (str(records[-1]["text"]) + " " + text).strip()
++                    # Mended here as well as at the emit, because this is the join where
++                    # a word broken at a line end actually meets its other half.
++                    records[-1]["text"] = mend_hyphen(
++                        (str(records[-1]["text"]) + " " + text).strip()
++                    )
+                     continue
+                 records.append(
+                     {
+@@ -115,7 +122,7 @@ def extract() -> Tuple[List[Dict[str, object]], int]:
+                         "obligation": "",
+                         "parameters": ["mitigation"],
+                         "kind": "statement",
+-                        "text": text,
++                        "text": mend_hyphen(text),
+                         "_marker": (index, marker),
+                     }
+                 )
+diff --git a/tools/extract_c2m2.py b/tools/extract_c2m2.py
+index 060b409..9ef5c98 100644
+--- a/tools/extract_c2m2.py
++++ b/tools/extract_c2m2.py
+@@ -34,6 +34,9 @@ from typing import Dict, List, Optional, Tuple
+ 
+ import pdfplumber
+ 
++sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
++from textjoin import mend_hyphen  # noqa: E402
++
+ HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ DOCUMENTS = os.path.join(HERE, "data", "raw", "documents")
+ CORPUS = os.path.join(HERE, "data", "corpus")
+@@ -258,6 +261,8 @@ def extract() -> Tuple[List[Dict[str, object]], Dict[str, object]]:
+ 
+ def main() -> int:
+     practices, report = extract()
++    for practice in practices:
++        practice["text"] = mend_hyphen(str(practice["text"]))
+     by_domain: Dict[str, int] = {}
+     for practice in practices:
+         by_domain[str(practice["domain"])] = by_domain.get(str(practice["domain"]), 0) + 1
+diff --git a/tools/extract_nist_pdf.py b/tools/extract_nist_pdf.py
+index 40ac7e1..b597320 100644
+--- a/tools/extract_nist_pdf.py
++++ b/tools/extract_nist_pdf.py
+@@ -27,6 +27,9 @@ from typing import Dict, List, Optional, Tuple
+ 
+ import pdfplumber
+ 
++sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
++from textjoin import mend_hyphen  # noqa: E402
++
+ HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ DOCUMENTS = os.path.join(HERE, "data", "raw", "documents")
+ CORPUS = os.path.join(HERE, "data", "corpus")
+@@ -216,7 +219,7 @@ _WELDED_FOOTNOTE = re.compile(
+ 
+ def _clean(cell: Optional[str]) -> str:
+     text = re.sub(r"\s+", " ", (cell or "").replace("\n", " ")).strip()
+-    return _WELDED_FOOTNOTE.sub(r"\1", text)
++    return mend_hyphen(_WELDED_FOOTNOTE.sub(r"\1", text))
+ 
+ 
+ # --------------------------------------------------------------------------
+@@ -289,7 +292,7 @@ def sentence_records(sections: List[Dict[str, object]]) -> List[Dict[str, object
+     for section in sections:
+         body = " ".join(str(x) for x in section.get("body", []))  # type: ignore[union-attr]
+         for sentence in _SENTENCE.split(body):
+-            sentence = re.sub(r"\s+", " ", sentence).strip()
++            sentence = mend_hyphen(re.sub(r"\s+", " ", sentence).strip())
+             if len(sentence) < 45 or len(sentence) > 600:
+                 continue
+             if sentence.count("(cid:") or sentence.count("  "):
+diff --git a/tools/extract_oag.py b/tools/extract_oag.py
+index 571a023..82ffbe5 100644
+--- a/tools/extract_oag.py
++++ b/tools/extract_oag.py
+@@ -18,6 +18,9 @@ from typing import Dict, List, Optional, Tuple
+ 
+ import pdfplumber
+ 
++sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
++from textjoin import mend_hyphen  # noqa: E402
++
+ HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ DOCUMENTS = os.path.join(HERE, "data", "raw", "documents")
+ OUTPUT = os.path.join(HERE, "data", "corpus", "oag-wa.json")
+@@ -207,7 +210,7 @@ def _emit(
+             "section_number": section_number,
+             "section_title": section_title or "",
+             "heading": " ".join(heading).strip(),
+-            "text": " ".join(body).strip(),
++            "text": mend_hyphen(" ".join(body).strip()),
+             "page": page_index + 1,
+         }
+     )
+diff --git a/tools/extract_pspf.py b/tools/extract_pspf.py
+index 6973950..a1eaa85 100644
+--- a/tools/extract_pspf.py
++++ b/tools/extract_pspf.py
+@@ -11,6 +11,9 @@ reflows text by x-coordinate guesswork.
+ import json
+ import os
+ import sys
++
++sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
++from textjoin import mend_hyphen  # noqa: E402
+ from typing import Dict, List, Optional
+ 
+ import pdfplumber
+@@ -36,7 +39,12 @@ EXPECTED_COLUMNS = [
+ 
+ 
+ def _clean(value: Optional[str]) -> str:
+-    return " ".join((value or "").split())
++    """Cell text, with anything the table broke across a line mended.
++
++    A requirement read "identify and manage the entity's internet- facing systems", which
++    is the table wrapping inside a cell rather than anything the PSPF wrote.
++    """
++    return mend_hyphen(" ".join((value or "").split()))
+ 
+ 
+ def _find_header(rows: List[List[Optional[str]]]) -> Optional[int]:
+diff --git a/tools/extract_ztmm.py b/tools/extract_ztmm.py
+index f109c07..1ae7a6a 100644
+--- a/tools/extract_ztmm.py
++++ b/tools/extract_ztmm.py
+@@ -73,6 +73,15 @@ _CELL_OPENS = re.compile(r"^(Agency|Agencies)\b")
+ _BOLD = "Bold"
+ _LINE_TOLERANCE = 3.0
+ 
++# A footnote reference is a superscript digit and arrives as a word of its own, so the
++# corpus read "Agency sets some policies 26 for the lifecycle" and "encryption for all
++# applicable internal and 28 external traffic protocols". Both are the document's
++# footnote numbers standing in the middle of a sentence, and the second one puts a bare
++# quantity where the threshold reader can see it. Only a bare number set smaller than the
++# body is dropped; FIDO2 and SHA-256 are words with digits in them and are left alone.
++_BARE_NUMBER = re.compile(r"^\d{1,3}$")
++FOOTNOTE_SIZE_GAP = 1.0
++
+ 
+ def _lines(page):
+     """Words grouped into visual lines, each keeping its x position."""
+@@ -83,6 +92,39 @@ def _lines(page):
+     return [sorted(rows[k], key=lambda w: w["x0"]) for k in sorted(rows)]
+ 
+ 
++def _body_size(pdf) -> float:
++    """The size most of this document's words are set at, for spotting superscripts."""
++    counts: Dict[float, int] = {}
++    for page in pdf.pages[: min(20, len(pdf.pages))]:
++        for word in page.extract_words(extra_attrs=["size"]):
++            size = round(float(word["size"]), 1)
++            counts[size] = counts.get(size, 0) + len(word["text"])
++    return max(counts, key=lambda s: counts[s]) if counts else 11.0
++
++
++def _join_lines(parts: List[str]) -> str:
++    """Join a cell's lines, closing the gap where a word was broken at a line end.
++
++    Every one of the twenty-two breaks in this document falls on a hyphen the document
++    itself writes — enterprise-wide, password-less, on-premises, case-by-case,
++    anomaly-based, network-connected. So the space is removed and the hyphen kept.
++    Removing the hyphen as well would invent 'enterprisewide', which is not what CISA
++    wrote and is not what a reader would search for.
++    """
++    joined = ""
++    for part in parts:
++        piece = " ".join((part or "").split())
++        if not piece:
++            continue
++        if joined.endswith("-"):
++            joined += piece
++        elif joined:
++            joined += " " + piece
++        else:
++            joined = piece
++    return joined
++
++
+ def _header_columns(line) -> Optional[List[float]]:
+     texts = [w["text"] for w in line]
+     if all(h in texts for h in HEADERS):
+@@ -113,6 +155,7 @@ def extract(path: str) -> List[dict]:
+ 
+     with pdfplumber.open(path) as pdf:
+         previous_was_table = False
++        body_size = _body_size(pdf)
+         for page in pdf.pages:
+             lines = _lines(page)
+ 
+@@ -153,6 +196,13 @@ def extract(path: str) -> List[dict]:
+                     # footnote or the running header that crept past the x tolerance.
+                     if column == 0 and _BOLD not in (word.get("fontname") or ""):
+                         continue
++                    if (
++                        column > 0
++                        and _BARE_NUMBER.match(word["text"])
++                        and body_size - float(word.get("size") or body_size)
++                        > FOOTNOTE_SIZE_GAP
++                    ):
++                        continue
+                     buckets.setdefault(column, []).append(word["text"])
+                 opener = " ".join(buckets.get(0, [])).strip()
+                 stage_text = {
+@@ -231,7 +281,7 @@ def extract(path: str) -> List[dict]:
+                 "name": _ANNOTATION.sub("", name).strip(),
+                 "note": annotation.group(1) if annotation else "",
+                 "stages": {
+-                    stage: " ".join(" ".join(parts).split())
++                    stage: _join_lines(parts)
+                     for stage, parts in record["stages"].items()
+                 },
+             }
+diff --git a/tools/textjoin.py b/tools/textjoin.py
+new file mode 100644
+index 0000000..ba9adc5
+--- /dev/null
++++ b/tools/textjoin.py
+@@ -0,0 +1,49 @@
++"""Mending words a PDF broke across a line.
++
++Extraction tooling, shared by the extractors so the rule lives in one place.
++
++A PDF has no line-break character. An extractor that joins a wrapped line with a space
++turns "enterprise-wide" into "enterprise- wide" and "need-to-know" into "need- to-know",
++and those reach the corpus as the publisher's words when they are not. The round-trip
++check against the source documents found ten of them across six extractors.
++
++The hyphen is kept and the space removed, because every break of this kind in these
++documents falls on a hyphen the publisher writes. Removing the hyphen as well would
++invent "enterprisewide", which is neither what the document says nor what a reader would
++search for.
++
++One exception, and it is real English rather than an artefact. A suspended hyphen is
++followed by "and" or "or" — SP 800-53 writes "security- and privacy-related
++documentation", and closing that would produce "security-and". Those are left alone.
++"""
++
++import re
++from typing import Iterable, List
++
++_SUSPENDED = ("and", "or")
++_BREAK = re.compile(r"(?<=[A-Za-z])-\s+(?=[a-z])")
++
++
++def mend_hyphen(text: str) -> str:
++    """Close a hyphen that a line break left with a space after it."""
++    def close(match: re.Match) -> str:
++        tail = text[match.end():].split(" ", 1)[0].strip(".,;:)")
++        return "- " if tail.lower() in _SUSPENDED else "-"
++
++    return _BREAK.sub(close, text or "")
++
++
++def join_wrapped(parts: Iterable[str]) -> str:
++    """Join a cell or paragraph's lines, mending anything broken at the join."""
++    joined = ""
++    for part in parts:
++        piece = " ".join((part or "").split())
++        if not piece:
++            continue
++        if joined.endswith("-"):
++            joined += piece
++        elif joined:
++            joined += " " + piece
++        else:
++            joined = piece
++    return mend_hyphen(joined)
+diff --git a/tools/verify_against_source.py b/tools/verify_against_source.py
+new file mode 100644
+index 0000000..3ce78f4
+--- /dev/null
++++ b/tools/verify_against_source.py
+@@ -0,0 +1,487 @@
++"""Round-trip every stored control back to the document it came from.
++
++Extraction tooling. Not part of the shipped package, and not part of the test suite —
++it needs the source documents and pdfplumber, and the work machine has neither.
++
++The suite checks structure, licensing, retrieval and behaviour. None of that asks whether
++the text of a control is the publisher's text. Reading SP 800-57 by hand found five rows
++of one table stored under another table's caption and five paragraphs of narrative stored
++as suggested cryptoperiods, and nothing in 368 checks could have found either. This looks
++for the same class of defect everywhere at once.
++
++The method is a measurement, not a verdict. A control's text is normalised and looked for
++in the normalised text of its source document.
++
++    verbatim   every word is there, in order
++    near       almost every word is there, in order
++    partial    some of it is there, and the share is reported
++    absent     no run of it is there at all, which is a fabrication or a wrong source
++
++Contiguity is the wrong test and calibrating on a known-good framework is what showed it.
++C2M2's practices came back 55 partial out of 356 against an extractor already checked
++against the document's own count of 356. The document is why. A maturity marker sits in
++the left margin between the first and second line of the practice it opens, so the page
++reads "...are inventoried, at least MIL1 in an ad hoc manner" and a contiguous match
++fails on text that is entirely present. Footnote digits, running headers and sidebars all
++do the same thing somewhere.
++
++So the measure is order-preserving word coverage with a small tolerance for what the page
++inserts. A control's words are matched in sequence against the document's, skipping up to
++a few intruding tokens between them. Text that is really there scores 1.0 whatever the
++page has put through the middle of it; text that is not scores near zero.
++
++Normalisation folds case, whitespace, quotes and dashes on both sides, because a PDF
++writes ’ and — where a docx writes ' and -, and a difference of typography is not a
++difference of text.
++
++What this cannot do is check a control against a document nobody has. Frameworks whose
++source is absent are named and skipped rather than counted as clean.
++
++Nor can it check a document whose text cannot be read in order. CISA's Zero Trust
++Maturity Model keeps its content in tables that pdfplumber reports as nine columns where
++there are five, which is why its own extractor reads word positions instead. Running a
++linear haystack against it reports all forty functions as absent, and every one of them
++is present. That is the instrument failing, not the corpus, so it is declared rather than
++counted.
++"""
++
++import json
++import os
++import re
++import sys
++from typing import Dict, List, Optional, Sequence, Tuple
++
++HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
++sys.path.insert(0, HERE)
++
++from wacc.build import build, DOCUMENTS, RAW  # noqa: E402
++from wacc.model import Control  # noqa: E402
++
++CACHE = os.path.join(HERE, "data", "review", "cache")
++
++# Frameworks whose source cannot be read as a linear stream of words, with the reason.
++# Declared, because reporting forty false absences teaches a reader to ignore the column
++# that matters.
++UNREADABLE = {
++    "ztmm": "the maturity tables do not survive linear extraction; its own parser reads "
++            "word positions, and this check cannot",
++}
++
++ANCHOR = 4              # words used to find where in the document to start matching
++MAX_SKIP = 8            # tokens the page may insert between two words of a control
++NEAR = 0.97             # coverage at or above this, short of everything, is near
++PARTIAL = 0.50          # below this, with an anchor, is still partial rather than absent
++ANCHORS_TRIED = 12      # a common phrase can occur many times; try the first few
++ANCHOR_PHRASES = 4      # and try more than one phrase, in case one straddles an insertion
++
++_FOLD = {
++    "‘": "'", "’": "'", "“": '"', "”": '"',
++    "–": "-", "—": "-", "−": "-", "‐": "-", "‑": "-",
++    " ": " ", "•": " ", "ﬁ": "fi", "ﬂ": "fl",
++}
++_FOLD_RE = re.compile("|".join(map(re.escape, _FOLD)))
++
++
++def normalise(text: str) -> str:
++    text = _FOLD_RE.sub(lambda m: _FOLD[m.group(0)], text or "")
++    return " ".join(text.lower().split())
++
++
++class Haystack:
++    """One source document as a word list, with an index from opening phrases to positions.
++
++    The index is what keeps this fast enough to run over five thousand controls: without
++    an anchor every control would be scanned against every position in a document of tens
++    of thousands of words.
++    """
++
++    def __init__(self, text: str) -> None:
++        self.text = text
++        self.words = text.split()
++        self.index: Dict[str, List[int]] = {}
++        for position in range(len(self.words) - ANCHOR + 1):
++            key = " ".join(self.words[position:position + ANCHOR])
++            self.index.setdefault(key, []).append(position)
++
++    def anchors(self, needle: Sequence[str]) -> List[Tuple[int, int]]:
++        """Where this text sits in the document, from its least common phrases.
++
++        Three problems, all real on C2M2, and each one broke a different first attempt.
++
++        Anchoring on the opening words fails on a document that repeats a stock phrase:
++        "assets that are important to the delivery of the function" occurs dozens of
++        times, so the first twelve hits were the wrong occurrence and practices that are
++        in the document verbatim came back at 50 per cent.
++
++        Anchoring on the single rarest phrase fails when that phrase straddles something
++        the page inserted. The ten management-activity practices differ only in the domain
++        name at the end, so the rarest phrase is the one containing it — and the maturity
++        marker sits between "the" and the domain name, so that phrase does not occur in
++        the document at all and the anchors found were all the wrong practice.
++
++        So several of the least common phrases are offered, and the caller takes the best
++        result across them. One of them will be clear of whatever the page inserted.
++        """
++        candidates: List[Tuple[int, int]] = []
++        limit = max(1, min(len(needle), 60) - ANCHOR + 1)
++        for offset in range(limit):
++            key = " ".join(needle[offset:offset + ANCHOR])
++            found = self.index.get(key)
++            if found:
++                candidates.append((len(found), offset))
++        if not candidates:
++            return []
++        candidates.sort()
++        anchors: List[Tuple[int, int]] = []
++        for _count, offset in candidates[:ANCHOR_PHRASES]:
++            key = " ".join(needle[offset:offset + ANCHOR])
++            for position in self.index[key][:ANCHORS_TRIED]:
++                anchors.append((position, offset))
++        return anchors
++
++    def _walk(self, words: Sequence[str], start: int, step: int) -> Tuple[int, int]:
++        """Match words one way from a position, skipping what the page inserted."""
++        matched = 0
++        inserted = 0
++        position = start
++        for word in words:
++            for skip in range(MAX_SKIP + 1):
++                probe = position + skip * step
++                if 0 <= probe < len(self.words) and self.words[probe] == word:
++                    matched += 1
++                    inserted += skip
++                    position = probe + step
++                    break
++            else:
++                position += step
++        return matched, inserted
++
++    def coverage(self, needle: Sequence[str]) -> Tuple[float, bool]:
++        """The share of the control's words found in order, and whether none were skipped.
++
++        Returns 1.0 when every word is present in sequence, whatever the page has put
++        between them. Both directions are walked from the anchor, so a control whose
++        rarest phrase is at its end is measured as well as one whose rarest phrase opens
++        it.
++        """
++        if not needle:
++            return 1.0, True
++        best = 0.0
++        best_clean = False
++        for position, offset in self.anchors(needle):
++            ahead, inserted_ahead = self._walk(needle[offset:], position, 1)
++            behind, inserted_behind = self._walk(
++                list(reversed(needle[:offset])), position - 1, -1
++            )
++            share = (ahead + behind) / float(len(needle))
++            clean = (inserted_ahead + inserted_behind) == 0
++            if share > best or (share == best and clean and not best_clean):
++                best, best_clean = share, clean
++            if best >= 1.0 and best_clean:
++                break
++        return best, best_clean
++
++
++# Where a loader legitimately assembles one control from several pieces of the document.
++# A table row is cells joined with "; ", a ZTMM function is four stage descriptions with
++# the stage names put in front of them, a composed fragment is a parent stem and its
++# child. None of those is contiguous in the source and all of them are honest.
++# Square brackets as well, because the 800-53 loader substitutes each OSCAL parameter's
++# label into the prose — "Implement [dynamic privilege management capabilities]" is one
++# sentence in the catalogue and a separate parameter object elsewhere in the same file.
++_PIECES = re.compile(r";\s|\s-\s|\.\s|:\s|[\[\]]")
++PIECE_MIN = 4           # a fragment shorter than this proves nothing either way
++PIECE_SHARE = 0.5       # and the pieces together have to be most of the control
++
++
++def _pieces(words: Sequence[str]) -> List[List[str]]:
++    parts = [p.split() for p in _PIECES.split(" ".join(words))]
++    return [p for p in parts if len(p) >= PIECE_MIN]
++
++
++def classify(text: str, haystacks: Sequence["Haystack"]) -> Tuple[str, float]:
++    wanted = normalise(text).split()
++    if not wanted:
++        return "empty", 1.0
++
++    # A needle shorter than an anchor phrase cannot be anchored, and most of them are
++    # headings — "Control Logical Access", "Each entity must:". Looked for whole.
++    if len(wanted) < ANCHOR:
++        phrase = " ".join(wanted)
++        if any(phrase in haystack.text for haystack in haystacks):
++            return "verbatim", 1.0
++        return "absent", 0.0
++
++    best = 0.0
++    best_clean = False
++    for haystack in haystacks:
++        share, clean = haystack.coverage(wanted)
++        if share > best or (share == best and clean and not best_clean):
++            best, best_clean = share, clean
++        if best >= 1.0:
++            break
++    if best >= 1.0:
++        return "verbatim", 1.0
++
++    # Not contiguous. Whether every piece of it is there is a different question, and for
++    # an assembled control it is the right one.
++    pieces = _pieces(wanted)
++    substantial = sum(len(p) for p in pieces) >= PIECE_SHARE * len(wanted)
++    if pieces and substantial:
++        found = 0
++        for piece in pieces:
++            if len(piece) < ANCHOR:
++                phrase = " ".join(piece)
++                if any(phrase in haystack.text for haystack in haystacks):
++                    found += 1
++                continue
++            if any(haystack.coverage(piece)[0] >= 1.0 for haystack in haystacks):
++                found += 1
++        share = found / float(len(pieces))
++        if share >= 1.0:
++            return "joined", 1.0
++        best = max(best, share)
++
++    if best >= NEAR:
++        return "near", best
++    if best >= PARTIAL:
++        return "partial", best
++    return "absent", best
++
++
++# --------------------------------------------------------------------------
++# Reading a source document, once
++# --------------------------------------------------------------------------
++
++
++def _cache_path(path: str) -> str:
++    return os.path.join(CACHE, re.sub(r"[^A-Za-z0-9._-]", "_", os.path.basename(path)) + ".txt")
++
++
++def source_text(path: str) -> Optional[str]:
++    """Every word of a source document, in one string, cached between runs."""
++    if not os.path.exists(path):
++        return None
++    cached = _cache_path(path)
++    if os.path.exists(cached) and os.path.getmtime(cached) >= os.path.getmtime(path):
++        with open(cached, encoding="utf-8") as handle:
++            return handle.read()
++
++    suffix = os.path.splitext(path)[1].lower()
++    if suffix == ".pdf":
++        import pdfplumber
++
++        parts = []
++        with pdfplumber.open(path) as pdf:
++            for page in pdf.pages:
++                parts.append(page.extract_text() or "")
++        text = normalise(" ".join(parts))
++    elif suffix == ".docx":
++        from wacc.io.docx import Document
++
++        parts = []
++        for block in Document(path).blocks():
++            if getattr(block, "rows", None):
++                for row in block.rows:
++                    parts.extend(row)
++            else:
++                parts.append(block.text)
++        text = normalise(" ".join(parts))
++    elif suffix in (".xlsx", ".xlsm"):
++        from wacc.io.xlsx import Workbook
++
++        workbook = Workbook(path)
++        parts = []
++        for sheet in workbook.sheet_names:
++            for row in workbook.rows(sheet):
++                parts.extend(str(c) for c in row)
++        text = normalise(" ".join(parts))
++    elif suffix == ".json":
++        with open(path, encoding="utf-8") as handle:
++            text = normalise(_json_text(json.load(handle)))
++    else:
++        return None
++
++    os.makedirs(CACHE, exist_ok=True)
++    with open(cached, "w", encoding="utf-8") as handle:
++        handle.write(text)
++    return text
++
++
++def _json_text(node) -> str:
++    if isinstance(node, dict):
++        return " ".join(_json_text(v) for v in node.values())
++    if isinstance(node, list):
++        return " ".join(_json_text(v) for v in node)
++    return str(node) if isinstance(node, str) else ""
++
++
++# --------------------------------------------------------------------------
++# Where a framework's text came from
++# --------------------------------------------------------------------------
++
++
++def _resolve(name: str) -> Optional[str]:
++    """A source file named by a registry entry or an extract, found on disk."""
++    if not name:
++        return None
++    for candidate in (
++        os.path.join(RAW, name),
++        os.path.join(DOCUMENTS, name),
++        os.path.join(DOCUMENTS, os.path.basename(name)),
++        os.path.join(RAW, os.path.basename(name)),
++    ):
++        if os.path.isfile(candidate):
++            return candidate
++    return None
++
++
++def _resolve_dir(name: str) -> Optional[str]:
++    for candidate in (
++        os.path.join(RAW, name.rstrip("/")), os.path.join(DOCUMENTS, name.rstrip("/"))
++    ):
++        if os.path.isdir(candidate):
++            return candidate
++    return None
++
++
++def _named_sources(node) -> List[str]:
++    out: List[str] = []
++    if isinstance(node, dict):
++        value = node.get("source_file")
++        if isinstance(value, str):
++            out.append(value)
++        for item in node.values():
++            out.extend(_named_sources(item))
++    elif isinstance(node, list):
++        for item in node:
++            out.extend(_named_sources(item))
++    return out
++
++
++def sources_for(framework, corpus_dir: str) -> List[str]:
++    """Every file a framework's text could have come from.
++
++    The extract knows better than the registry does. A framework built from two OAG
++    reports records one source per guide, and checking both against one of them would
++    report half the corpus as absent.
++    """
++    found: List[str] = []
++    extract = os.path.join(corpus_dir, "%s.json" % framework.key)
++    if os.path.exists(extract):
++        with open(extract, encoding="utf-8") as handle:
++            payload = json.load(handle)
++        for name in _named_sources(payload):
++            resolved = _resolve(name)
++            if resolved and resolved not in found:
++                found.append(resolved)
++    resolved = _resolve(framework.source_file or "")
++    if resolved and resolved not in found:
++        found.append(resolved)
++    if not found and framework.source_file:
++        directory = _resolve_dir(framework.source_file)
++        if directory:
++            for name in sorted(os.listdir(directory)):
++                path = os.path.join(directory, name)
++                if os.path.isfile(path):
++                    found.append(path)
++    return found
++
++
++_HAYSTACKS: Dict[int, "Haystack"] = {}
++
++
++def _haystack(text: str) -> "Haystack":
++    key = id(text)
++    if key not in _HAYSTACKS:
++        _HAYSTACKS[key] = Haystack(text)
++    return _HAYSTACKS[key]
++
++
++def main(argv: Optional[Sequence[str]] = None) -> int:
++    argv = list(sys.argv[1:] if argv is None else argv)
++    only = [a for a in argv if not a.startswith("-")]
++    show = "--show" in argv
++
++    corpus, _ = build(verbose=False)
++    corpus_dir = os.path.join(HERE, "data", "corpus")
++
++    print("round-trip: every stored control looked for in the document it came from\n")
++    header = "%-16s %6s %8s %6s %6s %8s %7s   %s" % (
++        "framework", "texts", "verbatim", "joined", "near", "partial", "absent", "source"
++    )
++    print(header)
++    print("-" * len(header))
++
++    worst: List[Tuple[str, Control, str, float]] = []
++    skipped: List[Tuple[str, str]] = []
++    totals = {"texts": 0, "verbatim": 0, "joined": 0, "near": 0, "partial": 0, "absent": 0}
++
++    for framework in corpus.ordered_frameworks():
++        if only and framework.key not in only:
++            continue
++        controls = [
++            c for c in corpus.controls_for(framework.key)
++            if (c.text or "").strip() and not c.attributes.get("structural")
++        ]
++        if not controls:
++            continue
++        if framework.key in UNREADABLE:
++            skipped.append((framework.key, UNREADABLE[framework.key]))
++            continue
++        paths = sources_for(framework, corpus_dir)
++        haystacks = []
++        for path in paths:
++            text = source_text(path)
++            if text:
++                haystacks.append(_haystack(text))
++        if not haystacks:
++            skipped.append((framework.key, "no source document on this machine"))
++            continue
++
++        counts = {"verbatim": 0, "joined": 0, "near": 0, "partial": 0, "absent": 0, "empty": 0}
++        for control in controls:
++            verdict, share = classify(control.text, haystacks)
++            counts[verdict] = counts.get(verdict, 0) + 1
++            if verdict in ("absent", "partial"):
++                worst.append((framework.key, control, verdict, share))
++
++        for key in totals:
++            if key == "texts":
++                totals[key] += len(controls)
++            else:
++                totals[key] += counts.get(key, 0)
++        print(
++            "%-16s %6d %8d %6d %6d %8d %7d   %s"
++            % (
++                framework.key, len(controls), counts["verbatim"], counts["joined"],
++                counts["near"], counts["partial"], counts["absent"],
++                ", ".join(os.path.basename(p) for p in paths)[:40],
++            )
++        )
++
++    print("-" * len(header))
++    print(
++        "%-16s %6d %8d %6d %6d %8d %7d"
++        % ("total", totals["texts"], totals["verbatim"], totals["joined"],
++           totals["near"], totals["partial"], totals["absent"])
++    )
++
++    if skipped:
++        print("\nnot checked, because the source is not on this machine:")
++        for key, why in skipped:
++            print("  %-16s %s" % (key, why))
++
++    if worst:
++        print("\n%d controls are not fully in their source. Worst first:" % len(worst))
++        for key, control, verdict, share in sorted(worst, key=lambda w: w[3])[: 40 if show else 12]:
++            print(
++                "  %-8s %-22s %-8s %3d%%  %s"
++                % (key, control.identifier[:22], verdict, round(share * 100),
++                   " ".join((control.text or "").split())[:70])
++            )
++    return 1 if totals["absent"] else 0
++
++
++if __name__ == "__main__":
++    sys.exit(main())
+-- 
+2.43.0
+

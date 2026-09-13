@@ -1,0 +1,935 @@
+{
+ "revision": "January 2025",
+ "revision_source": "cover page, 'Last updated'",
+ "groups": [
+  {
+   "key": "Appendix A",
+   "title": "Active Directory security controls checklist",
+   "source_file": "Detecting and mitigating Active Directory compromises (January 2025).pdf",
+   "records": [
+    {
+     "section_number": "Mitigating Kerberoasting",
+     "section_title": "Mitigating Kerberoasting",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Minimise the number of user objects configured with SPNs."
+    },
+    {
+     "section_number": "Mitigating Kerberoasting",
+     "section_title": "Mitigating Kerberoasting",
+     "obligation": "",
+     "parameters": [
+      "mitigation",
+      "bound"
+     ],
+     "kind": "statement",
+     "text": "Create user objects with SPNs as gMSAs. However, if creating user objects with SPNs as gMSAs is not feasible, set a minimum 30-character password that is unique, unpredictable and managed."
+    },
+    {
+     "section_number": "Mitigating Kerberoasting",
+     "section_title": "Mitigating Kerberoasting",
+     "obligation": "",
+     "parameters": [
+      "mitigation",
+      "bound"
+     ],
+     "kind": "statement",
+     "text": "Assign user objects with SPNs to the minimum privileges necessary to perform their functions and make sure they are not members of highly privileged security groups, such as the Domain Admins security group."
+    },
+    {
+     "section_number": "Mitigating AS-REP Roasting",
+     "section_title": "Mitigating AS-REP Roasting",
+     "obligation": "",
+     "parameters": [
+      "mitigation",
+      "bound"
+     ],
+     "kind": "statement",
+     "text": "Ensure user objects require Kerberos pre-authentication. However, if user objects must be configured to bypass Kerberos pre-authentication, then these user objects should be granted the minimum set of privileges required for them to perform their functions. They should not be members of highly privileged security groups, such as Domain Admins. Additionally, set a minimum 30-character password that is"
+    },
+    {
+     "section_number": "Mitigating password spraying",
+     "section_title": "Mitigating password spraying",
+     "obligation": "",
+     "parameters": [
+      "mitigation",
+      "bound"
+     ],
+     "kind": "statement",
+     "text": "Create passwords for local administrator accounts, service accounts, and break glass accounts that are long (30-character minimum), unique, unpredictable and managed."
+    },
+    {
+     "section_number": "Mitigating password spraying",
+     "section_title": "Mitigating password spraying",
+     "obligation": "",
+     "parameters": [
+      "mitigation",
+      "bound"
+     ],
+     "kind": "statement",
+     "text": "Create passwords used for single-factor authentication that consist of at least four random words with a total minimum length of 15-characters."
+    },
+    {
+     "section_number": "Mitigating password spraying",
+     "section_title": "Mitigating password spraying",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Lock out user objects, except for break glass accounts, after a maximum of five failed logon attempts."
+    },
+    {
+     "section_number": "Mitigating password spraying",
+     "section_title": "Mitigating password spraying",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Ensure passwords created for user objects are randomly generated, such as when a user object is created, or a user requests a password reset."
+    },
+    {
+     "section_number": "Mitigating password spraying",
+     "section_title": "Mitigating password spraying",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Configure the built-in ‘Administrator’ domain account as sensitive to ensure it cannot be delegated."
+    },
+    {
+     "section_number": "Mitigating password spraying",
+     "section_title": "Mitigating password spraying",
+     "obligation": "",
+     "parameters": [
+      "mitigation",
+      "bound"
+     ],
+     "kind": "statement",
+     "text": "Scan networks at least monthly to identify any credentials that are being stored in the clear."
+    },
+    {
+     "section_number": "Mitigating password spraying",
+     "section_title": "Mitigating password spraying",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Disable the NTLM protocol."
+    },
+    {
+     "section_number": "Mitigating a MachineAccountQuota compromise",
+     "section_title": "Mitigating a MachineAccountQuota compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Configure unprivileged user objects so they cannot add computer objects to the domain."
+    },
+    {
+     "section_number": "Mitigating a MachineAccountQuota compromise",
+     "section_title": "Mitigating a MachineAccountQuota compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Ensure the Domain Computers security group is not a member of privileged security groups."
+    },
+    {
+     "section_number": "Mitigating a MachineAccountQuota compromise",
+     "section_title": "Mitigating a MachineAccountQuota compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Ensure the Domain Computers security group does not have write privileges to any objects in Active Directory."
+    },
+    {
+     "section_number": "Mitigating a MachineAccountQuota compromise",
+     "section_title": "Mitigating a MachineAccountQuota compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Enable LDAP signing for Domain Controllers."
+    },
+    {
+     "section_number": "Mitigating an unconstrained delegation compromise",
+     "section_title": "Mitigating an unconstrained delegation compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Ensure computer objects are not configured for unconstrained delegation."
+    },
+    {
+     "section_number": "Mitigating an unconstrained delegation compromise",
+     "section_title": "Mitigating an unconstrained delegation compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Ensure privileged user objects are configured as ‘sensitive and cannot be delegated’."
+    },
+    {
+     "section_number": "Mitigating an unconstrained delegation compromise",
+     "section_title": "Mitigating an unconstrained delegation compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Ensure privileged user objects are members of the Protected Users security group."
+    },
+    {
+     "section_number": "Mitigating an unconstrained delegation compromise",
+     "section_title": "Mitigating an unconstrained delegation compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Disable the Print Spooler service on Domain Controllers."
+    },
+    {
+     "section_number": "Mitigating a password in GPP compromise",
+     "section_title": "Mitigating a password in GPP compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Apply Microsoft’s security patch 2962486 to remove the functionality to create cpasswords."
+    },
+    {
+     "section_number": "Mitigating an AD CS compromise",
+     "section_title": "Mitigating an AD CS compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Remove the ‘Enrollee Supplies Subject’ flag."
+    },
+    {
+     "section_number": "Mitigating an AD CS compromise",
+     "section_title": "Mitigating an AD CS compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Restrict standard user object permissions on certificate templates."
+    },
+    {
+     "section_number": "Mitigating an AD CS compromise",
+     "section_title": "Mitigating an AD CS compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Remove vulnerable AD CS CA configurations."
+    },
+    {
+     "section_number": "Mitigating an AD CS compromise",
+     "section_title": "Mitigating an AD CS compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Require CA Certificate Manager approval for certificate templates that allow the SAN to be supplied."
+    },
+    {
+     "section_number": "Mitigating an AD CS compromise",
+     "section_title": "Mitigating an AD CS compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Remove EKUs that enable user authentication."
+    },
+    {
+     "section_number": "Mitigating an AD CS compromise",
+     "section_title": "Mitigating an AD CS compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Limit access to AD CS CA servers to only privileged users that require access."
+    },
+    {
+     "section_number": "Mitigating an AD CS compromise",
+     "section_title": "Mitigating an AD CS compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Restrict privileged access pathways to AD CS CA servers to jump servers and secure admin workstations using only the ports and services that are required for administration."
+    },
+    {
+     "section_number": "Mitigating an AD CS compromise",
+     "section_title": "Mitigating an AD CS compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Only use AD CS CA servers for AD CS and do not install any non-security-related services or applications."
+    },
+    {
+     "section_number": "Mitigating an AD CS compromise",
+     "section_title": "Mitigating an AD CS compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Encrypt and securely store backups of AD CS CA servers and limit access to only Backup Administrators."
+    },
+    {
+     "section_number": "Mitigating an AD CS compromise",
+     "section_title": "Mitigating an AD CS compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Centrally log and analyse AD CS CA server logs in a timely manner to identify malicious activity."
+    },
+    {
+     "section_number": "Mitigating a Golden Certificate",
+     "section_title": "Mitigating a Golden Certificate",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Use MFA to authenticate privileged users of systems."
+    },
+    {
+     "section_number": "Mitigating a Golden Certificate",
+     "section_title": "Mitigating a Golden Certificate",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Implement application control on AD CS CAs."
+    },
+    {
+     "section_number": "Mitigating a Golden Certificate",
+     "section_title": "Mitigating a Golden Certificate",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Use a HSM to protect key material for AD CS CAs."
+    },
+    {
+     "section_number": "Mitigating a Golden Certificate",
+     "section_title": "Mitigating a Golden Certificate",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Limit access to AD CS CAs to only privileged users that require access."
+    },
+    {
+     "section_number": "Mitigating a Golden Certificate",
+     "section_title": "Mitigating a Golden Certificate",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Restrict privileged access pathways to AD CS CA servers to jump servers and secure admin workstations using only the ports and services that are required for administration."
+    },
+    {
+     "section_number": "Mitigating a Golden Certificate",
+     "section_title": "Mitigating a Golden Certificate",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Only use AD CS CA servers for AD CS and do not install any non-security-related services or applications."
+    },
+    {
+     "section_number": "Mitigating a Golden Certificate",
+     "section_title": "Mitigating a Golden Certificate",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Encrypt and securely store backups of AD CS CA servers and limit access to only Backup Administrators."
+    },
+    {
+     "section_number": "Mitigating a Golden Certificate",
+     "section_title": "Mitigating a Golden Certificate",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Centrally log and analyse AD CS CA logs in a timely manner to identify malicious activity."
+    },
+    {
+     "section_number": "Mitigating DCSync",
+     "section_title": "Mitigating DCSync",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Minimise the number of user objects with DCSync permissions."
+    },
+    {
+     "section_number": "Mitigating DCSync",
+     "section_title": "Mitigating DCSync",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Ensure user objects that are configured with a SPN do not have DCSync permissions."
+    },
+    {
+     "section_number": "Mitigating DCSync",
+     "section_title": "Mitigating DCSync",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Ensure user objects with DCSync permissions cannot log on to unprivileged operating environments."
+    },
+    {
+     "section_number": "Mitigating DCSync",
+     "section_title": "Mitigating DCSync",
+     "obligation": "",
+     "parameters": [
+      "mitigation",
+      "bound"
+     ],
+     "kind": "statement",
+     "text": "Review user objects with DCSync permissions every 12 months to determine if these permissions are still required."
+    },
+    {
+     "section_number": "Mitigating DCSync",
+     "section_title": "Mitigating DCSync",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Disable the NTLMv1 protocol."
+    },
+    {
+     "section_number": "Mitigating DCSync",
+     "section_title": "Mitigating DCSync",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Ensure LM password hashes are not used."
+    },
+    {
+     "section_number": "Mitigating dumping ntds.dit",
+     "section_title": "Mitigating dumping ntds.dit",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Limit access to Domain Controllers to only privileged users that require access."
+    },
+    {
+     "section_number": "Mitigating dumping ntds.dit",
+     "section_title": "Mitigating dumping ntds.dit",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Restrict privileged access pathways to Domain Controllers to jump servers and secure admin workstations using only the ports and services that are required for administration."
+    },
+    {
+     "section_number": "Mitigating dumping ntds.dit",
+     "section_title": "Mitigating dumping ntds.dit",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Encrypt and securely store backups of Domain Controllers and limit access to only Backup Administrators."
+    },
+    {
+     "section_number": "Mitigating dumping ntds.dit",
+     "section_title": "Mitigating dumping ntds.dit",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Only use Domain Controllers for AD DS and do not install any non-security-related services or applications."
+    },
+    {
+     "section_number": "Mitigating dumping ntds.dit",
+     "section_title": "Mitigating dumping ntds.dit",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Centrally log and analyse Domain Controller logs in a timely manner to identify malicious activity"
+    },
+    {
+     "section_number": "Mitigating dumping ntds.dit",
+     "section_title": "Mitigating dumping ntds.dit",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Disable the Print Spooler service on Domain Controllers."
+    },
+    {
+     "section_number": "Mitigating dumping ntds.dit",
+     "section_title": "Mitigating dumping ntds.dit",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Disable the SMB version 1 protocol on Domain Controllers."
+    },
+    {
+     "section_number": "Mitigating a Golden Ticket",
+     "section_title": "Mitigating a Golden Ticket",
+     "obligation": "",
+     "parameters": [
+      "mitigation",
+      "bound"
+     ],
+     "kind": "statement",
+     "text": "Change the KRBTGT password every 12 months, or when the domain has been compromised or suspected to have been compromised."
+    },
+    {
+     "section_number": "Mitigating a Silver Ticket",
+     "section_title": "Mitigating a Silver Ticket",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Create User objects with SPNs as group Managed Service Accounts (gMSAs)."
+    },
+    {
+     "section_number": "Mitigating a Silver Ticket",
+     "section_title": "Mitigating a Silver Ticket",
+     "obligation": "",
+     "parameters": [
+      "mitigation",
+      "bound"
+     ],
+     "kind": "statement",
+     "text": "Change all computer object (including Domain Controller) passwords every 30 days."
+    },
+    {
+     "section_number": "Mitigating a Silver Ticket",
+     "section_title": "Mitigating a Silver Ticket",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Ensure computer objects are not members of privileged security groups, such as the Domain Admins security group."
+    },
+    {
+     "section_number": "Mitigating a Silver Ticket",
+     "section_title": "Mitigating a Silver Ticket",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Ensure the Domain Computers security group does not have write or modify permissions to any objects in Active Directory."
+    },
+    {
+     "section_number": "Mitigating a Golden SAML",
+     "section_title": "Mitigating a Golden SAML",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Ensure the AD FS service account is a gMSA."
+    },
+    {
+     "section_number": "Mitigating a Golden SAML",
+     "section_title": "Mitigating a Golden SAML",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Ensure the AD FS service account is used only for AD FS and no other purpose."
+    },
+    {
+     "section_number": "Mitigating a Golden SAML",
+     "section_title": "Mitigating a Golden SAML",
+     "obligation": "",
+     "parameters": [
+      "mitigation",
+      "bound"
+     ],
+     "kind": "statement",
+     "text": "Ensure passwords for AD FS server local administrator accounts are long (30-character minimum), unique, unpredictable and managed."
+    },
+    {
+     "section_number": "Mitigating a Golden SAML",
+     "section_title": "Mitigating a Golden SAML",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Limit access to AD FS servers to only privileged users that require access."
+    },
+    {
+     "section_number": "Mitigating a Golden SAML",
+     "section_title": "Mitigating a Golden SAML",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Restrict privileged access pathways to AD FS servers to jump servers and secure admin workstations using only the ports and services that are required."
+    },
+    {
+     "section_number": "Mitigating a Golden SAML",
+     "section_title": "Mitigating a Golden SAML",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Only use AD FS servers for AD FS and ensure no other non-security-related services or applications are installed."
+    },
+    {
+     "section_number": "Mitigating a Golden SAML",
+     "section_title": "Mitigating a Golden SAML",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Centrally log and analyse AD FS server logs in a timely manner to identify malicious activity."
+    },
+    {
+     "section_number": "Mitigating a Golden SAML",
+     "section_title": "Mitigating a Golden SAML",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Encrypt and securely store backups of AD FS servers and limit access to only Backup Administrators."
+    },
+    {
+     "section_number": "Mitigating a Golden SAML",
+     "section_title": "Mitigating a Golden SAML",
+     "obligation": "",
+     "parameters": [
+      "mitigation",
+      "bound"
+     ],
+     "kind": "statement",
+     "text": "Rotate AD FS token-signing and encryption certificates every 12 months, or sooner if an AD FS server has been compromised or suspected to have been compromised."
+    },
+    {
+     "section_number": "Mitigating a Microsoft Entra Connect compromise",
+     "section_title": "Mitigating a Microsoft Entra Connect compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Disable hard match takeover."
+    },
+    {
+     "section_number": "Mitigating a Microsoft Entra Connect compromise",
+     "section_title": "Mitigating a Microsoft Entra Connect compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Do not synchronise privileged user objects from AD DS to Microsoft Entra ID. Use separate privileged accounts for AD DS and Microsoft Entra ID."
+    },
+    {
+     "section_number": "Mitigating a Microsoft Entra Connect compromise",
+     "section_title": "Mitigating a Microsoft Entra Connect compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Enable MFA for all privileged users in Microsoft Entra ID."
+    },
+    {
+     "section_number": "Mitigating a Microsoft Entra Connect compromise",
+     "section_title": "Mitigating a Microsoft Entra Connect compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Limit access to Microsoft Entra Connect servers to only privileged users that require access."
+    },
+    {
+     "section_number": "Mitigating a Microsoft Entra Connect compromise",
+     "section_title": "Mitigating a Microsoft Entra Connect compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Restrict privileged access pathways to Microsoft Entra Connect servers to jump servers and secure admin workstations using only the ports and services that are required for administration."
+    },
+    {
+     "section_number": "Mitigating a Microsoft Entra Connect compromise",
+     "section_title": "Mitigating a Microsoft Entra Connect compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation",
+      "bound"
+     ],
+     "kind": "statement",
+     "text": "Ensure passwords for Microsoft Entra Connect server local administrator accounts are long (30-character minimum), unique, unpredictable and managed."
+    },
+    {
+     "section_number": "Mitigating a Microsoft Entra Connect compromise",
+     "section_title": "Mitigating a Microsoft Entra Connect compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Only use Microsoft Entra Connect servers for Microsoft Entra Connect and ensure no other non-security- related services or applications are installed."
+    },
+    {
+     "section_number": "Mitigating a Microsoft Entra Connect compromise",
+     "section_title": "Mitigating a Microsoft Entra Connect compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Encrypt and securely store backups of Microsoft Entra Connect and limit access to only Backup Administrators."
+    },
+    {
+     "section_number": "Mitigating a Microsoft Entra Connect compromise",
+     "section_title": "Mitigating a Microsoft Entra Connect compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Centrally log and analyse Microsoft Entra Connect server logs in a timely manner to identify malicious activity."
+    },
+    {
+     "section_number": "Mitigating a one-way domain trust bypass",
+     "section_title": "Mitigating a one-way domain trust bypass",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Limit access to Domain Controllers to only privileged users that require access."
+    },
+    {
+     "section_number": "Mitigating a one-way domain trust bypass",
+     "section_title": "Mitigating a one-way domain trust bypass",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Restrict privileged access pathways to Domain Controllers to jump servers and secure admin workstations using only the ports and services that are required for administration."
+    },
+    {
+     "section_number": "Mitigating a one-way domain trust bypass",
+     "section_title": "Mitigating a one-way domain trust bypass",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Encrypt and securely store backups of Domain Controllers and limit access to only Backup Administrators."
+    },
+    {
+     "section_number": "Mitigating a one-way domain trust bypass",
+     "section_title": "Mitigating a one-way domain trust bypass",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Only use Domain Controllers for AD DS and do not install any non-security-related services or applications."
+    },
+    {
+     "section_number": "Mitigating a one-way domain trust bypass",
+     "section_title": "Mitigating a one-way domain trust bypass",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Centrally log and analyse Domain Controller logs in a timely manner to identify malicious activity."
+    },
+    {
+     "section_number": "Mitigating a one-way domain trust bypass",
+     "section_title": "Mitigating a one-way domain trust bypass",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Disable the Print Spooler service on Domain Controllers."
+    },
+    {
+     "section_number": "Mitigating a SID History compromise",
+     "section_title": "Mitigating a SID History compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Ensure the ‘sIDHistory’ attribute is not used."
+    },
+    {
+     "section_number": "Mitigating a SID History compromise",
+     "section_title": "Mitigating a SID History compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Ensure the ‘sIDHistory’ attribute is checked weekly."
+    },
+    {
+     "section_number": "Mitigating a SID History compromise",
+     "section_title": "Mitigating a SID History compromise",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Enable SID Filtering for domain and forest trusts."
+    },
+    {
+     "section_number": "Mitigating Skeleton Key",
+     "section_title": "Mitigating Skeleton Key",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Limit access to Domain Controllers to only privileged users that require access."
+    },
+    {
+     "section_number": "Mitigating Skeleton Key",
+     "section_title": "Mitigating Skeleton Key",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Restrict privileged access pathways to Domain Controllers to jump servers and secure admin workstations using only the ports and services that are required for administration."
+    },
+    {
+     "section_number": "Mitigating Skeleton Key",
+     "section_title": "Mitigating Skeleton Key",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Run the LSASS process in protected mode."
+    },
+    {
+     "section_number": "Mitigating Skeleton Key",
+     "section_title": "Mitigating Skeleton Key",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Implement Microsoft’s vulnerable driver blocklist."
+    },
+    {
+     "section_number": "Mitigating Skeleton Key",
+     "section_title": "Mitigating Skeleton Key",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Restrict driver execution to an approved set."
+    },
+    {
+     "section_number": "Mitigating Skeleton Key",
+     "section_title": "Mitigating Skeleton Key",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Only use Domain Controllers for AD DS and do not install any non-security-related services or applications."
+    },
+    {
+     "section_number": "Mitigating Skeleton Key",
+     "section_title": "Mitigating Skeleton Key",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Centrally log and analyse Domain Controller logs in a timely manner to identify malicious activity."
+    },
+    {
+     "section_number": "Mitigating Skeleton Key",
+     "section_title": "Mitigating Skeleton Key",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Disable the Print Spooler service on Domain Controllers."
+    }
+   ]
+  }
+ ]
+}

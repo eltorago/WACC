@@ -1,0 +1,626 @@
+{
+ "groups": [
+  {
+   "key": "SP 800-131A Rev 2",
+   "title": "Transitioning the Use of Cryptographic Algorithms and Key Lengths",
+   "source_file": "NIST.SP.800-131Ar2.pdf",
+   "records": [
+    {
+     "section_number": "2",
+     "section_title": "Encryption and Decryption Using Block Cipher Algorithms",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Approval Status of Symmetric Algorithms Used for",
+     "text": "Table 1: Approval Status of Symmetric Algorithms Used for — Two-key TDEA Encryption; Status: Disallowed"
+    },
+    {
+     "section_number": "2",
+     "section_title": "Encryption and Decryption Using Block Cipher Algorithms",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Approval Status of Symmetric Algorithms Used for",
+     "text": "Table 1: Approval Status of Symmetric Algorithms Used for — Two-key TDEA Decryption; Status: Legacy use"
+    },
+    {
+     "section_number": "2",
+     "section_title": "Encryption and Decryption Using Block Cipher Algorithms",
+     "obligation": "",
+     "parameters": [
+      "date",
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Approval Status of Symmetric Algorithms Used for",
+     "text": "Table 1: Approval Status of Symmetric Algorithms Used for — Three-key TDEA Encryption; Status: Deprecated through 2023 Disallowed after 2023"
+    },
+    {
+     "section_number": "2",
+     "section_title": "Encryption and Decryption Using Block Cipher Algorithms",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Approval Status of Symmetric Algorithms Used for",
+     "text": "Table 1: Approval Status of Symmetric Algorithms Used for — Three-key TDEA Decryption; Status: Legacy use"
+    },
+    {
+     "section_number": "2",
+     "section_title": "Encryption and Decryption Using Block Cipher Algorithms",
+     "obligation": "",
+     "parameters": [
+      "tabulated value"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Approval Status of Symmetric Algorithms Used for",
+     "text": "Table 1: Approval Status of Symmetric Algorithms Used for — SKIPJACK Encryption; Status: Disallowed"
+    },
+    {
+     "section_number": "2",
+     "section_title": "Encryption and Decryption Using Block Cipher Algorithms",
+     "obligation": "",
+     "parameters": [
+      "tabulated value"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Approval Status of Symmetric Algorithms Used for",
+     "text": "Table 1: Approval Status of Symmetric Algorithms Used for — SKIPJACK Decryption; Status: Legacy use"
+    },
+    {
+     "section_number": "2",
+     "section_title": "Encryption and Decryption Using Block Cipher Algorithms",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Approval Status of Symmetric Algorithms Used for",
+     "text": "Table 1: Approval Status of Symmetric Algorithms Used for — AES-128 Encryption and Decryption; Status: Acceptable"
+    },
+    {
+     "section_number": "2",
+     "section_title": "Encryption and Decryption Using Block Cipher Algorithms",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Approval Status of Symmetric Algorithms Used for",
+     "text": "Table 1: Approval Status of Symmetric Algorithms Used for — AES-192 Encryption and Decryption; Status: Acceptable"
+    },
+    {
+     "section_number": "2",
+     "section_title": "Encryption and Decryption Using Block Cipher Algorithms",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 1: Approval Status of Symmetric Algorithms Used for",
+     "text": "Table 1: Approval Status of Symmetric Algorithms Used for — AES-256 Encryption and Decryption; Status: Acceptable"
+    },
+    {
+     "section_number": "3",
+     "section_title": "Digital Signatures",
+     "obligation": "",
+     "parameters": [
+      "length",
+      "algorithm",
+      "strength"
+     ],
+     "kind": "table row",
+     "caption": "Table 2: Approval Status of Algorithms Used for Digital Signature",
+     "text": "Table 2: Approval Status of Algorithms Used for Digital Signature — Digital Signature Generation; < 112 bits of security strength: DSA: (L, N) ≠ (2048, 224), (2048, 256) or (3072, 256) ECDSA: len(n) < 224 RSA: len(n) < 2048; Disallowed"
+    },
+    {
+     "section_number": "3",
+     "section_title": "Digital Signatures",
+     "obligation": "",
+     "parameters": [
+      "length",
+      "algorithm",
+      "strength"
+     ],
+     "kind": "table row",
+     "caption": "Table 2: Approval Status of Algorithms Used for Digital Signature",
+     "text": "Table 2: Approval Status of Algorithms Used for Digital Signature — ≥ 112 bits of security strength: DSA: (L, N) = (2048, 224), (2048, 256) or (3072, 256) ECDSA or EdDSA: len(n) ≥ 224 RSA: len(n) ≥ 2048; Acceptable"
+    },
+    {
+     "section_number": "3",
+     "section_title": "Digital Signatures",
+     "obligation": "",
+     "parameters": [
+      "length",
+      "algorithm",
+      "strength"
+     ],
+     "kind": "table row",
+     "caption": "Table 2: Approval Status of Algorithms Used for Digital Signature",
+     "text": "Table 2: Approval Status of Algorithms Used for Digital Signature — Digital Signature Verification; < 112 bits of security strength: DSA32: ((512 ≤ L < 2048) or (160 ≤ N < 224)) ECDSA: 160 ≤ len(n) < 224 RSA: 1024 ≤ len(n) < 2048; Legacy use"
+    },
+    {
+     "section_number": "4",
+     "section_title": "Random Bit Generation",
+     "obligation": "",
+     "parameters": [
+      "tabulated value"
+     ],
+     "kind": "table row",
+     "caption": "Table 3: Approval Status of Algorithms Used for Random Bit Generation",
+     "text": "Table 3: Approval Status of Algorithms Used for Random Bit Generation — Hash_DRBG and HMAC_DRBG; Acceptable"
+    },
+    {
+     "section_number": "4",
+     "section_title": "Random Bit Generation",
+     "obligation": "",
+     "parameters": [
+      "date",
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 3: Approval Status of Algorithms Used for Random Bit Generation",
+     "text": "Table 3: Approval Status of Algorithms Used for Random Bit Generation — CTR_DRBG with three-key TDEA; Deprecated through 2023 Disallowed after 2023"
+    },
+    {
+     "section_number": "4",
+     "section_title": "Random Bit Generation",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 3: Approval Status of Algorithms Used for Random Bit Generation",
+     "text": "Table 3: Approval Status of Algorithms Used for Random Bit Generation — CTR_DRBG with AES-128, AES-192 and AES-256AES-256; Acceptable"
+    },
+    {
+     "section_number": "4",
+     "section_title": "Random Bit Generation",
+     "obligation": "",
+     "parameters": [
+      "tabulated value"
+     ],
+     "kind": "table row",
+     "caption": "Table 3: Approval Status of Algorithms Used for Random Bit Generation",
+     "text": "Table 3: Approval Status of Algorithms Used for Random Bit Generation — DUAL_EC_DRBG; Disallowed"
+    },
+    {
+     "section_number": "4",
+     "section_title": "Random Bit Generation",
+     "obligation": "",
+     "parameters": [
+      "tabulated value"
+     ],
+     "kind": "table row",
+     "caption": "Table 3: Approval Status of Algorithms Used for Random Bit Generation",
+     "text": "Table 3: Approval Status of Algorithms Used for Random Bit Generation — RNGs in FIPS 186-242, ANS X9.3143 and ANS X9.62-1998; Disallowed"
+    },
+    {
+     "section_number": "5",
+     "section_title": "Key Agreement Using Diffie-Hellman and MQV",
+     "obligation": "",
+     "parameters": [
+      "length",
+      "strength"
+     ],
+     "kind": "table row",
+     "caption": "Table 4: Approval Status for SP 800-56A Key Agreement (DH and",
+     "text": "Table 4: Approval Status for SP 800-56A Key Agreement (DH and — SP 800-56A DH and MQV schemes using finite fields; < 112 bits of security strength: (len(p), len(q)) = (1024, 160); Disallowed"
+    },
+    {
+     "section_number": "5",
+     "section_title": "Key Agreement Using Diffie-Hellman and MQV",
+     "obligation": "",
+     "parameters": [
+      "length",
+      "strength"
+     ],
+     "kind": "table row",
+     "caption": "Table 4: Approval Status for SP 800-56A Key Agreement (DH and",
+     "text": "Table 4: Approval Status for SP 800-56A Key Agreement (DH and — ≥ 112 bits of security strength: Using listed safe-prime groups OR FIPS 186-type domain parameters (112-bit security strength only): (len(p), len(q)) = (2048, 224) or (2048, 256); Acceptable"
+    },
+    {
+     "section_number": "5",
+     "section_title": "Key Agreement Using Diffie-Hellman and MQV",
+     "obligation": "",
+     "parameters": [
+      "length",
+      "strength"
+     ],
+     "kind": "table row",
+     "caption": "Table 4: Approval Status for SP 800-56A Key Agreement (DH and",
+     "text": "Table 4: Approval Status for SP 800-56A Key Agreement (DH and — Non-compliant DH and MQV schemes using finite fields; < 112 bits of security strength: len(p) < 2048 OR len(q) < 224; Disallowed"
+    },
+    {
+     "section_number": "5",
+     "section_title": "Key Agreement Using Diffie-Hellman and MQV",
+     "obligation": "",
+     "parameters": [
+      "date"
+     ],
+     "kind": "table row",
+     "caption": "Table 4: Approval Status for SP 800-56A Key Agreement (DH and",
+     "text": "Table 4: Approval Status for SP 800-56A Key Agreement (DH and — Non-conformance to SP 800-56A; Disallowed after 2020"
+    },
+    {
+     "section_number": "5",
+     "section_title": "Key Agreement Using Diffie-Hellman and MQV",
+     "obligation": "",
+     "parameters": [
+      "length",
+      "strength"
+     ],
+     "kind": "table row",
+     "caption": "Table 4: Approval Status for SP 800-56A Key Agreement (DH and",
+     "text": "Table 4: Approval Status for SP 800-56A Key Agreement (DH and — SP 800-56A DH and MQV schemes using elliptic curves; < 112 bits of security strength: len(n) < 224; Disallowed"
+    },
+    {
+     "section_number": "5",
+     "section_title": "Key Agreement Using Diffie-Hellman and MQV",
+     "obligation": "",
+     "parameters": [
+      "length",
+      "strength"
+     ],
+     "kind": "table row",
+     "caption": "Table 4: Approval Status for SP 800-56A Key Agreement (DH and",
+     "text": "Table 4: Approval Status for SP 800-56A Key Agreement (DH and — ≥ 112 bits of security strength: (Using specified curves); Acceptable"
+    },
+    {
+     "section_number": "5",
+     "section_title": "Key Agreement Using Diffie-Hellman and MQV",
+     "obligation": "",
+     "parameters": [
+      "length",
+      "strength"
+     ],
+     "kind": "table row",
+     "caption": "Table 4: Approval Status for SP 800-56A Key Agreement (DH and",
+     "text": "Table 4: Approval Status for SP 800-56A Key Agreement (DH and — Non-compliant DH and MQV schemes using elliptic curves; < 112 bits of security strength: len(n) < 224; Disallowed"
+    },
+    {
+     "section_number": "5",
+     "section_title": "Key Agreement Using Diffie-Hellman and MQV",
+     "obligation": "",
+     "parameters": [
+      "length",
+      "date",
+      "strength"
+     ],
+     "kind": "table row",
+     "caption": "Table 4: Approval Status for SP 800-56A Key Agreement (DH and",
+     "text": "Table 4: Approval Status for SP 800-56A Key Agreement (DH and — ≥ 112 bits of security strength: Non-conformance to SP 800-56A or IG A.2; Disallowed after 2020"
+    },
+    {
+     "section_number": "7",
+     "section_title": "Key Wrapping",
+     "obligation": "",
+     "parameters": [
+      "tabulated value"
+     ],
+     "kind": "table row",
+     "caption": "Table 5: Approval Status for the RSA-based Key Agreement and Key",
+     "text": "Table 5: Approval Status for the RSA-based Key Agreement and Key — SP 800-56B Key Agreement and Key Transport schemes; Implementation Details: len(n) < 2048; Status: Disallowed"
+    },
+    {
+     "section_number": "7",
+     "section_title": "Key Wrapping",
+     "obligation": "",
+     "parameters": [
+      "tabulated value"
+     ],
+     "kind": "table row",
+     "caption": "Table 5: Approval Status for the RSA-based Key Agreement and Key",
+     "text": "Table 5: Approval Status for the RSA-based Key Agreement and Key — Implementation Details: len(n) ≥ 2048; Status: Acceptable"
+    },
+    {
+     "section_number": "7",
+     "section_title": "Key Wrapping",
+     "obligation": "",
+     "parameters": [
+      "tabulated value"
+     ],
+     "kind": "table row",
+     "caption": "Table 5: Approval Status for the RSA-based Key Agreement and Key",
+     "text": "Table 5: Approval Status for the RSA-based Key Agreement and Key — Non-SP 800-56B- compliant Key Agreement and Key Transport schemes; Implementation Details: len(n) < 2048; Status: Disallowed"
+    },
+    {
+     "section_number": "7",
+     "section_title": "Key Wrapping",
+     "obligation": "",
+     "parameters": [
+      "date"
+     ],
+     "kind": "table row",
+     "caption": "Table 5: Approval Status for the RSA-based Key Agreement and Key",
+     "text": "Table 5: Approval Status for the RSA-based Key Agreement and Key — Implementation Details: PKCS1-v1_5 padding; Status: Deprecated through 2023 Disallowed after 2023"
+    },
+    {
+     "section_number": "7",
+     "section_title": "Key Wrapping",
+     "obligation": "",
+     "parameters": [
+      "date"
+     ],
+     "kind": "table row",
+     "caption": "Table 5: Approval Status for the RSA-based Key Agreement and Key",
+     "text": "Table 5: Approval Status for the RSA-based Key Agreement and Key — Implementation Details: Other non-compliance with SP 800-56B; Status: Deprecated through 2020 Disallowed after 2020"
+    },
+    {
+     "section_number": "8",
+     "section_title": "Deriving Additional Keys from a Cryptographic Key",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 6: Approval Status of Block Cipher Algorithms Used for Key",
+     "text": "Table 6: Approval Status of Block Cipher Algorithms Used for Key — Key wrapping using two-key TDEA; Disallowed"
+    },
+    {
+     "section_number": "8",
+     "section_title": "Deriving Additional Keys from a Cryptographic Key",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 6: Approval Status of Block Cipher Algorithms Used for Key",
+     "text": "Table 6: Approval Status of Block Cipher Algorithms Used for Key — Key unwrapping using two-key TDEA; Legacy use"
+    },
+    {
+     "section_number": "8",
+     "section_title": "Deriving Additional Keys from a Cryptographic Key",
+     "obligation": "",
+     "parameters": [
+      "date",
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 6: Approval Status of Block Cipher Algorithms Used for Key",
+     "text": "Table 6: Approval Status of Block Cipher Algorithms Used for Key — Key wrapping using three-key TDEA and any approved key-wrapping method; Deprecated through 2023 Disallowed after 2023"
+    },
+    {
+     "section_number": "8",
+     "section_title": "Deriving Additional Keys from a Cryptographic Key",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 6: Approval Status of Block Cipher Algorithms Used for Key",
+     "text": "Table 6: Approval Status of Block Cipher Algorithms Used for Key — Key unwrapping using three-key TDEA and any approved key-unwrapping method; Legacy use"
+    },
+    {
+     "section_number": "8",
+     "section_title": "Deriving Additional Keys from a Cryptographic Key",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 6: Approval Status of Block Cipher Algorithms Used for Key",
+     "text": "Table 6: Approval Status of Block Cipher Algorithms Used for Key — Key wrapping and unwrapping using AES-128, AES- 192 or AES-256 and any method for key wrapping that is specified or otherwise approved in SP 800-38F; Acceptable"
+    },
+    {
+     "section_number": "9",
+     "section_title": "Hash Functions",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 7: Approval Status of the Algorithms Used for a Key Derivation",
+     "text": "Table 7: Approval Status of the Algorithms Used for a Key Derivation — HMAC-based KDF; HMAC using any approved hash function; Acceptable"
+    },
+    {
+     "section_number": "9",
+     "section_title": "Hash Functions",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 7: Approval Status of the Algorithms Used for a Key Derivation",
+     "text": "Table 7: Approval Status of the Algorithms Used for a Key Derivation — CMAC-based KDF; CMAC using two-key TDEA; Disallowed"
+    },
+    {
+     "section_number": "9",
+     "section_title": "Hash Functions",
+     "obligation": "",
+     "parameters": [
+      "date",
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 7: Approval Status of the Algorithms Used for a Key Derivation",
+     "text": "Table 7: Approval Status of the Algorithms Used for a Key Derivation — CMAC using three-key TDEA; Deprecated through 2023 Disallowed after 2023"
+    },
+    {
+     "section_number": "9",
+     "section_title": "Hash Functions",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 7: Approval Status of the Algorithms Used for a Key Derivation",
+     "text": "Table 7: Approval Status of the Algorithms Used for a Key Derivation — CMAC using AES; Acceptable"
+    },
+    {
+     "section_number": "9",
+     "section_title": "Hash Functions",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 8: Approval Status of Hash Functions",
+     "text": "Table 8: Approval Status of Hash Functions — SHA-1; Digital signature generation; Disallowed, except where specifically allowed by NIST protocol-specific guidance."
+    },
+    {
+     "section_number": "9",
+     "section_title": "Hash Functions",
+     "obligation": "",
+     "parameters": [
+      "tabulated value"
+     ],
+     "kind": "table row",
+     "caption": "Table 8: Approval Status of Hash Functions",
+     "text": "Table 8: Approval Status of Hash Functions — Digital signature verification; Legacy use"
+    },
+    {
+     "section_number": "9",
+     "section_title": "Hash Functions",
+     "obligation": "",
+     "parameters": [
+      "tabulated value"
+     ],
+     "kind": "table row",
+     "caption": "Table 8: Approval Status of Hash Functions",
+     "text": "Table 8: Approval Status of Hash Functions — Non-digital-signature applications; Acceptable"
+    },
+    {
+     "section_number": "9",
+     "section_title": "Hash Functions",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 8: Approval Status of Hash Functions",
+     "text": "Table 8: Approval Status of Hash Functions — SHA-2 family (SHA- 224, SHA-256, SHA-384, SHA-512, SHA-512/224 and SHA-512/256); Acceptable for all hash function applications"
+    },
+    {
+     "section_number": "9",
+     "section_title": "Hash Functions",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 8: Approval Status of Hash Functions",
+     "text": "Table 8: Approval Status of Hash Functions — SHA-3 family (SHA3-224, SHA3-; Acceptable for all hash function applications"
+    },
+    {
+     "section_number": "10",
+     "section_title": "Message Authentication Codes (MACs)",
+     "obligation": "",
+     "parameters": [
+      "tabulated value"
+     ],
+     "kind": "table row",
+     "caption": "Table 8: Approval Status of Hash Functions",
+     "text": "Table 8: Approval Status of Hash Functions — TupleHash and ParallelHash; Acceptable for the purposes specified in SP 800-185"
+    },
+    {
+     "section_number": "10",
+     "section_title": "Message Authentication Codes (MACs)",
+     "obligation": "",
+     "parameters": [
+      "length",
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 9: Approval Status of MAC Algorithms",
+     "text": "Table 9: Approval Status of MAC Algorithms — HMAC Generation; Key lengths < 112 bits; Disallowed"
+    },
+    {
+     "section_number": "10",
+     "section_title": "Message Authentication Codes (MACs)",
+     "obligation": "",
+     "parameters": [
+      "length"
+     ],
+     "kind": "table row",
+     "caption": "Table 9: Approval Status of MAC Algorithms",
+     "text": "Table 9: Approval Status of MAC Algorithms — Key lengths ≥ 112 bits; Acceptable"
+    },
+    {
+     "section_number": "10",
+     "section_title": "Message Authentication Codes (MACs)",
+     "obligation": "",
+     "parameters": [
+      "length",
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 9: Approval Status of MAC Algorithms",
+     "text": "Table 9: Approval Status of MAC Algorithms — HMAC Verification; Key lengths < 112 bits; Legacy use"
+    },
+    {
+     "section_number": "10",
+     "section_title": "Message Authentication Codes (MACs)",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 9: Approval Status of MAC Algorithms",
+     "text": "Table 9: Approval Status of MAC Algorithms — CMAC Generation; Two-key TDEA; Disallowed"
+    },
+    {
+     "section_number": "10",
+     "section_title": "Message Authentication Codes (MACs)",
+     "obligation": "",
+     "parameters": [
+      "date",
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 9: Approval Status of MAC Algorithms",
+     "text": "Table 9: Approval Status of MAC Algorithms — Three-key TDEA; Deprecated through 2023 Disallowed after 2023"
+    },
+    {
+     "section_number": "10",
+     "section_title": "Message Authentication Codes (MACs)",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 9: Approval Status of MAC Algorithms",
+     "text": "Table 9: Approval Status of MAC Algorithms — CMAC Verification; Two-key TDEA; Legacy use"
+    },
+    {
+     "section_number": "10",
+     "section_title": "Message Authentication Codes (MACs)",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 9: Approval Status of MAC Algorithms",
+     "text": "Table 9: Approval Status of MAC Algorithms — Three-key TDEA; Legacy use"
+    },
+    {
+     "section_number": "10",
+     "section_title": "Message Authentication Codes (MACs)",
+     "obligation": "",
+     "parameters": [
+      "algorithm"
+     ],
+     "kind": "table row",
+     "caption": "Table 9: Approval Status of MAC Algorithms",
+     "text": "Table 9: Approval Status of MAC Algorithms — GMAC Generation and Verification; AES; Acceptable"
+    },
+    {
+     "section_number": "10",
+     "section_title": "Message Authentication Codes (MACs)",
+     "obligation": "",
+     "parameters": [
+      "length"
+     ],
+     "kind": "table row",
+     "caption": "Table 9: Approval Status of MAC Algorithms",
+     "text": "Table 9: Approval Status of MAC Algorithms — KMAC Generation and Verification; Key lengths < 112 bits; Disallowed"
+    }
+   ]
+  }
+ ]
+}

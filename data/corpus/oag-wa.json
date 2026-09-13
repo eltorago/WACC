@@ -1,0 +1,470 @@
+{
+ "guides": [
+  {
+   "key": "report-12",
+   "report": "Report 12: 2023-24",
+   "title": "Digital Identity and Access Management",
+   "published": "2024-03-28",
+   "source_file": "Report-12_Digital-Identity-and-Access-Management-Better-Practice-Guide.pdf",
+   "page_count": 24,
+   "licence": "© 2024 Office of the Auditor General Western Australia. All rights reserved. If acknowledged, this material may be reproduced in whole or in part.",
+   "records": [
+    {
+     "section_number": "2.1",
+     "section_title": "Governance",
+     "heading": "Establish a framework",
+     "subsection": "2.1.1",
+     "page": 10,
+     "text": "Define and document IAM objectives that align with the entity’s values, regulatory requirements and risk appetite. Entities should: • Develop formal policies and procedures covering access controls, authentication standards, account lifecycle, auditing and segregation of duties requirements. • Identify system owners, who define system access levels and approve access to information systems and data. System owners enforce the principle of least privilege , manage changes and periodically review system access levels against regulatory, policy and role requirements. • Manage risks associated with trusting third-party and legacy identity providers (e.g. domain trusts ).",
+     "identifier": "Report-12 2.1.1"
+    },
+    {
+     "section_number": "2.1",
+     "section_title": "Governance",
+     "heading": "Centralise IAM",
+     "subsection": "2.1.2",
+     "page": 11,
+     "text": "Centralise authentication services with a key focus on critical systems, business applications, devices and supporting infrastructure. Centralising IAM helps to efficiently grant, revoke, and monitor identities and access over multiple systems. Entities should weigh the benefits of centralisation to determine if it fits their needs. Entities should: • Document all authentication services in use and include them in disaster recovery plans. • Where possible, link access levels to pre-defined roles and automatically assign them through IAM software for key business applications and resources.",
+     "identifier": "Report-12 2.1.2"
+    },
+    {
+     "section_number": "2.1",
+     "section_title": "Governance",
+     "heading": "Log and monitor events",
+     "subsection": "2.1.3",
+     "page": 11,
+     "text": "Logging and monitoring provide visibility over system use, data access patterns and indicators of compromise and help support forensic investigations. Entities should: • configure key systems, applications and infrastructure to generate event logs • identify key security and transactional events that require logging and monitoring. Logs should provide actionable information to detect attacks and ensure actions are unambiguously attributable to an identity • monitor access to cloud resources to identify suspicious access • keep and protect logs. Automating log collation and monitoring through software tools such as Extended Detection and Response (XDR) and Security Information and Event Management (SIEM) can provide real-time situational awareness and better assist with threat detection. Information and cyber security staff should be appropriately trained to use these tools. For more details see the Australian Cyber Security Centre (ACSC) Guidelines for System Monitoring. 14",
+     "identifier": "Report-12 2.1.3"
+    },
+    {
+     "section_number": "2.1",
+     "section_title": "Governance",
+     "heading": "Understand how accounts are used",
+     "subsection": "2.1.4",
+     "page": 11,
+     "text": "Entities should gain visibility over all human and non-human identities to ensure their account use is well understood. Software tools can assist with the analysis of large numbers of accounts in complex environments. For example, they can be used to identify non-human or service accounts and their use.",
+     "identifier": "Report-12 2.1.4"
+    },
+    {
+     "section_number": "2.1",
+     "section_title": "Governance",
+     "heading": "Verify the effectiveness of controls",
+     "subsection": "2.1.5",
+     "page": 11,
+     "text": "The effectiveness of IAM controls should be assessed to confirm they are implemented and operating effectively to achieve policy objectives. This program can be strengthened through internal and external audits.",
+     "identifier": "Report-12 2.1.5"
+    },
+    {
+     "section_number": "2.2",
+     "section_title": "Workforce management",
+     "heading": "Background checks",
+     "subsection": "",
+     "page": 12,
+     "text": "identities and accounts should only be created and access rights (entitlements) assigned after background checks have verified the individual’s personal identity.",
+     "identifier": "Report-12 2.2.1"
+    },
+    {
+     "section_number": "2.2",
+     "section_title": "Workforce management",
+     "heading": "Identity creation and provisioning",
+     "subsection": "",
+     "page": 12,
+     "text": "the creation of identities and accounts, and assignment of access rights can be performed manually or be automated through integration with IAM software.",
+     "identifier": "Report-12 2.2.2"
+    },
+    {
+     "section_number": "2.2",
+     "section_title": "Workforce management",
+     "heading": "Maintenance",
+     "subsection": "",
+     "page": 12,
+     "text": "workforce records should be maintained and changes communicated to system owners so access rights can be updated. For example, when there are permanent or temporary changes in an individual’s role. Individuals may have multiple digital identities due to multiple legacy systems; these should be linked or consolidated.",
+     "identifier": "Report-12 2.2.3"
+    },
+    {
+     "section_number": "2.2",
+     "section_title": "Workforce management",
+     "heading": "Deactivation",
+     "subsection": "",
+     "page": 12,
+     "text": "an individual’s identity and associated accounts should be disabled when they leave an organisation. Figure 3: Workforce IAM lifecycle",
+     "identifier": "Report-12 2.2.4"
+    },
+    {
+     "section_number": "2.3",
+     "section_title": "Identity and account management",
+     "heading": "Create identities and accounts",
+     "subsection": "2.3.1",
+     "page": 13,
+     "text": "Ensure all human (individuals) and non-human identities (applications, end-user devices, services) and accounts are provisioned through formal, documented and accountable processes. Without formal processes, accounts may be created without authorisation for fraudulent activity. Additionally, dormant accounts could be used by malicious actors. The following principles must be considered: • For smaller entities, provisioning may be a manual process. • For larger entities, better practice is to automate provisioning. • Manual requests and approvals, and automation logs must be retained. These should be periodically reviewed to verify the effectiveness of the process. • Place a time limit on identities/accounts created for a fixed period. For example, a contractor’s identity/account should automatically expire on their last day. • Create dedicated accounts and do not share accounts between staff, infrastructure, systems and applications. • Some identities may require more than one account such as for privileged access or access to legacy systems that do not support central authentication. These accounts should be linked so they are all disabled when no longer required.",
+     "identifier": "Report-12 2.3.1"
+    },
+    {
+     "section_number": "2.3",
+     "section_title": "Identity and account management",
+     "heading": "Manage non-human identities and accounts",
+     "subsection": "2.3.2",
+     "page": 14,
+     "text": "Applications and devices need access accounts to operate. These accounts require additional considerations as they support system operations in the background, are less visible and often have higher privileges. Compromise or misuse of these accounts can significantly impact service delivery. Entities should: • establish processes to create, maintain and remove non-human identities and accounts • ensure service and generic accounts for on-premise and cloud-based systems have assigned owners, are clearly labelled and only used for a dedicated purpose grant the required rights using a least privilege approach and maintain visibility over • non-human accounts with privileged access • minimise the use of built-in roles and security groups for non-human accounts • ensure generic and built-in administrator accounts are only used when access to dedicated accounts is not possible ensure rights assigned to application identities, services and generic accounts are • periodically reviewed by designated system owners to make certain they are still required. Changes should be made using a change control process • disable and remove non-human identities and accounts when assets are disposed of or applications are no longer required • protect the application programming interface (API) with strong authentication. Where possible use tokens over API keys • monitor the activity of non-human identities and accounts.",
+     "identifier": "Report-12 2.3.2"
+    },
+    {
+     "section_number": "2.3",
+     "section_title": "Identity and account management",
+     "heading": "Implement strong authentication controls",
+     "subsection": "2.3.3",
+     "page": 14,
+     "text": "Authentication verifies the identity of a person, device or application requesting access. For example, individuals accessing a banking application may need to verify their identity through a username and password or biometrics (face ID, fingerprints). Entities need to select an appropriate authentication method considering factors such as the importance of a system and the information it holds, who uses the system, the location of individuals and devices (office, remote or overseas) and the type of device used (personal or entity-provided). Entities should: • strive for password-less authentication. If this is not possible, prevent the use of simple, weak, default and commonly used passwords • set up long, unique and complex passwords for application identities, service, generic and break glass 16 accounts. Passwords should be changed when someone with access to these identities or accounts leaves the entity or changes roles verify individual and device identity whenever risks or context changes (such as • location, device type, device health and system use patterns). 17 For example, additional authentication may be required to verify the identity of an individual if they login from an untrusted device or unusual location to access sensitive information • prioritise multi-factor authentication (MFA) and implement phishing resistant MFA (Figure 4) • implement entity-wide single sign-on (SSO) to access systems and information. Figure 4: MFA methods and strength",
+     "identifier": "Report-12 2.3.3"
+    },
+    {
+     "section_number": "2.3",
+     "section_title": "Identity and account management",
+     "heading": "Protect credentials",
+     "subsection": "2.3.4",
+     "page": 15,
+     "text": "Policies and supporting processes should enforce the secure storage and handling of credentials (username/password) and encryption keys. For example: • Credentials should be stored in a centrally managed password manager. Individuals should have their own account to access the password manager and this activity should be monitored. • Actively identify and secure passwords stored in plain-text on shared drives, documents and internet/intranet pages. • Perform third-party risk assessments, undertake audits and review assurance reports where cloud services are used for managing credentials or encryption keys. • Encryption keys for cloud services containing sensitive and mission critical systems should be self-managed instead of being managed by the service providers.",
+     "identifier": "Report-12 2.3.4"
+    },
+    {
+     "section_number": "2.4",
+     "section_title": "Standard access management",
+     "heading": "Grant minimum access",
+     "subsection": "2.4.1",
+     "page": 16,
+     "text": "Access should be granted using the principle of least privilege. This means access should only be given to those systems and resources required by the individual, application, device or service accounts. Access may be further restricted based on the context of the access request such as location, device, time of day. Entities should: • use pre-defined roles and associated privileges instead of copying access from one identity to another • ensure segregation of duties requirements are maintained • ensure only standard access accounts are granted remote access and that all remote access requires strong authentication and phishing resistant MFA.",
+     "identifier": "Report-12 2.4.1"
+    },
+    {
+     "section_number": "2.4",
+     "section_title": "Standard access management",
+     "heading": "Verify access rights",
+     "subsection": "2.4.2",
+     "page": 17,
+     "text": "Implement processes to regularly verify that identities and accounts belong to individuals currently engaged by the entity and their access is still required and appropriate to their role. This should also occur when an individual’s role changes. In addition, entities should regularly review access levels assigned to predefined roles. Similarly, non-human (e.g. application device and system) accounts should also be reviewed. Where automation is used to assign rights, logs should be monitored and the access rights of active accounts regularly reviewed to verify the effectiveness of automated processes.",
+     "identifier": "Report-12 2.4.2"
+    },
+    {
+     "section_number": "2.4",
+     "section_title": "Standard access management",
+     "heading": "Promptly disable access",
+     "subsection": "2.4.3",
+     "page": 17,
+     "text": "It is important to revoke access when individuals no longer require it and to keep suitable records of access removal. For example, when individuals (e.g. contract, casual, temporary and permanent staff) take long periods of leave, retire, resign, are terminated or are at the end of an employment contract. A central identity management system can be used to automatically disable access. If access is not revoked promptly, it could be used to access systems and information without authorisation.",
+     "identifier": "Report-12 2.4.3"
+    },
+    {
+     "section_number": "2.5",
+     "section_title": "Privileged access management",
+     "heading": "Elevate rights based on need",
+     "subsection": "2.5.1",
+     "page": 18,
+     "text": "Privileged access should be requested based on need and granted only for a short period of time. Approval of this access can be through a delegated officer or automated based on rules. Auditable records of access elevations should be kept. System administrator accounts usually have a very high level of access. Whilst this provides flexibility, this type of access is only needed for certain tasks every now and then.",
+     "identifier": "Report-12 2.5.1"
+    },
+    {
+     "section_number": "2.5",
+     "section_title": "Privileged access management",
+     "heading": "Use privileged access workstations",
+     "subsection": "2.5.2",
+     "page": 18,
+     "text": "Only allow approved/trusted devices (privileged access workstations) administrative access to cloud and on-premise infrastructure and systems. These workstations should not be used for non-privileged tasks.",
+     "identifier": "Report-12 2.5.2"
+    },
+    {
+     "section_number": "2.5",
+     "section_title": "Privileged access management",
+     "heading": "Secure privileged accounts",
+     "subsection": "2.5.3",
+     "page": 18,
+     "text": "Privileged accounts should have the highest level of security as entities can experience significant impacts when these accounts are compromised. The following principles should be considered: • Highly privileged identities should not be shared between on-premise and cloud environments. • Always require stronger authentication and phishing resistant MFA for privileged access to cloud services and on-premise infrastructure and systems. • To reduce the risk of compromise, privileged accounts should not have internet, email or remote access. Where privileged accounts require administrative access to cloud services, this should be restricted through jump hosts 24 or privileged access workstations. • Do not create unnecessary privileged accounts, instead use the principle of least privilege to grant specific privileges needed by the role.",
+     "identifier": "Report-12 2.5.3"
+    },
+    {
+     "section_number": "2.5",
+     "section_title": "Privileged access management",
+     "heading": "Review privileges",
+     "subsection": "2.5.4",
+     "page": 19,
+     "text": "Privileged access requires regular revalidation and monitoring to minimise insider threats. Entities should ensure: • Access rights assigned to privileged staff and contractors are reviewed regularly and monitored. If their duties change, access should be adjusted. Reviews are documented and auditable records are maintained. • • Privileged rights expire after 12 months unless revalidated.",
+     "identifier": "Report-12 2.5.4"
+    }
+   ]
+  },
+  {
+   "key": "report-24",
+   "report": "Report 24: 2022-23",
+   "title": "Security Basics for Protecting Critical Infrastructure from Cyber Threats",
+   "published": "2023-06-14",
+   "source_file": "Report-24_-Security-Basics-for-Protecting-Critical-Infrastructure-from-Cyber-Threats.pdf",
+   "page_count": 24,
+   "licence": "© 2023 Office of the Auditor General Western Australia. All rights reserved. This material may be reproduced in whole or in part provided the source is acknowledged.",
+   "records": [
+    {
+     "section_number": "2.1",
+     "section_title": "Identify and maintain an accurate inventory of",
+     "heading": "Identify critical assets",
+     "text": "Identify assets critical to the delivery of services. This includes sites, buildings and technology such as sensors, actuators, programmable logical controllers, servers, engineering workstations and applications.",
+     "page": 13,
+     "identifier": "Report-24 2.1.1"
+    },
+    {
+     "section_number": "2.1",
+     "section_title": "Identify and maintain an accurate inventory of",
+     "heading": "Get to know critical assets",
+     "text": "Document critical asset details including their location, importance, software and firmware information and supporting vendor, where applicable. Access to this information should be granted on a need- to-know basis.",
+     "page": 13,
+     "identifier": "Report-24 2.1.2"
+    },
+    {
+     "section_number": "2.1",
+     "section_title": "Identify and maintain an accurate inventory of",
+     "heading": "Identify and manage asset risks",
+     "text": "Understand the purpose of assets and relevant risks. Treat these risks with a view to minimise them as much as possible.",
+     "page": 13,
+     "identifier": "Report-24 2.1.3"
+    },
+    {
+     "section_number": "2.1",
+     "section_title": "Identify and maintain an accurate inventory of",
+     "heading": "Maintain an inventory",
+     "text": "Keep the register of critical assets current. Update it when changes are made or assets are disposed. Periodically confirm the . register’s accuracy Securely dispose assets when they are no longer required or reach their end- of-life. Any information including configurations should be erased prior to disposal.",
+     "page": 13,
+     "identifier": "Report-24 2.1.4"
+    },
+    {
+     "section_number": "2.2",
+     "section_title": "Develop a culture of security",
+     "heading": "Develop specific training",
+     "text": "Develop specific and regular training for staff and contractors with access to critical sites and systems. General cyber security training usually focuses on IT security, this is not sufficient.",
+     "page": 14,
+     "identifier": "Report-24 2.2.1"
+    },
+    {
+     "section_number": "2.2",
+     "section_title": "Develop a culture of security",
+     "heading": "Perform adequate background checks",
+     "text": "Vet all staff and contractors before granting access to critical systems and sites. Based on positions, background checks should go beyond basic national police clearances and include checks that cover national security 6 to minimise the risk of foreign interference and espionage. Include similar requirements in contracts with third party suppliers and check they comply.",
+     "page": 14,
+     "identifier": "Report-24 2.2.2"
+    },
+    {
+     "section_number": "2.2",
+     "section_title": "Develop a culture of security",
+     "heading": "Maintain relevant policies",
+     "text": "Keep workforce development and security policies and processes updated following incidents or changes in environments (e.g. regulatory, organisational, or technology). Promptly communicate updates to all staff and contractors.",
+     "page": 14,
+     "identifier": "Report-24 2.2.3"
+    },
+    {
+     "section_number": "2.2",
+     "section_title": "Develop a culture of security",
+     "heading": "Manage health and safety risks",
+     "text": "Develop policies and procedures to provide a safe work environment for staff at critical sites. Ongoing assessments are crucial to identify potential dangers that may result in injury.",
+     "page": 14,
+     "identifier": "Report-24 2.2.4"
+    },
+    {
+     "section_number": "2.3",
+     "section_title": "Manage supply chain risks",
+     "heading": "Assess suppliers before onboarding",
+     "text": "Third party risk assessments help identify weaknesses that may be detrimental to the delivery of important services. Document all suppliers and identify those who have access to critical assets and those supplying OT devices.",
+     "page": 15,
+     "identifier": "Report-24 2.3.1"
+    },
+    {
+     "section_number": "2.3",
+     "section_title": "Manage supply chain risks",
+     "heading": "Regularly gain assurance",
+     "text": "Based on supplier risk and the importance of their service, perform regular reviews or gain cyber security control assurance through independent reports. Entities should develop a program to test OT devices before deploying them and follow up with suppliers to fix identified issues.",
+     "page": 15,
+     "identifier": "Report-24 2.3.2"
+    },
+    {
+     "section_number": "2.3",
+     "section_title": "Manage supply chain risks",
+     "heading": "Document security requirements in contracts",
+     "text": "Contracts with suppliers should include security requirements based on industry better practices. Develop processes to ensure suppliers comply with their obligations.",
+     "page": 15,
+     "identifier": "Report-24 2.3.3"
+    },
+    {
+     "section_number": "2.3",
+     "section_title": "Manage supply chain risks",
+     "heading": "Secure information exchange",
+     "text": "Avoid direct connection to external supplier networks for information exchange or maintenance of critical systems, as this can introduce unnecessary vulnerabilities.",
+     "page": 15,
+     "identifier": "Report-24 2.3.4"
+    },
+    {
+     "section_number": "2.4",
+     "section_title": "Design a resilient network",
+     "heading": "Separate IT and OT networks",
+     "text": "Segment IT and OT into different networks and create a demilitarized zone between them. Further segment the OT network by grouping devices based on their function and risk. Refer to the Purdue model at Appendix 2 and tailor a solution that best fits needs. Implement barriers between various OT segments to enhance resilience.",
+     "page": 16,
+     "identifier": "Report-24 2.4.1"
+    },
+    {
+     "section_number": "2.4",
+     "section_title": "Design a resilient network",
+     "heading": "Periodically review configurations",
+     "text": "Regularly review the configuration of security appliances that protect and segregate the network. Secure and protect administration interfaces and ports against common attacks.",
+     "page": 16,
+     "identifier": "Report-24 2.4.2"
+    },
+    {
+     "section_number": "2.4",
+     "section_title": "Design a resilient network",
+     "heading": "Prevent direct access to OT networks and field devices",
+     "text": "Do not allow direct access into the OT network from IT network or remote internet access. Use jump hosts to access OT networks and devices and implement a security baseline for devices that connect to the network. Exceptions must be risk assessed and continuously monitored.",
+     "page": 16,
+     "identifier": "Report-24 2.4.3"
+    },
+    {
+     "section_number": "2.4",
+     "section_title": "Design a resilient network",
+     "heading": "Maintain backups",
+     "text": "Where possible, implement high availability or have offline hardware on standby to continue operations in the event of an incident. Keep offline and secure backups of configurations, builds, operational data and manuals to use during an incident.",
+     "page": 16,
+     "identifier": "Report-24 2.4.4"
+    },
+    {
+     "section_number": "2.5",
+     "section_title": "Implement effective access management procedures",
+     "heading": "Separate access management systems",
+     "text": "Separate IT and OT access control systems (e.g. domain controllers) and do not create trusts between the IT and OT access systems. If systems have built-in remote maintenance capability, disable or closely monitor it.",
+     "page": 17,
+     "identifier": "Report-24 2.5.1"
+    },
+    {
+     "section_number": "2.5",
+     "section_title": "Implement effective access management procedures",
+     "heading": "Govern and review privileged access",
+     "text": "Accounts should be granted access using the principle of least privilege. Only assign super privileges where a role requires it. Where appropriate, use just- in-time access to avoid ongoing privileged access. Monitor the use of privileged activity such as provisioning of new access or changes to OT configurations.",
+     "page": 17,
+     "identifier": "Report-24 2.5.2"
+    },
+    {
+     "section_number": "2.5",
+     "section_title": "Implement effective access management procedures",
+     "heading": "Use multi-factor authentication (MFA)",
+     "text": "Make MFA mandatory for access to jump hosts, critical systems, security appliances and networks.",
+     "page": 17,
+     "identifier": "Report-24 2.5.3"
+    },
+    {
+     "section_number": "2.5",
+     "section_title": "Implement effective access management procedures",
+     "heading": "Implement a lifecycle approach to manage access accounts",
+     "text": "Ensure all accounts (e.g. staff, contractors and service providers) are assessed before granting access to critical systems, and promptly terminate when not needed. Keep access levels in line with role responsibilities.",
+     "page": 17,
+     "identifier": "Report-24 2.5.4"
+    },
+    {
+     "section_number": "2.6",
+     "section_title": "Manage vulnerabilities and maintain vigilance",
+     "heading": "Understand technical vulnerabilities",
+     "text": "Proactive vulnerability scanning in OT networks is often difficult, however this does not mean it should not be done. Passive scanning techniques, such as creating an offline image, can identify vulnerabilities for rectification in production environments. Risk and change management processes should be followed when patching vulnerabilities.",
+     "page": 18,
+     "identifier": "Report-24 2.6.1"
+    },
+    {
+     "section_number": "2.6",
+     "section_title": "Manage vulnerabilities and maintain vigilance",
+     "heading": "Monitor networks and systems",
+     "text": "Conduct assessments to identify critical logs that must be captured for IT and OT. As a minimum, industry best practice and vendor recommended logs should be captured for internet traffic, host activity, access into OT networks and phishing attempts. Additionally, include network traffic from low level field devices such as programmable logic controllers and remote terminal units for threat monitoring. Use logs to create alerts based on scenarios that an adversary might use to compromise systems.",
+     "page": 18,
+     "identifier": "Report-24 2.6.2"
+    },
+    {
+     "section_number": "2.6",
+     "section_title": "Manage vulnerabilities and maintain vigilance",
+     "heading": "Maintain situational awareness",
+     "text": "Subscribe to and read alerts issued by the Australian Cyber Security Centre, which highlight cyber attacks on Australian and global critical infrastructure. These alerts often include techniques used by cyber criminals and indicators of compromise, which entities can use to review their own networks for potential malicious activity.",
+     "page": 18,
+     "identifier": "Report-24 2.6.3"
+    },
+    {
+     "section_number": "2.6",
+     "section_title": "Manage vulnerabilities and maintain vigilance",
+     "heading": "Prevent untrusted code and removeable media",
+     "text": "Prevent execution of unapproved software, scripts, macros and other executables. Additionally, do not allow removeable media to be used on OT workstations and servers. Where appropriate, implement application controls in IT and OT environments in line with the Essential Eight mitigation strategies.",
+     "page": 18,
+     "identifier": "Report-24 2.6.4"
+    },
+    {
+     "section_number": "2.7",
+     "section_title": "Implement physical security",
+     "heading": "Establish perimeter protections",
+     "text": "Limit entry points and deploy physical barriers around critical facilities such as purpose-built fences, walls and gates in metropolitan and regional locations. In addition, where appropriate, implement: • video surveillance • intrusion detection systems • security guards.",
+     "page": 19,
+     "identifier": "Report-24 2.7.1"
+    },
+    {
+     "section_number": "2.7",
+     "section_title": "Implement physical security",
+     "heading": "Implement physical access controls",
+     "text": "Restrict entry to sensitive areas where OT systems are located through access cards, biometric authentication or physical locks. Do not use the same key for outer gates and rooms where OT devices are hosted. Ensure limited personal have access to master keys.",
+     "page": 19,
+     "identifier": "Report-24 2.7.2"
+    },
+    {
+     "section_number": "2.7",
+     "section_title": "Implement physical security",
+     "heading": "Secure equipment during transportation",
+     "text": "Develop procedures to minimise the risk of loss of critical assets or tampering of configuration and hardware during transportation between sites. Tamper evident seals, secure containers or trusted transportation services should be considered.",
+     "page": 19,
+     "identifier": "Report-24 2.7.3"
+    },
+    {
+     "section_number": "2.7",
+     "section_title": "Implement physical security",
+     "heading": "Develop visitor management procedures",
+     "text": "Effective visitor management procedures should include identification and registration. Supervised visits should be provided where access to OT and important systems is required.",
+     "page": 19,
+     "identifier": "Report-24 2.7.4"
+    },
+    {
+     "section_number": "2.7",
+     "section_title": "Implement physical security",
+     "heading": "Perform ongoing site assessments",
+     "text": "Perform ongoing security assessments on critical sites to identify deteriorations to layout, access systems, fences, lighting, alarms, signs and physical security screens.",
+     "page": 19,
+     "identifier": "Report-24 2.7.5"
+    },
+    {
+     "section_number": "2.8",
+     "section_title": "Be prepared for when things go wrong",
+     "heading": "Develop achievable recovery plans",
+     "text": "Entities should use business impact analysis to develop resilience plans. This ensures recovery objectives (RPO and RTO ) are achievable and aligned with business objectives.",
+     "page": 20,
+     "identifier": "Report-24 2.8.1"
+    },
+    {
+     "section_number": "2.8",
+     "section_title": "Be prepared for when things go wrong",
+     "heading": "Align resilience plans",
+     "text": "Resilience plans and their recovery objectives should align, and dependencies should be considered and clearly noted. Dependencies may exist between processes, IT and OT networks, business units or external factors, such as service providers and supply chain networks.",
+     "page": 20,
+     "identifier": "Report-24 2.8.2"
+    },
+    {
+     "section_number": "2.8",
+     "section_title": "Be prepared for when things go wrong",
+     "heading": "Develop OT specific playbooks",
+     "text": "Often cyber security incident response plans are IT specific and overlook OT. Many OT breaches originate from a compromised IT network so it is essential that OT specific playbooks are developed and tested for effective recovery.",
+     "page": 20,
+     "identifier": "Report-24 2.8.3"
+    },
+    {
+     "section_number": "2.8",
+     "section_title": "Be prepared for when things go wrong",
+     "heading": "Communicate with stakeholders",
+     "text": "Plans should include processes to communicate with internal and external stakeholders affected by a breach. An effective communication plan will help to manage expectations and avoid panic. For example, entities need to report certain breaches, as required by the SOCI.",
+     "page": 20,
+     "identifier": "Report-24 2.8.4"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,325 @@
+{
+ "written_before_search_engine": true,
+ "corpus_state_when_written": {
+  "frameworks": 16,
+  "controls": 4871,
+  "note": "Counts are context, not criteria. A criterion that depends on a corpus count is a criterion that decays."
+ },
+ "rules": [
+  "A criterion is fixed at the moment it is written. If it turns out to be the wrong question, the run is recorded as a failure and a corrected measure is written beside it. The criterion is not moved.",
+  "Expected coverage was derived by reading the frameworks, not by running a search. Every MUST cell names a witness control that a person can open and check.",
+  "MUST means the framework demonstrably addresses the topic. NONE means it demonstrably does not, and a hit from it near the top is a precision failure. MAY is neither: present but incidental, so it neither earns credit nor costs any.",
+  "NONE is a strong claim and is used only where the absence was confirmed by reading. Where absence was merely not observed, the cell is MAY."
+ ],
+
+ "areas": [
+  {
+   "id": "known-item",
+   "name": "Known-item retrieval",
+   "measures": "Whether the one control a person had in mind comes back at all.",
+   "method": "For every topic below, run the topic query. Check the witness control for each MUST framework.",
+   "pass": "Every named witness appears in the top 10 results for its topic. No exceptions."
+  },
+  {
+   "id": "identifier",
+   "name": "Identifier lookup",
+   "measures": "Whether typing a control's own identifier returns that control.",
+   "method": "Run each identifier case through exact lookup, not through topical search.",
+   "pass": "Each case resolves to exactly its expected control, or to exactly its expected ambiguity set. A topical score is never used to break a tie. Zero results for a well-formed identifier is a failure."
+  },
+  {
+   "id": "vocabulary",
+   "name": "Vocabulary equivalence",
+   "measures": "Whether two publishers writing the same requirement in different words reach each other.",
+   "method": "For each pair, run the left query and require the right control in the results.",
+   "pass": "Every pair connects. A pair that fails is reported with the term that was missing, not quietly widened."
+  },
+  {
+   "id": "recall",
+   "name": "Cross-framework recall",
+   "measures": "Whether a topic query finds the topic everywhere it exists.",
+   "method": "For each topic, collect the distinct frameworks represented in the top 25.",
+   "pass": "Every MUST framework for that topic is represented. Missing one is a failure even if the result set looks good."
+  },
+  {
+   "id": "precision",
+   "name": "Precision",
+   "measures": "Whether a topic query stays on topic.",
+   "method": "Inspect the top 5 for each topic.",
+   "pass": "No control from a NONE framework appears in the top 5, and at least 4 of the 5 are on the topic when read."
+  },
+  {
+   "id": "negative",
+   "name": "Negative controls",
+   "measures": "Whether the tool says nothing when there is nothing.",
+   "method": "Run each negative query.",
+   "pass": "Fewer than 3 results above the absolute score floor, and the tool states that it found nothing rather than presenting weak matches as answers."
+  },
+  {
+   "id": "abbreviation",
+   "name": "Abbreviations and collisions",
+   "measures": "Whether short forms resolve, and whether a short form that means two things is disambiguated.",
+   "method": "Run each abbreviation case.",
+   "pass": "Each abbreviation reaches its expansion. ISM as a query returns Information Security Manual controls; SP 800-88's use of ISM for information storage media never appears above them."
+  },
+  {
+   "id": "robustness",
+   "name": "Input robustness",
+   "measures": "Whether malformed input degrades or crashes.",
+   "method": "Run each robustness case.",
+   "pass": "No exception, no empty page without an explanation, and no result set that ignores the query entirely."
+  },
+  {
+   "id": "determinism",
+   "name": "Determinism",
+   "measures": "Whether the same question gets the same answer.",
+   "method": "Run every topic query twice in one process, then again after a full corpus rebuild.",
+   "pass": "Identical ordering and identical scores in all three runs, byte for byte."
+  },
+  {
+   "id": "ranking",
+   "name": "Ranking discipline",
+   "measures": "Whether the ordering carries the meaning it claims to.",
+   "method": "Run the ranking cases.",
+   "pass": "Every ranking case holds. These are assertions about order, not about presence, and a case that passes only because one side is missing is a vacuous pass and counts as a failure."
+  }
+ ],
+
+ "topics": {
+  "multi-factor authentication": {
+   "query": "multi-factor authentication",
+   "must": ["ism", "nist-800-53", "nist-800-63", "cis-controls", "aescsf", "pspf", "oag-wa", "asd-ad"],
+   "may": ["cirmp-rules", "wa-csp", "csf"],
+   "none": ["soci-act", "wa-circular", "nist-800-131a", "nist-800-57pt1", "nist-800-88"],
+   "witness": {
+    "ism": "ISM-1683",
+    "nist-800-53": "IA-2(1)",
+    "nist-800-63": "63B §3.1.5.2#1",
+    "cis-controls": "6.4",
+    "aescsf": "ACCESS-1i",
+    "pspf": "Req 101",
+    "oag-wa": "Report-24 2.5.3",
+    "asd-ad": "Appendix A §Mitigating a Golden Certificate#1"
+   },
+   "note": "WA CSP is MAY, not MUST: it mandates the Essential Eight rather than naming multi-factor authentication."
+  },
+  "privileged access": {
+   "query": "restricting administrative privileges",
+   "must": ["ism", "nist-800-53", "asd-ad", "aescsf", "oag-wa", "pspf"],
+   "may": ["wa-csp", "csf", "cis-controls"],
+   "none": ["soci-act", "wa-circular", "nist-800-63", "nist-800-131a", "nist-800-57pt1", "nist-800-88"],
+   "witness": {
+    "ism": "ISM-1509",
+    "nist-800-53": "AC-6(10)",
+    "asd-ad": "Appendix A §Mitigating a Golden Certificate#4",
+    "aescsf": "ACCESS-AP5",
+    "oag-wa": "Report-12 2.5.2",
+    "pspf": "Req 102"
+   }
+  },
+  "backup and restoration": {
+   "query": "backups and restoration testing",
+   "must": ["ism", "nist-800-53", "csf", "aescsf", "cis-controls", "wa-csp"],
+   "may": ["oag-wa", "asd-ad", "pspf"],
+   "none": ["nist-800-63", "nist-800-131a", "nist-800-57pt1", "nist-800-88"],
+   "witness": {
+    "ism": "ISM-1813",
+    "nist-800-53": "CP-9(7)",
+    "csf": "PR.DS-11",
+    "aescsf": "RESPONSE-4b",
+    "cis-controls": "11.5",
+    "wa-csp": "6.1"
+   }
+  },
+  "patching and vulnerabilities": {
+   "query": "patching applications and operating systems",
+   "must": ["ism", "nist-800-53", "cis-controls", "aescsf", "csf", "pspf", "wa-csp"],
+   "may": ["soci-act", "oag-wa", "asd-ad"],
+   "none": ["wa-circular", "nist-800-63", "nist-800-131a", "nist-800-57pt1", "nist-800-88"],
+   "witness": {
+    "ism": "ISM-1754",
+    "nist-800-53": "RA-5(3)",
+    "cis-controls": "7.4",
+    "aescsf": "THREAT-1",
+    "csf": "ID.RA-01",
+    "pspf": "Req 99",
+    "wa-csp": "1.7"
+   }
+  },
+  "media sanitisation and disposal": {
+   "query": "sanitisation of media before disposal",
+   "must": ["ism", "nist-800-53", "nist-800-88", "wa-csp", "pspf"],
+   "may": ["aescsf", "cis-controls"],
+   "none": ["soci-act", "cirmp-rules", "csf", "nist-800-63", "nist-800-131a", "nist-800-57pt1", "asd-ad", "oag-wa"],
+   "witness": {
+    "ism": "ISM-1742",
+    "nist-800-53": "MP-6(7)",
+    "nist-800-88": "SP 800-88 Rev 2 §3.1.2#1",
+    "wa-csp": "1.6",
+    "pspf": "Req 58"
+   },
+   "note": "CSF 2.0 has no media sanitisation subcategory, and neither statute mentions it. This is the topic where an empty tier-1 and tier-3 band is the correct answer."
+  },
+  "event logging and retention": {
+   "query": "event logging and log retention",
+   "must": ["ism", "nist-800-53", "cis-controls", "aescsf", "csf"],
+   "may": ["oag-wa", "wa-csp"],
+   "none": ["soci-act", "cirmp-rules", "wa-circular", "nist-800-131a", "nist-800-57pt1", "nist-800-88", "nist-800-63"],
+   "witness": {
+    "ism": "ISM-1985",
+    "nist-800-53": "AU-4",
+    "cis-controls": "8.10",
+    "aescsf": "SITUATION-1",
+    "csf": "PR.PS-04"
+   },
+   "note": "CSF is MUST but says 'Log records are generated', never 'event log'. It is here to force the vocabulary to bridge that gap rather than to reward a literal match."
+  },
+  "incident notification timeframes": {
+   "query": "how quickly must a cyber security incident be reported",
+   "must": ["soci-act", "wa-csp", "wa-circular"],
+   "may": ["ism", "aescsf", "pspf", "csf"],
+   "none": ["nist-800-53", "nist-800-63", "nist-800-131a", "nist-800-57pt1", "nist-800-88", "cis-controls", "asd-ad", "oag-wa"],
+   "witness": {
+    "soci-act": "s 30BC(1)",
+    "wa-csp": "5.1c",
+    "wa-circular": "2c"
+   },
+   "note": "The Australian side states 12 hours (SOCI s 30BC), 72 hours (s 30BD), 4 hours to triage and 24 hours to report (WA CSP 5.1b, 5.1c). No American publication in this corpus states a counterpart. The comparison must show an empty American column and say so."
+  },
+  "cryptographic keys and algorithms": {
+   "query": "approved cryptographic algorithms and key lengths",
+   "must": ["nist-800-57pt1", "nist-800-131a", "ism", "nist-800-63", "nist-800-53"],
+   "may": ["aescsf", "pspf", "nist-800-88"],
+   "none": ["soci-act", "cirmp-rules", "wa-csp", "wa-circular", "csf", "cis-controls", "asd-ad", "oag-wa"],
+   "witness": {
+    "nist-800-57pt1": "SP 800-57 Part 1 Rev 5 §5.3.6#1",
+    "nist-800-131a": "SP 800-131A Rev 2 §2#1",
+    "ism": "ISM-1369",
+    "nist-800-63": "63B §B.2#1",
+    "nist-800-53": "SC-13"
+   }
+  },
+  "application control": {
+   "query": "application control and software allowlisting",
+   "must": ["ism", "pspf", "wa-csp", "cis-controls", "asd-ad", "oag-wa", "nist-800-53"],
+   "may": ["aescsf"],
+   "none": ["soci-act", "cirmp-rules", "wa-circular", "csf", "nist-800-63", "nist-800-131a", "nist-800-57pt1", "nist-800-88"],
+   "witness": {
+    "ism": "ISM-0843",
+    "pspf": "Req 103",
+    "wa-csp": "3.1.1a",
+    "cis-controls": "2.5",
+    "asd-ad": "Appendix A §Mitigating a Golden Certificate#2",
+    "oag-wa": "Report-24 2.6.4",
+    "nist-800-53": "CM-7(5)"
+   },
+   "note": "800-53 is MUST and never writes 'application control'; CM-7(5) is titled Authorized Software — Allow-by-exception. The WA CSP witness 3.1.1a does not contain the phrase either — it mandates the Essential Eight, of which application control is one strategy. Reaching it therefore requires expanding 'Essential Eight' into the eight strategy names ASD publishes. That is the hardest cell in this table and it is deliberate: a literal-text search cannot pass it."
+  },
+  "supply chain and third parties": {
+   "query": "supply chain and third party risk",
+   "must": ["csf", "ism", "nist-800-53", "aescsf", "wa-csp", "cirmp-rules", "pspf", "oag-wa", "cis-controls"],
+   "may": [],
+   "none": ["nist-800-63", "nist-800-131a", "nist-800-57pt1", "nist-800-88", "asd-ad", "wa-circular", "soci-act"],
+   "witness": {
+    "csf": "GV.SC-04",
+    "ism": "ISM-1786",
+    "nist-800-53": "SR-3",
+    "aescsf": "THIRD-PARTIES-2",
+    "wa-csp": "2.1d",
+    "cirmp-rules": "s 10A(5)",
+    "pspf": "Req 48",
+    "oag-wa": "Report-24 2.3.4",
+    "cis-controls": "15.7"
+   }
+  }
+ },
+
+ "identifiers": [
+  {"input": "AC-6(5)", "expect": "nist-800-53:ac-6.5", "why": "trailing parenthesis; a trailing word boundary can never match it"},
+  {"input": "AC-06(05)", "expect": "nist-800-53:ac-6.5", "why": "NIST prints both zero-padded and unpadded labels on the same control"},
+  {"input": "ac-6.5", "expect": "nist-800-53:ac-6.5", "why": "the OSCAL id form"},
+  {"input": "ISM-0421", "expect": "ism:ism-421", "why": "leading zero inside the number"},
+  {"input": "0421", "expect": "ism:ism-421", "why": "people type ISM control numbers bare"},
+  {"input": "1742", "expect": "ism:ism-1742", "why": "bare four-digit ISM number"},
+  {"input": "PSPF Req 93", "expect": "pspf:req 93", "why": "shares a prefix with every other PSPF requirement"},
+  {"input": "Req 113", "expect": "NO MATCH", "why": "113 is absent from the published PSPF table; the tool must say so rather than return the nearest number"},
+  {"input": "s 30BC", "expect": "soci-act:s 30bc", "why": "legislative section with a letter suffix"},
+  {"input": "s 8(4)", "expect": "cirmp-rules:s 8.4", "why": "parenthesised subsection; must not collide with s 8.4 of the Act"},
+  {"input": "s 8A(3)", "expect": "cirmp-rules:s 8a.3", "why": "letter inside the section number"},
+  {"input": "GV.OC-01", "expect": "csf:gv.oc-01", "why": "dotted alphabetic identifier"},
+  {"input": "ID.AM-06", "expect": "WITHDRAWN REDIRECT to GV.RR-02, GV.SC-02", "why": "a retired CSF 1.1 identifier must answer with where the outcome went, not with nothing"},
+  {"input": "3.10", "expect": "cis-controls:3.10", "why": "must not resolve to safeguard 3.1; the workbook cannot tell them apart and the tool must"},
+  {"input": "6.1", "expect": "AMBIGUOUS across wa-csp, cis-controls, aescsf", "why": "a bare dotted number is not unique; the tool must present the candidates rather than choose"},
+  {"input": "AC-6(5).", "expect": "nist-800-53:ac-6.5", "why": "trailing full stop from a pasted sentence"},
+  {"input": "  ac-6(5)  ", "expect": "nist-800-53:ac-6.5", "why": "surrounding whitespace"}
+ ],
+
+ "vocabulary": [
+  {"query": "media sanitization", "must_reach": "ism:ism-1742", "why": "American spelling must reach Australian text"},
+  {"query": "media sanitisation", "must_reach": "nist-800-88:sp 800-88 rev 2 §3.1.2#1", "why": "and the reverse"},
+  {"query": "secure disposal of devices", "must_reach": "wa-csp:1.6", "why": "disposal and sanitisation are the same subject in different words"},
+  {"query": "event logging", "must_reach": "csf:pr.ps-04", "why": "CSF says 'Log records are generated'"},
+  {"query": "application control", "must_reach": "nist-800-53:cm-7.5", "why": "800-53 says 'Authorized Software — Allow-by-exception'"},
+  {"query": "software allowlisting", "must_reach": "ism:ism-843", "why": "allowlisting and application control are the same subject"},
+  {"query": "MFA", "must_reach": "ism:ism-1683", "why": "abbreviation to expansion"},
+  {"query": "vulnerability", "must_reach": "ism:ism-1754", "why": "must reach 'vulnerabilities'; consonant plus y becomes ies"},
+  {"query": "vulnerabilities", "must_reach": "csf:id.ra-01", "why": "and the singular form of the same stem"},
+  {"query": "event logs", "must_reach": "ism:ism-1985", "why": "a literal phrase pattern must survive the plural"}
+ ],
+
+ "negative_queries": [
+  "payroll processing",
+  "catering arrangements",
+  "car parking permits",
+  "annual leave entitlements",
+  "stationery procurement"
+ ],
+
+ "abbreviations": [
+  {"query": "ISM", "expect_top": "ism", "must_not_rank_above": "nist-800-88", "why": "SP 800-88 Rev 2 abbreviates information storage media as ISM; in this tool ISM is the Information Security Manual"},
+  {"query": "E8", "expect_reaches": "ism essential_eight_maturity tag", "why": "Essential Eight"},
+  {"query": "CIRMP", "expect_top": "cirmp-rules"},
+  {"query": "SOCI", "expect_top": "soci-act"},
+  {"query": "OAG", "expect_top": "oag-wa"},
+  {"query": "AAL2", "expect_top": "nist-800-63", "why": "authentication assurance level"},
+  {"query": "CE", "expect_reaches": "nist-800-88", "why": "cryptographic erase; a two-letter query must not match inside longer words"},
+  {"query": "OT", "must_not_match_inside": ["bluetooth", "footprint", "protocol"], "why": "a two-letter alias with no boundary enforcement matches inside a third of the corpus"}
+ ],
+
+ "robustness": [
+  {"input": "", "expect": "explained empty result, no exception"},
+  {"input": "a", "expect": "explained empty or near-empty result, no exception"},
+  {"input": "   ", "expect": "treated as empty"},
+  {"input": "???", "expect": "treated as empty; punctuation is not a term"},
+  {"input": "MULTI-FACTOR AUTHENTICATION", "expect": "same results as the lower-case query"},
+  {"input": "multi factor authentication", "expect": "same results as the hyphenated query"},
+  {"input": "<500 word pasted control text>", "expect": "results, no exception, no timeout beyond 5 seconds"},
+  {"input": "AND OR NOT NEAR", "expect": "treated as terms or as empty, never as FTS5 syntax that raises"},
+  {"input": "\"unterminated quote", "expect": "no exception from the FTS5 parser"}
+ ],
+
+ "ranking": [
+  {
+   "id": "tier-outranks-detail",
+   "case": "Query 'reporting a cyber security incident'. The SOCI Act notification provision must rank above any CIS benchmark configuration detail on the same subject.",
+   "assert_found_first": ["soci-act:s 30bc.1"],
+   "why": "A statutory obligation is the answer to that question; a product setting is not."
+  },
+  {
+   "id": "identifier-beats-topic",
+   "case": "Query 'AC-6(5)'. The exact control must rank first, above any control whose text merely mentions privileged accounts.",
+   "assert_found_first": ["nist-800-53:ac-6.5"],
+   "why": "Exact identifier lookup is a separate path and must win."
+  },
+  {
+   "id": "general-over-product",
+   "case": "Query 'password policy'. A general control from the ISM or 800-53 must rank above any product-specific CIS benchmark setting.",
+   "why": "Product baselines answer how to configure one product, not what is required."
+  },
+  {
+   "id": "no-vacuous-pass",
+   "case": "Each ranking case must first assert that both sides of the comparison are present in the result set.",
+   "why": "A ranking assertion that passes because the loser is missing has tested nothing."
+  }
+ ]
+}
