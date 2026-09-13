@@ -9,21 +9,39 @@ So the rules live here, the test runs them over the real tree in the real test s
 a second test asserts that the tree still contains things the rules must exclude. A
 packaging check that passes because there is nothing left to catch has stopped checking.
 
-Two kinds of exclusion, and they are different. A source document is excluded because of
-what it is: no PDF, workbook or Word file ships, whatever its licence. A generated extract
-is excluded because of where its text came from: data/corpus/wa-csp.json is JSON this tool
-wrote, and every sentence in it is the WA Government's.
+Source documents are excluded by default. The exact files reviewed in
+sources/permissions.json may ship under sources/files/ with their original notices.
+Generated extracts still follow the separate framework registry rules.
 """
 
 import os
+import hashlib
+import json
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Sequence, Set, Tuple
 
 from .model import Licence
 from .registry import DETAIL_SOURCES, FRAMEWORKS
 
-# Never shipped whatever they hold. A publisher's own file is the publisher's.
+# Excluded unless the exact path is in the reviewed source manifest.
 SOURCE_SUFFIXES = (".pdf", ".xlsx", ".xlsm", ".xls", ".docx", ".doc", ".zip", ".epub")
+
+
+def approved_sources(root: str) -> Dict[str, Dict]:
+    """Explicit source paths; no automatic approval of new names or editions."""
+    manifest = os.path.join(root, "sources", "permissions.json")
+    if not os.path.isfile(manifest):
+        return {}
+    with open(manifest, encoding="utf-8") as handle:
+        entries = json.load(handle)["files"]
+    approved = {}
+    for entry in entries:
+        name = entry["filename"]
+        if not name or name in (".", "..") or any(c in name for c in "/\\\n\r*?[]"):
+            raise ValueError("Unsafe source filename: %r" % name)
+        if entry["status"] == "included":
+            approved[os.path.join("sources", "files", name)] = entry
+    return approved
 
 # Never shipped whatever is in them.
 EXCLUDED_DIRECTORIES = (
@@ -86,6 +104,7 @@ def would_ship(root: str) -> List[str]:
     kept: List[str] = []
     excluded = tuple(os.path.normpath(d) for d in EXCLUDED_DIRECTORIES)
     forbidden_names = import_only_sources()
+    approved = approved_sources(root)
 
     for directory, subdirectories, files in os.walk(root):
         subdirectories[:] = [d for d in subdirectories if d not in NOISE]
@@ -97,6 +116,11 @@ def would_ship(root: str) -> List[str]:
             subdirectories[:] = []
             continue
         for name in files:
+            path = os.path.normpath(os.path.join(relative_dir, name))
+            if path.startswith(os.path.join("sources", "files") + os.sep):
+                if path in approved:
+                    kept.append(path)
+                continue
             if name.endswith(NOISE_SUFFIXES):
                 continue
             if name.lower().endswith(SOURCE_SUFFIXES):
@@ -113,14 +137,25 @@ def check(root: str) -> List[Violation]:
     out: List[Violation] = []
     forbidden_names = import_only_sources()
     excluded = tuple(os.path.normpath(d) for d in EXCLUDED_DIRECTORIES)
+    approved = approved_sources(root)
+
+    for path, entry in approved.items():
+        full = os.path.join(root, path)
+        if not os.path.isfile(full):
+            out.append(Violation(path, "missing approved source", "restore the reviewed file"))
+        else:
+            with open(full, "rb") as handle:
+                digest = hashlib.sha256(handle.read()).hexdigest()
+            if digest != entry["sha256"]:
+                out.append(Violation(path, "unreviewed source bytes", "file differs from permission review"))
 
     for path in would_ship(root):
         name = os.path.basename(path)
         parent = os.path.dirname(path)
-        if name.lower().endswith(SOURCE_SUFFIXES):
+        if name.lower().endswith(SOURCE_SUFFIXES) and path not in approved:
             out.append(
                 Violation(path, "publisher source document",
-                          "a publisher's own file never ships, whatever its licence")
+                          "publisher source has no reviewed permission entry")
             )
         if any(parent == d or parent.startswith(d + os.sep) for d in excluded):
             out.append(
@@ -144,6 +179,7 @@ def excluded_but_present(root: str) -> List[Tuple[str, str]]:
     caught: List[Tuple[str, str]] = []
     forbidden_names = import_only_sources()
     excluded = tuple(os.path.normpath(d) for d in EXCLUDED_DIRECTORIES)
+    approved = approved_sources(root)
 
     for directory, subdirectories, files in os.walk(root):
         subdirectories[:] = [d for d in subdirectories if d not in NOISE]
@@ -156,6 +192,11 @@ def excluded_but_present(root: str) -> List[Tuple[str, str]]:
             path = os.path.normpath(
                 os.path.join(relative_dir, name) if normalised != "." else name
             )
+            if path in approved:
+                continue
+            if path.startswith(os.path.join("sources", "files") + os.sep):
+                caught.append((path, "unreviewed source document"))
+                continue
             if in_excluded_dir:
                 caught.append((path, "excluded directory"))
             elif name.lower().endswith(SOURCE_SUFFIXES):
@@ -172,9 +213,8 @@ GITIGNORE_HEADER = """# Generated from wacc/packaging.py. Do not hand-edit.
 # file from the rules in that module, and a case in tests/test_packaging.py fails if the
 # file on disk no longer matches them.
 #
-# The repository is the tool. The publisher source documents live beside it and are not
-# tracked, because half of them may not be redistributed and a repository is a way of
-# redistributing something.
+# Source documents are excluded by default. Only reviewed paths from
+# sources/permissions.json are allowed under sources/files/; check() verifies hashes.
 """
 
 
@@ -196,7 +236,7 @@ def gitignore() -> str:
         lines.append("/%s/" % directory.replace(os.sep, "/"))
 
     lines.append("")
-    lines.append("# A publisher's own file is the publisher's, whatever its licence")
+    lines.append("# Publisher files require an explicit reviewed exception")
     for suffix in sorted(SOURCE_SUFFIXES):
         lines.append("*%s" % suffix)
         lines.append("*%s" % suffix.upper())
@@ -205,6 +245,11 @@ def gitignore() -> str:
     lines.append("# Extracts of publisher text that has not been licensed for reuse")
     for name in sorted(import_only_sources()):
         lines.append(name)
+
+    lines.extend(["", "# Reviewed, unmodified source documents only", "/sources/files/*"])
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    for path in sorted(approved_sources(root)):
+        lines.append("!/%s" % path.replace(os.sep, "/"))
 
     return "\n".join(lines) + "\n"
 

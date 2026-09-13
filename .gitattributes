@@ -5,3 +5,6 @@
 
 # Generated. Big, machine-written, and not worth reading in a diff.
 data/corpus/*.json linguist-generated=true diff=json
+
+# Permission review hashes refer to the publisher's exact bytes.
+sources/files/** -text -diff

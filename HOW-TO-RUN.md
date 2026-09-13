@@ -5,17 +5,24 @@ here reaches the network.
 
 ## Point it at the source documents
 
-The publishers' own files never ship with the tool — that is enforced by a test — so a
-fresh copy loads nine of the eighteen frameworks and tells you which nine it is missing.
-The other nine load straight from the files already sitting in the folder above this one.
+Reviewed publisher files now ship in `sources/files/`. See
+[source permissions](sources/README.md) for the included editions and restrictions.
+From the repository folder, use the bundled collection in PowerShell:
+
+```powershell
+$env:WACC_SOURCES = (Resolve-Path .\sources\files).Path
+python -m wacc search "multi-factor authentication"
+```
+
+You can instead point `WACC_SOURCES` at your larger local source collection:
 
 ```
 set WACC_SOURCES=C:\Users\aidan\Desktop\Claude\WA Control Crosswalk
 python -m wacc search "multi-factor authentication"
 ```
 
-With that set, sixteen of the eighteen load. A flat folder is fine; subfolders are used
-when they are there.
+A flat folder is supported; subfolders are used when they are there. Actual coverage
+depends on the supplied files and installed extracts; missing sources are reported.
 
 To make it permanent rather than per-session, set it once in System Properties →
 Environment Variables, or put the `set` line in a one-line `wacc.cmd` beside this file.

@@ -27,6 +27,7 @@ from wacc.packaging import (  # noqa: E402
     excluded_but_present,
     import_only_sources,
     would_ship,
+    approved_sources,
 )
 from wacc.registry import DETAIL_SOURCES, FRAMEWORKS  # noqa: E402
 from wacc.search import SearchIndex  # noqa: E402
@@ -62,9 +63,10 @@ def run() -> int:
         "; ".join(v.describe() for v in violations[:3]),
     )
     check_.expect(
-        not any(p.lower().endswith(SOURCE_SUFFIXES) for p in shipping),
-        "ship", "no publisher source document ships",
-        "a publisher's own PDF or workbook is the publisher's, whatever its licence",
+        not any(p.lower().endswith(SOURCE_SUFFIXES) and p not in approved_sources(ROOT)
+                for p in shipping),
+        "ship", "only reviewed publisher source documents ship",
+        "each included file needs a permission entry and matching SHA-256",
     )
     check_.expect(
         not any(p.startswith(os.path.join("data", "raw")) for p in shipping),

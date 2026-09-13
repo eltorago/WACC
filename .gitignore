@@ -5,9 +5,8 @@
 # file from the rules in that module, and a case in tests/test_packaging.py fails if the
 # file on disk no longer matches them.
 #
-# The repository is the tool. The publisher source documents live beside it and are not
-# tracked, because half of them may not be redistributed and a repository is a way of
-# redistributing something.
+# Source documents are excluded by default. Only reviewed paths from
+# sources/permissions.json are allowed under sources/files/; check() verifies hashes.
 
 # Noise
 .idea/
@@ -26,7 +25,7 @@ __pycache__/
 /data/corpus/detail/
 /data/review/
 
-# A publisher's own file is the publisher's, whatever its licence
+# Publisher files require an explicit reviewed exception
 *.doc
 *.DOC
 *.docx
@@ -55,3 +54,56 @@ cis-office.json
 cis-win11.json
 wa-circular.json
 wa-csp.json
+
+# Reviewed, unmodified source documents only
+/sources/files/*
+!/sources/files/C2M2 Version 2.1 June 2022.pdf
+!/sources/files/CIS_Controls_Version_8.xlsx
+!/sources/files/CIS_Controls_v8.1_Mapping_to_ASD_Essential_Eight_2_2025.xlsx
+!/sources/files/CIS_Google_Chrome_Benchmark_v3.0.0.pdf
+!/sources/files/CIS_Microsoft_Office_Enterprise_Benchmark_v1.2.0.pdf
+!/sources/files/Choosing secure and verifiable technologies (December 2024).pdf
+!/sources/files/Detecting and mitigating Active Directory compromises (January 2025).pdf
+!/sources/files/External-attack-surface-management-EASM-buyers-guide.pdf
+!/sources/files/ISM_E8_ML1-baseline_profile.json
+!/sources/files/ISM_E8_ML2-baseline_profile.json
+!/sources/files/ISM_E8_ML3-baseline_profile.json
+!/sources/files/ISM_catalog.json
+!/sources/files/Implementing network segmentation and segregation (October 2021).pdf
+!/sources/files/NIST.FIPS.140-3.pdf
+!/sources/files/NIST.SP.800-131Ar2.pdf
+!/sources/files/NIST.SP.800-131Ar3.ipd.pdf
+!/sources/files/NIST.SP.800-18r2.pdf
+!/sources/files/NIST.SP.800-61r3.pdf
+!/sources/files/NIST.SP.800-88r2.pdf
+!/sources/files/NIST_SP-800-53_rev5_HIGH-baseline_profile.json
+!/sources/files/NIST_SP-800-53_rev5_LOW-baseline_profile.json
+!/sources/files/NIST_SP-800-53_rev5_MODERATE-baseline_profile.json
+!/sources/files/NIST_SP-800-53_rev5_PRIVACY-baseline_profile.json
+!/sources/files/NIST_SP-800-53_rev5_catalog.json
+!/sources/files/Report-12_Digital-Identity-and-Access-Management-Better-Practice-Guide.pdf
+!/sources/files/Report-24_-Security-Basics-for-Protecting-Critical-Infrastructure-from-Cyber-Threats.pdf
+!/sources/files/Secure by Design foundations (July 2024).pdf
+!/sources/files/What-exactly-should-we-be-logging.pdf
+!/sources/files/aescsf-framework-core.xlsx
+!/sources/files/cirmp-rules-latest.docx
+!/sources/files/cisa-vulnerability-review-fy-2024-2025-508.pdf
+!/sources/files/cisc-cirmp-guidance.pdf
+!/sources/files/enterprise-attack-v19.2.xlsx
+!/sources/files/foundations-for-modern-defensible-architecture.pdf
+!/sources/files/nist-csf-2.0-cprt-all-olir.xlsx
+!/sources/files/nist-cswp-29-csf-2.0.pdf
+!/sources/files/nist-sp-800-92.pdf
+!/sources/files/nist.sp.800-57pt1r5.pdf
+!/sources/files/nistspecialpublication800-34r1.pdf
+!/sources/files/preventing-lateral-movement.pdf
+!/sources/files/pspf-list-of-requirements.pdf
+!/sources/files/pspf-release-2026-guidelines.pdf
+!/sources/files/soci-act-latest.docx
+!/sources/files/sp800-63.html
+!/sources/files/sp800-63a.html
+!/sources/files/sp800-63b.html
+!/sources/files/sp800-63c.html
+!/sources/files/wa-cyber-security-policy.pdf
+!/sources/files/wa-premiers-circular-2025-13.pdf
+!/sources/files/zero_trust_maturity_model_v2_508.pdf
