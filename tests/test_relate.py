@@ -8,6 +8,7 @@ wrong answer on this corpus.
 
 import os
 import sys
+from collections import defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -200,6 +201,115 @@ def run() -> int:
         bool(table_links) and all(l.asserted_by for l in table_links),
         "condition", "%d framework-table links name the Commonwealth as asserting them"
         % len(table_links),
+    )
+
+    # -- the Essential Eight, strategy by strategy --------------------------
+    #
+    # Tested by hand first, strategy by strategy, and these are what that found. Taking a
+    # whole ISM section for a strategy put sixteen of the thirty-five patch links on the
+    # wrong one: 'Mitigating known vulnerabilities' holds the application patching
+    # controls and the operating system ones together, and the ISM tells them apart in
+    # the control text rather than in the heading. 'Office productivity suites' holds the
+    # macro settings beside Office hardening, which is a different strategy again.
+    import re as _re
+
+    e8_links = defaultdict(lambda: defaultdict(set))
+    for link in corpus.links:
+        if not link.source_uid.startswith("cis-controls:"):
+            continue
+        if not link.target_uid.startswith("ism:"):
+            continue
+        if "Essential Eight strategy" not in (link.basis or ""):
+            continue
+        name = link.basis.split("strategy ", 1)[1].split(" (")[0].strip("'\"")
+        e8_links[name][link.provenance].add(link.target_uid)
+
+    check.expect(
+        len(e8_links) == 8,
+        "essential 8", "all eight strategies reach the ISM (%d)" % len(e8_links),
+        "CIS names eight in its mapping workbook and a strategy that reaches nothing is "
+        "a hole in the crosswalk at the level a WA entity is actually assessed against",
+    )
+
+    def _reached(name):
+        return {u for targets in e8_links[name].values() for u in targets}
+
+    ABOUT_OS = _re.compile(r"\boperating system", _re.I)
+    ABOUT_APP = _re.compile(
+        r"\bapplications\b|office productivity|web browser|\bdrivers\b|firmware"
+        r"|online services", _re.I
+    )
+    strays = {}
+    for name, wrong, right in (
+        ("Patch Applications", ABOUT_OS, ABOUT_APP),
+        ("Patch OS Systems", ABOUT_APP, ABOUT_OS),
+    ):
+        reached = _reached(name)
+        strays[name] = [
+            corpus.control(u).identifier for u in reached
+            if wrong.search(corpus.control(u).text or "")
+            and not right.search(corpus.control(u).text or "")
+        ]
+        check.expect(
+            bool(reached) and not strays[name],
+            "essential 8", "%s reaches %d ISM controls and none is the other strategy's"
+            % (name, len(reached)),
+            "the two patch strategies each carried the other's controls: %s"
+            % ", ".join(strays[name][:4]),
+        )
+    macros = _reached("Configure MS Office Macros")
+    check.expect(
+        bool(macros)
+        and all("macro" in (corpus.control(u).text or "").lower() for u in macros),
+        "essential 8", "every control under Configure MS Office Macros is about macros "
+        "(%d)" % len(macros),
+        "Office hardening — OLE, child processes, code injection — sits in the same ISM "
+        "section and belongs to User Application Hardening",
+    )
+
+    published_tag = {
+        name for name, by_prov in e8_links.items() if Provenance.PUBLISHED_TAG in by_prov
+    }
+    check.expect(
+        published_tag == {
+            "Application Control", "Multi-factor Authentication",
+            "User Application Hardening",
+        },
+        "essential 8", "three strategy names match an ISM heading word for word (%s)"
+        % ", ".join(sorted(published_tag)),
+        "a published-tag link is two publishers' own labels meeting; calling the other "
+        "five that would be the most flattering error available here",
+    )
+    check.expect(
+        all(
+            Provenance.PUBLISHED not in by_prov for by_prov in e8_links.values()
+        ),
+        "essential 8", "no Essential Eight link claims to be published",
+        "ASD publishes no strategy-to-ISM-control mapping at all, so a published link "
+        "would be this tool's reading wearing ASD's name",
+    )
+
+    stale = [
+        c.uid for c in corpus.controls.values()
+        if c.tag_list("essential_eight_strategy")
+    ]
+    check.expect(
+        not stale,
+        "essential 8", "nothing is tagged with a strategy it does not have",
+        "the AESCSF workbook's 'Essential Eight:' field holds the maturity level of the "
+        "ISM control it cites — its only values are 'ML2, ML3', 'ML3' and 'N/A' — and "
+        "stored as essential_eight_strategy it read as a strategy called ML3: %s"
+        % ", ".join(stale[:3]),
+    )
+    cited = {
+        value
+        for c in corpus.controls.values()
+        for value in c.tag_list("cited_ism_essential_eight_maturity")
+    }
+    check.expect(
+        bool(cited) and all(v.replace(",", " ").split()[0].startswith("ML") for v in cited),
+        "essential 8", "the cited maturity levels are maturity levels (%s)"
+        % ", ".join(sorted(cited)),
     )
 
     # -- chain rules -------------------------------------------------------

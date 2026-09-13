@@ -177,12 +177,18 @@ def _attach_ism(
             )
         )
         links += 1
-        if e8:
+        if e8 and e8.upper() != "N/A":
+            # Named for what it holds. The workbook's "Essential Eight:" field states the
+            # maturity level of the ISM control being cited — its only values across the
+            # whole file are "ML2, ML3", "ML3" and "N/A" — and it says nothing about which
+            # of the eight strategies anything belongs to. Stored as
+            # essential_eight_strategy it read as though an AESCSF practice mapped to a
+            # strategy called "ML3". N/A is not a value and is not stored at all.
             control = corpus.controls[source_uid]
-            existing = control.tag_list("essential_eight_strategy")
+            existing = control.tag_list("cited_ism_essential_eight_maturity")
             if e8 not in existing:
                 existing.append(e8)
-                control.publisher_tags["essential_eight_strategy"] = existing
+                control.publisher_tags["cited_ism_essential_eight_maturity"] = existing
                 tags += 1
 
     if unresolved:

@@ -214,20 +214,57 @@ def _security_control_column(header: List[str], relationship_col: int) -> Option
 # strategy CIS names, matching them is reading two publishers' labels. Everywhere else
 # the connection is this tool's reading of the subject, and these aliases are where
 # that reading is written down so it can be argued with.
-STRATEGY_SECTION_ALIASES: Dict[str, List[str]] = {
-    "patch applications": ["mitigating known vulnerabilities", "cessation of support"],
-    "patch os systems": [
-        "operating system releases and versions",
-        "mitigating known vulnerabilities",
-    ],
-    "configure ms office macros": ["office productivity suites"],
-    "restricting administrative privileges": [
-        "privileged access to systems",
-        "separate privileged operating environments",
-        "administrative infrastructure",
-    ],
-    "daily backups": ["data backup and restoration"],
+# A section is not always the right granularity, and taking whole sections put sixteen of
+# thirty-five patch links on the wrong strategy. 'Mitigating known vulnerabilities' holds
+# both the application patching controls and the operating system ones, and the ISM
+# distinguishes them in the control text rather than in the heading: ISM-1692 is about
+# office productivity suites and ISM-1694 about operating systems, in the same section.
+# 'Cessation of support' does the same, and 'Office productivity suites' holds the macro
+# settings beside Office hardening that belongs to a different strategy altogether.
+#
+# So an alias may narrow a section by what the control itself says. `requires` keeps only
+# controls whose text carries one of the phrases; `excludes` drops those that do. Both are
+# this tool's reading, written where it can be argued with, and every link this route makes
+# is derived for that reason.
+STRATEGY_SECTION_ALIASES: Dict[str, Dict[str, List[str]]] = {
+    "patch applications": {
+        "sections": ["mitigating known vulnerabilities", "cessation of support"],
+        "excludes": ["operating system"],
+    },
+    "patch os systems": {
+        "sections": [
+            "operating system releases and versions",
+            "mitigating known vulnerabilities",
+            "cessation of support",
+        ],
+        "requires": ["operating system"],
+    },
+    "configure ms office macros": {
+        "sections": ["office productivity suites"],
+        # Office hardening — OLE, child processes, code injection, trusted publishers —
+        # sits in the same section and is User Application Hardening, a different strategy.
+        "requires": ["macro"],
+    },
+    "restricting administrative privileges": {
+        "sections": [
+            "privileged access to systems",
+            "separate privileged operating environments",
+            "administrative infrastructure",
+        ],
+        # Not narrowed: jump servers, just-in-time administration and Secure Admin
+        # Workstations never say "privileged" and are squarely this strategy.
+    },
+    "daily backups": {"sections": ["data backup and restoration"]},
 }
+
+
+def _alias_allows(text: str, alias: Dict[str, List[str]]) -> bool:
+    """Whether a control's own words put it inside this reading of the strategy."""
+    lowered = (text or "").lower()
+    requires = alias.get("requires") or []
+    if requires and not any(phrase in lowered for phrase in requires):
+        return False
+    return not any(phrase in lowered for phrase in (alias.get("excludes") or []))
 
 
 def link_safeguards_to_ism(
@@ -297,13 +334,16 @@ def link_safeguards_to_ism(
                     counts["published_tag_links"] += 1
                 continue
 
-            aliases = STRATEGY_SECTION_ALIASES.get(strategy)
-            if not aliases:
+            alias = STRATEGY_SECTION_ALIASES.get(strategy)
+            if not alias:
                 unmatched.append(named)
                 continue
             routes[named] = "derived"
-            for alias in aliases:
-                for target in sections.get(alias, []):
+            narrowed = ", ".join(alias.get("requires") or alias.get("excludes") or [])
+            for section in alias["sections"]:
+                for target in sections.get(section, []):
+                    if not _alias_allows(corpus.controls[target].text, alias):
+                        continue
                     corpus.add_link(
                         Link(
                             source_uid=uid,
@@ -311,8 +351,14 @@ def link_safeguards_to_ism(
                             provenance=Provenance.DERIVED,
                             basis=(
                                 "CIS maps this safeguard to Essential Eight strategy "
-                                "%r (%s); this tool reads that strategy as covering "
-                                "the ISM section %r" % (named, relationship, alias)
+                                "%r (%s); this tool reads that strategy as covering the "
+                                "ISM section %r%s"
+                                % (
+                                    named, relationship, section,
+                                    (", narrowed to controls whose text %s %r"
+                                     % ("carries" if alias.get("requires") else "omits",
+                                        narrowed)) if narrowed else "",
+                                )
                             ),
                         )
                     )

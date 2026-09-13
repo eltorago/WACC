@@ -356,6 +356,37 @@ MATRIX: List[Injection] = [
         caught_by=["only the enhanced regime names the AESCSF edition"],
     ),
     Injection(
+        key="strategy-takes-whole-section",
+        defect="an Essential Eight strategy takes a whole ISM section",
+        was="'Mitigating known vulnerabilities' holds the application patching controls "
+            "and the operating system ones together, and 'Cessation of support' does the "
+            "same. Taking whole sections put sixteen of the thirty-five patch links on "
+            "the wrong strategy, including ISM-1501 — operating systems no longer "
+            "supported are replaced — under Patch Applications",
+        path="wacc/loaders/cis.py",
+        edits=[('        "excludes": ["operating system"],\n', "")],
+        suites=["test_relate.py"],
+        caught_by=["none is the other strategy's"],
+    ),
+    Injection(
+        key="strategy-tag-mislabelled",
+        defect="a maturity level is stored as an Essential Eight strategy",
+        was="the AESCSF workbook's 'Essential Eight:' field holds the maturity level of "
+            "the ISM control it cites, and its only values in the whole file are "
+            "'ML2, ML3', 'ML3' and 'N/A'. Stored under essential_eight_strategy it read "
+            "as though a practice mapped to a strategy called ML3",
+        path="wacc/loaders/aescsf.py",
+        edits=[(
+            'existing = control.tag_list("cited_ism_essential_eight_maturity")',
+            'existing = control.tag_list("essential_eight_strategy")',
+        ), (
+            'control.publisher_tags["cited_ism_essential_eight_maturity"] = existing',
+            'control.publisher_tags["essential_eight_strategy"] = existing',
+        )],
+        suites=["test_relate.py"],
+        caught_by=["nothing is tagged with a strategy it does not have"],
+    ),
+    Injection(
         key="condition-dropped",
         defect="a framework table's condition does not reach the link",
         was="CIRMP s 8(4) names the AESCSF at Security Profile 1 and s 8A(3) names it at "
@@ -486,8 +517,8 @@ MATRIX: List[Injection] = [
             "have caught it did not exist",
         path="wacc/packaging.py",
         edits=[(
-            'NOISE_SUFFIXES = (".pyc", ".pyo", ".log", ".tmp", ".swp")\n',
-            'NOISE_SUFFIXES = (".pyc", ".pyo", ".log", ".tmp", ".swp", "search.py")\n',
+            'TRANSPORT = ("MANIFEST.json",)\n',
+            'TRANSPORT = ("MANIFEST.json", "search.py")\n',
         )],
         suites=["test_packaging.py"],
         caught_by=["the shipping set alone answers a query"],
