@@ -579,12 +579,17 @@ MATRIX: List[Injection] = [
         was="a reader who prefers compact had to re-choose it on every search",
         path="wacc/render/html.py",
         edits=[
-            ("  try { saved = localStorage.getItem(KEY) || 'comfortable'; } catch (e) {}\n",
-             ""),
-            ("      try { localStorage.setItem(KEY, value); } catch (e) {}\n", ""),
+            ("    try { return localStorage.getItem(key) || fallback; } "
+             "catch (e) { return fallback; }\n",
+             "    return fallback;\n"),
+            ("    try { localStorage.setItem(key, value); } catch (e) {}\n", "\n"),
         ],
         suites=["test_render.py"],
         caught_by=["the density choice is remembered"],
+        note="retargeted when the script grew a second remembered setting. The two "
+             "try/catch blocks became read() and write() helpers shared by density and "
+             "the framework show/hide bar, so the lines this entry named no longer "
+             "existed and the entry reported stale rather than passing quietly.",
     ),
     Injection(
         key="binds-anywhere",
@@ -729,6 +734,174 @@ MATRIX: List[Injection] = [
         )],
         suites=["test_packaging.py"],
         caught_by=["the rules excluded"],
+    ),
+    # -- the second renderer and the panel ---------------------------------
+    #
+    # Every case here guards something added when the card view was built. A defence with
+    # no injection beside it is a defence nobody has ever seen fail.
+    Injection(
+        key="highlight-escape-order",
+        defect="control text is marked before it is escaped",
+        was="marking first inserts markup into publisher text and then escapes the marks "
+            "along with it, so the reader sees the tag names and a control containing a "
+            "less-than sign has had markup put inside it",
+        path="wacc/render/highlight.py",
+        edits=[(
+            '        out.append(_html.escape(text[cursor:found.start()], quote=True))\n',
+            '        out.append(text[cursor:found.start()])\n',
+        )],
+        suites=["test_render.py"],
+        caught_by=["escaped before, between and after the marks",
+                   "escaped even between two marks"],
+    ),
+    Injection(
+        key="highlight-marks-short-stems",
+        defect="every expanded stem is marked, however short",
+        was="'is', 'an', 'of' and 'or' are all in the expanded stem set. Marking them "
+            "marks half of every control on the page, and a page where everything is "
+            "marked says nothing about why any control is on it",
+        path="wacc/render/highlight.py",
+        edits=[("MIN_MARKED_STEM = 3\n", "MIN_MARKED_STEM = 0\n")],
+        suites=["test_render.py"],
+        caught_by=["shorter than"],
+    ),
+    Injection(
+        key="highlight-one-strength",
+        defect="a concept's words are marked as strongly as the reader's own",
+        was="'patch applications' expands to twenty-five stems including 'system', "
+            "'security' and 'management'. Marked at full strength they drown the two "
+            "words the reader actually typed",
+        path="wacc/render/highlight.py",
+        edits=[('            css = "mark wide"\n', '            css = "mark"\n')],
+        suites=["test_render.py"],
+        caught_by=["marked differently from one a concept added"],
+    ),
+    Injection(
+        key="card-view-drops-silent",
+        defect="the card view leaves out frameworks with nothing to say",
+        was="an empty column looks like clutter until you remember the tool exists to "
+            "say what requires what. A framework left off the screen reads as not asked "
+            "rather than asked and silent, which is the defect the grid was built to "
+            "avoid and the card view reintroduced",
+        path="wacc/render/html.py",
+        edits=[(
+            "        columns.append(\n"
+            '            \'<div class="cardcol" data-fw="%s">%s%s</div>\'\n'
+            "            % (esc(framework.key), head, body)\n"
+            "        )\n",
+            "        if controls:\n"
+            "            columns.append(\n"
+            '                \'<div class="cardcol" data-fw="%s">%s%s</div>\'\n'
+            "                % (esc(framework.key), head, body)\n"
+            "            )\n",
+        )],
+        suites=["test_render.py"],
+        caught_by=["every framework is a column in the card view",
+                   "the card view draws three kinds of empty"],
+    ),
+    Injection(
+        key="card-text-unescaped",
+        defect="the card view writes control text into the page unescaped",
+        was="the grid's escaping case covers the grid. A second renderer is a second "
+            "surface, and the identifier on a card sits inside an anchor where an "
+            "unescaped tag runs rather than showing",
+        path="wacc/render/html.py",
+        edits=[(
+            '    parts.append(\'<div class="body">%s</div>\' % mark(body, typed, widened))\n',
+            '    parts.append(\'<div class="body">%s</div>\' % body)\n',
+        )],
+        suites=["test_render.py"],
+        caught_by=["escaped into the card view"],
+    ),
+    Injection(
+        key="grid-cell-loses-framework-key",
+        defect="grid cells no longer carry the key the show/hide bar toggles",
+        was="hiding a framework hid its column header and left its cells in place, so "
+            "every column to the right of it sat under the wrong heading — a crosswalk "
+            "reporting the wrong publisher against a control",
+        path="wacc/render/html.py",
+        edits=[(
+            '            cells.append(cell.replace("<td ", \'<td data-fw="%s" \' % esc(framework.key), 1))\n',
+            "            cells.append(cell)\n",
+        )],
+        suites=["test_render.py"],
+        caught_by=["carries the key the show/hide bar toggles"],
+    ),
+    Injection(
+        key="panel-unescaped",
+        defect="the control panel writes publisher text into the document unescaped",
+        was="the panel is put into an open page with innerHTML. Unescaped text there is "
+            "the same defect as unescaped text in the page, and the page's own case does "
+            "not reach it",
+        path="wacc/render/html.py",
+        edits=[(
+            '        parts.append("<h5>%s</h5><p>%s</p>" % (esc(label), esc(statement.text)))\n',
+            '        parts.append("<h5>%s</h5><p>%s</p>" % (esc(label), statement.text))\n',
+        )],
+        suites=["test_render.py"],
+        caught_by=["escaped into the panel"],
+    ),
+    Injection(
+        key="published-procedure-unattributed",
+        defect="a published assessment procedure is rendered without its publisher",
+        was="NIST writes the 800-53A objectives and this tool does not. Printing one "
+            "unattributed beside a derived procedure puts NIST's name behind a sentence "
+            "NIST never wrote",
+        path="wacc/render/html.py",
+        edits=[(
+            '        parts.append("<h5>Published procedure \u2014 %s</h5><p>%s</p>" % (\n'
+            '            esc(statement.published_by or "the publisher"), esc(statement.text),\n'
+            "        ))\n",
+            '        parts.append("<h5>Procedure</h5><p>%s</p>" % esc(statement.text))\n',
+        )],
+        suites=["test_render.py"],
+        caught_by=["names the publisher who wrote it"],
+    ),
+    Injection(
+        key="risk-summary-merges-silent-and-absent",
+        defect="the risk summary reports absent frameworks as silent ones",
+        was="'not addressed by' covered both a publisher that was asked and requires "
+            "nothing, and a publisher nobody asked. An executive reading the first as "
+            "the second concludes an obligation does not exist",
+        path="wacc/render/export.py",
+        edits=[(
+            '            "Loaded and silent on it: %s. Those publishers were asked and require "\n'
+            '            "nothing here."\n',
+            '            "Not addressed by: %s."\n',
+        )],
+        suites=["test_render.py"],
+        caught_by=["separates silent frameworks from absent ones"],
+    ),
+    Injection(
+        key="test-plan-without-signoff",
+        defect="the test plan has nowhere to record a result",
+        was="a test whose result nobody recorded was not carried out. A plan with no "
+            "place to write it invites the result to live in an email",
+        path="wacc/render/export.py",
+        edits=[(
+            '        out.append("| Tested by | Date | Result | Workpaper reference |")\n'
+            '        out.append("| --- | --- | --- | --- |")\n'
+            '        out.append("|  |  |  |  |")\n',
+            '        out.append("")\n',
+        )],
+        suites=["test_render.py"],
+        caught_by=["somewhere to record the result"],
+    ),
+    Injection(
+        key="card-columns-unmeasured",
+        defect="the card view is sized by a number that was never measured",
+        was="a stylesheet with its own widths is a second source of truth. The grid's "
+            "figures do not describe a view with no pinned column and a wider column, "
+            "so reusing them reports a framework count the reader never sees",
+        path="wacc/render/layout.py",
+        edits=[("CARD_COMFORTABLE = 360\n", "CARD_COMFORTABLE = 300\n")],
+        suites=["test_render.py"],
+        caught_by=["fits 3 card columns", "fits 5 card columns"],
+        note="the constants case does not fail here and should not. The page reads its "
+             "widths from the layout module, so changing the constant changes both "
+             "together and they still agree — which is exactly what that case asserts. "
+             "The arithmetic cases are the defence: they hold the measured column count "
+             "against the recorded one.",
     ),
 ]
 

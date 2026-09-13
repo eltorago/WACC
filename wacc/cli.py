@@ -96,7 +96,7 @@ def cmd_page(args) -> int:
 
     state = _state()
     payload = _payload(state, args.query)
-    body = html.render(state.corpus, payload)
+    body = html.render(state.corpus, payload, view=args.view)
     if args.out:
         with open(args.out, "w", encoding="utf-8") as handle:
             handle.write(body)
@@ -109,7 +109,10 @@ def cmd_page(args) -> int:
 def cmd_serve(args) -> int:
     from .serve import main as serve_main
 
-    return serve_main(["--host", args.host, "--port", str(args.port)])
+    argv = ["--host", args.host, "--port", str(args.port)]
+    if args.open:
+        argv.append("--open")
+    return serve_main(argv)
 
 
 def cmd_layout(args) -> int:
@@ -155,11 +158,14 @@ def main(argv: Optional[List[str]] = None) -> int:
     page = subs.add_parser("page", help="write the results screen to a file")
     page.add_argument("query")
     page.add_argument("--out")
+    page.add_argument("--view", choices=("grid", "cards"), default="grid")
     page.set_defaults(func=cmd_page)
 
     server = subs.add_parser("serve", help="the results screen on localhost")
     server.add_argument("--host", default="127.0.0.1")
     server.add_argument("--port", type=int, default=8765)
+    server.add_argument("--open", action="store_true",
+                        help="open the page in a browser once the corpus has loaded")
     server.set_defaults(func=cmd_serve)
 
     layout = subs.add_parser("layout", help="column counts at the measured widths")
