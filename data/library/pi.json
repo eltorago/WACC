@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "topic": "Privacy and personal information",
+  "controls": [
+    {
+      "id": "PI-01",
+      "title": "Know where personal information is processed",
+      "statement": "Define personal information for the organisation, identify the activities and systems that process it, record the holdings, and document the authority for that processing.",
+      "risk": "The organisation may collect or expose personal information without knowing where it is held, why it is needed or whether it is authorised.",
+      "scope": "Systems, applications, projects, datasets and business activities that collect, use, store, transmit or disclose personal information.",
+      "examine": "Reconcile privacy definitions, processing inventories, data maps and system records with collection points, business activities, legal authorities, owners and retained information.",
+      "interview": "Ask privacy, business and system owners how new processing is identified, its authority is established and undocumented holdings are corrected.",
+      "test": "Sample business processes and systems handling personal information and trace each to an inventory entry, accountable owner, documented authority and current description of processing.",
+      "expected": "Personal-information processing is identifiable, owned, documented and supported by a current authority before it occurs.",
+      "related": ["PI-02", "PI-03", "DP-01", "AM-01"],
+      "mappings": [
+        {"uid":"aescsf:privacy-1b","relationship":"Partially addresses","basis":"Requires the organisation to define personal information in the context of its business activities.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:privacy-1d","relationship":"Partially addresses","basis":"Requires identification of business activities that collect, process, store or transmit personal information.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:privacy-1e","relationship":"Partially addresses","basis":"Requires personal-information holdings to be documented.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:pm-5.1","relationship":"Partially addresses","basis":"Requires a maintained inventory of systems, applications and projects that process personally identifiable information.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:pt-2","relationship":"Partially addresses","basis":"Requires the authority for processing personally identifiable information to be documented and processing limited to what is authorised.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "PI-02",
+      "title": "Limit personal information to authorised purposes",
+      "statement": "Process personal information only for documented, authorised and compatible purposes, apply the organisation's handling requirements, and minimise its use where real data is unnecessary.",
+      "risk": "People may suffer harm and lose trust if their information is used beyond their expectations, retained without need or exposed in avoidable copies.",
+      "scope": "Collection, use, disclosure, storage, testing, training, research and public posting of personal information.",
+      "examine": "Compare privacy notices, policies and stated purposes with collection fields, consent mechanisms, actual data flows, access, retention and use of production data outside production.",
+      "interview": "Ask privacy and business owners how they judge compatible use, minimise data and approve changes to existing processing.",
+      "test": "Sample personal-data fields and secondary uses and verify that each is necessary for a stated authorised purpose, handled as required and removed or substituted when unnecessary.",
+      "expected": "Personal information is processed only for a documented authorised purpose, with unnecessary collection and secondary copies prevented or removed.",
+      "related": ["PI-01", "PI-03", "DP-02", "DP-03"],
+      "mappings": [
+        {"uid":"aescsf:privacy-1g","relationship":"Partially addresses","basis":"Requires handling requirements for personal information to be defined in the privacy policy.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:pt-3","relationship":"Directly addresses","basis":"Requires documented processing purposes, public descriptions, compatible processing and monitoring of processing changes.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:pt-4","relationship":"Partially addresses","basis":"Requires mechanisms for informed consent before collecting personal information where consent is the applicable basis.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:pm-25","relationship":"Partially addresses","basis":"Requires personal information used for testing, training and research to be authorised and minimised.","provenance":"Locally reviewed mapping"},
+        {"uid":"pspf:req 153","relationship":"Related only","basis":"Requires informed consent for collecting, using and disclosing personal information in the specific context of security-clearance assessment and management.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-821","relationship":"Related only","basis":"Advises personnel about the security risks of posting personal information on online services rather than governing organisational processing generally.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "PI-03",
+      "title": "Manage privacy risks, requests and breaches",
+      "statement": "Assess privacy risks, provide a documented way to handle enquiries and correction requests, and include personal-information breaches in incident response.",
+      "risk": "A privacy concern or breach could cause greater harm and regulatory exposure if the organisation cannot identify affected people, correct records or respond promptly.",
+      "scope": "Privacy risk records, enquiries, complaints, correction requests and incidents involving personal information.",
+      "examine": "Review privacy risk entries, request and complaint procedures, case records, breach playbooks, impact assessments, notification decisions and lessons applied.",
+      "interview": "Ask privacy and incident leaders how requests are verified and resolved, how harm is assessed and how legal or oversight notification decisions are made.",
+      "test": "Trace a sample privacy request and run a personal-information breach scenario, verifying ownership, identity checks, impact assessment, correction or containment and documented notification decisions.",
+      "expected": "Privacy risks are visible and owned, requests are resolved through a controlled process, and breaches trigger a coordinated assessment and response.",
+      "related": ["PI-01", "PI-02", "RM-02", "IR-01", "IN-03"],
+      "mappings": [
+        {"uid":"aescsf:privacy-1j","relationship":"Partially addresses","basis":"Requires privacy risks to be identified, assessed and documented in a risk register.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:privacy-1k","relationship":"Partially addresses","basis":"Requires a documented process for privacy enquiries, complaints and correction of personal information.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:privacy-1m","relationship":"Partially addresses","basis":"Requires incident-response plans to consider data breaches involving personal information.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:ir-8.1","relationship":"Partially addresses","basis":"Requires incident plans for personal-information breaches to address notification, harm assessment, mitigation and applicable privacy requirements.","provenance":"Locally reviewed mapping"}
+      ]
+    }
+  ]
+}

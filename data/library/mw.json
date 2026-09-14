@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "topic": "Mobile and wireless security",
+  "controls": [
+    {
+      "id": "MW-01",
+      "title": "Govern mobile access to organisational systems",
+      "statement": "Authorise mobile and privately owned device access by risk, enforce approved configurations through central management, and separate organisational information from personal use.",
+      "risk": "An unmanaged or privately owned device could expose organisational information or provide an untrusted route into important systems.",
+      "scope": "Organisation-owned and privately owned mobile devices, mobile operating systems, applications, management services and connections to organisational systems or data.",
+      "examine": "Compare the mobile-device policy and authorised device inventory with risk or legal decisions, enrolment records, management profiles, compliance rules, application controls and organisational-data separation.",
+      "interview": "Ask mobility, legal and service owners how devices are approved, enrolled, kept compliant and blocked when ownership, support or risk changes.",
+      "test": "Use authorised managed and unmanaged devices to attempt access, verify that only compliant devices connect and confirm that organisational information remains within the approved managed boundary.",
+      "expected": "Every connected mobile device is authorised, identifiable and subject to the required management controls, while unmanaged access and unapproved local storage are blocked.",
+      "related": ["MW-02", "MW-03", "IA-02", "AM-01", "DP-03"],
+      "mappings": [
+        {"uid":"ism:ism-1533","relationship":"Directly addresses","basis":"Requires a mobile device management policy to be developed, implemented and maintained.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1195","relationship":"Partially addresses","basis":"Requires evaluated Mobile Device Management solutions to enforce the mobile-device policy.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1297","relationship":"Partially addresses","basis":"Requires legal advice before privately owned devices are allowed to access systems or data.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1866","relationship":"Partially addresses","basis":"Prevents privately owned devices from storing OFFICIAL: Sensitive or PROTECTED data.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:ac-19","relationship":"Directly addresses","basis":"Requires configuration and connection requirements for organisation-controlled mobile devices and authorisation before connection.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:architecture-2c","relationship":"Partially addresses","basis":"Requires network protections for selected asset types based on risk, including externally owned devices and assets connected through Wi-Fi.","provenance":"Locally reviewed mapping"},
+        {"uid":"c2m2:architecture-2c","relationship":"Partially addresses","basis":"Requires risk-based network protections for asset types including externally owned devices and Wi-Fi-connected assets.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "MW-02",
+      "title": "Protect information on mobile devices",
+      "statement": "Encrypt organisational information on mobile devices and across public networks, use protected connections, and support secure removal when access or custody is lost.",
+      "risk": "A lost, stolen or intercepted mobile device could disclose sensitive information and credentials or allow continued access to organisational services.",
+      "scope": "Mobile-device internal and removable storage, managed containers, public-network traffic, VPN configuration, screen locks and remote purge or wipe capability.",
+      "examine": "Inspect management policies and compliance reports for encryption, protected connectivity, screen lock, remote wipe, key handling and responses to lost, stolen or retired devices.",
+      "interview": "Ask mobility and incident teams how they detect loss, revoke access, protect encryption keys and decide when to lock or wipe a device.",
+      "test": "Sample managed devices to verify storage encryption and protected public-network traffic, then perform an authorised lost-device exercise that revokes access and invokes the documented containment action.",
+      "expected": "Organisational information remains encrypted on devices and public networks, and lost or retired devices can no longer provide usable data or access.",
+      "related": ["MW-01", "DP-02", "IR-02", "CK-02"],
+      "mappings": [
+        {"uid":"ism:ism-869","relationship":"Directly addresses","basis":"Requires mobile-device internal storage and removable media to use ASD-approved encryption.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1085","relationship":"Directly addresses","basis":"Requires sensitive or classified mobile-device traffic over public infrastructure to use ASD-approved encryption.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-2097","relationship":"Partially addresses","basis":"Requires mobile devices to use always-on VPN functionality.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:ac-19.5","relationship":"Directly addresses","basis":"Requires full-device or container encryption to protect information on mobile devices.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:ac-7.2","relationship":"Partially addresses","basis":"Requires mobile-device information to be purged or wiped after a defined number of unsuccessful logon attempts.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "MW-03",
+      "title": "Authorise and secure wireless access",
+      "statement": "Approve each type of wireless access, harden access points, authenticate users or devices, encrypt traffic and separate public wireless services from organisational networks.",
+      "risk": "Weak or unauthorised wireless access could let someone bypass physical and network boundaries, intercept information or enter internal systems from nearby.",
+      "scope": "Corporate and public Wi-Fi, wireless access points, authentication services, encryption, management interfaces, network separation and other authorised wireless technologies.",
+      "examine": "Reconcile authorised wireless services and access points with network discovery, hardening standards, administrative interfaces, authentication, encryption and public-network segmentation.",
+      "interview": "Ask network owners how new wireless services are approved, rogue access points are detected and obsolete protocols or shared credentials are removed.",
+      "test": "From authorised test devices, verify authentication and encryption on corporate wireless, separation of public wireless, rejection of unsupported protocols and detection of a controlled unauthorised access point.",
+      "expected": "Only authorised hardened wireless services operate, corporate access strongly authenticates and encrypts connections, and public or untrusted wireless cannot reach internal networks.",
+      "related": ["MW-01", "NA-01", "NA-02", "SM-01"],
+      "mappings": [
+        {"uid":"ism:ism-1710","relationship":"Partially addresses","basis":"Requires wireless access-point settings to be hardened.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1332","relationship":"Partially addresses","basis":"Requires WPA3-Enterprise 192-bit mode to protect wireless-network traffic.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-536","relationship":"Partially addresses","basis":"Requires public wireless networks to be segregated from all other organisational networks.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:ac-18","relationship":"Directly addresses","basis":"Requires configuration and connection requirements and prior authorisation for each type of wireless access.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:ac-18.1","relationship":"Directly addresses","basis":"Requires user or device authentication and encryption for wireless access.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:12.6","relationship":"Partially addresses","basis":"Requires secure network-management and communication protocols such as 802.1X and WPA2 Enterprise or later.","provenance":"Locally reviewed mapping"}
+      ]
+    }
+  ]
+}

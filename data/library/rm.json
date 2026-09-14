@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "topic": "Cybersecurity risk assessment",
+  "controls": [
+    {
+      "id": "RM-01",
+      "title": "Set the cybersecurity risk context",
+      "statement": "Define how cybersecurity risk will be assessed, compared and accepted, including scope, assumptions, risk criteria, tolerance and available response options.",
+      "risk": "Leaders may make inconsistent decisions or accept more exposure than intended if teams do not share a clear view of risk and who can accept it.",
+      "scope": "Organisation, business processes, systems, information, services and third parties covered by cybersecurity risk decisions.",
+      "examine": "Review the cyber risk method, enterprise risk framework, risk criteria, tolerance statements, decision authorities, response options and records showing executive approval.",
+      "interview": "Ask executives, risk owners and system owners how they compare cyber risks, escalate decisions and determine who may accept residual risk.",
+      "test": "Select recent risk decisions from different business areas and verify that each used the approved criteria, stayed within delegated authority and escalated exceptions appropriately.",
+      "expected": "Risk decisions use common criteria, reflect the organisation's tolerance and are made or accepted by an authorised owner.",
+      "related": ["RM-02", "RM-03", "GV-01", "GV-02"],
+      "mappings": [
+        {"uid":"nist-800-53:pm-28","relationship":"Directly addresses","basis":"Requires documented assumptions, constraints, priorities, trade-offs and organisational risk tolerance for risk assessment, response and monitoring.","provenance":"Locally reviewed mapping"},
+        {"uid":"wa-csp:2.2a","relationship":"Partially addresses","basis":"Requires the initial cyber risk assessment to take account of the entity's broader risk framework.","provenance":"Locally reviewed mapping"},
+        {"uid":"wa-csp:2.2b","relationship":"Partially addresses","basis":"Requires the initial cyber risk assessment to take account of the entity's cybersecurity context.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:risk-1b","relationship":"Partially addresses","basis":"Requires a cyber risk management strategy aligned with the cybersecurity program and enterprise architecture.","provenance":"Locally reviewed mapping"},
+        {"uid":"c2m2:risk-1a","relationship":"Partially addresses","basis":"Requires the organisation to have a strategy for cyber risk management.","provenance":"Locally reviewed mapping"},
+        {"uid":"csf:gv.rm-4","relationship":"Partially addresses","basis":"Requires strategic direction on appropriate risk response options to be established and communicated.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "RM-02",
+      "title": "Identify and analyse cybersecurity risks",
+      "statement": "Identify relevant threats, vulnerabilities and business consequences, then assess likelihood and impact using the approved risk method.",
+      "risk": "Material threats may be overlooked or misjudged, leaving critical services exposed while resources are spent on less significant concerns.",
+      "scope": "Cybersecurity risks to business operations, people, information, technology, services and affected third parties.",
+      "examine": "Compare risk assessments with asset and service criticality, threat information, vulnerability findings, dependencies, existing controls, likelihood and impact analysis.",
+      "interview": "Ask business, system and risk owners how they identify plausible scenarios, estimate consequences and challenge assumptions or incomplete information.",
+      "test": "Sample important systems and services and trace whether their material threats, weaknesses and dependencies appear in a current assessment with supported likelihood and impact ratings.",
+      "expected": "Current assessments describe plausible scenarios, affected business outcomes, relevant threats and weaknesses, and a reasoned likelihood and impact.",
+      "related": ["RM-01", "RM-03", "AM-01", "VM-01", "SC-02"],
+      "mappings": [
+        {"uid":"ism:ism-1203","relationship":"Directly addresses","basis":"Requires system owners and authorising officers to conduct a threat and risk assessment for each system.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:ra-3","relationship":"Directly addresses","basis":"Requires risk assessments to identify threats and vulnerabilities, determine likelihood and harm, integrate broader decisions and document results.","provenance":"Locally reviewed mapping"},
+        {"uid":"csf:id.ra-5","relationship":"Partially addresses","basis":"Uses threats, vulnerabilities, likelihood and impact to understand inherent risk and prioritise responses.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:risk-2a","relationship":"Partially addresses","basis":"Requires cyber risks to be identified.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:risk-3d","relationship":"Partially addresses","basis":"Requires defined analysis methods for higher-priority cyber risks.","provenance":"Locally reviewed mapping"},
+        {"uid":"c2m2:risk-3d","relationship":"Partially addresses","basis":"Requires defined methods to analyse higher-priority cyber risks.","provenance":"Locally reviewed mapping"},
+        {"uid":"wa-csp:2.2c","relationship":"Partially addresses","basis":"Requires the initial assessment to consider known vulnerabilities and threats.","provenance":"Locally reviewed mapping"},
+        {"uid":"wa-csp:2.2d","relationship":"Partially addresses","basis":"Requires the initial assessment to consider critical information managed by the entity.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "RM-03",
+      "title": "Record, treat and reassess cybersecurity risks",
+      "statement": "Record material cyber risks and accountable owners, select and track responses, accept residual risk at the right level, and reassess when conditions change.",
+      "risk": "Known risks may remain unresolved or silently grow if ownership, treatment decisions and reassessment triggers are not visible and enforced.",
+      "scope": "Cyber risk registers, treatment plans, acceptance decisions, review dates, change triggers and closed risks.",
+      "examine": "Review risk-register fields, owners, treatment actions, due dates, acceptance records, overdue items, reassessment triggers and closure evidence.",
+      "interview": "Ask risk and action owners how priorities are set, stalled treatments are escalated, residual risk is accepted and material changes trigger reassessment.",
+      "test": "Sample open, accepted and closed risks and verify current ownership, authorised decisions, action progress, reassessment after relevant change and evidence supporting closure.",
+      "expected": "Material risks remain traceable to an accountable owner and current decision until treatment or evidenced closure, and are reassessed when exposure changes.",
+      "related": ["RM-01", "RM-02", "GV-02", "AM-03", "ST-03"],
+      "mappings": [
+        {"uid":"nist-800-53:ra-7","relationship":"Partially addresses","basis":"Requires findings from assessments, monitoring and audits to be addressed according to organisational risk tolerance.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:risk-2e","relationship":"Directly addresses","basis":"Requires cyber risk categories and risks to be documented in a risk register or equivalent artefact.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:risk-3f","relationship":"Partially addresses","basis":"Requires risks to be removed from the register when they no longer require tracking or response.","provenance":"Locally reviewed mapping"},
+        {"uid":"c2m2:risk-2e","relationship":"Directly addresses","basis":"Requires cyber risks and categories to be documented in a risk register or equivalent artefact.","provenance":"Locally reviewed mapping"},
+        {"uid":"c2m2:risk-3f","relationship":"Partially addresses","basis":"Requires risks to be removed from the register when tracking or response is no longer needed.","provenance":"Locally reviewed mapping"},
+        {"uid":"wa-csp:2.2f","relationship":"Partially addresses","basis":"Requires reassessment when systems, services, risk posture, threat level or operations materially change, while also considering procurement and supply-chain risk.","provenance":"Locally reviewed mapping"},
+        {"uid":"csf:gv.rm-4","relationship":"Partially addresses","basis":"Establishes the response options needed to make consistent treatment decisions.","provenance":"Locally reviewed mapping"}
+      ]
+    }
+  ]
+}

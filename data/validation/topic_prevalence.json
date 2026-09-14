@@ -10,11 +10,31 @@
   "rating_distribution": {
     "Very high": 1,
     "High": 4,
-    "Medium": 11,
+    "Medium": 16,
     "Low": 6,
     "Very low": 3
   },
   "patterns": {
+    "RM": {
+      "topic": "Cybersecurity risk assessment",
+      "pattern": "\\b(risk assessments?|risk analysis|assess(?:ing|ed)? (?:the )?(?:cyber ?security|security) risk|risk register|risk treatment plans?)\\b"
+    },
+    "ST": {
+      "topic": "Security testing and assurance",
+      "pattern": "\\b(penetration test(?:ing|s)?|security control assessments?|control assessments?|security testing|independent assessment|red team(?:ing)?|assurance activities)\\b"
+    },
+    "MW": {
+      "topic": "Mobile and wireless security",
+      "pattern": "\\b(mobile devices?|wireless (?:access|networks?|communications?|security)|wi-?fi|bluetooth)\\b"
+    },
+    "PI": {
+      "topic": "Privacy and personal information",
+      "pattern": "\\b(personally identifiable information|personal information|privacy risk|privacy program|privacy controls?|privacy impact assessment)\\b"
+    },
+    "PW": {
+      "topic": "Password security",
+      "pattern": "\\b(passwords?|passphrases?|password managers?)\\b"
+    },
     "AD": {
       "topic": "Active Directory security",
       "pattern": "\\b(active directory|ad ds|domain controllers?|domain admins?|dcsync|kerberos|ntlm|ldap signing|service principal names?|spns?|group managed service accounts?|gmsas?|sid filtering|unconstrained delegation|krbtgt|entra connect|ad fs|ad cs)\\b"
@@ -534,6 +554,34 @@
       "rank": 13
     },
     {
+      "code": "MW",
+      "topic": "Mobile and wireless security",
+      "controls": 73,
+      "frameworks": 6,
+      "frequency_score": 3,
+      "frequency_rating": "Medium",
+      "mean_framework_share": 0.5,
+      "per_framework": {
+        "aescsf": 1,
+        "c2m2": 1,
+        "cis-controls": 1,
+        "ism": 61,
+        "nist-800-53": 8,
+        "nist-800-63": 1
+      },
+      "sample_uids": [
+        "ism:ism-2008",
+        "ism:ism-1297",
+        "ism:ism-1400",
+        "ism:ism-1866",
+        "ism:ism-2095",
+        "ism:ism-694",
+        "ism:ism-1482",
+        "ism:ism-874"
+      ],
+      "rank": 14
+    },
+    {
       "code": "AM",
       "topic": "Asset inventory and configuration/change management",
       "controls": 71,
@@ -561,7 +609,65 @@
         "nist-800-53:cm-3.4",
         "nist-800-53:cm-3.6"
       ],
-      "rank": 14
+      "rank": 15
+    },
+    {
+      "code": "PI",
+      "topic": "Privacy and personal information",
+      "controls": 68,
+      "frameworks": 5,
+      "frequency_score": 3,
+      "frequency_rating": "Medium",
+      "mean_framework_share": 0.5,
+      "per_framework": {
+        "aescsf": 9,
+        "ism": 2,
+        "nist-800-53": 53,
+        "pspf": 1,
+        "soci-act": 3
+      },
+      "sample_uids": [
+        "ism:ism-821",
+        "ism:ism-2107",
+        "nist-800-53:ac-3.14",
+        "nist-800-53:at-3.5",
+        "nist-800-53:au-3.3",
+        "nist-800-53:au-12.4",
+        "nist-800-53:ir-8.1",
+        "nist-800-53:pe-8.3"
+      ],
+      "rank": 16
+    },
+    {
+      "code": "RM",
+      "topic": "Cybersecurity risk assessment",
+      "controls": 65,
+      "frameworks": 9,
+      "frequency_score": 3,
+      "frequency_rating": "Medium",
+      "mean_framework_share": 2.23,
+      "per_framework": {
+        "aescsf": 5,
+        "c2m2": 4,
+        "csf": 2,
+        "ism": 6,
+        "nist-800-53": 8,
+        "oag-wa": 2,
+        "pspf": 14,
+        "wa-csp": 23,
+        "ztmm": 1
+      },
+      "sample_uids": [
+        "ism:ism-1203",
+        "ism:ism-1452",
+        "ism:ism-1567",
+        "ism:ism-1137",
+        "ism:ism-249",
+        "ism:ism-246",
+        "nist-800-53:au-3.3",
+        "nist-800-53:pe-8.3"
+      ],
+      "rank": 17
     },
     {
       "code": "DP",
@@ -592,7 +698,7 @@
         "ism:ism-2093",
         "ism:ism-2094"
       ],
-      "rank": 15
+      "rank": 18
     },
     {
       "code": "OT",
@@ -619,7 +725,71 @@
         "oag-wa:report-24 2.6.1",
         "oag-wa:report-24 2.6.2"
       ],
-      "rank": 16
+      "rank": 19
+    },
+    {
+      "code": "PW",
+      "topic": "Password security",
+      "controls": 53,
+      "frameworks": 11,
+      "frequency_score": 3,
+      "frequency_rating": "Medium",
+      "mean_framework_share": 2.1,
+      "per_framework": {
+        "aescsf": 2,
+        "asd-ad": 10,
+        "c2m2": 2,
+        "cis-controls": 2,
+        "ism": 23,
+        "nist-800-53": 3,
+        "nist-800-63": 5,
+        "oag-wa": 2,
+        "pspf": 1,
+        "wa-csp": 1,
+        "ztmm": 2
+      },
+      "sample_uids": [
+        "ism:ism-1888",
+        "ism:ism-2109",
+        "ism:ism-1829",
+        "ism:ism-1930",
+        "ism:ism-1839",
+        "ism:ism-1840",
+        "ism:ism-417",
+        "ism:ism-1559"
+      ],
+      "rank": 20
+    },
+    {
+      "code": "ST",
+      "topic": "Security testing and assurance",
+      "controls": 51,
+      "frameworks": 9,
+      "frequency_score": 3,
+      "frequency_rating": "Medium",
+      "mean_framework_share": 0.94,
+      "per_framework": {
+        "aescsf": 1,
+        "c2m2": 1,
+        "cis-controls": 8,
+        "ism": 18,
+        "nist-800-53": 18,
+        "nist-800-63": 1,
+        "pspf": 1,
+        "wa-csp": 1,
+        "ztmm": 2
+      },
+      "sample_uids": [
+        "ism:gov-3",
+        "ism:gov-14",
+        "ism:gov-7",
+        "ism:rec-2",
+        "ism:ism-1636",
+        "ism:ism-1967",
+        "ism:ism-1737",
+        "ism:ism-1971"
+      ],
+      "rank": 21
     },
     {
       "code": "NA",
@@ -651,7 +821,7 @@
         "ism:ism-637",
         "nist-800-53:sc-7"
       ],
-      "rank": 17
+      "rank": 22
     },
     {
       "code": "MF",
@@ -684,7 +854,7 @@
         "ism:ism-1919",
         "ism:ism-1173"
       ],
-      "rank": 18
+      "rank": 23
     },
     {
       "code": "BC",
@@ -713,7 +883,7 @@
         "nist-800-53:cp-2.3",
         "nist-800-53:cp-2.7"
       ],
-      "rank": 19
+      "rank": 24
     },
     {
       "code": "SD",
@@ -742,7 +912,7 @@
         "ism:ism-1238",
         "ism:ism-2039"
       ],
-      "rank": 20
+      "rank": 25
     },
     {
       "code": "AW",
@@ -773,7 +943,7 @@
         "nist-800-53:at-2",
         "nist-800-53:at-2.1"
       ],
-      "rank": 21
+      "rank": 26
     },
     {
       "code": "AP",
@@ -803,7 +973,7 @@
         "ism:ism-1658",
         "ism:ism-955"
       ],
-      "rank": 22
+      "rank": 27
     },
     {
       "code": "UH",
@@ -827,7 +997,7 @@
         "ism:ism-1691",
         "ism:ism-1692"
       ],
-      "rank": 23
+      "rank": 28
     },
     {
       "code": "IN",
@@ -854,7 +1024,7 @@
         "wa-csp:5.1c",
         "wa-csp:5.1d"
       ],
-      "rank": 24
+      "rank": 29
     },
     {
       "code": "OM",
@@ -878,7 +1048,7 @@
         "ism:ism-1487",
         "ism:ism-1675"
       ],
-      "rank": 25
+      "rank": 30
     }
   ]
 }
