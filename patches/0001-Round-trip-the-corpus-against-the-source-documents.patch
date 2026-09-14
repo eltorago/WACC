@@ -1,5 +1,5 @@
 From 9f40b2a9425babd3e70a71fd86d3fed70ecbcd6d Mon Sep 17 00:00:00 2001
-From: Aidan <eltorago@gmail.com>
+From: 
 Date: Sun, 13 Sep 2026 03:14:09 +0000
 Subject: [PATCH 1/3] Round-trip the corpus against the source documents
 MIME-Version: 1.0
