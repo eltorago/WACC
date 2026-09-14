@@ -2,9 +2,8 @@
 
 WA Control Crosswalk. See [running instructions](HOW-TO-RUN.md).
 
-The home page opens a control-centred library: 13 controls across privileged access, backup and recovery,
-vulnerability management and security monitoring, with
-assessment guidance, business risks and 57 source references.
+The home page opens a control-centred library with 63 controls across 24 topics,
+assessment guidance, executive-level business risks and 269 reviewed source references.
 Framework selection scopes the control list, source references and CSV mapping export.
 The full publisher corpus remains available through **Browse source corpus**.
 

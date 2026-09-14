@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "topic": "Data protection",
+  "controls": [
+    {
+      "id": "DP-01",
+      "title": "Inventory and classify sensitive data",
+      "statement": "Identify sensitive data, assign accountable owners and apply a maintained classification scheme that drives handling, retention and protection decisions.",
+      "risk": "Sensitive information that is unknown or incorrectly classified can be stored, shared or retained without the protection expected by the organisation and its stakeholders.",
+      "scope": "Information processed, stored or transmitted by enterprise systems, cloud services, endpoints and third parties.",
+      "examine": "Review the data-management process, inventory, ownership records, classification scheme, labels, retention rules and links to system security categorisation.",
+      "interview": "Ask data and system owners how new data sets are discovered, classified and reclassified and how handling requirements reach users and technology controls.",
+      "test": "Sample sensitive data from systems and inventories in both directions and verify ownership, classification, location, handling and retention requirements.",
+      "expected": "Sampled sensitive data is present in the inventory, has an accountable owner and classification, and is handled according to current documented requirements.",
+      "related": ["DP-02", "DP-03", "MD-01", "AM-01"],
+      "mappings": [
+        {"uid":"cis-controls:3.1","relationship":"Directly addresses","basis":"Requires a data-management process covering sensitivity, ownership, handling, retention and disposal.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:3.2","relationship":"Directly addresses","basis":"Requires a maintained inventory that includes sensitive data at a minimum.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:3.7","relationship":"Directly addresses","basis":"Requires a maintained enterprise data-classification scheme.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:ra-2","relationship":"Partially addresses","basis":"Requires categorisation of systems and the information they process, store and transmit with documented approval.","provenance":"Locally reviewed mapping"},
+        {"uid":"ztmm:data/data categorization","relationship":"Partially addresses","basis":"Describes progressively defined, automated and enterprise-wide data categorisation and labelling.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-293","relationship":"Related only","basis":"Classifies equipment by the highest data sensitivity or classification it is approved to handle; it does not create the data inventory or classification scheme.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "DP-02",
+      "title": "Protect data at rest and in transit",
+      "statement": "Apply protection, including appropriate cryptography, to sensitive data while it is stored and while it moves between people, systems and organisations.",
+      "risk": "Sensitive information can be read or altered after a device, storage service or communication path is compromised.",
+      "scope": "Sensitive data in databases, applications, endpoints, backups, removable storage, networks, interfaces and third-party services.",
+      "examine": "Compare the data inventory and classifications with encryption standards, architecture, configurations, key ownership, exceptions and coverage reports.",
+      "interview": "Ask data, platform and security owners how protection requirements are translated into storage and transmission controls and how exceptions are approved.",
+      "test": "Sample sensitive data stores and transmission paths and verify effective protection, approved algorithms and controlled handling of any plaintext exposure.",
+      "expected": "Sampled sensitive data is protected in storage and transit according to its classification, with justified and approved exceptions.",
+      "related": ["DP-01", "DP-03", "CK-01", "BR-01"],
+      "mappings": [
+        {"uid":"cis-controls:3.10","relationship":"Directly addresses","basis":"Requires encryption of sensitive data in transit.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:3.11","relationship":"Directly addresses","basis":"Requires encryption of sensitive data at rest on servers, applications and databases.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:sc-8","relationship":"Partially addresses","basis":"Requires protection of confidentiality or integrity for transmitted information.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:sc-28","relationship":"Partially addresses","basis":"Requires protection of confidentiality or integrity for organisation-defined information at rest.","provenance":"Locally reviewed mapping"},
+        {"uid":"c2m2:architecture-5d","relationship":"Directly addresses","basis":"Requires cryptographic controls for selected data categories at rest and in transit.","provenance":"Locally reviewed mapping"},
+        {"uid":"ztmm:data/data encryption","relationship":"Partially addresses","basis":"Describes maturity progression toward enterprise encryption at rest and in transit with managed keys.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "DP-03",
+      "title": "Restrict unauthorised data movement",
+      "statement": "Control and monitor sensitive-data flows across systems, networks, endpoints and service providers to prevent unauthorised disclosure or exfiltration.",
+      "risk": "Sensitive information can leave the organisation through an approved connection, compromised account or unmanaged service without being blocked or detected.",
+      "scope": "Sensitive-data transfers through email, web, cloud, removable media, interfaces, managed devices and connected systems.",
+      "examine": "Review approved information-flow policies, architecture, data-loss controls, monitored channels, alerts, exceptions and investigations.",
+      "interview": "Ask data and security owners which movement is permitted, how controls recognise sensitive information and how blocked or suspicious transfers are handled.",
+      "test": "Use authorised test data to verify representative permitted and prohibited flows, alert generation and investigation across major transfer channels.",
+      "expected": "Authorised flows operate as designed while prohibited or suspicious movement of sensitive data is blocked or detected and investigated.",
+      "related": ["DP-01", "DP-02", "MD-02", "SM-02"],
+      "mappings": [
+        {"uid":"aescsf:architecture-5f","relationship":"Directly addresses","basis":"Requires controls that restrict data exfiltration, including data-loss prevention tools.","provenance":"Locally reviewed mapping"},
+        {"uid":"c2m2:architecture-5f","relationship":"Directly addresses","basis":"Requires controls that restrict data exfiltration, including data-loss prevention tools.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:ac-4","relationship":"Partially addresses","basis":"Requires enforcement of approved authorisations controlling information flow within and between systems.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:3.13","relationship":"Partially addresses","basis":"Requires an automated data-loss prevention tool to identify sensitive data across enterprise assets and service providers.","provenance":"Locally reviewed mapping"}
+      ]
+    }
+  ]
+}
