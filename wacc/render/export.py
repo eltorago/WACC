@@ -352,6 +352,18 @@ def test_plan(corpus: Corpus, analysis: Analysis, derivations: Dict[str, object]
             out.append("No test derived. %s — %s" % (refusal.reason, refusal.detail))
             out.append("")
 
+        for material in getattr(derivation, "related_assessments", []):
+            source = material.control
+            out.append("**Related assessment: %s %s — %s**" % (
+                corpus.frameworks[source.framework_key].short_name, source.identifier,
+                source.title or "Assessment material"))
+            out.append("Connection: %s. %s" % (material.connection.value, material.basis))
+            out.append("")
+            for statement in material.statements:
+                out.append("**%s**" % statement.published_by)
+                out.append(statement.text)
+                out.append("")
+
         for statement in getattr(derivation, "published", []):
             out.append("**Published procedure — %s**" % (statement.published_by or "publisher"))
             out.append("")

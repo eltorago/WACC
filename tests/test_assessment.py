@@ -1,4 +1,4 @@
-"""Behaviour checks for combined results and practical uplift guidance."""
+"""Behaviour checks for combined results and assessment guidance."""
 import sys
 import unittest
 from pathlib import Path
@@ -8,10 +8,10 @@ from wacc.derive import derive
 from wacc.model import Control, Provenance, Tier
 from wacc.render import html, export
 from wacc.render.groups import result_groups
-from wacc.uplift import guidance
+from wacc.assessment import guidance
 
 
-class UpliftTests(unittest.TestCase):
+class AssessmentTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.state = State(verbose=False)
@@ -35,13 +35,13 @@ class UpliftTests(unittest.TestCase):
         examples = [('Multi-factor authentication is required', 'legacy authentication'),
                     ('Backups are tested', 'isolated environment'),
                     ('Security patches are applied', 'rescan result'),
-                    ('Event logs are retained', 'benign test event'),
+                    ('Event logs are retained', 'oldest available records'),
                     ('Encryption is used', 'key access')]
         for text, evidence in examples:
             with self.subTest(text=text):
                 risk, assessment = guidance(text, 'outcome')
                 self.assertIn(evidence, assessment)
-                self.assertTrue(risk.startswith('If '))
+                self.assertLess(len(risk.split()), 40)
                 self.assertNotIn('outcome is not achieved', risk)
 
     def test_unrelated_words_do_not_trigger_topic_guidance(self):
@@ -63,7 +63,7 @@ class UpliftTests(unittest.TestCase):
         self.assertNotIn('More people can reach', block)
         self.assertEqual(result.risk.provenance, Provenance.DERIVED)
         assessment = result.derived_tests[0].text
-        for phrase in ['Acceptance criteria:', 'evidence references', 'accountable owner', 'target date', 'retest']:
+        for phrase in ['Acceptance criteria:', 'evidence references', 'result for each acceptance criterion', 'follow-up']:
             self.assertIn(phrase, assessment)
 
     def test_no_classifier_commentary_in_panel_or_plan(self):

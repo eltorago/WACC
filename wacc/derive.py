@@ -1,4 +1,4 @@
-"""Suggested uplift assessments and risk scenarios for individual controls.
+"""Suggested assessments and risk scenarios for individual controls.
 
 Published procedures remain attributed and separate. Derived guidance follows the
 control's own topic, preserves its acceptance criteria and stated thresholds, and
@@ -10,7 +10,7 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Sequence
 
 from .archetypes import Archetype, NotDerivable, classify
-from .uplift import guidance, RECORD_RESULT
+from .assessment import guidance, RECORD_RESULT, assessment_sources
 from .registry import DETAIL_SOURCES
 from .terms import concepts_in, content_stems, normalise_text
 from .model import (
@@ -35,6 +35,14 @@ DETAIL_FLOOR = 0.45
 DETAIL_LIMIT = 6
 
 @dataclass
+class AssessmentMaterial:
+    control: Control
+    statements: List[Statement]
+    connection: Provenance
+    basis: str
+
+
+@dataclass
 class Derivation:
     """Everything this tool can say about testing one control, and what its absence means."""
 
@@ -43,6 +51,7 @@ class Derivation:
     evidence: List[str] = field(default_factory=list)
     refusal: Optional[NotDerivable] = None
     published: List[Statement] = field(default_factory=list)
+    related_assessments: List[AssessmentMaterial] = field(default_factory=list)
     derived_tests: List[Statement] = field(default_factory=list)
     risk: Optional[Statement] = None
     thresholds: List[Threshold] = field(default_factory=list)
@@ -169,6 +178,28 @@ def risk_statement(
     )
 
 
+def related_assessments(corpus, control, relations=None):
+    """Keep source procedures intact and preserve how each source was connected."""
+    candidates = {}
+    if relations is not None:
+        for relation in relations.relations(control.uid):
+            candidates[relation.other.uid] = (
+                relation.provenance, relation.direction_note(corpus))
+    for uid in assessment_sources(_quote(corpus, control, relations)):
+        candidates.setdefault(uid, (Provenance.DERIVED,
+            "Suggested connection based on the requirement; review the source scope before using these methods."))
+    materials = []
+    for uid, (connection, basis) in candidates.items():
+        source = corpus.control(uid)
+        if source is None or uid == control.uid:
+            continue
+        statements = [s for s in corpus.statements_for(uid, StatementKind.TEST_PROCEDURE)
+                      if s.provenance is Provenance.PUBLISHED]
+        if statements:
+            materials.append(AssessmentMaterial(source, statements, connection, basis))
+    return materials
+
+
 def derive(
     corpus: Corpus, control: Control, relations=None, detail_index=None
 ) -> Derivation:
@@ -189,6 +220,7 @@ def derive(
     if refusal is not None:
         return result
 
+    result.related_assessments = related_assessments(corpus, control, relations)
     result.derived_tests = [
         test_procedure(corpus, control, archetype, relations) for archetype in archetypes[:1]
     ]

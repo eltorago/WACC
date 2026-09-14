@@ -887,13 +887,28 @@ def control_panel(corpus: Corpus, derivation, placement=None, lineage=None) -> s
             % esc(", ".join(c.identifier for c in placement.stem_parts))
         )
 
+    for material in derivation.related_assessments:
+        source = material.control
+        link = "/?" + urllib.parse.urlencode({"q": source.uid, "view": "cards"})
+        name = "%s %s — %s" % (corpus.frameworks[source.framework_key].short_name,
+                                 source.identifier, source.title or "Assessment material")
+        parts.append('<details class="panel"><summary>Related assessment: '
+                     '<a href="%s">%s</a></summary><div class="panelbody">'
+                     '<p class="note">Connection: %s. %s</p>' %
+                     (esc(link), esc(name), esc(material.connection.value), esc(material.basis)))
+        for statement in material.statements:
+            parts.append('<h5>%s</h5><p>%s</p>' % (
+                esc(statement.published_by or "Publisher"),
+                esc(statement.text).replace("\n", "<br>")))
+        parts.append('</div></details>')
+
     for statement in derivation.published:
         parts.append("<h5>Published procedure — %s</h5><p>%s</p>" % (
-            esc(statement.published_by or "the publisher"), esc(statement.text),
+            esc(statement.published_by or "the publisher"), esc(statement.text).replace("\n", "<br>"),
         ))
 
     for statement in derivation.derived_tests:
-        label = "Suggested uplift assessment"
+        label = "Suggested assessment"
         parts.append("<h5>%s</h5><p>%s</p>" % (esc(label), esc(statement.text)))
 
     if derivation.detail:
