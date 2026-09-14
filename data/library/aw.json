@@ -11,6 +11,12 @@
       "examine": "Review awareness objectives, audience coverage, content, completion, delivery dates, incident lessons and effectiveness measures.",
       "interview": "Ask personnel how they recognise and report common threats and ask program owners how content changes when risk changes.",
       "test": "Sample personnel across roles and verify timely participation and practical understanding using an approved exercise or scenario.",
+      "test_steps": [
+        "Select personnel across locations, employment types and access levels, including recent starters and people who missed the original training window.",
+        "Verify assignment, completion and refresher dates against the required schedule and independently confirm that completion records belong to the sampled people.",
+        "Run an approved scenario or knowledge check covering reporting, phishing, credential handling and sensitive information, measuring actions as well as answers.",
+        "Compare weak results with targeted follow-up, repeat testing and trend reports to confirm the program changes when people do not demonstrate the expected behaviour."
+      ],
       "expected": "The intended audience completes current awareness activities and can identify and respond to relevant security situations.",
       "related": ["AW-02"],
       "mappings": [
@@ -30,6 +36,12 @@
       "examine": "Map roles and assigned responsibilities to training requirements, prerequisite completion, refresh cycles and assessed capability.",
       "interview": "Ask role owners and participants how training prepares them for actual decisions, tools and incident scenarios.",
       "test": "Sample sensitive roles and verify required training preceded access or duties and remains current after relevant changes.",
+      "test_steps": [
+        "Identify roles with security-specific duties and select people who recently entered or changed those roles, including administrators, developers, responders and executives.",
+        "Compare role requirements with assigned training, completion dates, access activation and material process or technology changes.",
+        "Use a role-specific practical scenario to ask each sampled person to perform or explain a critical duty, escalation and prohibited action.",
+        "Confirm gaps lead to restricted duties or access, assigned remediation and a successful reassessment before independent work resumes."
+      ],
       "expected": "People receive timely training matched to their responsibilities and can demonstrate the knowledge needed to perform them safely.",
       "related": ["AW-01", "OT-03"],
       "mappings": [

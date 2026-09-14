@@ -11,6 +11,12 @@
       "examine": "Reconcile contracts, payments, accounts, network connections and service inventories with the approved third-party register and criticality ratings.",
       "interview": "Ask procurement, service and security owners how providers are discovered, assigned owners and prioritised.",
       "test": "Sample providers from operational records and confirm each appears in the register with current services, access, owner and criticality.",
+      "test_steps": [
+        "Select third parties from contracts, payments, network access, identity directories, cloud consoles and operational records, plus entries from the supplier register.",
+        "Reconcile the samples in both directions and verify service, owner, subcontractors, data, access, critical dependencies, location and exit obligations.",
+        "Reperform criticality for selected providers using business impact and concentration or substitutability rather than contract value alone.",
+        "Investigate unregistered or stale providers and verify onboarding, review or closure actions are assigned before continued access or service use."
+      ],
       "expected": "In-scope providers are known, owned and prioritised using current information about their service, access and business importance.",
       "related": ["SC-02", "SC-03"],
       "mappings": [
@@ -29,6 +35,12 @@
       "examine": "Review due diligence, provider risk assessments, identified weaknesses, treatment plans, approvals and reassessments after material changes.",
       "interview": "Ask procurement, risk and service owners how supplier threats, access, concentration and outage tolerance affect decisions.",
       "test": "Sample higher-risk providers and trace identified risks to controls, accountable owners, deadlines and residual-risk approval.",
+      "test_steps": [
+        "Select prospective, active, changed and higher-risk providers and identify the assessment depth and approval required for each.",
+        "Inspect due diligence, independent assurance, control evidence, incident history, data and access model, subcontractors, resilience and applicable obligations.",
+        "Reperform selected risk conclusions and trace identified weaknesses to contract controls, treatment owners, dates and residual-risk acceptance.",
+        "Verify material service, threat or ownership changes trigger reassessment and that overdue provider actions affect escalation or continued use decisions."
+      ],
       "expected": "Material provider risks are identified before acceptance, treated and approved by the required authority, then reassessed while the relationship continues.",
       "related": ["SC-01", "SC-03"],
       "mappings": [
@@ -47,6 +59,12 @@
       "examine": "Inspect approved connection designs, access lists, monitoring, termination checklists, disabled accounts, closed data flows and data disposition records.",
       "interview": "Ask service and access owners how provider connectivity is approved, monitored and removed when contracts change or end.",
       "test": "Sample active and terminated providers and verify least-access paths, monitoring and complete removal of obsolete access and data flows.",
+      "test_steps": [
+        "Select active, temporary, emergency and terminated provider arrangements and enumerate accounts, network paths, facilities, data exchanges and retained information.",
+        "Test a benign authorised action through an active path and confirm least privilege, strong authentication, time limits and monitoring match the contract and approval.",
+        "For terminated access, query each target and attempt a safe connection to confirm accounts, keys, routes, tokens and remote tools no longer work.",
+        "Verify returned or deleted data and assets, retained copies and unresolved obligations are documented and accepted by the responsible owner."
+      ],
       "expected": "Provider access follows approved paths while needed and is promptly and completely removed or changed when the relationship changes.",
       "related": ["SC-01", "SC-02", "NA-02"],
       "mappings": [

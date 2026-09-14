@@ -11,6 +11,12 @@
       "examine": "Compare personnel, contractor and service records with account inventories, provisioning approvals, role changes, expiry dates and deprovisioning records.",
       "interview": "Ask identity and system owners how joiners, movers, leavers, temporary access and non-human identities enter the lifecycle process.",
       "test": "Sample newly created, changed, expired and terminated identities and trace whether each account was authorised, updated and disabled within the applicable timeframe.",
+      "test_steps": [
+        "Select human, contractor, service, application and device identities covering new starters, transfers, temporary access, expiry and termination.",
+        "Trace each identity to an authorised owner and purpose, verified source record, provisioning approval, assigned accounts and lifecycle dates.",
+        "Compare role-change and termination times with live accounts, sessions, tokens and downstream directories to verify changes reached every connected system on time.",
+        "Attempt a safe sign-in with sampled expired or terminated credentials and confirm denial, logging and removal of residual access."
+      ],
       "expected": "Every sampled account has a current owner and purpose, follows the approved lifecycle process and is disabled or removed when no longer required.",
       "related": ["IA-02", "IA-03", "PA-01"],
       "mappings": [
@@ -31,6 +37,12 @@
       "examine": "Inspect access policies, owner approvals, role definitions, access-review results, exceptions and evidence that identified excess access was removed.",
       "interview": "Ask business and system owners how they decide what access is appropriate and how they respond to transfers, temporary assignments and review findings.",
       "test": "Sample access grants and review decisions, compare permissions with current duties and verify that rejected or obsolete access was removed.",
+      "test_steps": [
+        "Select access grants, denials, retained entitlements and removals from high-risk and ordinary systems, including inherited group and role access.",
+        "Compare each effective permission with current duties, data or system owner approval, segregation rules, start and expiry dates and the latest review decision.",
+        "For access marked removed or reduced, query the target system and attempt a benign authorised action to confirm the obsolete capability is gone.",
+        "Recalculate a review population from live entitlements and record missing accounts, unsupported retention or decisions made by an unauthorised reviewer."
+      ],
       "expected": "Sampled access is owner-approved, matches current responsibilities and has been reviewed and corrected at defined triggers.",
       "related": ["IA-01", "PA-01", "PA-04"],
       "mappings": [
@@ -51,6 +63,12 @@
       "examine": "Review authenticator standards, issue and recovery procedures, approved storage, default-credential handling, compromise response and revocation records.",
       "interview": "Ask identity and platform owners how recipients are verified, credential strength is selected and lost, exposed or expired credentials are handled.",
       "test": "Sample authenticators across user, service and device accounts and verify controlled issue, protected storage, required changes and effective revocation.",
+      "test_steps": [
+        "Sample passwords, tokens, certificates, keys and device credentials across issue, recovery, rotation, compromise, expiry and revocation states.",
+        "Verify recipient or device identity checks, approved strength, protected delivery and storage, ownership, expiry and recovery controls for each sample.",
+        "Use an authorised test credential before and after rotation or revocation to confirm the new authenticator works and the old one no longer grants access.",
+        "Trace issue, recovery and revocation events to audit records and confirm exposed or default credentials trigger the documented response."
+      ],
       "expected": "Sampled authenticators are issued to verified recipients, protected according to policy and promptly changed or revoked when their trust is lost.",
       "related": ["IA-01", "MF-01", "CK-01"],
       "mappings": [

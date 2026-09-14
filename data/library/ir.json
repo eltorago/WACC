@@ -11,6 +11,12 @@
       "examine": "Review the response plan, role assignments, contact lists, declaration criteria, communications arrangements, playbooks and approval and review history.",
       "interview": "Ask incident, technology, business, legal and communications leaders who can declare an incident and how decisions and handoffs are coordinated.",
       "test": "Walk a representative scenario through the plan and confirm that current personnel can locate it, understand their authority and contact required parties.",
+      "test_steps": [
+        "Choose a representative incident scenario outside normal business hours and ask current on-call staff to locate and initiate the plan without advance preparation.",
+        "Walk through declaration, authority, roles, legal and communications contacts, evidence handling, escalation and handoffs to continuity or recovery.",
+        "Validate names, contact methods, tools, access and supplier arrangements by contacting or simulating contact with a sample of participants.",
+        "Record steps that are ambiguous, inaccessible or dependent on unavailable people and verify the plan owner updates and reissues the controlled version."
+      ],
       "expected": "The current plan is available during disruption, covers the incident lifecycle and gives named roles clear authority, actions and communication paths.",
       "related": ["IR-02", "IR-03", "IN-01", "OT-03"],
       "mappings": [
@@ -31,6 +37,12 @@
       "examine": "Inspect incident records, triage decisions, analysis artefacts, timelines, containment actions, eradication evidence, recovery approvals and coordination logs.",
       "interview": "Ask responders how they confirm an incident, determine its boundaries, choose containment actions and decide that recovery is safe.",
       "test": "Trace sampled incidents from report through closure and verify that each handling stage, decision owner and supporting evidence is recorded.",
+      "test_steps": [
+        "Select incidents with different severity and outcomes and reconstruct their timeline from source alerts, case records, communications and system evidence.",
+        "Verify analysis identified affected assets, accounts, information, cause and business impact and that containment decisions had named authority and safety considerations.",
+        "Compare eradication and recovery actions with observed system state, confirming compromised access and persistence were removed before normal service resumed.",
+        "Check closure criteria, residual-risk acceptance, preserved evidence and monitoring for recurrence rather than relying only on a closed ticket status."
+      ],
       "expected": "Sampled incidents are validated, analysed and contained promptly, their cause is addressed and recovery is authorised with a clear decision trail.",
       "related": ["IR-01", "IR-03", "SM-03", "BR-03"],
       "mappings": [
@@ -50,6 +62,12 @@
       "examine": "Review the exercise schedule, scenarios, participants, observations, post-incident reviews, corrective actions, owners, deadlines and plan updates.",
       "interview": "Ask response leaders how scenarios are selected, executives and suppliers are involved and overdue improvements are escalated.",
       "test": "Select completed exercises and real incidents and trace significant lessons through assigned corrective actions to verified closure and updated plans.",
+      "test_steps": [
+        "Select recent exercises and real incidents across relevant scenarios and compare coverage with the approved exercise and learning schedule.",
+        "Review objectives, participants, injects, decisions, response times and evidence that teams performed critical actions rather than only discussing them.",
+        "Trace each significant lesson to an accountable corrective action, risk priority, due date, escalation and update to plans, tools or training.",
+        "Repeat a previously weak scenario step or inspect a later event to verify the action improved the measured response capability."
+      ],
       "expected": "Exercises test realistic decisions and communication paths, and material lessons from exercises and incidents result in completed, verified improvements.",
       "related": ["IR-01", "IR-02", "BC-03", "OT-03"],
       "mappings": [

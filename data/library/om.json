@@ -11,6 +11,12 @@
       "examine": "Compare approved macro users and workflows with deployed macro policy, trusted locations, publisher lists and exceptions.",
       "interview": "Ask business and application owners how macro need is approved and how trust decisions are reviewed.",
       "test": "Use safe signed, unsigned, trusted-location and untrusted test documents with representative users.",
+      "test_steps": [
+        "Choose representative users and Office applications subject to different macro needs and identify approved publishers, locations and business exceptions.",
+        "Open safe signed and approved macro documents and verify only the expected users and applications can run the authorised functions.",
+        "Open unsigned, Internet-origin, untrusted-location and expired-certificate test documents and confirm macros remain blocked without a simple user override.",
+        "Inspect effective policy and event records to confirm the decision, file origin, signature, user and device are visible and exceptions match approval."
+      ],
       "expected": "Users without an approved need cannot run macros; permitted macros are limited to the configured trusted paths and publishers.",
       "related": ["OM-02", "UH-01"],
       "mappings": [
@@ -30,6 +36,12 @@
       "examine": "Inspect macro policies, antivirus integration, Internet-origin controls, Win32 API restrictions, signing validation and annual publisher reviews.",
       "interview": "Ask security and application owners how signed macros are checked and how policy failures or malicious detections are handled.",
       "test": "Use safe test macros to verify Internet-origin blocking, antivirus scanning, high-risk API blocking and resistance to user policy changes.",
+      "test_steps": [
+        "Prepare safe test macros that exercise antivirus scanning, Internet-origin blocking and representative high-risk behaviours such as process creation or Win32 API use.",
+        "Run the samples in an isolated representative environment and confirm each prohibited behaviour is blocked before causing a system change.",
+        "Attempt benign variations such as renaming, embedding or moving to a user-writable location to verify controls do not depend only on filename or extension.",
+        "Confirm prevention events reach monitoring with file, user, device and rule details, then remove test documents and restore the environment."
+      ],
       "expected": "Unsafe macros and capabilities are blocked, allowed signed macros are checked as required, and users cannot weaken enforcement.",
       "related": ["OM-01", "AP-01"],
       "mappings": [

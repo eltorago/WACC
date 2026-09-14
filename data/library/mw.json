@@ -11,6 +11,12 @@
       "examine": "Compare the mobile-device policy and authorised device inventory with risk or legal decisions, enrolment records, management profiles, compliance rules, application controls and organisational-data separation.",
       "interview": "Ask mobility, legal and service owners how devices are approved, enrolled, kept compliant and blocked when ownership, support or risk changes.",
       "test": "Use authorised managed and unmanaged devices to attempt access, verify that only compliant devices connect and confirm that organisational information remains within the approved managed boundary.",
+      "test_steps": [
+        "Select organisation-owned, privately owned, compliant, non-compliant and recently retired mobile devices and reconcile them with approval and management records.",
+        "Verify required enrolment, supported operating system, configuration profile, application controls, organisational-data separation and owner for each connected device.",
+        "Attempt authorised access from a compliant managed device, an unenrolled device and a device made non-compliant in the test plan.",
+        "Confirm only the compliant device gains the intended access, non-compliance is recorded promptly and local storage or sharing outside the managed boundary is blocked."
+      ],
       "expected": "Every connected mobile device is authorised, identifiable and subject to the required management controls, while unmanaged access and unapproved local storage are blocked.",
       "related": ["MW-02", "MW-03", "IA-02", "AM-01", "DP-03"],
       "mappings": [
@@ -32,6 +38,12 @@
       "examine": "Inspect management policies and compliance reports for encryption, protected connectivity, screen lock, remote wipe, key handling and responses to lost, stolen or retired devices.",
       "interview": "Ask mobility and incident teams how they detect loss, revoke access, protect encryption keys and decide when to lock or wipe a device.",
       "test": "Sample managed devices to verify storage encryption and protected public-network traffic, then perform an authorised lost-device exercise that revokes access and invokes the documented containment action.",
+      "test_steps": [
+        "Select managed devices across supported platforms and verify effective device or container encryption, screen lock, key protection and always-on protected connectivity.",
+        "Observe traffic over an authorised untrusted network to confirm sensitive traffic uses the approved VPN or protected protocol without plaintext fallback.",
+        "Run a lost-device exercise that revokes sessions and credentials and invokes the approved lock, selective wipe or full wipe action.",
+        "Confirm the management service reports completion, the device can no longer reach organisational services and recovery or re-enrolment requires fresh authorisation."
+      ],
       "expected": "Organisational information remains encrypted on devices and public networks, and lost or retired devices can no longer provide usable data or access.",
       "related": ["MW-01", "DP-02", "IR-02", "CK-02"],
       "mappings": [
@@ -51,6 +63,12 @@
       "examine": "Reconcile authorised wireless services and access points with network discovery, hardening standards, administrative interfaces, authentication, encryption and public-network segmentation.",
       "interview": "Ask network owners how new wireless services are approved, rogue access points are detected and obsolete protocols or shared credentials are removed.",
       "test": "From authorised test devices, verify authentication and encryption on corporate wireless, separation of public wireless, rejection of unsupported protocols and detection of a controlled unauthorised access point.",
+      "test_steps": [
+        "Reconcile discovered access points, controllers and wireless networks with the authorised inventory, owner, purpose and approved configuration baseline.",
+        "Connect authorised test devices to corporate and public wireless and verify user or device authentication, effective encryption and separation from internal destinations.",
+        "Attempt deprecated security, a wrong certificate or credential, direct access to the management interface and a controlled unauthorised access point.",
+        "Confirm insecure connections and management access fail, the rogue device is detected, and relevant allow and deny events reach monitoring."
+      ],
       "expected": "Only authorised hardened wireless services operate, corporate access strongly authenticates and encrypts connections, and public or untrusted wireless cannot reach internal networks.",
       "related": ["MW-01", "NA-01", "NA-02", "SM-01"],
       "mappings": [

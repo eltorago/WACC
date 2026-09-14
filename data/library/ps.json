@@ -11,6 +11,12 @@
       "examine": "Sample personnel files, identity and eligibility checks, role risk ratings, screening outcomes, access dates and rescreening records.",
       "interview": "Ask personnel-security and hiring owners how screening depth is chosen and how adverse or incomplete results affect access.",
       "test": "Compare sampled access activation dates with completed screening and verify rescreening occurred for selected higher-risk roles.",
+      "test_steps": [
+        "Select new, temporary, contractor and higher-risk personnel and compare their screening requirement with role sensitivity and approved access.",
+        "Verify identity, required checks, adjudication, completion date, conditions and accountable approval before the first access activation or unsupervised duty.",
+        "For roles requiring rescreening or ongoing suitability, compare due dates and reported changes with completed reviews and access decisions.",
+        "Attempt to locate active access for sampled incomplete, expired or unfavourable cases and confirm it is withheld, restricted or formally risk accepted."
+      ],
       "expected": "Required checks finish before access is authorised, screening matches role risk and required rescreening is current.",
       "related": ["PS-02"],
       "mappings": [
@@ -30,6 +36,12 @@
       "examine": "Compare personnel events with disabled access, revoked credentials, returned property, retained records and documented transfer decisions.",
       "interview": "Ask managers, HR and access owners how urgent departures and role changes are coordinated.",
       "test": "Sample departures and transfers and calculate the time to remove or amend each relevant access path and recover assigned property.",
+      "test_steps": [
+        "Select planned and urgent departures, transfers and extended absences across employees and contractors, including privileged or remote access.",
+        "Establish the effective change time and enumerate physical badges, accounts, groups, sessions, tokens, devices, information and supplier access requiring action.",
+        "Query each target system and asset record to verify access was removed or adjusted and property recovered within the required timeframe.",
+        "Attempt a benign sign-in with a disabled test credential, inspect forwarding or shared-access arrangements and record residual paths or unexplained delays."
+      ],
       "expected": "Access and credentials change within approved deadlines, property is recovered and continuing access follows the new role.",
       "related": ["PS-01", "PA-04"],
       "mappings": [

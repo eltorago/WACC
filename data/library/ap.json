@@ -11,6 +11,12 @@
       "examine": "Compare the approved software inventory with application-control policies, deployment coverage, block events and exceptions.",
       "interview": "Ask system and application owners how code becomes authorised and how blocked business software and emergency changes are handled.",
       "test": "Attempt to run authorised benign code and a safe unapproved test file, library and script on representative systems.",
+      "test_steps": [
+        "Choose representative workstations, servers and execution types, including executables, scripts, libraries, installers and user-writable locations.",
+        "Run approved benign samples and confirm they execute without weakening enforcement or relying on broad path-based exceptions.",
+        "Attempt safe unapproved, renamed, modified and unsigned samples through normal launch, script host and library-loading paths; confirm execution is blocked.",
+        "Trace allow and deny decisions to central logs with the file identity, rule, user, device and outcome, then remove all test artefacts."
+      ],
       "expected": "Authorised code runs, unapproved code is blocked and logged, and policy coverage and exceptions match approved scope.",
       "related": ["AP-02", "UH-02", "OM-02"],
       "mappings": [
@@ -30,6 +36,12 @@
       "examine": "Review the approved scope, Essential Eight maturity decision, coverage reports, allowed-code reviews and exception records.",
       "interview": "Ask control owners how coverage and maturity targets are set and how system changes trigger policy review.",
       "test": "Sample new and changed systems and confirm that enforcement and allowed-code rules were reviewed before use.",
+      "test_steps": [
+        "Select newly deployed, materially changed and exception-based systems and identify the application-control policy and approved code sources for each.",
+        "Verify enforcement was enabled before production use and that permitted-code rules were reviewed, approved, narrowly scoped and assigned an expiry where temporary.",
+        "Introduce an authorised new application and an unapproved safe file in a test environment to confirm the rule-change workflow allows only the reviewed application.",
+        "Compare coverage reports with the asset inventory and record systems operating in audit-only mode, with stale policy or outside enforcement without approval."
+      ],
       "expected": "The approved scope is implemented, allowed code and exceptions are current, and changes do not create unmonitored gaps.",
       "related": ["AP-01", "AM-03"],
       "mappings": [

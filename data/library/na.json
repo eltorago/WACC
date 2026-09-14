@@ -11,6 +11,12 @@
       "examine": "Compare current diagrams, asset criticality and data flows with implemented zones, routing, firewalls and authentication boundaries.",
       "interview": "Ask architects and service owners how zone placement and permitted communications are decided and reviewed.",
       "test": "From representative zones, attempt authorised benign connections to approved and prohibited destinations and verify enforcement and logging.",
+      "test_steps": [
+        "Select representative user, server, management, guest, cloud and OT zones and identify the approved trust level and permitted services between them.",
+        "From authorised test hosts in each source zone, attempt benign connections to approved destinations and verify the expected application and identity restrictions.",
+        "Attempt prohibited lateral and cross-zone connections, including a high-risk management path, and confirm default denial without an alternate route.",
+        "Trace allowed and denied attempts to monitoring and compare observed reachability with current diagrams and rule documentation."
+      ],
       "expected": "Assets are placed in justified zones and prohibited cross-zone paths are blocked while approved business flows remain available.",
       "related": ["NA-02", "NA-03", "OT-02"],
       "mappings": [
@@ -30,6 +36,12 @@
       "examine": "Inspect data-flow approvals, boundary rules, gateway designs, rule reviews, monitoring and exceptions.",
       "interview": "Ask network and service owners how each allowed flow is justified and how obsolete or emergency rules are removed.",
       "test": "Sample allowed and denied flows across external and internal boundaries and verify source, destination, service and logging behaviour.",
+      "test_steps": [
+        "Select external and internal boundary rules covering inbound, outbound, management and inter-service traffic, including temporary exceptions.",
+        "Independently verify source, destination, protocol, port, application, identity and time conditions against the approved business requirement.",
+        "Generate authorised allowed traffic and closely related prohibited traffic to confirm exact enforcement, state handling and absence of a broader shadow rule.",
+        "Confirm both outcomes are logged with usable context and that expired, unused or duplicate rules are removed through the review process."
+      ],
       "expected": "Traffic crosses boundaries only through managed controls and only for current authorised flows, with blocked attempts visible to monitoring.",
       "related": ["NA-01", "NA-03", "SC-03"],
       "mappings": [
@@ -48,6 +60,12 @@
       "examine": "Compare diagrams and architecture decisions with discovered connections, current assets, review records and resilience test results.",
       "interview": "Ask architects how material change triggers review and how operational failure and attack scenarios influence design.",
       "test": "Sample network segments and data flows against diagrams, then review evidence from a recent failure, isolation or penetration test.",
+      "test_steps": [
+        "Select network segments, gateways, cloud networks and important data flows and compare observed routes and controls with approved current diagrams.",
+        "Trace recent architecture changes from approval into diagrams, firewall policy, routing, monitoring and recovery documentation.",
+        "Review a recent failure, isolation or penetration test and verify it exercised critical boundaries, alternate paths and the assumed blast radius.",
+        "For one controlled path, disable or isolate the component in a test window and confirm traffic fails safely or follows only the documented resilient route."
+      ],
       "expected": "Architecture records match the environment, material changes receive review and testing demonstrates that critical functions remain protected.",
       "related": ["NA-01", "NA-02", "AM-03"],
       "mappings": [

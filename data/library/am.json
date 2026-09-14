@@ -11,6 +11,12 @@
       "examine": "Reconcile discovery, procurement, licensing, network and service records with hardware and software inventories and required attributes.",
       "interview": "Ask asset owners how new, changed, temporary and retired assets are detected and how discrepancies are resolved.",
       "test": "Sample assets from both the environment and the register and confirm bidirectional coverage, current attributes and assigned ownership.",
+      "test_steps": [
+        "Select samples in both directions: assets observed through network, cloud, endpoint and procurement records, and assets listed in the authoritative inventories.",
+        "Reconcile each observed asset to a unique inventory record and each listed asset to a live, stored, retired or otherwise explained state.",
+        "Check required attributes such as owner, service, location, criticality, software or firmware, support status and last-seen time against authoritative sources.",
+        "Introduce or identify an authorised test asset and verify discovery, ownership assignment and inventory update occur within the defined interval."
+      ],
       "expected": "In-scope assets appear in current inventories with enough accurate information to support risk, support and lifecycle decisions.",
       "related": ["AM-02", "AM-03", "OT-01"],
       "mappings": [
@@ -31,6 +37,12 @@
       "examine": "Inspect baseline standards, approvals, deployment records, configuration monitoring, deviations and baseline review history.",
       "interview": "Ask platform owners how baselines are tested, updated and applied to legacy or constrained systems.",
       "test": "Compare representative live and restored configurations with the approved baseline and verify that significant drift is detected.",
+      "test_steps": [
+        "Select representative workstation, server, network, cloud and OT configurations and identify the approved baseline and version applicable to each.",
+        "Compare live settings with the baseline using an independent query or configuration-assessment tool, including security-relevant defaults and locally overridden values.",
+        "Make an authorised harmless deviation in a test environment and verify drift is detected, reported and routed to the responsible owner within the expected interval.",
+        "Restore the approved setting and confirm compliance status returns only after the live configuration has been rechecked."
+      ],
       "expected": "Assets use approved current baselines, deviations are visible and authorised, and restoration returns assets to a known secure state.",
       "related": ["AM-01", "AM-03"],
       "mappings": [
@@ -49,6 +61,12 @@
       "examine": "Review change classifications, security impact analyses, approvals, test results, implementation records, rollback plans and post-change checks.",
       "interview": "Ask change and asset owners how emergency work is controlled and when a change receives security review.",
       "test": "Sample routine and emergency changes and trace each from request through approval, testing, implementation and verification.",
+      "test_steps": [
+        "Select normal, high-risk, emergency, failed and rolled-back changes across representative technology and business services.",
+        "Trace each change through request, risk and security impact analysis, testing, approval, scheduled window, implementation identity and post-change verification.",
+        "Compare the approved components and commands with configuration and audit records to identify unapproved scope, timing or privilege.",
+        "For an authorised test change, verify monitoring detects the change, the success criteria are checked and the rollback procedure restores the prior state when invoked."
+      ],
       "expected": "Changes are approved with security impact considered, tested where required, fully recorded and verified after implementation.",
       "related": ["AM-01", "AM-02", "AP-02"],
       "mappings": [

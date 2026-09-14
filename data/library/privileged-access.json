@@ -11,6 +11,12 @@
       "examine": "Sample new requests, approvals, business justifications and actual permissions. Compare validation and approval timestamps with account activation.",
       "interview": "Ask the approving owner how business need is established, who can approve access and how exceptions are handled.",
       "test": "Trace sampled requests through the workflow. Confirm that granted permissions match the approved duties and that activation followed validation.",
+      "test_steps": [
+        "Select a risk-based sample of approved, rejected, emergency and expired privileged-access requests from different systems and requestors.",
+        "For each sample, compare the requested role and duration with the named duties, system owner approval, requester identity validation and any segregation-of-duties check.",
+        "Compare the approved scope and activation window with the permissions actually granted and the platform audit trail; record any access granted early, beyond scope or without all approvals.",
+        "For rejected and expired requests, verify through an effective-permissions query or safe access attempt that no privileged capability remains."
+      ],
       "expected": "Each sampled grant has a validated need, an authorised decision and permissions matching that decision before activation.",
       "related": [
         "PA-02",
@@ -58,6 +64,12 @@
       "examine": "Compare personnel, account inventories and assigned roles. Inspect separation between routine and administrative identities.",
       "interview": "Ask administrators how they switch accounts and how emergency access is managed.",
       "test": "Sample administrators and verify that routine accounts cannot perform privileged actions. Review whether dedicated accounts are being used for routine activities.",
+      "test_steps": [
+        "Select administrators from infrastructure, applications, cloud services and security tools, including at least one recently appointed or transferred administrator.",
+        "Inspect each person's ordinary and administrative accounts, group memberships and sign-in history; confirm the privileged identity is distinct and attributable to one person.",
+        "Using authorised test accounts, attempt one privileged action with the ordinary account and one routine activity such as email or web browsing with the administrative account.",
+        "Confirm the ordinary action is denied, the privileged action succeeds only through the dedicated account, and both outcomes are recorded with the correct identity."
+      ],
       "expected": "Administrative identities are separate and used only for duties requiring privilege; routine identities lack unnecessary administrative rights.",
       "related": [
         "PA-01",
@@ -100,6 +112,12 @@
       "examine": "Compare privileged accounts and administrative entry points with authentication policies, exclusions and sign-in records.",
       "interview": "Ask the identity owner how new services, recovery paths and emergency accounts are covered.",
       "test": "Use an authorised test account to verify the additional factor and check alternative sign-in routes for bypasses.",
+      "test_steps": [
+        "Choose representative administrative paths, including local, remote, console, command-line, recovery and emergency access where they exist.",
+        "Sign in with an authorised privileged test account through each path and verify the required independent authentication factors and approved device or network conditions.",
+        "Attempt safe bypass cases such as a legacy protocol, alternate interface, expired session, factor removal or account-recovery route.",
+        "Verify bypass attempts fail or follow an approved exception, and trace successful and failed events to central monitoring with the user, path, time and factor result."
+      ],
       "expected": "In-scope administrative sign-ins require the prescribed factors; unsupported systems and exceptions are identified and reviewed against the applicable source requirements.",
       "related": [
         "PA-02",
@@ -141,6 +159,12 @@
       "examine": "Compare current access with personnel changes, review decisions and removal records. Identify temporary, dormant and ownerless accounts.",
       "interview": "Ask reviewers how they validate continuing need and ensure decisions are carried out.",
       "test": "Sample retained and removed access. Verify business need, review dates and completed permission changes against the applicable deadlines.",
+      "test_steps": [
+        "Recreate the review population from live privileged groups, roles, local administrators, cloud entitlements and emergency accounts rather than relying only on the review export.",
+        "Sample retained, reduced and removed access and compare each decision with current duties, owner approval, last use, conflicts and the required review date.",
+        "Query effective permissions after the review to verify approved reductions and removals reached every relevant system and inherited access path.",
+        "Calculate completion times for departures, transfers and high-risk findings and record overdue access, unsupported retention or review populations that omitted live privileges."
+      ],
       "expected": "Reviews and triggered changes are completed on time; each retained privilege is justified and removal decisions are implemented. Source-specific deadlines must be checked separately.",
       "related": [
         "PA-01",
@@ -194,6 +218,12 @@
       "examine": "Compare the system inventory with collected log sources. Inspect event fields, central collection and protection settings.",
       "interview": "Ask the logging owner how missing sources, collection failures and access to records are managed.",
       "test": "Perform an authorised benign administrative action and trace its record to central storage. Verify actor, time, target and action, and test protection using test records.",
+      "test_steps": [
+        "Perform authorised benign administrative actions through interactive, command-line and automated privileged paths on representative systems.",
+        "Trace each action from the source system into central storage and confirm the record contains the individual actor, privileged identity, time source, target, action and outcome.",
+        "Using a non-authorised account, attempt to alter or delete a test record and change logging configuration; confirm prevention or immediate detection and alerting.",
+        "Retrieve the test events using normal investigation tools and from the oldest required retention period to confirm records remain searchable, readable and attributable."
+      ],
       "expected": "Sampled activity is recorded centrally with sufficient detail to trace it, and unauthorised changes to records are prevented.",
       "related": [
         "PA-02",

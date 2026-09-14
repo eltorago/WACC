@@ -11,6 +11,12 @@
       "examine": "Compare the approved identity architecture and hardened build standards with installed applications, enabled roles and services, network rules, administrative paths and current configuration records.",
       "interview": "Ask directory and infrastructure owners how additional software is prevented, how management traffic reaches identity servers and how insecure or obsolete services are identified and removed.",
       "test": "Sample each identity-server role and verify that only approved security functions are installed, unnecessary services are disabled and administration is possible only through the authorised management path.",
+      "test_steps": [
+        "Select at least one server from each deployed identity role and compare its installed roles, applications, services, ports and network interfaces with the approved hardened build.",
+        "Verify unnecessary services such as Print Spooler and obsolete protocols are disabled, then use safe discovery from an adjacent network to confirm only approved ports respond.",
+        "Attempt authorised administration from both an approved management host and an ordinary workstation; confirm only the protected route reaches management interfaces.",
+        "Review configuration and change records for any deviation, confirming it has a current owner, approved reason, compensating control and expiry date."
+      ],
       "expected": "Identity servers perform only approved security functions, expose only required services and accept administration only from protected management paths.",
       "related": ["PA-02", "NA-02", "AM-02"],
       "mappings": [
@@ -30,6 +36,12 @@
       "examine": "Reconcile approved administrators with Domain Admins, Enterprise Admins and equivalent groups, dedicated account inventories, workstation assignments, jump-server rules and privileged access logs.",
       "interview": "Ask directory owners who can approve administrative access, how ordinary and privileged duties are separated and how urgent or temporary access is removed.",
       "test": "Sample directory administrators and trace their approval, dedicated account, protected workstation and permitted management route. Confirm that an ordinary account or unapproved workstation cannot administer a domain controller.",
+      "test_steps": [
+        "Export current membership of Domain Admins, Enterprise Admins and equivalent delegated groups and reconcile it with named approvals, owners and expiry dates.",
+        "For sampled administrators, verify separate ordinary and domain-administration accounts, an assigned secure workstation or jump server and no privileged sign-ins from ordinary devices.",
+        "Attempt a benign directory read and approved administrative change from an authorised management host, then repeat the privileged attempt from an unapproved host and ordinary account.",
+        "Confirm the approved route is attributable and logged, the unapproved routes fail, and temporary or obsolete group membership has been removed from effective access."
+      ],
       "expected": "Every directory administrator has a current approved need, uses a dedicated account from an authorised management device and cannot reach directory administration through ordinary access paths.",
       "related": ["PA-02", "PA-03", "PA-04", "IA-02"],
       "mappings": [
@@ -51,6 +63,12 @@
       "examine": "Compare service-account inventories and owners with SPN registrations, gMSA use, group memberships, effective permissions, DCSync rights, delegation settings and review results.",
       "interview": "Ask application and directory owners how service accounts are created, how managed credentials are selected and how excessive permissions or delegation are found and removed.",
       "test": "Sample service and computer accounts, verify ownership and purpose, inspect their effective privileges and delegation, and confirm that credentials rotate through the managed process without being known or reused by people.",
+      "test_steps": [
+        "Build a sample from accounts with service principal names, gMSAs, computer accounts, delegation settings and DCSync-capable permissions, including dormant and high-privilege cases.",
+        "For each account, verify a current owner and purpose, managed credential use where supported, recent rotation, minimum group membership and no interactive use unless explicitly required.",
+        "Inspect effective replication rights and constrained or unconstrained delegation; use an authorised query to confirm sampled accounts cannot request capabilities beyond their documented function.",
+        "For one managed account, observe a scheduled credential rotation or controlled rollover and confirm the dependent service continues without exposing the secret to an operator."
+      ],
       "expected": "Each service account has a current owner and purpose, uses a managed credential where supported, holds only required access and has no unnecessary DCSync or delegation capability.",
       "related": ["IA-01", "IA-03", "PA-04", "CK-02"],
       "mappings": [
@@ -72,6 +90,12 @@
       "examine": "Review domain authentication policy, protocol configuration, LDAP signing, Kerberos pre-authentication exceptions, trust inventory, trust direction, SID filtering and connected-environment architecture.",
       "interview": "Ask directory and system owners why each legacy protocol, authentication exception and trust exists, who accepts its risk and how its continued need is reviewed.",
       "test": "Use authorised checks to verify LDAP signing and Kerberos pre-authentication, identify attempted use of prohibited protocols, and confirm that selected trusts enforce the approved direction and SID filtering.",
+      "test_steps": [
+        "Review domain and controller policy for LDAP signing, Kerberos pre-authentication, NTLM, SMBv1 and trust configuration, including documented exceptions.",
+        "Use authorised protocol tests to attempt unsigned LDAP, prohibited NTLM or SMBv1 and a Kerberos sign-in for sampled accounts; confirm insecure paths are rejected or constrained by an approved exception.",
+        "Enumerate domain and forest trusts and test selected cross-boundary authentication in both directions, confirming the documented direction, scope and SID filtering.",
+        "Trace failed legacy-protocol and trust-boundary attempts to monitoring, and verify every exception has an owner, business need, expiry date and compensating control."
+      ],
       "expected": "Directory authentication uses approved protected protocols, exceptions are justified and monitored, and each trust is necessary, documented and technically constrained to its intended boundary.",
       "related": ["MF-01", "IA-03", "NA-02", "OT-02"],
       "mappings": [
@@ -93,6 +117,12 @@
       "examine": "Compare critical identity systems with log-source coverage, event selections, alert and investigation records, backup schedules, encryption settings, storage locations, access lists and recovery procedures.",
       "interview": "Ask monitoring and recovery owners how directory attacks are detected, who can access identity backups and how they establish that retained copies can support a trusted rebuild.",
       "test": "Generate an authorised security event and trace it into central monitoring, then sample recent backup jobs and verify successful completion, encryption, restricted access and availability to the documented recovery process.",
+      "test_steps": [
+        "Generate authorised security events on AD DS, AD CS, AD FS and Entra Connect where deployed, including a failed privileged sign-in and a protected configuration change.",
+        "Trace each event to central monitoring and confirm source, actor, target, timestamp and outcome are preserved and a relevant detection rule creates the expected alert or investigation.",
+        "Select recent backups for each identity role and verify job success, encryption, isolated storage, retention and access limited to authorised backup or recovery personnel.",
+        "In an isolated recovery exercise or from recent evidence, verify the backup can supply the directory data and configuration needed by the documented trusted-rebuild sequence."
+      ],
       "expected": "Relevant identity events reach central monitoring in time for investigation, and current protected backups are available only to authorised recovery personnel.",
       "related": ["SM-01", "SM-03", "BR-02", "BR-03", "IR-02"],
       "mappings": [

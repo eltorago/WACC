@@ -11,6 +11,12 @@
       "examine": "Compare service inventories and recovery needs with backup schedules, retained copies and job results.",
       "interview": "Ask service owners how backup scope and acceptable data loss are agreed, and operators how failed jobs are resolved.",
       "test": "Sample critical services and verify successful backups cover all required components. Compare actual backup dates and retention with the approved requirements.",
+      "test_steps": [
+        "Select critical services and enumerate the data, configuration, software, credentials and dependencies required to restore each one.",
+        "Compare that set with backup policies, schedules, successful job records, retention and the most recent recoverable copy.",
+        "Inspect failed, partial and missed jobs and verify alerts reached an owner, retries or corrective actions completed and protection gaps were assessed.",
+        "Choose source records created before and after a backup boundary and confirm the retained copy aligns with the approved recovery-point requirement."
+      ],
       "expected": "Required components are covered; backup frequency and retention meet documented needs and source-specific minimums, and failures are resolved.",
       "related": [
         "BR-02",
@@ -46,6 +52,12 @@
       "examine": "Inspect backup access permissions, isolation arrangements, encryption where required and deletion protections.",
       "interview": "Ask the backup owner which failures or account compromises could affect both production and recovery copies.",
       "test": "Use authorised test records to verify access restrictions and deletion protection. Confirm that an isolated copy remains available when the primary environment is unavailable.",
+      "test_steps": [
+        "Select recovery copies across critical platforms and verify encryption, access control, administrative separation, deletion protection and retention against policy.",
+        "Using an authorised non-backup administrator, attempt to list, alter and delete a test copy and its policy; confirm the actions fail or trigger immediate alerting.",
+        "Simulate loss of the primary environment in an isolated test and verify at least one protected copy remains reachable through separately controlled recovery credentials.",
+        "Review changes to backup policy and administrative permissions and confirm they are centrally logged and reviewed independently of the production administrators."
+      ],
       "expected": "Recovery copies have appropriate protection and a tested separation from production failure or compromise; additional source-specific safeguards are verified.",
       "related": [
         "BR-01",
@@ -94,6 +106,12 @@
       "examine": "Inspect restore exercises, selected backup dates, data integrity checks and measured recovery results.",
       "interview": "Ask service owners how they confirm the recovered service is usable and how unresolved test failures are tracked.",
       "test": "Witness an authorised restore in an isolated environment. Check that related components reach a consistent point in time and compare service recovery and data loss with agreed objectives.",
+      "test_steps": [
+        "Choose a critical service and an approved recovery point without relying on the production team to preselect an easy backup.",
+        "Restore data, configuration and dependent components into an isolated environment using the documented procedure and authorised recovery identities.",
+        "Run integrity and business-function checks, reconcile record counts or transactions and measure actual restoration time and data loss against approved objectives.",
+        "Record manual interventions, failed steps and undocumented dependencies, then trace corrective actions to owners and a scheduled retest."
+      ],
       "expected": "The recovered service is usable, information is consistent and recovery objectives are met; test frequency satisfies applicable source conditions.",
       "related": [
         "BR-01",

@@ -11,6 +11,12 @@
       "examine": "Reconcile OT discovery, engineering, maintenance and network records with asset inventories, architecture diagrams and required attributes.",
       "interview": "Ask engineers and asset owners how unmanaged, legacy and transient devices are identified and how records change with the plant.",
       "test": "Sample physical and network-visible OT assets and flows and confirm each is accurately represented with ownership and criticality.",
+      "test_steps": [
+        "Select physical field devices, controllers, engineering workstations, network-visible assets and transient maintenance equipment across representative sites.",
+        "Reconcile observed assets and communications with the OT inventory, architecture and data-flow records in both directions.",
+        "Verify owner, function, criticality, location, firmware, configuration baseline, dependencies and last-seen information against engineering sources.",
+        "Introduce or observe an authorised maintenance device and confirm it is identified, approved, monitored and removed from active status after use."
+      ],
       "expected": "The recorded OT environment matches observed assets and flows and provides the context needed for risk, change and response decisions.",
       "related": ["OT-02", "OT-03", "AM-01"],
       "mappings": [
@@ -29,6 +35,12 @@
       "examine": "Inspect IT and OT diagrams, identity trusts, routes, firewall rules, jump-host controls, remote-access approvals and monitoring.",
       "interview": "Ask OT engineers and security owners how access needs are approved and how direct, obsolete or emergency connectivity is controlled.",
       "test": "Attempt authorised benign access from IT and remote paths, verifying that direct routes fail and approved brokered routes enforce authentication and monitoring.",
+      "test_steps": [
+        "Identify authorised IT-to-OT, supplier and remote-maintenance paths and the approved gateway, jump host, identity, time and service restrictions for each.",
+        "Perform a benign authorised connection through the brokered path and verify strong authentication, limited destination access, session recording and timely expiry.",
+        "Attempt direct access from IT, the internet, an unapproved identity and a prohibited service while respecting operational safety boundaries.",
+        "Confirm direct attempts fail and are visible to monitoring, and verify an emergency access path is separately approved, constrained and reviewed after use."
+      ],
       "expected": "IT and OT remain segmented, identity trust is not shared without explicit risk treatment, and necessary access is brokered, limited and monitored.",
       "related": ["OT-01", "OT-03", "NA-01"],
       "mappings": [
@@ -49,6 +61,12 @@
       "examine": "Review OT playbooks, safety and operations input, isolation options, manual fallback procedures, exercise records and improvement actions.",
       "interview": "Ask incident leaders and engineers how cyber containment decisions account for physical process safety and service continuity.",
       "test": "Run or inspect a recent scenario involving compromised IT-to-OT access, loss of connectivity or isolation of an affected OT segment.",
+      "test_steps": [
+        "Choose an OT scenario such as compromised remote access, loss of view, malware in an engineering workstation or isolation of a production segment.",
+        "Run a tabletop or safe technical exercise with operations, engineering, safety, cyber response, communications and relevant suppliers.",
+        "Require participants to decide isolation, evidence collection, manual operation and recovery actions and verify those choices respect process safety and service priorities.",
+        "Measure decision and recovery times, record unsafe or unavailable actions and trace corrective work to owners and a targeted retest."
+      ],
       "expected": "The playbook supports safe isolation and recovery, responsible people can execute it, and exercise findings are resolved.",
       "related": ["OT-01", "OT-02", "AW-02"],
       "mappings": [

@@ -11,6 +11,12 @@
       "examine": "Review business impact analyses, critical-service definitions, dependency maps, minimum operating requirements, recovery objectives and accountable approvals.",
       "interview": "Ask business and recovery owners how they determine service priorities, tolerable disruption and dependencies across internal and third-party services.",
       "test": "Sample critical services and trace approved recovery objectives to supporting systems, data, people, facilities and supplier arrangements.",
+      "test_steps": [
+        "Select critical services from the business impact analysis and reconcile their recovery time, recovery point, minimum service level and maximum tolerable outage with accountable approval.",
+        "Trace each objective to the systems, information, people, facilities, suppliers and manual workarounds required to meet it.",
+        "Compare component recovery capabilities and contracts with the service objective, identifying any dependency whose recovery time or data loss exceeds the business requirement.",
+        "Present material gaps to the service owner and verify they have an approved treatment, funded action or explicit residual-risk decision."
+      ],
       "expected": "Critical services have approved, achievable recovery objectives and complete dependency information that can guide restoration priorities.",
       "related": ["BC-02", "BR-02", "SC-02", "OT-01"],
       "mappings": [
@@ -29,6 +35,12 @@
       "examine": "Inspect continuity plans, emergency and incident-plan integration, dependencies, roles, contacts, alternative arrangements, restoration sequences and review history.",
       "interview": "Ask business, incident and recovery leaders how plans work together and how changes to services, suppliers and technology are reflected.",
       "test": "Walk a disruption scenario across related plans and verify consistent priorities, handoffs, dependencies, resource assumptions and restoration actions.",
+      "test_steps": [
+        "Choose a disruption affecting several dependencies and walk it through business continuity, technology recovery, crisis, communications and supplier plans.",
+        "At each handoff, verify the trigger, decision authority, contact, required information, fallback resource and restoration priority agree across the plans.",
+        "Contact a sample of named internal and external participants using maintained details and confirm they can access the current plan and required recovery resources.",
+        "Change one documented assumption for the exercise and confirm the plans identify the resulting dependency conflict and an authorised alternative."
+      ],
       "expected": "Plans are current and mutually consistent, sustain defined minimum operations and provide workable restoration actions across key dependencies.",
       "related": ["BC-01", "BC-03", "IR-01", "BR-03"],
       "mappings": [
@@ -49,6 +61,12 @@
       "examine": "Review the exercise program, scenarios, participants, observed results, measured recovery performance, corrective actions, owners and completion evidence.",
       "interview": "Ask business and recovery leaders how scenarios reflect material risks and how failed assumptions or missed objectives change plans and investment decisions.",
       "test": "Sample exercises and trace significant observations through approved corrective actions to verified completion and updated continuity arrangements.",
+      "test_steps": [
+        "Select recent exercises covering different critical services and disruption types and compare their scope and frequency with the approved exercise schedule.",
+        "Inspect objectives, participants, scenario injects, decisions, measured recovery performance and evidence that the exercise tested rather than merely discussed the plan.",
+        "Trace significant observations to accountable actions, due dates, escalation of overdue work and updates to plans, resources or training.",
+        "Recheck a previously failed capability in a later exercise or targeted test and verify closure is based on improved performance."
+      ],
       "expected": "Exercises address priority risks, measure performance against objectives and produce verified improvements to plans, capability and dependencies.",
       "related": ["BC-01", "BC-02", "IR-03", "BR-03"],
       "mappings": [

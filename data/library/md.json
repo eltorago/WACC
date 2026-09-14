@@ -11,6 +11,12 @@
       "examine": "Inspect the media register, information classification, selected sanitisation method, operator records and verification results.",
       "interview": "Ask information owners and disposal staff how methods are selected and how failed or unsupported sanitisation is handled.",
       "test": "Sample sanitised media and verify the recorded method was completed and checked before release or reuse.",
+      "test_steps": [
+        "Select recently sanitised media across relevant types, classifications, destinations and reuse or disposal outcomes.",
+        "Compare the recorded sanitisation technique, tool version, parameters and verification with the approved method for that media and information sensitivity.",
+        "Independently inspect a sample using an appropriate read or recovery check to confirm protected information is not accessible after sanitisation.",
+        "Verify release, reuse or inventory removal occurred only after successful verification, and failed media moved to secure destruction."
+      ],
       "expected": "Each sampled item has an approved disposition, a suitable completed method and recorded verification before it leaves control.",
       "related": ["MD-02"],
       "mappings": [
@@ -28,6 +34,12 @@
       "examine": "Review destruction decisions, authorisations, chain-of-custody records, certificates and reconciliation with the media register.",
       "interview": "Ask media custodians how they decide that sanitisation is not possible and how destruction is witnessed and reconciled.",
       "test": "Trace sampled media from decision through secure storage, transport, destruction evidence and removal from inventory.",
+      "test_steps": [
+        "Select media designated for destruction, including failed sanitisation, damaged devices and media handled by an external destruction provider.",
+        "Trace custody from inventory and secure holding through authorised transfer, transport, destruction method and witnessed or provider evidence.",
+        "Inspect the destroyed result or a witnessed representative process to confirm reconstruction or data recovery is impractical for the media type.",
+        "Reconcile certificates, serial numbers and dates with inventory removal and investigate missing items, duplicate certificates or unexplained custody gaps."
+      ],
       "expected": "Media that cannot be safely sanitised is controlled and destroyed, with complete authorisation and custody evidence.",
       "related": ["MD-01"],
       "mappings": [

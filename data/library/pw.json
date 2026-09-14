@@ -11,6 +11,12 @@
       "examine": "Compare password standards with configured minimum and maximum lengths, accepted characters, composition rules, history and reuse settings for representative identity stores and applications.",
       "interview": "Ask identity and service owners how requirements differ by authentication type, how unsupported applications are handled and how usability problems are prevented from creating workarounds.",
       "test": "Use authorised test accounts to attempt short, reused and long valid passwords, confirming that prohibited values fail and supported passphrases work consistently across sign-in and reset paths.",
+      "test_steps": [
+        "Select representative identity stores and applications using passwords alone and with MFA, including sign-in, change, reset and administrative creation paths.",
+        "Attempt values below the required minimum, at the minimum, long passphrases, all supported printable characters and a password used by another sampled account.",
+        "Confirm prohibited values and reuse are rejected consistently while valid long passwords work without truncation or hidden composition requirements.",
+        "Inspect effective verifier policy and exception records and remove or reset all test credentials after recording the actual outcomes."
+      ],
       "expected": "Password controls enforce approved length and reuse rules, support long usable values and do not depend on predictable composition patterns.",
       "related": ["PW-02", "PW-03", "IA-03", "MF-01"],
       "mappings": [
@@ -34,6 +40,12 @@
       "examine": "Inspect password-filter sources and update dates, blocked-value policy, failed-authentication telemetry, rate limits, lockout settings, recovery controls and exception handling.",
       "interview": "Ask identity and monitoring teams how compromised-password intelligence is updated, spraying is detected and locked or attacked accounts are safely recovered.",
       "test": "Attempt authorised creation of common and known-compromised passwords, then perform a controlled sequence of failed sign-ins and verify rejection, throttling or lockout, alerting and safe recovery.",
+      "test_steps": [
+        "Confirm the password filter uses a current source of common, expected and compromised values and applies to creation, change, reset and administrative assignment.",
+        "Attempt authorised selection of representative blocked passwords, including organisation-specific predictable terms, and verify rejection without revealing unnecessary detail.",
+        "Perform a controlled sequence of failed sign-ins across one account and several accounts to exercise guessing and password-spraying protections.",
+        "Verify throttling or lockout, central event and alert creation, safe account recovery and documented handling for any exempt break-glass identity."
+      ],
       "expected": "Known weak passwords cannot be selected, automated guessing is constrained and visible, and recovery does not restore access without appropriate identity checks.",
       "related": ["PW-01", "PW-03", "SM-03", "AD-04", "IA-03"],
       "mappings": [
@@ -53,6 +65,12 @@
       "examine": "Review password-manager architecture and access, searches for readable credentials, application password-storage schemes, salts and work factors, protected transmission and migration plans for obsolete hashes.",
       "interview": "Ask identity, application and platform owners how passwords enter approved stores, how exposed credentials are found and changed and how vault administrators are controlled and monitored.",
       "test": "Sample applications and shared repositories for readable passwords, inspect representative stored verifiers and transmission paths, and verify that managed passwords are generated, access-controlled and auditable.",
+      "test_steps": [
+        "Select applications, password vaults, configuration stores, shared repositories and transmission paths that create, hold or use passwords.",
+        "Inspect stored verifiers for unique salts, approved password hashing and work factors, and confirm cleartext or reversibly encrypted passwords are absent.",
+        "Use a controlled marker to search shared files, scripts, logs and collaboration locations and verify discovery and response for readable credentials.",
+        "Generate and retrieve a managed password through an authorised user, verify access control and audit logging, then rotate it and confirm the old value no longer works."
+      ],
       "expected": "Passwords are not recoverable from ordinary storage, approved managers protect necessary shared secrets, and verifier data and transmission resist offline theft and interception.",
       "related": ["PW-01", "PW-02", "IA-03", "CK-01", "AD-03"],
       "mappings": [
