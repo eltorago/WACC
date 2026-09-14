@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "topic": "Password security",
+  "controls": [
+    {
+      "id": "PW-01",
+      "title": "Enforce usable password standards",
+      "statement": "Require passwords and passphrases of appropriate length, allow long and usable values, prevent reuse, and avoid composition rules that encourage predictable choices.",
+      "risk": "Attackers may guess or crack short, reused or predictable passwords and use them to impersonate trusted users across several systems.",
+      "scope": "Human and non-human accounts that use passwords for single-factor or multi-factor authentication, including verifier configuration and password changes.",
+      "examine": "Compare password standards with configured minimum and maximum lengths, accepted characters, composition rules, history and reuse settings for representative identity stores and applications.",
+      "interview": "Ask identity and service owners how requirements differ by authentication type, how unsupported applications are handled and how usability problems are prevented from creating workarounds.",
+      "test": "Use authorised test accounts to attempt short, reused and long valid passwords, confirming that prohibited values fail and supported passphrases work consistently across sign-in and reset paths.",
+      "expected": "Password controls enforce approved length and reuse rules, support long usable values and do not depend on predictable composition patterns.",
+      "related": ["PW-02", "PW-03", "IA-03", "MF-01"],
+      "mappings": [
+        {"uid":"ism:ism-421","relationship":"Partially addresses","basis":"Requires a minimum of 15 characters for single-factor passwords on non-classified, OFFICIAL: Sensitive and PROTECTED systems.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-2079","relationship":"Partially addresses","basis":"Requires password maximum lengths to support at least 64 characters.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-2080","relationship":"Partially addresses","basis":"Prohibits password complexity requirements.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-2081","relationship":"Partially addresses","basis":"Requires support for all printable ASCII characters in passwords.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-63:63b §3.1.1.2#1","relationship":"Partially addresses","basis":"Sets minimum lengths for passwords used in single-factor and multi-factor authentication.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-63:63b §3.1.1.2#2","relationship":"Partially addresses","basis":"Recommends support for password lengths of at least 64 characters.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:5.2","relationship":"Partially addresses","basis":"Requires unique passwords across enterprise assets and gives length guidance based on MFA use.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:access-1d","relationship":"Partially addresses","basis":"Requires password strength and reuse restrictions to be defined and enforced.","provenance":"Locally reviewed mapping"},
+        {"uid":"c2m2:access-1d","relationship":"Partially addresses","basis":"Requires password strength and reuse restrictions to be defined and enforced.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "PW-02",
+      "title": "Block compromised passwords and guessing attacks",
+      "statement": "Reject common, expected and compromised passwords, monitor repeated failures, and limit automated guessing without creating unsafe recovery paths.",
+      "risk": "A password spraying or automated guessing attack could compromise accounts at scale without needing to steal individual credentials.",
+      "scope": "Password creation and reset, compromised-password data, password filters, authentication failure controls, lockout or rate limiting and account recovery.",
+      "examine": "Inspect password-filter sources and update dates, blocked-value policy, failed-authentication telemetry, rate limits, lockout settings, recovery controls and exception handling.",
+      "interview": "Ask identity and monitoring teams how compromised-password intelligence is updated, spraying is detected and locked or attacked accounts are safely recovered.",
+      "test": "Attempt authorised creation of common and known-compromised passwords, then perform a controlled sequence of failed sign-ins and verify rejection, throttling or lockout, alerting and safe recovery.",
+      "expected": "Known weak passwords cannot be selected, automated guessing is constrained and visible, and recovery does not restore access without appropriate identity checks.",
+      "related": ["PW-01", "PW-03", "SM-03", "AD-04", "IA-03"],
+      "mappings": [
+        {"uid":"ism:ism-2078","relationship":"Directly addresses","basis":"Prohibits passwords found in commonly used or compromised-password lists.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:ia-5.1","relationship":"Partially addresses","basis":"Requires maintained common and compromised-password lists, password filtering, protected transmission and storage, and secure post-recovery changes.","provenance":"Locally reviewed mapping"},
+        {"uid":"wa-csp:3.6c","relationship":"Partially addresses","basis":"Requires a password-filtering solution for all user accounts as part of account management and monitoring.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-63:63b §3.2.2#1","relationship":"Partially addresses","basis":"Requires controls against online guessing and limits consecutive failed authentication attempts.","provenance":"Locally reviewed mapping"},
+        {"uid":"asd-ad:appendix a §mitigating password spraying#3","relationship":"Partially addresses","basis":"Requires user objects, other than break-glass accounts, to lock after no more than five failed logon attempts.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "PW-03",
+      "title": "Protect stored and managed passwords",
+      "statement": "Keep passwords out of readable stores, use approved password managers or resistant salted password hashing, and protect transmission and administrative access to credential stores.",
+      "risk": "One exposed document, database or credential vault could reveal reusable passwords and turn a local compromise into widespread unauthorised access.",
+      "scope": "Password managers, application databases, configuration, documents, shared locations, transmission channels, salts, password hashing and administrative access.",
+      "examine": "Review password-manager architecture and access, searches for readable credentials, application password-storage schemes, salts and work factors, protected transmission and migration plans for obsolete hashes.",
+      "interview": "Ask identity, application and platform owners how passwords enter approved stores, how exposed credentials are found and changed and how vault administrators are controlled and monitored.",
+      "test": "Sample applications and shared repositories for readable passwords, inspect representative stored verifiers and transmission paths, and verify that managed passwords are generated, access-controlled and auditable.",
+      "expected": "Passwords are not recoverable from ordinary storage, approved managers protect necessary shared secrets, and verifier data and transmission resist offline theft and interception.",
+      "related": ["PW-01", "PW-02", "IA-03", "CK-01", "AD-03"],
+      "mappings": [
+        {"uid":"ism:ism-1402","relationship":"Directly addresses","basis":"Requires stored credentials to use a password manager, hardware security module, or salted, hashed and stretched database storage.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:ia-5.1","relationship":"Partially addresses","basis":"Requires passwords to be transmitted over protected channels and stored with an approved salted key-derivation function.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:ia-5.18","relationship":"Partially addresses","basis":"Requires password managers to generate and manage passwords and protect the passwords they hold.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-63:63b §3.1.1.2#3","relationship":"Partially addresses","basis":"Requires per-password salts and resistant password hashing with scheme and work-factor information retained for migration.","provenance":"Locally reviewed mapping"},
+        {"uid":"oag-wa:report-12 2.3.4","relationship":"Partially addresses","basis":"Calls for centrally managed password storage, individual monitored vault access and discovery of readable passwords in shared content.","provenance":"Locally reviewed mapping"}
+      ]
+    }
+  ]
+}

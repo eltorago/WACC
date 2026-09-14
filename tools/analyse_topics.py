@@ -15,6 +15,30 @@ from wacc.serve import State
 # These patterns represent every workspace topic rather than broad security domains.
 # A corpus entry may support more than one topic, so topic counts intentionally overlap.
 TOPIC_PATTERNS = {
+    "RM": (
+        "Cybersecurity risk assessment",
+        r"\b(risk assessments?|risk analysis|assess(?:ing|ed)? (?:the )?(?:cyber ?security|"
+        r"security) risk|risk register|risk treatment plans?)\b",
+    ),
+    "ST": (
+        "Security testing and assurance",
+        r"\b(penetration test(?:ing|s)?|security control assessments?|control assessments?|"
+        r"security testing|independent assessment|red team(?:ing)?|assurance activities)\b",
+    ),
+    "MW": (
+        "Mobile and wireless security",
+        r"\b(mobile devices?|wireless (?:access|networks?|communications?|security)|"
+        r"wi-?fi|bluetooth)\b",
+    ),
+    "PI": (
+        "Privacy and personal information",
+        r"\b(personally identifiable information|personal information|privacy risk|"
+        r"privacy program|privacy controls?|privacy impact assessment)\b",
+    ),
+    "PW": (
+        "Password security",
+        r"\b(passwords?|passphrases?|password managers?)\b",
+    ),
     "AD": (
         "Active Directory security",
         r"\b(active directory|ad ds|domain controllers?|domain admins?|dcsync|"

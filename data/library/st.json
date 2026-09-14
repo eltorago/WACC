@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "topic": "Security testing and assurance",
+  "controls": [
+    {
+      "id": "ST-01",
+      "title": "Assess whether security controls work",
+      "statement": "Plan and perform evidence-based assessments that determine whether security controls are correctly implemented, operating as intended and effective for their risk.",
+      "risk": "Leaders may rely on controls that exist on paper but fail in practice, allowing preventable incidents and overstating the organisation's security position.",
+      "scope": "Security controls in systems and operating environments, assessment plans, assessors, procedures, evidence, reports and assurance schedules.",
+      "examine": "Compare the assessment schedule and approved plans with system risk, control scope, assessor competence and independence, procedures used, evidence retained and final reports.",
+      "interview": "Ask authorising officers, control owners and assessors how scope and depth are chosen, conflicts are managed and effectiveness conclusions are supported.",
+      "test": "Select completed assessments and independently repeat a small sample of procedures, checking whether the evidence supports the reported design, implementation and operating conclusions.",
+      "expected": "Assessments cover the relevant controls and environment, use suitable assessors and repeatable procedures, and reach conclusions supported by current evidence.",
+      "related": ["ST-02", "ST-03", "GV-01", "SM-03"],
+      "mappings": [
+        {"uid":"ism:ism-1636","relationship":"Directly addresses","basis":"Requires security control assessments to determine whether controls are implemented correctly and operating as intended.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1563","relationship":"Partially addresses","basis":"Defines the scope, strengths, weaknesses, risks, effectiveness and remediation content of a security assessment report.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:ca-2","relationship":"Directly addresses","basis":"Requires an approved control-assessment plan, suitable assessors and recurring assessment of control effectiveness.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:ca-2.1","relationship":"Partially addresses","basis":"Requires independent assessors or assessment teams for control assessments.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:gov-3","relationship":"Partially addresses","basis":"Requires security risk management activity to be subject to ongoing monitoring and board or executive assurance.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "ST-02",
+      "title": "Test systems as an attacker would",
+      "statement": "Conduct authorised penetration and adversarial testing at defined intervals and before significant deployment or change, using qualified testers and controlled rules of engagement.",
+      "risk": "Exploitable weaknesses may remain hidden until a real attacker uses them if testing never combines vulnerabilities into realistic attack paths.",
+      "scope": "External and internal systems, applications, APIs, hosted services, network paths, physical premises where applicable, testers and rules of engagement.",
+      "examine": "Review the testing program, risk-based scope, frequency, pre-deployment and change triggers, tester qualifications, independence, authorisation, safety limits and reports.",
+      "interview": "Ask service owners and testers how critical attack paths are selected, operational harm is prevented and exclusions or constraints affect assurance.",
+      "test": "Trace a sample of critical and recently changed services to completed testing and verify that authorised scenarios covered realistic internal, external and application attack paths.",
+      "expected": "Critical and changed services receive timely, authorised testing by qualified people, with controlled execution and clear, reproducible findings.",
+      "related": ["ST-01", "ST-03", "VM-01", "SD-03", "NA-03"],
+      "mappings": [
+        {"uid":"ism:ism-2118","relationship":"Directly addresses","basis":"Requires vulnerability assessment and penetration testing before deployment, before significant changes and at least every six months.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:ca-8","relationship":"Directly addresses","basis":"Requires penetration testing of defined systems or system components at a defined frequency.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:18.1","relationship":"Directly addresses","basis":"Requires a penetration-testing program with defined scope, frequency, limitations, contacts, remediation routing and retrospectives.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:18.2","relationship":"Partially addresses","basis":"Requires at least annual external penetration testing by a qualified party.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:architecture-4h","relationship":"Partially addresses","basis":"Requires periodic and trigger-based security testing, including penetration testing, for internally developed or tailored applications.","provenance":"Locally reviewed mapping"},
+        {"uid":"c2m2:architecture-4h","relationship":"Partially addresses","basis":"Requires periodic and trigger-based security testing, including penetration testing, for internally developed or tailored applications.","provenance":"Locally reviewed mapping"},
+        {"uid":"ztmm:applications and workloads/application security testing","relationship":"Partially addresses","basis":"Describes progression from manual pre-deployment testing to integrated static, dynamic and expert analysis.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "ST-03",
+      "title": "Remediate and verify assurance findings",
+      "statement": "Assign, prioritise and track assessment findings to an accepted resolution, then verify that remediation works and update detection or control design where needed.",
+      "risk": "Repeated assessments provide little protection if serious findings remain open, ineffective fixes are accepted or the same attack succeeds again.",
+      "scope": "Findings from control assessments, penetration tests, audits and continuous monitoring, including remediation plans, owners, due dates, exceptions and retests.",
+      "examine": "Reconcile assessment reports with remediation plans, risk ratings, owners, deadlines, accepted exceptions, closure evidence, retest results and resulting control changes.",
+      "interview": "Ask finding owners and risk owners how priorities are agreed, overdue work is escalated and closure is independently verified.",
+      "test": "Sample high, overdue and closed findings and confirm ownership and treatment decisions, then repeat the relevant check to verify that closed weaknesses are no longer exploitable.",
+      "expected": "Findings remain visible until an authorised resolution, overdue actions are escalated, and closure is supported by a successful retest or equivalent verification.",
+      "related": ["ST-01", "ST-02", "RM-03", "VM-02", "SD-03"],
+      "mappings": [
+        {"uid":"ism:ism-1564","relationship":"Directly addresses","basis":"Requires the system owner to produce a plan of action and milestones after a security control assessment.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1563","relationship":"Partially addresses","basis":"Requires assessment reports to include recommended remediation actions alongside control-effectiveness findings.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:ca-5","relationship":"Directly addresses","basis":"Requires a maintained plan of action and milestones for weaknesses found through assessments, audits and monitoring.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:18.3","relationship":"Directly addresses","basis":"Requires penetration-test findings to be remediated according to defined scope and priority.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:18.4","relationship":"Directly addresses","basis":"Requires security measures to be validated after testing and detection capabilities to be updated where needed.","provenance":"Locally reviewed mapping"}
+      ]
+    }
+  ]
+}

@@ -2,8 +2,8 @@
 
 WA Control Crosswalk. See [running instructions](HOW-TO-RUN.md).
 
-The home page opens a control-centred library with 68 controls across 25 topics,
-assessment guidance, executive-level business risks and 303 reviewed source references.
+The home page opens a control-centred library with 83 controls across 30 topics,
+assessment guidance, executive-level business risks and 393 reviewed source references.
 Framework selection scopes the control list, source references and CSV mapping export.
 The full publisher corpus remains available through **Browse source corpus**.
 
