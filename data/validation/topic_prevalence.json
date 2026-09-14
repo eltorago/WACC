@@ -1,66 +1,109 @@
 {
-  "method": "Explicit topic-pattern matches on assessable entries; duplicate text within each framework counted once. Topics overlap. Counts measure mentions, not importance or compliance. Mean framework share gives each loaded framework equal weight. Only loaded corpus content is counted.",
+  "method": "Explicit phrase matches for each of the 19 Control workspace topics against assessable corpus entries. Duplicate text within a framework is counted once; topics overlap. Counts measure how often the corpus states the subject, not its importance, implementation priority or compliance status.",
+  "rating_scale": {
+    "5 - Very high": "200 or more matching entries",
+    "4 - High": "100 to 199 matching entries",
+    "3 - Medium": "50 to 99 matching entries",
+    "2 - Low": "20 to 49 matching entries",
+    "1 - Very low": "fewer than 20 matching entries"
+  },
+  "rating_distribution": {
+    "Very high": 1,
+    "High": 2,
+    "Medium": 9,
+    "Low": 4,
+    "Very low": 3
+  },
   "patterns": {
-    "Risk and governance": "\\b(risk (?:assessment|management|register|tolerance|appetite)|assess\\w* risks?|governance|security (?:polic(?:y|ies)|strategy)|accountab\\w*|security roles|security responsibilities)\\b",
-    "Identity and access management": "\\b(access control|access (?:rights|privileges|permissions|authori[sz]ations)|accounts?|authenticat\\w*|credentials?|identities|identity|least privilege|passwords?)\\b",
-    "Incident management": "\\b(incidents?|incident response|incident handling|incident reporting)\\b",
-    "Asset management": "\\b(asset (?:inventory|inventories|management|register)|inventor\\w*|assets? (?:are|is) identified|hardware assets?|software assets?)\\b",
-    "Data protection": "\\b(data (?:classif\\w*|protect\\w*|retention|loss|handling)|information (?:classif\\w*|handling)|sensitive (?:data|information)|personally identifiable|privacy)\\b",
-    "Network security": "\\b(network (?:segmentation|security|boundar\\w*)|firewalls?|gateways?|boundary protection|remote access|network traffic|wireless)\\b",
-    "Cryptography": "\\b(cryptograph\\w*|encrypt\\w*|cipher\\w*|cryptographic keys?|key management)\\b",
-    "Supply chain": "\\b(supply chain|suppliers?|third.part(?:y|ies)|service providers?|outsourc\\w*|vendors?)\\b",
-    "Secure configuration": "\\b(configuration (?:settings?|management|baselines?|changes?|standards?)|harden\\w*|least functionality|default settings?|unnecessary (?:services|ports))\\b",
-    "Security monitoring": "\\b(logs?|logging|audit records?|security monitoring|intrusion detection|continuous monitoring)\\b",
-    "Vulnerability management": "\\b(vulnerabilit\\w*|patch\\w*|security updates?|unsupported software)\\b",
-    "Backup and recovery": "\\b(backups?|backed up|restor\\w*|disaster recovery|recovery (?:time|point|plans?))\\b",
-    "Security awareness": "\\b(training|awareness|security education|security literacy)\\b",
-    "Physical security": "\\b(physical (?:access|security|protection)|visitors?|secure areas?|perimeter|facility access)\\b",
-    "Secure development": "\\b(software development|development (?:life.?cycle|environment)|secure (?:coding|development)|source code|application security|code review)\\b",
-    "Media handling": "\\b(saniti[sz]\\w*|media (?:disposal|storage|transport|protection)|removable media|degauss\\w*)\\b",
-    "Business continuity": "\\b(business continuity|contingency (?:plans?|planning)|continuity (?:plans?|planning)|resilien\\w*)\\b"
+    "PA": {
+      "topic": "Privileged access",
+      "pattern": "\\b(privileged (?:access|accounts?|users?|operations?)|administrative (?:access|accounts?|privileges?)|administrator accounts?|least privilege|elevated privilege|domain admin)\\b"
+    },
+    "BR": {
+      "topic": "Backup and recovery",
+      "pattern": "\\b(backups?|backed up|restor(?:e|ation|ations|ing)|disaster recovery|recovery (?:time|point|plans?|copies|data)|reconstitution)\\b"
+    },
+    "SM": {
+      "topic": "Security monitoring",
+      "pattern": "\\b(event logs?|audit logs?|audit records?|central(?:ised|ized) logging|log (?:collection|monitoring|retention|review)|security monitoring|intrusion detection|continuous monitoring)\\b"
+    },
+    "VM": {
+      "topic": "Vulnerability management",
+      "pattern": "\\b(vulnerabilit\\w*|patch(?:es|ed|ing)?|security updates?|vulnerability scanning|unsupported software|end.of.support)\\b"
+    },
+    "MF": {
+      "topic": "Multi-factor authentication",
+      "pattern": "\\b(multi.factor authentication|multifactor authentication|two.factor authentication|second factor|mfa)\\b"
+    },
+    "AP": {
+      "topic": "Application control",
+      "pattern": "\\b(application control|application allowlist\\w*|software allowlist\\w*|allow.by.exception|permit.by.exception|authori[sz]ed software|unauthori[sz]ed (?:software|code|scripts?|libraries))\\b"
+    },
+    "CK": {
+      "topic": "Cryptographic keys and algorithms",
+      "pattern": "\\b(cryptographic (?:keys?|algorithms?|protocols?|protection)|key management|key (?:length|size|generation|storage|destruction|revocation)|cryptoperiod|cipher suites?|approved cryptography|security strength)\\b"
+    },
+    "MD": {
+      "topic": "Media sanitisation and disposal",
+      "pattern": "\\b(saniti[sz](?:e|ed|es|ing|ation)|secure disposal|media (?:disposal|destruction|saniti[sz]ation)|degauss\\w*|cryptographic erase|destroy media)\\b"
+    },
+    "IN": {
+      "topic": "Incident notification timeframes",
+      "pattern": "\\b(incident (?:notification|reporting)|report (?:a |the )?cyber security incident|notify .*cyber security incident|notifiable incident|within (?:4|12|24|72) hours)\\b"
+    },
+    "SC": {
+      "topic": "Supply chain and third-party risk",
+      "pattern": "\\b(supply chain|suppliers?|third.part(?:y|ies)|service providers?|outsourc\\w*|vendors?|subcontractors?)\\b"
+    },
+    "UH": {
+      "topic": "User application hardening",
+      "pattern": "\\b(user application hardening|office productivity suites?|pdf software|web browsers?.{0,30}harden|browser hardening|child processes?|object linking and embedding|ole packages?)\\b"
+    },
+    "OM": {
+      "topic": "Restrict Microsoft Office macros",
+      "pattern": "\\b(microsoft office macros?|office macros?|macro settings?|macro security|trusted publishers?|trusted locations?|win32 api calls?)\\b"
+    },
+    "GV": {
+      "topic": "Governance and cybersecurity program management",
+      "pattern": "\\b(cyber ?security governance|cyber ?security program|risk management strategy|accountable authorit\\w*|risk executive|governance arrangements?|security governance|program oversight)\\b"
+    },
+    "PS": {
+      "topic": "Personnel security",
+      "pattern": "\\b(personnel security|personnel screening|pre.employment screening|background checks?|personnel (?:termination|transfer)|rescreen\\w*|security clearances?|employment screening)\\b"
+    },
+    "PH": {
+      "topic": "Physical security",
+      "pattern": "\\b(physical (?:security|access|protection|barriers?)|facility access|security zones?|secure areas?|physical perimeter|visitor access|access cards?|security guards?)\\b"
+    },
+    "AM": {
+      "topic": "Asset inventory and configuration/change management",
+      "pattern": "\\b(asset (?:inventory|inventories|register|management)|enterprise asset inventory|software inventory|system component inventory|configuration (?:baseline|baselines|management|change control)|change management|secure configurations?)\\b"
+    },
+    "NA": {
+      "topic": "Network architecture and segmentation",
+      "pattern": "\\b(network (?:architecture|segmentation|segregation|boundaries)|security zones?|boundary protection|managed interfaces?|demilitari[sz]ed zone|network zones?|segment(?:ed|ing) networks?)\\b"
+    },
+    "AW": {
+      "topic": "Security awareness and workforce training",
+      "pattern": "\\b(security awareness|cyber ?security awareness|literacy training|role.based training|role.specific training|security culture|workforce (?:training|development)|awareness training)\\b"
+    },
+    "OT": {
+      "topic": "Operational technology security",
+      "pattern": "\\b(operational technology|ot (?:assets?|networks?|systems?|environment|environments|security|playbooks?)|it and ot|it.ot segmentation|industrial control systems?|scada|field devices?)\\b"
+    }
   },
   "loaded_controls": 5321,
   "eligible_entries": 4328,
   "eligible_frameworks": 18,
   "topics": [
     {
-      "topic": "Identity and access management",
-      "controls": 537,
-      "frameworks": 15,
-      "mean_framework_share": 15.04,
-      "per_framework": {
-        "aescsf": 35,
-        "asd-ad": 19,
-        "c2m2": 24,
-        "cirmp-rules": 9,
-        "cis-controls": 28,
-        "csf": 6,
-        "ism": 194,
-        "nist-800-53": 131,
-        "nist-800-57pt1": 3,
-        "nist-800-63": 31,
-        "oag-wa": 22,
-        "pspf": 7,
-        "soci-act": 1,
-        "wa-csp": 14,
-        "ztmm": 13
-      },
-      "sample_uids": [
-        "ism:ide-1",
-        "ism:pro-13",
-        "ism:pro-12",
-        "ism:pro-8",
-        "ism:pro-15",
-        "ism:det-4",
-        "ism:ism-1530",
-        "ism:ism-2071"
-      ]
-    },
-    {
-      "topic": "Supply chain",
-      "controls": 287,
+      "code": "SC",
+      "topic": "Supply chain and third-party risk",
+      "controls": 289,
       "frameworks": 12,
-      "mean_framework_share": 6.78,
+      "frequency_score": 5,
+      "frequency_rating": "Very high",
+      "mean_framework_share": 6.81,
       "per_framework": {
         "aescsf": 26,
         "c2m2": 27,
@@ -68,9 +111,9 @@
         "cis-controls": 25,
         "csf": 17,
         "ism": 98,
-        "nist-800-53": 35,
+        "nist-800-53": 36,
         "oag-wa": 11,
-        "pspf": 11,
+        "pspf": 12,
         "soci-act": 6,
         "wa-csp": 21,
         "ztmm": 2
@@ -84,167 +127,21 @@
         "ism:ism-1452",
         "ism:ism-1567",
         "ism:ism-1568"
-      ]
+      ],
+      "rank": 1
     },
     {
-      "topic": "Incident management",
-      "controls": 257,
-      "frameworks": 12,
-      "mean_framework_share": 7.32,
-      "per_framework": {
-        "aescsf": 34,
-        "c2m2": 26,
-        "cirmp-rules": 3,
-        "cis-controls": 13,
-        "csf": 27,
-        "ism": 31,
-        "nist-800-53": 49,
-        "oag-wa": 3,
-        "pspf": 6,
-        "soci-act": 39,
-        "wa-circular": 3,
-        "wa-csp": 23
-      },
-      "sample_uids": [
-        "ism:pro-16",
-        "ism:det-3",
-        "ism:res-1",
-        "ism:res-5",
-        "ism:res-3",
-        "ism:res-2",
-        "ism:res-4",
-        "ism:rec-2"
-      ]
-    },
-    {
-      "topic": "Risk and governance",
-      "controls": 236,
-      "frameworks": 12,
-      "mean_framework_share": 6.97,
-      "per_framework": {
-        "aescsf": 18,
-        "c2m2": 23,
-        "cirmp-rules": 1,
-        "cis-controls": 1,
-        "csf": 24,
-        "ism": 30,
-        "nist-800-53": 37,
-        "oag-wa": 3,
-        "pspf": 37,
-        "soci-act": 8,
-        "wa-csp": 47,
-        "ztmm": 7
-      },
-      "sample_uids": [
-        "ism:gov-1",
-        "ism:gov-8",
-        "ism:gov-9",
-        "ism:gov-3",
-        "ism:gov-7",
-        "ism:ide-4",
-        "ism:pro-5",
-        "ism:ism-1999"
-      ]
-    },
-    {
-      "topic": "Data protection",
-      "controls": 198,
-      "frameworks": 11,
-      "mean_framework_share": 2.47,
-      "per_framework": {
-        "aescsf": 16,
-        "c2m2": 2,
-        "cis-controls": 17,
-        "csf": 1,
-        "ism": 11,
-        "nist-800-53": 142,
-        "nist-800-88": 1,
-        "oag-wa": 1,
-        "soci-act": 4,
-        "wa-csp": 2,
-        "ztmm": 1
-      },
-      "sample_uids": [
-        "ism:ism-2107",
-        "ism:ism-1145",
-        "ism:ism-1298",
-        "ism:ism-1504",
-        "ism:ism-1679",
-        "ism:ism-1680",
-        "ism:ism-1920",
-        "ism:ism-2046"
-      ]
-    },
-    {
-      "topic": "Cryptography",
-      "controls": 172,
-      "frameworks": 13,
-      "mean_framework_share": 7.97,
-      "per_framework": {
-        "aescsf": 3,
-        "asd-ad": 5,
-        "c2m2": 3,
-        "cis-controls": 7,
-        "ism": 70,
-        "nist-800-131a": 11,
-        "nist-800-53": 34,
-        "nist-800-57pt1": 6,
-        "nist-800-63": 21,
-        "nist-800-88": 4,
-        "oag-wa": 1,
-        "pspf": 2,
-        "ztmm": 5
-      },
-      "sample_uids": [
-        "ism:pro-8",
-        "ism:pro-17",
-        "ism:ism-1974",
-        "ism:ism-1053",
-        "ism:ism-1975",
-        "ism:ism-1530",
-        "ism:ism-231",
-        "ism:ism-232"
-      ]
-    },
-    {
-      "topic": "Security monitoring",
-      "controls": 162,
-      "frameworks": 12,
-      "mean_framework_share": 3.52,
-      "per_framework": {
-        "aescsf": 19,
-        "asd-ad": 7,
-        "c2m2": 11,
-        "cirmp-rules": 3,
-        "cis-controls": 19,
-        "csf": 2,
-        "ism": 35,
-        "nist-800-53": 55,
-        "oag-wa": 5,
-        "pspf": 1,
-        "wa-csp": 2,
-        "ztmm": 3
-      },
-      "sample_uids": [
-        "ism:det-1",
-        "ism:ism-1573",
-        "ism:ism-1163",
-        "ism:ism-1623",
-        "ism:ism-1624",
-        "ism:ism-1607",
-        "ism:ism-1688",
-        "ism:ism-1689"
-      ]
-    },
-    {
+      "code": "VM",
       "topic": "Vulnerability management",
-      "controls": 149,
+      "controls": 153,
       "frameworks": 13,
-      "mean_framework_share": 2.8,
+      "frequency_score": 4,
+      "frequency_rating": "High",
+      "mean_framework_share": 2.85,
       "per_framework": {
-        "aescsf": 19,
+        "aescsf": 21,
         "asd-ad": 1,
-        "c2m2": 15,
+        "c2m2": 17,
         "cirmp-rules": 1,
         "cis-controls": 17,
         "csf": 4,
@@ -265,105 +162,92 @@
         "ism:ism-1366",
         "ism:ism-1606",
         "ism:ism-1643"
-      ]
+      ],
+      "rank": 2
     },
     {
-      "topic": "Network security",
-      "controls": 141,
-      "frameworks": 11,
-      "mean_framework_share": 2.37,
+      "code": "PA",
+      "topic": "Privileged access",
+      "controls": 116,
+      "frameworks": 12,
+      "frequency_score": 4,
+      "frequency_rating": "High",
+      "mean_framework_share": 4.33,
       "per_framework": {
-        "aescsf": 7,
+        "aescsf": 9,
+        "asd-ad": 17,
         "c2m2": 6,
         "cirmp-rules": 3,
-        "cis-controls": 5,
-        "ism": 79,
-        "nist-800-53": 27,
-        "nist-800-63": 3,
-        "oag-wa": 2,
-        "pspf": 4,
-        "wa-csp": 2,
-        "ztmm": 3
+        "cis-controls": 7,
+        "csf": 1,
+        "ism": 33,
+        "nist-800-53": 18,
+        "oag-wa": 8,
+        "pspf": 6,
+        "wa-csp": 1,
+        "ztmm": 7
       },
       "sample_uids": [
-        "ism:pro-18",
-        "ism:pro-20",
+        "ism:pro-12",
         "ism:det-4",
-        "ism:ism-2008",
-        "ism:ism-546",
-        "ism:ism-874",
-        "ism:ism-1299",
-        "ism:ism-1556"
-      ]
-    },
-    {
-      "topic": "Security awareness",
-      "controls": 114,
-      "frameworks": 10,
-      "mean_framework_share": 2.5,
-      "per_framework": {
-        "aescsf": 20,
-        "c2m2": 17,
-        "cis-controls": 9,
-        "csf": 3,
-        "ism": 12,
-        "nist-800-53": 38,
-        "oag-wa": 3,
-        "pspf": 4,
-        "wa-csp": 3,
-        "ztmm": 5
-      },
-      "sample_uids": [
-        "ism:pro-14",
-        "ism:ism-2002",
-        "ism:ism-2003",
-        "ism:ism-2004",
-        "ism:ism-735",
-        "ism:ism-252",
         "ism:ism-1565",
-        "ism:ism-2022"
-      ]
+        "ism:ism-2128",
+        "ism:ism-846",
+        "ism:ism-1927",
+        "ism:ism-1928",
+        "ism:ism-1835"
+      ],
+      "rank": 3
     },
     {
-      "topic": "Media handling",
-      "controls": 90,
-      "frameworks": 8,
-      "mean_framework_share": 4.85,
+      "code": "PH",
+      "topic": "Physical security",
+      "controls": 92,
+      "frameworks": 10,
+      "frequency_score": 3,
+      "frequency_rating": "Medium",
+      "mean_framework_share": 2.09,
       "per_framework": {
-        "aescsf": 1,
-        "c2m2": 1,
-        "cis-controls": 3,
-        "ism": 56,
-        "nist-800-53": 15,
-        "nist-800-88": 11,
-        "pspf": 1,
-        "ztmm": 2
+        "aescsf": 16,
+        "c2m2": 15,
+        "cirmp-rules": 4,
+        "csf": 1,
+        "ism": 9,
+        "nist-800-53": 22,
+        "nist-800-63": 1,
+        "oag-wa": 3,
+        "pspf": 20,
+        "wa-csp": 1
       },
       "sample_uids": [
-        "ism:ism-869",
-        "ism:ism-1868",
-        "ism:ism-1299",
-        "ism:ism-701",
-        "ism:ism-702",
-        "ism:ism-1554",
-        "ism:ism-1088",
-        "ism:ism-1300"
-      ]
+        "ism:pro-15",
+        "ism:ism-810",
+        "ism:ism-1053",
+        "ism:ism-1530",
+        "ism:ism-1296",
+        "ism:ism-217",
+        "ism:ism-1327",
+        "ism:ism-465"
+      ],
+      "rank": 4
     },
     {
+      "code": "BR",
       "topic": "Backup and recovery",
-      "controls": 88,
+      "controls": 89,
       "frameworks": 12,
-      "mean_framework_share": 2.73,
+      "frequency_score": 3,
+      "frequency_rating": "Medium",
+      "mean_framework_share": 2.69,
       "per_framework": {
         "aescsf": 9,
         "asd-ad": 4,
         "c2m2": 9,
         "cirmp-rules": 2,
-        "cis-controls": 6,
-        "csf": 7,
+        "cis-controls": 7,
+        "csf": 5,
         "ism": 24,
-        "nist-800-53": 17,
+        "nist-800-53": 19,
         "nist-800-88": 1,
         "oag-wa": 3,
         "wa-csp": 3,
@@ -378,144 +262,420 @@
         "ism:ism-1299",
         "ism:ism-1555",
         "ism:ism-1928"
-      ]
+      ],
+      "rank": 5
     },
     {
-      "topic": "Physical security",
-      "controls": 77,
+      "code": "SM",
+      "topic": "Security monitoring",
+      "controls": 89,
       "frameworks": 11,
-      "mean_framework_share": 2.3,
+      "frequency_score": 3,
+      "frequency_rating": "Medium",
+      "mean_framework_share": 1.54,
       "per_framework": {
-        "aescsf": 13,
-        "c2m2": 12,
-        "cirmp-rules": 4,
-        "csf": 1,
-        "ism": 5,
-        "nist-800-53": 21,
-        "nist-800-63": 1,
-        "oag-wa": 4,
-        "pspf": 12,
-        "wa-csp": 1,
-        "ztmm": 3
-      },
-      "sample_uids": [
-        "ism:pro-15",
-        "ism:ism-1296",
-        "ism:ism-1327",
-        "ism:ism-465",
-        "ism:ism-467",
-        "nist-800-53:at-3.2",
-        "nist-800-53:au-6.6",
-        "nist-800-53:ca-8.3"
-      ]
-    },
-    {
-      "topic": "Asset management",
-      "controls": 76,
-      "frameworks": 9,
-      "mean_framework_share": 2.65,
-      "per_framework": {
-        "aescsf": 17,
-        "c2m2": 13,
+        "aescsf": 5,
+        "c2m2": 2,
         "cirmp-rules": 1,
-        "cis-controls": 16,
-        "csf": 6,
-        "nist-800-53": 8,
-        "oag-wa": 1,
-        "wa-csp": 9,
-        "ztmm": 5
-      },
-      "sample_uids": [
-        "nist-800-53:cm-8",
-        "nist-800-53:cm-8.1",
-        "nist-800-53:cm-8.2",
-        "nist-800-53:cm-8.6",
-        "nist-800-53:cm-8.7",
-        "nist-800-53:pe-3",
-        "nist-800-53:pm-5",
-        "nist-800-53:pm-5.1"
-      ]
-    },
-    {
-      "topic": "Secure development",
-      "controls": 76,
-      "frameworks": 8,
-      "mean_framework_share": 1.55,
-      "per_framework": {
-        "aescsf": 4,
-        "c2m2": 4,
-        "cis-controls": 5,
-        "csf": 1,
-        "ism": 28,
-        "nist-800-53": 17,
-        "wa-csp": 16,
-        "ztmm": 1
-      },
-      "sample_uids": [
-        "ism:ism-1824",
-        "ism:ism-2024",
-        "ism:ism-2025",
-        "ism:ism-2120",
-        "ism:ism-2033",
-        "ism:ism-2034",
-        "ism:ism-2035",
-        "ism:ism-2037"
-      ]
-    },
-    {
-      "topic": "Business continuity",
-      "controls": 61,
-      "frameworks": 10,
-      "mean_framework_share": 1.34,
-      "per_framework": {
-        "aescsf": 11,
-        "c2m2": 11,
-        "cis-controls": 1,
+        "cis-controls": 14,
         "csf": 2,
-        "ism": 10,
-        "nist-800-53": 14,
-        "oag-wa": 3,
-        "pspf": 4,
-        "wa-csp": 4,
-        "ztmm": 1
-      },
-      "sample_uids": [
-        "ism:ide-6",
-        "ism:pro-1",
-        "ism:pro-16",
-        "ism:res-1",
-        "ism:ism-734",
-        "ism:ism-1633",
-        "ism:ism-1634",
-        "ism:ism-1732"
-      ]
-    },
-    {
-      "topic": "Secure configuration",
-      "controls": 58,
-      "frameworks": 9,
-      "mean_framework_share": 0.77,
-      "per_framework": {
-        "aescsf": 7,
-        "c2m2": 7,
-        "cis-controls": 2,
-        "csf": 1,
-        "ism": 18,
-        "nist-800-53": 19,
+        "ism": 20,
+        "nist-800-53": 39,
+        "oag-wa": 2,
         "pspf": 1,
         "wa-csp": 2,
         "ztmm": 1
       },
       "sample_uids": [
-        "ism:pro-4",
         "ism:det-1",
-        "ism:ism-1572",
+        "ism:ism-1163",
+        "ism:ism-580",
+        "ism:ism-1983",
+        "ism:ism-1984",
+        "ism:ism-1985",
+        "ism:ism-1815",
+        "ism:ism-1959"
+      ],
+      "rank": 6
+    },
+    {
+      "code": "GV",
+      "topic": "Governance and cybersecurity program management",
+      "controls": 80,
+      "frameworks": 7,
+      "frequency_score": 3,
+      "frequency_rating": "Medium",
+      "mean_framework_share": 1.74,
+      "per_framework": {
+        "aescsf": 21,
+        "c2m2": 18,
+        "csf": 5,
+        "ism": 3,
+        "nist-800-53": 6,
+        "pspf": 19,
+        "wa-csp": 8
+      },
+      "sample_uids": [
+        "ism:gov-7",
+        "ism:ism-1478",
+        "ism:ism-1617",
+        "nist-800-53:pe-23",
+        "nist-800-53:pm-4",
+        "nist-800-53:pm-9",
+        "nist-800-53:pm-14",
+        "nist-800-53:pm-29"
+      ],
+      "rank": 7
+    },
+    {
+      "code": "MD",
+      "topic": "Media sanitisation and disposal",
+      "controls": 77,
+      "frameworks": 9,
+      "frequency_score": 3,
+      "frequency_rating": "Medium",
+      "mean_framework_share": 4.83,
+      "per_framework": {
+        "aescsf": 1,
+        "c2m2": 1,
+        "cis-controls": 1,
+        "ism": 46,
+        "nist-800-53": 12,
+        "nist-800-88": 11,
+        "pspf": 1,
+        "wa-csp": 2,
+        "ztmm": 2
+      },
+      "sample_uids": [
+        "ism:ism-701",
+        "ism:ism-702",
+        "ism:ism-1300",
+        "ism:ism-307",
+        "ism:ism-313",
+        "ism:ism-311",
+        "ism:ism-1742",
+        "ism:ism-1218"
+      ],
+      "rank": 8
+    },
+    {
+      "code": "PS",
+      "topic": "Personnel security",
+      "controls": 75,
+      "frameworks": 8,
+      "frequency_score": 3,
+      "frequency_rating": "Medium",
+      "mean_framework_share": 2.18,
+      "per_framework": {
+        "aescsf": 1,
+        "c2m2": 1,
+        "cirmp-rules": 6,
+        "ism": 4,
+        "nist-800-53": 13,
+        "oag-wa": 2,
+        "pspf": 47,
+        "soci-act": 1
+      },
+      "sample_uids": [
+        "ism:ism-2104",
+        "ism:ism-217",
+        "ism:ism-434",
+        "ism:ism-1520",
+        "nist-800-53:ac-2",
+        "nist-800-53:ma-5.1",
+        "nist-800-53:ma-5.2",
+        "nist-800-53:ma-5.4"
+      ],
+      "rank": 9
+    },
+    {
+      "code": "CK",
+      "topic": "Cryptographic keys and algorithms",
+      "controls": 74,
+      "frameworks": 9,
+      "frequency_score": 3,
+      "frequency_rating": "Medium",
+      "mean_framework_share": 5.49,
+      "per_framework": {
+        "aescsf": 1,
+        "c2m2": 1,
+        "ism": 23,
+        "nist-800-131a": 10,
+        "nist-800-53": 9,
+        "nist-800-57pt1": 7,
+        "nist-800-63": 19,
+        "nist-800-88": 2,
+        "ztmm": 2
+      },
+      "sample_uids": [
+        "ism:pro-8",
+        "ism:ism-233",
+        "ism:ism-869",
+        "ism:ism-1085",
+        "ism:ism-2108",
+        "ism:ism-702",
+        "ism:ism-1059",
+        "ism:ism-1928"
+      ],
+      "rank": 10
+    },
+    {
+      "code": "AM",
+      "topic": "Asset inventory and configuration/change management",
+      "controls": 71,
+      "frameworks": 8,
+      "frequency_score": 3,
+      "frequency_rating": "Medium",
+      "mean_framework_share": 1.41,
+      "per_framework": {
+        "aescsf": 19,
+        "c2m2": 15,
+        "cis-controls": 10,
+        "csf": 2,
+        "ism": 4,
+        "nist-800-53": 18,
+        "oag-wa": 1,
+        "ztmm": 2
+      },
+      "sample_uids": [
+        "ism:pro-4",
         "ism:ism-912",
-        "ism:ism-1562",
-        "ism:ism-1858",
-        "ism:ism-1409",
-        "ism:ism-2110"
-      ]
+        "ism:ism-1211",
+        "ism:ism-1798",
+        "nist-800-53:cm-1",
+        "nist-800-53:cm-3",
+        "nist-800-53:cm-3.4",
+        "nist-800-53:cm-3.6"
+      ],
+      "rank": 11
+    },
+    {
+      "code": "OT",
+      "topic": "Operational technology security",
+      "controls": 56,
+      "frameworks": 5,
+      "frequency_score": 3,
+      "frequency_rating": "Medium",
+      "mean_framework_share": 1.57,
+      "per_framework": {
+        "aescsf": 24,
+        "c2m2": 20,
+        "ism": 3,
+        "oag-wa": 8,
+        "wa-csp": 1
+      },
+      "sample_uids": [
+        "ism:pro-19",
+        "ism:pro-20",
+        "ism:ism-714",
+        "oag-wa:report-24 2.4.1",
+        "oag-wa:report-24 2.4.3",
+        "oag-wa:report-24 2.5.1",
+        "oag-wa:report-24 2.6.1",
+        "oag-wa:report-24 2.6.2"
+      ],
+      "rank": 12
+    },
+    {
+      "code": "NA",
+      "topic": "Network architecture and segmentation",
+      "controls": 49,
+      "frameworks": 10,
+      "frequency_score": 2,
+      "frequency_rating": "Low",
+      "mean_framework_share": 1.05,
+      "per_framework": {
+        "aescsf": 4,
+        "c2m2": 4,
+        "cirmp-rules": 1,
+        "cis-controls": 1,
+        "ism": 7,
+        "nist-800-53": 14,
+        "oag-wa": 1,
+        "pspf": 15,
+        "wa-csp": 1,
+        "ztmm": 1
+      },
+      "sample_uids": [
+        "ism:pro-18",
+        "ism:ism-810",
+        "ism:ism-1053",
+        "ism:ism-1530",
+        "ism:ism-1181",
+        "ism:ism-1429",
+        "ism:ism-637",
+        "nist-800-53:sc-7"
+      ],
+      "rank": 13
+    },
+    {
+      "code": "MF",
+      "topic": "Multi-factor authentication",
+      "controls": 48,
+      "frameworks": 11,
+      "frequency_score": 2,
+      "frequency_rating": "Low",
+      "mean_framework_share": 1.55,
+      "per_framework": {
+        "aescsf": 2,
+        "asd-ad": 2,
+        "c2m2": 2,
+        "cirmp-rules": 4,
+        "cis-controls": 5,
+        "ism": 23,
+        "nist-800-53": 3,
+        "nist-800-63": 1,
+        "oag-wa": 3,
+        "pspf": 2,
+        "ztmm": 1
+      },
+      "sample_uids": [
+        "ism:ism-1504",
+        "ism:ism-1679",
+        "ism:ism-1680",
+        "ism:ism-1892",
+        "ism:ism-1893",
+        "ism:ism-1681",
+        "ism:ism-1919",
+        "ism:ism-1173"
+      ],
+      "rank": 14
+    },
+    {
+      "code": "AW",
+      "topic": "Security awareness and workforce training",
+      "controls": 40,
+      "frameworks": 9,
+      "frequency_score": 2,
+      "frequency_rating": "Low",
+      "mean_framework_share": 0.68,
+      "per_framework": {
+        "aescsf": 8,
+        "c2m2": 7,
+        "cis-controls": 3,
+        "csf": 1,
+        "ism": 6,
+        "nist-800-53": 10,
+        "oag-wa": 1,
+        "pspf": 3,
+        "wa-csp": 1
+      },
+      "sample_uids": [
+        "ism:pro-14",
+        "ism:ism-2001",
+        "ism:ism-2004",
+        "ism:ism-735",
+        "ism:ism-252",
+        "ism:ism-2022",
+        "nist-800-53:at-2",
+        "nist-800-53:at-2.1"
+      ],
+      "rank": 15
+    },
+    {
+      "code": "AP",
+      "topic": "Application control",
+      "controls": 29,
+      "frameworks": 8,
+      "frequency_score": 2,
+      "frequency_rating": "Low",
+      "mean_framework_share": 0.45,
+      "per_framework": {
+        "aescsf": 1,
+        "asd-ad": 1,
+        "c2m2": 1,
+        "cis-controls": 6,
+        "csf": 1,
+        "ism": 14,
+        "nist-800-53": 4,
+        "pspf": 1
+      },
+      "sample_uids": [
+        "ism:ism-843",
+        "ism:ism-1490",
+        "ism:ism-1656",
+        "ism:ism-1870",
+        "ism:ism-1871",
+        "ism:ism-1657",
+        "ism:ism-1658",
+        "ism:ism-955"
+      ],
+      "rank": 16
+    },
+    {
+      "code": "UH",
+      "topic": "User application hardening",
+      "controls": 15,
+      "frameworks": 2,
+      "frequency_score": 1,
+      "frequency_rating": "Very low",
+      "mean_framework_share": 0.09,
+      "per_framework": {
+        "ism": 14,
+        "pspf": 1
+      },
+      "sample_uids": [
+        "ism:ism-1467",
+        "ism:ism-1859",
+        "ism:ism-1667",
+        "ism:ism-1542",
+        "ism:ism-1823",
+        "ism:ism-1670",
+        "ism:ism-1691",
+        "ism:ism-1692"
+      ],
+      "rank": 17
+    },
+    {
+      "code": "IN",
+      "topic": "Incident notification timeframes",
+      "controls": 12,
+      "frameworks": 5,
+      "frequency_score": 1,
+      "frequency_rating": "Very low",
+      "mean_framework_share": 0.95,
+      "per_framework": {
+        "ism": 1,
+        "nist-800-53": 2,
+        "soci-act": 3,
+        "wa-circular": 1,
+        "wa-csp": 5
+      },
+      "sample_uids": [
+        "ism:res-2",
+        "nist-800-53:ir-6",
+        "nist-800-53:si-3.6",
+        "wa-csp:3.4.2a",
+        "wa-csp:4.1d",
+        "wa-csp:5.1b",
+        "wa-csp:5.1c",
+        "wa-csp:5.1d"
+      ],
+      "rank": 18
+    },
+    {
+      "code": "OM",
+      "topic": "Restrict Microsoft Office macros",
+      "controls": 12,
+      "frameworks": 2,
+      "frequency_score": 1,
+      "frequency_rating": "Very low",
+      "mean_framework_share": 0.08,
+      "per_framework": {
+        "ism": 11,
+        "pspf": 1
+      },
+      "sample_uids": [
+        "ism:ism-1671",
+        "ism:ism-1488",
+        "ism:ism-1672",
+        "ism:ism-1673",
+        "ism:ism-1674",
+        "ism:ism-1890",
+        "ism:ism-1487",
+        "ism:ism-1675"
+      ],
+      "rank": 19
     }
   ]
 }
