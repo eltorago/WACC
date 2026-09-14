@@ -1,0 +1,131 @@
+{
+  "version": 1,
+  "topic": "Security monitoring",
+  "controls": [
+    {
+      "id": "SM-01",
+      "title": "Collect security events centrally",
+      "statement": "Collect relevant security events from in-scope systems in a central location, with enough detail to identify the actor, action, target and time.",
+      "risk": "An attack could remain unnoticed if important systems do not provide usable security records.",
+      "scope": "In-scope operating systems, applications and central log collection.",
+      "examine": "Compare the system inventory and required event types with collected sources, timestamps, event fields and collection failures.",
+      "interview": "Ask the collection owner how new systems and missing or malformed events are detected.",
+      "test": "Generate authorised benign events on sampled systems and trace complete records into central storage.",
+      "expected": "Required events reach central storage with usable information, and missing sources or collection failures are detected and resolved.",
+      "related": [
+        "SM-02",
+        "SM-03",
+        "PA-05"
+      ],
+      "mappings": [
+        {
+          "uid": "cis-controls:8.2",
+          "relationship": "Directly addresses",
+          "basis": "Enable audit logging across the in-scope enterprise assets.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "cis-controls:8.9",
+          "relationship": "Directly addresses",
+          "basis": "Centralise collection and retention to the extent possible.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "ism:ism-1976",
+          "relationship": "Partially addresses",
+          "basis": "Verify the security-relevant event set for macOS systems; a generic collection test alone is insufficient.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "ism:ism-1977",
+          "relationship": "Partially addresses",
+          "basis": "Verify the security-relevant event set for Linux systems.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "ism:ism-582",
+          "relationship": "Partially addresses",
+          "basis": "Verify the security-relevant event set for Windows systems.",
+          "provenance": "Locally reviewed mapping"
+        }
+      ]
+    },
+    {
+      "id": "SM-02",
+      "title": "Protect and retain security records",
+      "statement": "Restrict access and changes to security records and logging tools. Retain readable, searchable records for the required period.",
+      "risk": "Records that are altered, deleted or unavailable could prevent investigators from understanding an incident and identifying the harm caused.",
+      "scope": "Log stores, logging tools, authorised roles and retention requirements.",
+      "examine": "Inspect access rules, deletion controls, retention settings and oldest retrievable records.",
+      "interview": "Ask the log owner how access is approved, capacity is managed and attempts to alter records are handled.",
+      "test": "Use authorised test records and accounts to verify access and change restrictions. Retrieve records from the start of the required period and confirm they remain searchable and readable.",
+      "expected": "Unauthorised access, alteration and deletion are prevented; records remain usable throughout the applicable retention period.",
+      "related": [
+        "SM-01",
+        "SM-03",
+        "PA-05"
+      ],
+      "mappings": [
+        {
+          "uid": "ism:ism-1985",
+          "relationship": "Directly addresses",
+          "basis": "Protect event logs from unauthorised access.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "ism:ism-1815",
+          "relationship": "Directly addresses",
+          "basis": "Protect event logs from unauthorised modification and deletion.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "ism:ism-1988",
+          "relationship": "Partially addresses",
+          "basis": "Requires searchable retention for at least 12 months; verify actual availability over that period.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "nist-800-53:au-9",
+          "relationship": "Partially addresses",
+          "basis": "The source additionally requires alerts to designated roles when unauthorised access or changes are detected.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "cis-controls:8.10",
+          "relationship": "Partially addresses",
+          "basis": "Requires at least 90 days of retention across enterprise assets; verify the full period and asset scope.",
+          "provenance": "Locally reviewed mapping"
+        }
+      ]
+    },
+    {
+      "id": "SM-03",
+      "title": "Review security events and follow up suspicious activity",
+      "statement": "Review security events at the required frequency, investigate suspicious activity and track resulting decisions and actions.",
+      "risk": "Suspicious activity that is not investigated could continue unnoticed and cause greater damage to information and services.",
+      "scope": "Security monitoring responsibilities, log reviews and investigation records.",
+      "examine": "Review completed log analyses, alerts, investigation notes and recorded actions over the assessment period.",
+      "interview": "Ask analysts how suspicious activity is recognised, escalated and closed, and how priorities change when risk changes.",
+      "test": "Trace sampled relevant events into investigation and follow-up. Compare actual review dates with the required cadence and verify that findings reached the responsible people.",
+      "expected": "Reviews are timely, relevant findings are investigated and communicated, and follow-up decisions and actions are evidenced.",
+      "related": [
+        "SM-01",
+        "SM-02"
+      ],
+      "mappings": [
+        {
+          "uid": "cis-controls:8.11",
+          "relationship": "Partially addresses",
+          "basis": "Requires log reviews at least weekly; verify the actual review cadence.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "nist-800-53:au-6",
+          "relationship": "Partially addresses",
+          "basis": "Also requires adjusting review activity when risk changes and defining review frequency and recipients.",
+          "provenance": "Locally reviewed mapping"
+        }
+      ]
+    }
+  ]
+}

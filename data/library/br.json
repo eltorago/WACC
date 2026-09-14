@@ -1,0 +1,124 @@
+{
+  "version": 1,
+  "topic": "Backup and recovery",
+  "controls": [
+    {
+      "id": "BR-01",
+      "title": "Back up critical information and systems",
+      "statement": "Back up data, applications and configuration needed to restore business services. Set and operate schedules and retention periods based on business needs and applicable requirements.",
+      "risk": "Missing or incomplete backups could leave the organisation unable to recover important information after an outage or attack.",
+      "scope": "Business data, application components and configuration needed for recovery.",
+      "examine": "Compare service inventories and recovery needs with backup schedules, retained copies and job results.",
+      "interview": "Ask service owners how backup scope and acceptable data loss are agreed, and operators how failed jobs are resolved.",
+      "test": "Sample critical services and verify successful backups cover all required components. Compare actual backup dates and retention with the approved requirements.",
+      "expected": "Required components are covered; backup frequency and retention meet documented needs and source-specific minimums, and failures are resolved.",
+      "related": [
+        "BR-02",
+        "BR-03"
+      ],
+      "mappings": [
+        {
+          "uid": "ism:ism-1511",
+          "relationship": "Directly addresses",
+          "basis": "Requires backups and retention based on business criticality and continuity requirements.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "cis-controls:11.2",
+          "relationship": "Partially addresses",
+          "basis": "Requires automated backups at least weekly; verify automation and cadence separately.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "nist-800-53:cp-9",
+          "relationship": "Partially addresses",
+          "basis": "Addresses backup scope and frequency; also assess documentation backups and protection requirements.",
+          "provenance": "Locally reviewed mapping"
+        }
+      ]
+    },
+    {
+      "id": "BR-02",
+      "title": "Protect and isolate recovery copies",
+      "statement": "Protect backup copies against unauthorised access, alteration and deletion. Maintain a recovery copy separated from threats affecting the live environment.",
+      "risk": "An attacker or equipment failure could destroy both live information and its backups, leaving no reliable way to recover.",
+      "scope": "Backup storage, administrative identities and isolated recovery copies.",
+      "examine": "Inspect backup access permissions, isolation arrangements, encryption where required and deletion protections.",
+      "interview": "Ask the backup owner which failures or account compromises could affect both production and recovery copies.",
+      "test": "Use authorised test records to verify access restrictions and deletion protection. Confirm that an isolated copy remains available when the primary environment is unavailable.",
+      "expected": "Recovery copies have appropriate protection and a tested separation from production failure or compromise; additional source-specific safeguards are verified.",
+      "related": [
+        "BR-01",
+        "BR-03",
+        "PA-02"
+      ],
+      "mappings": [
+        {
+          "uid": "ism:ism-1811",
+          "relationship": "Directly addresses",
+          "basis": "Requires secure and resilient retention of backups.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "ism:ism-2151",
+          "relationship": "Partially addresses",
+          "basis": "Specifically requires technically enforced immutability throughout retention; isolation alone is insufficient.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "cis-controls:11.3",
+          "relationship": "Directly addresses",
+          "basis": "Protect recovery data with equivalent controls to original data, subject to its requirements.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "cis-controls:11.4",
+          "relationship": "Directly addresses",
+          "basis": "Requires an isolated instance of recovery data.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "nist-800-53:cp-9.3",
+          "relationship": "Partially addresses",
+          "basis": "Requires specified critical copies in a separate facility or non-collocated fire-rated container; verify the physical arrangement.",
+          "provenance": "Locally reviewed mapping"
+        }
+      ]
+    },
+    {
+      "id": "BR-03",
+      "title": "Demonstrate recovery from backups",
+      "statement": "Test restoration of information, applications and configuration together. Verify the restored service works and measure recovery time and data loss against agreed objectives.",
+      "risk": "Backups that cannot restore a working service could prolong an outage and cause permanent loss of information.",
+      "scope": "Representative business services, their dependencies and agreed recovery objectives.",
+      "examine": "Inspect restore exercises, selected backup dates, data integrity checks and measured recovery results.",
+      "interview": "Ask service owners how they confirm the recovered service is usable and how unresolved test failures are tracked.",
+      "test": "Witness an authorised restore in an isolated environment. Check that related components reach a consistent point in time and compare service recovery and data loss with agreed objectives.",
+      "expected": "The recovered service is usable, information is consistent and recovery objectives are met; test frequency satisfies applicable source conditions.",
+      "related": [
+        "BR-01",
+        "BR-02"
+      ],
+      "mappings": [
+        {
+          "uid": "ism:ism-1515",
+          "relationship": "Directly addresses",
+          "basis": "Requires restoration to a common point in time during disaster recovery exercises.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "cis-controls:11.5",
+          "relationship": "Partially addresses",
+          "basis": "Requires recovery testing at least quarterly for a sample of assets; verify frequency and sample coverage.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "nist-800-53:cp-10",
+          "relationship": "Partially addresses",
+          "basis": "Demonstrates recovery to a known state within defined objectives; backup restoration may not cover every reconstitution activity.",
+          "provenance": "Locally reviewed mapping"
+        }
+      ]
+    }
+  ]
+}

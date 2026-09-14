@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "topic": "Vulnerability management",
+  "controls": [
+    {
+      "id": "VM-01",
+      "title": "Identify vulnerabilities across the asset estate",
+      "statement": "Keep vulnerability scanning coverage aligned with the asset inventory. Use current detection information and investigate uncovered assets and scan failures.",
+      "risk": "Unknown weaknesses on overlooked systems could give an attacker an entry point into business services.",
+      "scope": "Internal and externally exposed assets, applications and vulnerability detection tools.",
+      "examine": "Reconcile discovered assets with scan targets, completed scans, authentication success and scanner update records.",
+      "interview": "Ask the scanning owner how new assets, failed scans and systems that cannot be scanned are handled.",
+      "test": "Sample assets from the inventory and trace them to recent usable scan results. Verify scanner currency and the required scan types and frequencies.",
+      "expected": "Coverage gaps and failures are identified and followed up; detection information, scanning methods and frequency meet applicable requirements.",
+      "related": [
+        "VM-02"
+      ],
+      "mappings": [
+        {
+          "uid": "ism:ism-1807",
+          "relationship": "Partially addresses",
+          "basis": "Requires automated asset discovery at least fortnightly; confirm discovery method and cadence.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "ism:ism-1808",
+          "relationship": "Directly addresses",
+          "basis": "Requires a scanner with an up-to-date vulnerability database.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "cis-controls:7.5",
+          "relationship": "Partially addresses",
+          "basis": "Requires internal automated scans at least quarterly, both authenticated and unauthenticated, with a SCAP-compliant tool.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "cis-controls:7.6",
+          "relationship": "Partially addresses",
+          "basis": "Requires external automated scans at least monthly with a SCAP-compliant tool.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "nist-800-53:ra-5",
+          "relationship": "Partially addresses",
+          "basis": "Addresses discovery and scanning; the source also covers analysis, remediation and sharing information.",
+          "provenance": "Locally reviewed mapping"
+        }
+      ]
+    },
+    {
+      "id": "VM-02",
+      "title": "Remediate and verify software weaknesses",
+      "statement": "Assign detected weaknesses for treatment, apply fixes or approved mitigations within applicable deadlines, and verify that the weakness has been addressed.",
+      "risk": "Known software weaknesses left unresolved could let attackers steal information or interrupt important services.",
+      "scope": "Software and firmware weaknesses, responsible owners, remediation deadlines and exceptions.",
+      "examine": "Review vulnerability findings, vendor release dates, treatment decisions, patch deployments and verification results.",
+      "interview": "Ask owners how urgency is determined, changes are tested and overdue or unsupported systems are handled.",
+      "test": "Sample findings across exposure and severity levels. Compare release or discovery dates with the applicable deadline, and confirm installed fixes or successful retests rather than relying only on closed tickets.",
+      "expected": "The treatment is verified and timely; exceptions have documented justification and follow-up, with each source-specific deadline assessed.",
+      "related": [
+        "VM-01",
+        "BR-03"
+      ],
+      "mappings": [
+        {
+          "uid": "ism:ism-1690",
+          "relationship": "Partially addresses",
+          "basis": "For the stated online-service scenario, non-critical vendor findings without working exploits must be treated within two weeks of release.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "cis-controls:7.3",
+          "relationship": "Partially addresses",
+          "basis": "Requires automated operating-system updates at least monthly; verify automation and schedule.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "cis-controls:7.4",
+          "relationship": "Partially addresses",
+          "basis": "Requires automated application updates at least monthly; verify automation and schedule.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "cis-controls:7.7",
+          "relationship": "Partially addresses",
+          "basis": "Requires vulnerability remediation through processes and tooling at least monthly.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "nist-800-53:si-2",
+          "relationship": "Partially addresses",
+          "basis": "Also requires pre-installation testing for side effects and integration with configuration management.",
+          "provenance": "Locally reviewed mapping"
+        }
+      ]
+    }
+  ]
+}
