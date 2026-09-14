@@ -27,10 +27,10 @@ import urllib.parse
 from typing import Dict, List, Optional, Sequence, Tuple
 
 from ..analysis import Analysis, currency_of
-from ..archetypes import ARCHETYPES_BY_KEY
 from ..model import Control, Corpus, Fidelity, Provenance, Statement
 from ..terms import CONCEPTS, prepare
 from .highlight import mark
+from .groups import result_groups, group_label
 from .layout import (
     CARD_COMFORTABLE,
     CARD_COMPACT,
@@ -420,31 +420,10 @@ def _cell(corpus: Corpus, coverage, typed: Sequence[str], widened: Sequence[str]
 
 
 def _risk_block(statement: Optional[Statement]) -> str:
-    """What is true if this control is absent, with the archetype's opening as the lead.
-
-    The lead is taken from the archetype rather than cut off the front of the sentence.
-    Splitting the text on its first full stop worked until a control whose quote began
-    with an abbreviation, and a headline that ends mid-clause reads as a bug in the tool
-    rather than in the split.
-    """
+    """Show the complete risk scenario without a generated headline or appendix."""
     if statement is None:
         return ""
-    lead = ""
-    archetype = ARCHETYPES_BY_KEY.get(statement.archetype or "")
-    if archetype is not None:
-        lead = archetype.risk_opening
-    rest = statement.text
-    if lead and rest.startswith(lead):
-        rest = rest[len(lead):].lstrip(". ")
-    head = '<span class="risklabel">If absent</span>'
-    if not lead:
-        return '<div class="riskbox">%s<p>%s</p></div>' % (head, esc(rest))
-    return (
-        '<div class="riskbox">%s<p>%s.</p>'
-        '<details class="panel"><summary>What that means here</summary>'
-        '<div class="panelbody">%s</div></details></div>'
-        % (head, esc(lead), esc(rest))
-    )
+    return '<div class="riskbox"><span class="risklabel">Risk scenario</span><p>%s</p></div>' % esc(statement.text)
 
 
 def _card(
@@ -492,7 +471,7 @@ def _ordered_frameworks(analysis: Analysis) -> List:
     """Every framework the payload covers, in governance order, once each."""
     seen: List = []
     keys = set()
-    for band in analysis.bands:
+    for band in result_groups(analysis):
         for coverage in band.coverage:
             if coverage.framework.key not in keys:
                 keys.add(coverage.framework.key)
@@ -503,7 +482,7 @@ def _ordered_frameworks(analysis: Analysis) -> List:
 def _grid_view(
     corpus: Corpus, analysis: Analysis, frameworks: Sequence, typed, widened
 ) -> str:
-    head = ['<th class="pin"><span>Tier</span></th>']
+    head = ['<th class="pin"><span>Results</span></th>']
     for framework in frameworks:
         head.append(
             '<th class="col" title="%s" data-fw="%s"><span>%s</span></th>'
@@ -511,18 +490,17 @@ def _grid_view(
         )
 
     rows = []
-    for band in analysis.bands:
+    for band in result_groups(analysis):
         by_key = {c.framework.key: c for c in band.coverage}
         cells = [
-            '<td class="pin"><div>Tier %d — %s</div><div class="q">%s</div></td>'
-            % (band.tier.value, esc(band.tier.label), esc(band.tier.question))
+            '<td class="pin"><div>%s</div></td>' % esc(group_label(band))
         ]
         for framework in frameworks:
             coverage = by_key.get(framework.key)
             cell = (
                 _cell(corpus, coverage, typed, widened)
                 if coverage is not None
-                else '<td class="col none">not at this tier</td>'
+                else '<td class="col none">—</td>'
             )
             cells.append(cell.replace("<td ", '<td data-fw="%s" ' % esc(framework.key), 1))
         rows.append('<tr class="band">%s</tr>' % "".join(cells))
@@ -904,16 +882,8 @@ def control_panel(corpus: Corpus, derivation, placement=None, lineage=None) -> s
         ))
 
     for statement in derivation.derived_tests:
-        label = "Derived test"
-        if derivation.by_fallback:
-            label += " (shaped by the default archetype, not a recognised one)"
+        label = "Suggested uplift assessment"
         parts.append("<h5>%s</h5><p>%s</p>" % (esc(label), esc(statement.text)))
-
-    if derivation.archetypes:
-        parts.append(
-            '<p class="note">Shape: %s.</p>'
-            % esc("; ".join(a.label for a in derivation.archetypes))
-        )
 
     if derivation.detail:
         titles = {str(s["key"]): str(s["title"]) for s in _detail_sources()}

@@ -169,8 +169,8 @@ def run() -> int:
 
     markdown = export.to_markdown(corpus, payload)
     check.expect(
-        markdown.count("## Tier") == 5,
-        "export", "markdown draws all five bands",
+        "## Outcomes / maturity" in markdown and "## Tier" not in markdown,
+        "export", "markdown combines governance and maturity results",
     )
     body_rows = [l for l in markdown.split("\n") if l.startswith("| ") and "---" not in l]
     # Escaped pipes are still pipe characters, so count only the ones that separate cells.
@@ -424,7 +424,7 @@ def run() -> int:
         "cards", "every shown control is a card",
     )
     check.expect(
-        'class="riskbox"' in cards and "If absent" in cards,
+        'class="riskbox"' in cards and "Risk scenario" in cards,
         "cards", "the risk statement is on the card, not behind a click",
         "communicating the risk of an absent control is what the tool is for, so it is "
         "the first thing on a card rather than something to go looking for",

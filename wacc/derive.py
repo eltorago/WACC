@@ -1,26 +1,16 @@
-"""Test procedures and risk statements, derived from one archetype set.
+"""Suggested uplift assessments and risk scenarios for individual controls.
 
-Both answer a question about the same control and they are generated from the same
-classification, because a test that does not match the risk it is meant to address is
-worse than no test. The archetype decides what evidence proves the control, and the same
-archetype decides what its absence exposes.
-
-Everything here states what was found. A test procedure says what to obtain and what to
-compare it against; a risk statement says what is true when the control is absent. Neither
-says what to conclude, whether it matters, or what to write. That is the reader's work,
-and a tool that does it for them produces findings nobody checked.
-
-Published procedures are never mixed with derived ones. NIST publishes 3,945 assessment
-objectives and methods inside the 800-53 catalogue; those are NIST's and are presented as
-NIST's, above anything this tool wrote. Derived text is regenerated on every call rather
-than stored, because generated text that survives a parser fix is generated text that is
-now wrong.
+Published procedures remain attributed and separate. Derived guidance follows the
+control's own topic, preserves its acceptance criteria and stated thresholds, and
+asks for operational evidence and an actionable remediation record. Risk scenarios
+express possible exposure and impact, never an observed finding or a risk rating.
 """
 
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Sequence
 
 from .archetypes import Archetype, NotDerivable, classify
+from .uplift import guidance, RECORD_RESULT
 from .registry import DETAIL_SOURCES
 from .terms import concepts_in, content_stems, normalise_text
 from .model import (
@@ -43,23 +33,6 @@ from .thresholds import AT_LEAST, AT_MOST, Threshold, stated_by
 # reader has to decide whether that product is in scope here.
 DETAIL_FLOOR = 0.45
 DETAIL_LIMIT = 6
-
-TIER_FRAMING: Dict[Tier, str] = {
-    Tier.STATUTE: "This is a statutory obligation. Absence is non-compliance with an "
-                  "instrument, not a gap against good practice.",
-    Tier.MANDATED_POLICY: "This is mandated for the entity by its own jurisdiction. "
-                          "Absence is non-compliance with a policy the entity is bound "
-                          "by, and is reportable within that policy's own arrangements.",
-    Tier.OUTCOME: "This states an outcome rather than a method. Absence means the "
-                  "outcome is not achieved; which control would achieve it is a "
-                  "separate question.",
-    Tier.CATALOGUE: "This is a control from a catalogue. Absence is a specific technical "
-                    "or procedural gap, and the catalogue's own applicability decides "
-                    "whether it was required here.",
-    Tier.SPECIFICATION: "This is a parameter. Absence means a value in use is wrong or "
-                        "unverified, not that a programme is missing.",
-}
-
 
 @dataclass
 class Derivation:
@@ -147,11 +120,13 @@ def test_procedure(
     quote = _quote(corpus, control, relations)
     thresholds = stated_by(control)
 
+    _, assessment = guidance(quote, archetype.key)
     lines = [
-        "%s %s %s."
-        % (archetype.test_opening, framework.short_name, control.identifier),
-        "It requires: %s" % quote,
-        "Evidence: %s." % archetype.evidence,
+        "Assess %s %s. Confirm applicability, in-scope systems and the assessment period with the control owner."
+        % (framework.short_name, control.identifier),
+        "Acceptance criteria: %s" % quote,
+        "Evidence: %s" % assessment,
+        RECORD_RESULT,
     ]
     figure = _threshold_line(thresholds)
     if figure:
@@ -178,64 +153,15 @@ def test_procedure(
 def risk_statement(
     corpus: Corpus, control: Control, archetypes: Sequence[Archetype], relations=None
 ) -> Statement:
-    """What is true if this control is absent, at the level an executive reads.
-
-    Tier-aware, because a missing statutory provision and a missing key length are not
-    the same kind of problem. Where a published chain reaches a more governing document,
-    that document is named with the same caveat the chain itself carries: a chain is a
-    sequence of statements by different publishers and the requirement attaches where the
-    incorporation is, not at the far end.
-    """
-    framework = corpus.frameworks[control.framework_key]
+    """A concise exposure and consequence scenario, with no tier commentary."""
     lead = archetypes[0] if archetypes else None
     quote = _quote(corpus, control, relations)
 
-    lines = []
-    if lead is not None:
-        lines.append("%s." % lead.risk_opening)
-    lines.append(
-        "%s %s states: %s" % (framework.short_name, control.identifier, quote)
-    )
-    if framework.tier is not None:
-        lines.append(TIER_FRAMING[framework.tier])
-
-    thresholds = [
-        t for t in stated_by(control)
-        if t.bound in (AT_MOST, AT_LEAST) and not t.classifies
-    ]
-    if thresholds:
-        first = thresholds[0]
-        lines.append(
-            "The figure stated is %s %g %s%s, so the gap is measurable rather than a "
-            "matter of judgement."
-            % (
-                "no more than" if first.bound is AT_MOST else "no less than",
-                first.value,
-                first.unit + ("s" if first.value != 1 else ""),
-                " between occurrences" if first.cadence else "",
-            )
-        )
-
-    if relations is not None:
-        chains = [c for c in relations.chains_to(control.uid) if c.carries_obligation]
-        if chains:
-            chain = chains[0]
-            point = chain.obligation_point
-            lines.append(
-                "A published chain reaches %s %s. The requirement attaches at %s %s; "
-                "beyond that the chain is publishers cross-referencing each other."
-                % (
-                    corpus.frameworks[chain.end.framework_key].short_name,
-                    chain.end.identifier,
-                    corpus.frameworks[point.framework_key].short_name,
-                    point.identifier,
-                )
-            )
-
+    risk, _ = guidance(quote, lead.key if lead else "outcome")
     return Statement(
         control_uid=control.uid,
         kind=StatementKind.RISK_STATEMENT,
-        text=" ".join(lines),
+        text=risk,
         provenance=Provenance.DERIVED,
         archetype=lead.key if lead else None,
         tier_framing=framework.tier,
@@ -263,7 +189,7 @@ def derive(
         return result
 
     result.derived_tests = [
-        test_procedure(corpus, control, archetype, relations) for archetype in archetypes
+        test_procedure(corpus, control, archetype, relations) for archetype in archetypes[:1]
     ]
     result.risk = risk_statement(corpus, control, archetypes, relations)
 

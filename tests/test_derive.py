@@ -163,13 +163,13 @@ def run() -> int:
 
     statute = derive(corpus, corpus.control("soci-act:s 30bc.1"), relations)
     check.expect(
-        "statutory obligation" in statute.risk.text,
-        "tier", "a statute's risk statement says the obligation is statutory",
+        "statutory obligation" not in statute.risk.text and "Requirement:" not in statute.risk.text,
+        "tier", "risk statements omit authority commentary and requirement citations",
     )
     spec = derive(corpus, corpus.control("nist-800-131a:sp 800-131a rev 2 §2#1"), relations)
     check.expect(
-        spec.risk is None or "parameter" in spec.risk.text,
-        "tier", "a specification's risk statement is about a value, not a programme",
+        spec.risk is None or "programme" not in spec.risk.text,
+        "tier", "risk statements omit generic tier commentary",
         "a missing statutory provision and a missing key length are not the same kind "
         "of problem and should not read as though they were",
     )

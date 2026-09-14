@@ -6,6 +6,7 @@ carry provenance on every row, because an exported row that has lost its fidelit
 provenance is a claim with no source, and it is the row that ends up quoted.
 """
 
+from .groups import result_groups, group_label
 import csv
 import io
 from typing import Dict, List, Optional, Sequence
@@ -65,7 +66,7 @@ def to_csv(corpus: Corpus, analysis: Analysis) -> str:
     )
     writer.writerow([])
     writer.writerow(COLUMNS)
-    for band in analysis.bands:
+    for band in result_groups(analysis):
         for coverage in band.coverage:
             for control in coverage.controls:
                 writer.writerow(_row(corpus, control))
@@ -125,14 +126,12 @@ def to_markdown(corpus: Corpus, analysis: Analysis) -> str:
     )
     out.append("")
 
-    for band in analysis.bands:
-        out.append("## Tier %d — %s" % (band.tier.value, band.tier.label))
+    for band in result_groups(analysis):
+        out.append("## %s" % group_label(band))
         out.append("")
-        out.append("*%s*" % band.tier.question)
         out.append("")
         if band.is_empty:
-            out.append("Nothing found at this tier. The band is shown because an "
-                       "omitted band reads as a question nobody asked.")
+            out.append("No matching controls in this group.")
             out.append("")
             continue
         out.append("| Framework | Identifier | Requirement | Publisher states |")
@@ -282,11 +281,11 @@ def risk_summary(corpus: Corpus, analysis: Analysis, risks: Dict[str, object]) -
         )
         out.append("")
 
-    for band in analysis.bands:
+    for band in result_groups(analysis):
         stated = [c for coverage in band.coverage for c in coverage.controls]
         if not stated:
             continue
-        out.append("## Tier %d — %s" % (band.tier.value, band.tier.label))
+        out.append("## %s" % group_label(band))
         out.append("")
         for control in stated:
             statement = risks.get(control.uid)
@@ -346,14 +345,6 @@ def test_plan(corpus: Corpus, analysis: Analysis, derivations: Dict[str, object]
         out.append("### %s" % control.identifier)
         out.append("")
         out.append("> %s" % " ".join((control.text or control.title or "").split()))
-        out.append("")
-
-        shapes = getattr(derivation, "archetypes", [])
-        if shapes:
-            out.append("**Shape:** %s" % "; ".join(a.label for a in shapes))
-        evidence = getattr(derivation, "evidence", [])
-        if evidence:
-            out.append("**Why that shape:** %s" % "; ".join(evidence))
         out.append("")
 
         refusal = getattr(derivation, "refusal", None)
