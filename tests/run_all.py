@@ -36,7 +36,7 @@ LAYERS: List[Tuple[str, str, List[str]]] = [
     ("meaning", "thresholds, the analysis payload, archetypes and derivation",
      ["test_analysis.py", "test_derive.py", "test_uplift.py"]),
     ("presentation", "layout arithmetic, the three renderers and the server",
-     ["test_render.py"]),
+     ["test_render.py", "test_navigation.py"]),
 ]
 
 

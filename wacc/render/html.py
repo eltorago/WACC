@@ -266,7 +266,7 @@ SCRIPT = """
 
   function applyHidden() {
     document.querySelectorAll('[data-fw]').forEach(function (node) {
-      node.classList.toggle('hidden-fw', !!hidden[node.dataset.fw]);
+      node.classList.toggle('hidden-fw', !!hidden[node.dataset.fw] && node.dataset.fw !== document.body.dataset.focusFw);
     });
     document.querySelectorAll('[data-toggle-fw]').forEach(function (button) {
       button.setAttribute('aria-pressed', String(!hidden[button.dataset.toggleFw]));
@@ -305,6 +305,11 @@ SCRIPT = """
         .catch(function () { body.textContent = 'Could not load this panel.'; });
     });
   });
+
+  if (document.body.dataset.focusFw) {
+    var selectedPanel = document.querySelector('details[data-panel]');
+    if (selectedPanel) selectedPanel.open = true;
+  }
 
   document.querySelectorAll('[data-copy]').forEach(function (button) {
     button.addEventListener('click', function () {
@@ -459,7 +464,7 @@ def _card(
     parts.append('<div class="body">%s</div>' % mark(body, typed, widened))
     parts.append(_risk_block(risk))
     parts.append(
-        '<details class="panel" data-panel="%s"><summary>How to test this</summary>'
+        '<details class="panel" data-panel="%s"><summary>Assessment and linked controls</summary>'
         '<div class="panelbody note">Loading…</div></details>'
         % esc(control.uid)
     )
@@ -800,14 +805,19 @@ def render(
 ) -> str:
     view = "cards" if view == "cards" else "grid"
     typed, widened = _stems(analysis.subject)
-    frameworks = _ordered_frameworks(analysis)
+    focused = corpus.control(analysis.subject)
+    if focused is not None:
+        typed, widened = [], []
+    frameworks = ([corpus.frameworks[focused.framework_key]] if focused is not None
+                  else _ordered_frameworks(analysis))
 
     if not (analysis.subject or "").strip():
         main = _landing(corpus)
         furniture = ""
     else:
-        furniture = _interpretation(analysis.subject) + _coverage_strip(analysis) \
-            + _framework_bar(analysis)
+        furniture = ("" if focused is not None else
+                     _interpretation(analysis.subject) + _coverage_strip(analysis)
+                     + _framework_bar(analysis))
         main = (
             _cards_view(corpus, analysis, frameworks, typed, widened, risks, breadcrumbs)
             if view == "cards"
@@ -820,12 +830,13 @@ def render(
         '<!doctype html><html lang="en"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width, initial-scale=1">'
         "<title>%(title)s</title><style>%(style)s</style></head>"
-        '<body data-density="comfortable">'
+        '<body data-density="comfortable" data-focus-fw="%(focus_fw)s">'
         "<h1>%(title)s</h1>"
         '<div class="sub">%(sub)s</div>'
         "%(toolbar)s%(furniture)s%(main)s%(sections)s"
         "<script>%(script)s</script></body></html>"
         % {
+            "focus_fw": esc(focused.framework_key if focused is not None else ""),
             "title": esc(title),
             "style": STYLE,
             "sub": esc(
@@ -908,15 +919,16 @@ def control_panel(corpus: Corpus, derivation, placement=None, lineage=None) -> s
             if band.is_empty:
                 continue
             rows = "".join(
-                "<li><strong>%s %s</strong> — %s<br>"
+                '<li><a href="%s"><strong>%s %s</strong></a> — %s<br>'
                 '<span class="note">%s</span></li>'
                 % (
+                    esc("/?" + urllib.parse.urlencode({"q": r.other.uid, "view": "cards"})),
                     esc(corpus.frameworks[r.other.framework_key].short_name),
                     esc(r.other.identifier),
                     esc(r.link.kind.value if hasattr(r.link.kind, "value") else r.link.kind),
                     esc(r.direction_note(corpus)),
                 )
-                for r in band.relations[:8]
+                for r in band.relations
             )
             parts.append(
                 "<h5>Linked — %s</h5><ul>%s</ul>%s"

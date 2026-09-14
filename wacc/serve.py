@@ -51,6 +51,11 @@ class State:
         query = (query or "").strip()
         if not query:
             return analyse(self.corpus, "", [], display=[])
+        # Links use corpus UIDs, so identical publisher identifiers cannot collide.
+        direct = self.corpus.control(query)
+        if direct is not None:
+            return analyse(self.corpus, query, [direct], evidence="exact control link",
+                           display=[direct])
         if looks_like_identifier(query):
             found = self.lookup.find(query)
             if found.status in (Status.UNIQUE, Status.AMBIGUOUS):

@@ -154,6 +154,7 @@ def risk_statement(
     corpus: Corpus, control: Control, archetypes: Sequence[Archetype], relations=None
 ) -> Statement:
     """A concise exposure and consequence scenario, with no tier commentary."""
+    framework = corpus.frameworks[control.framework_key]
     lead = archetypes[0] if archetypes else None
     quote = _quote(corpus, control, relations)
 
