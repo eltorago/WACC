@@ -11,6 +11,12 @@
       "examine": "Inspect approved governance arrangements, role charters, delegations, committee records and evidence of decisions on material cyber risk.",
       "interview": "Ask accountable leaders and control owners how cyber issues are escalated, decided and tracked across the organisation.",
       "test": "Trace recent material cyber decisions from identification through accountable review, decision and follow-up.",
+      "test_steps": [
+        "Select recent material cybersecurity decisions, incidents, risk acceptances and overdue actions that required executive or board attention.",
+        "Trace each item to a defined accountable role, the correct governance forum, recorded decision, delegated authority and communicated action owner.",
+        "Compare meeting records and dashboards with source risk and performance data to verify significant exceptions were complete, accurate and not filtered out.",
+        "Confirm actions and escalations were followed through by the assigned date and unresolved matters returned to the accountable forum."
+      ],
       "expected": "Governance is approved and suited to organisational risk, decision rights are clear, and material issues reach an accountable authority.",
       "related": ["GV-02"],
       "mappings": [
@@ -30,6 +36,12 @@
       "examine": "Review the strategy, risk criteria, approved priorities, measures, executive reports and updates following organisational or threat changes.",
       "interview": "Ask executives, risk owners and program leaders how business objectives and risk tolerance shape priorities and funding.",
       "test": "Sample current priorities and confirm each traces to a documented business objective or risk decision and is reported to the responsible forum.",
+      "test_steps": [
+        "Select current cybersecurity priorities, funding decisions and major initiatives and trace each to a stated business objective, threat or risk decision.",
+        "Compare the strategy's scope, measures, milestones, dependencies and risk tolerance with current operating plans and executive reporting.",
+        "Choose material changes in services, threats or obligations and verify the strategy or its implementation plan was reviewed and adjusted by the responsible forum.",
+        "Check completed and delayed objectives against outcome measures, confirming leaders received clear performance and residual-risk information."
+      ],
       "expected": "The strategy is current, implemented across the organisation and demonstrably guides decisions, investment and executive oversight.",
       "related": ["GV-01"],
       "mappings": [

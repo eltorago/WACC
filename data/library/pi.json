@@ -11,6 +11,12 @@
       "examine": "Reconcile privacy definitions, processing inventories, data maps and system records with collection points, business activities, legal authorities, owners and retained information.",
       "interview": "Ask privacy, business and system owners how new processing is identified, its authority is established and undocumented holdings are corrected.",
       "test": "Sample business processes and systems handling personal information and trace each to an inventory entry, accountable owner, documented authority and current description of processing.",
+      "test_steps": [
+        "Select business processes, applications, projects and datasets likely to handle personal information, including recently introduced or changed processing.",
+        "Trace each to the processing inventory and verify owner, categories of people and information, purpose, legal authority, location, recipients and retention.",
+        "Work from inventory entries back to live systems and collection points to confirm the description is current and no processing has silently ceased or moved.",
+        "Investigate discovered personal information with no inventory record and verify the correction process assigns ownership and authority before continued processing."
+      ],
       "expected": "Personal-information processing is identifiable, owned, documented and supported by a current authority before it occurs.",
       "related": ["PI-02", "PI-03", "DP-01", "AM-01"],
       "mappings": [
@@ -30,6 +36,12 @@
       "examine": "Compare privacy notices, policies and stated purposes with collection fields, consent mechanisms, actual data flows, access, retention and use of production data outside production.",
       "interview": "Ask privacy and business owners how they judge compatible use, minimise data and approve changes to existing processing.",
       "test": "Sample personal-data fields and secondary uses and verify that each is necessary for a stated authorised purpose, handled as required and removed or substituted when unnecessary.",
+      "test_steps": [
+        "Select personal-information fields and secondary copies used in operations, analytics, testing, training, research and disclosures.",
+        "For each item, compare actual collection and use with the documented authority, stated purpose, privacy notice, consent where applicable and retention rule.",
+        "Attempt a controlled incompatible use or unnecessary export and verify policy, access or workflow controls prevent it or require fresh authorisation.",
+        "Confirm unnecessary fields and copies are removed, masked or replaced and that a material processing change triggers privacy review before release."
+      ],
       "expected": "Personal information is processed only for a documented authorised purpose, with unnecessary collection and secondary copies prevented or removed.",
       "related": ["PI-01", "PI-03", "DP-02", "DP-03"],
       "mappings": [
@@ -50,6 +62,12 @@
       "examine": "Review privacy risk entries, request and complaint procedures, case records, breach playbooks, impact assessments, notification decisions and lessons applied.",
       "interview": "Ask privacy and incident leaders how requests are verified and resolved, how harm is assessed and how legal or oversight notification decisions are made.",
       "test": "Trace a sample privacy request and run a personal-information breach scenario, verifying ownership, identity checks, impact assessment, correction or containment and documented notification decisions.",
+      "test_steps": [
+        "Select privacy risks, enquiries, complaints and correction requests across open, overdue and completed states and verify identity checks, ownership and response time.",
+        "Trace each risk or request through assessment, decision, communication, correction or treatment and evidence supporting closure.",
+        "Run a personal-information breach scenario that identifies affected data and people, assesses likely harm, contains exposure and determines applicable notifications.",
+        "Verify the decision log records authority and timing, required notices can be produced, and lessons update the risk record, processing inventory or response plan."
+      ],
       "expected": "Privacy risks are visible and owned, requests are resolved through a controlled process, and breaches trigger a coordinated assessment and response.",
       "related": ["PI-01", "PI-02", "RM-02", "IR-01", "IN-03"],
       "mappings": [

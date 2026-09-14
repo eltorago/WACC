@@ -32,6 +32,8 @@ class ControlWorkspaceTests(unittest.TestCase):
         self.assertEqual(len(ids),83)
         self.assertEqual(len(workspace.TOPICS),30)
         for c in workspace.CONTROLS:
+            self.assertGreaterEqual(len(c.get('test_steps', [])),3,c['id'])
+            self.assertTrue(all(len(step)>=40 for step in c['test_steps']),c['id'])
             self.assertTrue(set(c['related'])<=ids)
             for other in c['related']:
                 self.assertIn(c['id'], next(x['related'] for x in workspace.CONTROLS if x['id']==other))
@@ -101,6 +103,9 @@ class ControlWorkspaceTests(unittest.TestCase):
             self.assertIn('Open source control',page)
             self.assertNotIn('Download assessment',page)
             self.assertIn('Assess this control',page)
+            self.assertIn('class="test-method"',page)
+            for step in c['test_steps']:
+                self.assertIn(step.replace('&','&amp;').replace('<','&lt;').replace('>','&gt;').replace("'",'&#x27;').replace('"','&quot;'),page)
         page=self.get('/library?scope=1&fw=cis-controls&control=PA-01')
         self.assertNotIn('q=ism%3Aism-1507',page)
         self.assertIn('q=cis-controls%3A6.1',page)

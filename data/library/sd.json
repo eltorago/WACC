@@ -11,6 +11,12 @@
       "examine": "Review lifecycle standards, security requirements, role assignments, design gates, coding practices, training, risk records and monitored performance measures.",
       "interview": "Ask product, engineering and security leaders when security decisions occur, who can accept risk and how teams handle urgent changes.",
       "test": "Sample recent releases and trace security requirements and decisions from planning through design, development, testing and approval for deployment.",
+      "test_steps": [
+        "Select recent releases, emergency changes and projects using different delivery models and identify required security activities for their risk and lifecycle stage.",
+        "Trace security requirements, design decisions, code review, dependency control, testing, findings and approval through source, build and deployment records.",
+        "Compare pipeline enforcement with the documented process and attempt an authorised test change missing a required security gate.",
+        "Confirm the release is blocked or formally excepted by an authorised owner and that deployed artefacts trace to the reviewed source and build."
+      ],
       "expected": "Sampled releases show assigned security responsibilities, documented requirements and completed security activities throughout the lifecycle.",
       "related": ["SD-02", "SD-03", "VM-01", "SC-03"],
       "mappings": [
@@ -29,6 +35,12 @@
       "examine": "Review threat models, diagrams, assumptions, abuse cases, risk decisions, acceptance criteria, review dates and links to design or backlog changes.",
       "interview": "Ask developers, architects and security reviewers how threats are identified, challenged and kept aligned with the implemented design.",
       "test": "Sample changed applications and compare their current architecture and exposed entry points with the threat model and resulting mitigations.",
+      "test_steps": [
+        "Select new and materially changed applications and obtain current architecture, trust boundaries, data flows, identities, entry points and dependencies.",
+        "Reperform a focused threat analysis with developers and security staff, including abuse of trust, privilege, data flow and external dependencies.",
+        "Compare identified threats with the existing model, security requirements, design mitigations, tests and accepted residual risks.",
+        "Verify architecture or threat changes trigger model review before release and that unresolved high-risk threats prevent deployment or receive authorised acceptance."
+      ],
       "expected": "Threat models reflect the implemented system and current threats, identify material attack paths and lead to tracked design or control decisions.",
       "related": ["SD-01", "SD-03", "NA-01"],
       "mappings": [
@@ -47,6 +59,12 @@
       "examine": "Inspect the testing strategy, code-review criteria, static and dynamic analysis, penetration or fuzz testing, results, risk decisions and remediation evidence.",
       "interview": "Ask engineering and security owners how testing depth is selected, failures block release and unresolved findings are accepted and tracked.",
       "test": "Sample releases and trace required tests, findings, approvals and fixes; independently confirm that selected high-risk findings are no longer reproducible.",
+      "test_steps": [
+        "Select releases and components across application types and compare required static, dynamic, composition and manual testing with executed pipeline and assessor records.",
+        "Introduce an approved non-production test weakness or use a known safe test case and verify the appropriate tool detects and prioritises it.",
+        "Trace sampled high-risk findings to ownership, fix, review, rebuild and deployment without suppression or exception outside the approved process.",
+        "Repeat the original test against the released artefact and confirm the weakness is no longer reproducible and no material regression was introduced."
+      ],
       "expected": "Sampled releases complete the required security checks, material findings have accountable decisions and corrected flaws are verified before closure.",
       "related": ["SD-01", "SD-02", "VM-02", "AP-02"],
       "mappings": [

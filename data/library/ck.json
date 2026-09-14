@@ -11,6 +11,12 @@
       "examine": "Compare the cryptographic inventory and technical configurations with the approved algorithm, protocol, strength and key-size requirements for each use.",
       "interview": "Ask security architects how approved choices are set, updated and communicated when standards or threats change.",
       "test": "Inspect or negotiate representative cryptographic connections and operations and verify that disallowed algorithms and cipher suites are rejected.",
+      "test_steps": [
+        "Select representative data stores, network services, applications, certificates and protocols and identify the approved algorithm and strength requirements for each.",
+        "Inspect effective configuration and perform an authorised negotiation or cryptographic operation to confirm approved algorithms and key sizes are selected.",
+        "Attempt negotiation with prohibited, deprecated or undersized options and verify rejection without silent downgrade.",
+        "Compare discovered use with the cryptographic inventory and record undocumented exceptions, expiry dates and dependencies that prevent migration."
+      ],
       "expected": "Every sampled use applies an approved algorithm and strength for its purpose, and disallowed choices cannot be selected.",
       "related": ["CK-02"],
       "mappings": [
@@ -28,6 +34,12 @@
       "examine": "Inspect key inventories, generation records, protection controls, cryptoperiods, rotation and revocation records, and destruction evidence.",
       "interview": "Ask key custodians how key lifetimes are chosen, how compromise is handled and how duties are separated.",
       "test": "Sample active and retired keys and trace their creation, storage, use, rotation or revocation and final disposition.",
+      "test_steps": [
+        "Sample active, recently rotated, revoked, expired and destroyed encryption and signing keys from different services.",
+        "Trace each key through authorised generation, ownership, protected storage, distribution, permitted use, backup or escrow and scheduled rotation.",
+        "Perform an authorised rotation or revocation in a test service and verify the new key works, the old key cannot authorise new activity and dependent systems update safely.",
+        "Inspect destruction or retirement evidence and confirm retained keys remain available only where required for lawful decryption, verification or recovery."
+      ],
       "expected": "Keys are generated with approved cryptography, protected throughout use and retired within the applicable cryptoperiod or immediately after compromise.",
       "related": ["CK-01"],
       "mappings": [

@@ -11,6 +11,12 @@
       "examine": "Reconcile discovered assets with scan targets, completed scans, authentication success and scanner update records.",
       "interview": "Ask the scanning owner how new assets, failed scans and systems that cannot be scanned are handled.",
       "test": "Sample assets from the inventory and trace them to recent usable scan results. Verify scanner currency and the required scan types and frequencies.",
+      "test_steps": [
+        "Select assets from authoritative inventories across network, endpoint, cloud, application and externally exposed environments and trace each to a recent scan or assessment.",
+        "Verify authenticated coverage where supported, scanner and signature currency, required frequency and successful access to the intended components.",
+        "Introduce or identify a known safe test weakness in a controlled asset and confirm detection, correct asset attribution, severity context and ticket creation.",
+        "Compare scan targets back to inventory and investigate blind spots, failed credentials, excluded assets and results older than the defined interval."
+      ],
       "expected": "Coverage gaps and failures are identified and followed up; detection information, scanning methods and frequency meet applicable requirements.",
       "related": [
         "VM-02"
@@ -57,6 +63,12 @@
       "examine": "Review vulnerability findings, vendor release dates, treatment decisions, patch deployments and verification results.",
       "interview": "Ask owners how urgency is determined, changes are tested and overdue or unsupported systems are handled.",
       "test": "Sample findings across exposure and severity levels. Compare release or discovery dates with the applicable deadline, and confirm installed fixes or successful retests rather than relying only on closed tickets.",
+      "test_steps": [
+        "Select vulnerabilities across severity, exposure, asset criticality, exploitability, age and exception status, including items marked remediated.",
+        "Recalculate the applicable priority and due date from policy and compare it with discovery, assignment, mitigation, exception and escalation records.",
+        "Inspect the live asset for the installed fix or compensating control and repeat the relevant scan or safe exploit check rather than relying on ticket closure.",
+        "Confirm overdue and failed remediation is escalated, accepted exceptions have authority and expiry, and successful retests update risk and reporting."
+      ],
       "expected": "The treatment is verified and timely; exceptions have documented justification and follow-up, with each source-specific deadline assessed.",
       "related": [
         "VM-01",

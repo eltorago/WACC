@@ -11,6 +11,12 @@
       "examine": "Review the data-management process, inventory, ownership records, classification scheme, labels, retention rules and links to system security categorisation.",
       "interview": "Ask data and system owners how new data sets are discovered, classified and reclassified and how handling requirements reach users and technology controls.",
       "test": "Sample sensitive data from systems and inventories in both directions and verify ownership, classification, location, handling and retention requirements.",
+      "test_steps": [
+        "Select sensitive data discovered in endpoints, repositories, databases, cloud services and transfer platforms, plus records from the authoritative data inventory.",
+        "Reconcile observed data to inventory entries and listed holdings to a current location, confirming owner, classification, purpose, users and retention.",
+        "Apply the classification decision rules independently to sampled records and compare the result with labels and handling controls actually applied.",
+        "Introduce an authorised labelled test record and verify downstream copies, exports and retention actions preserve or appropriately translate its classification."
+      ],
       "expected": "Sampled sensitive data is present in the inventory, has an accountable owner and classification, and is handled according to current documented requirements.",
       "related": ["DP-02", "DP-03", "MD-01", "AM-01"],
       "mappings": [
@@ -31,6 +37,12 @@
       "examine": "Compare the data inventory and classifications with encryption standards, architecture, configurations, key ownership, exceptions and coverage reports.",
       "interview": "Ask data, platform and security owners how protection requirements are translated into storage and transmission controls and how exceptions are approved.",
       "test": "Sample sensitive data stores and transmission paths and verify effective protection, approved algorithms and controlled handling of any plaintext exposure.",
+      "test_steps": [
+        "Choose sensitive datasets across endpoints, servers, databases, backups, cloud storage, APIs, email and network transfer paths.",
+        "Inspect effective encryption, key ownership and access settings at rest, then observe representative transfers to confirm protected protocols and certificate validation.",
+        "Attempt an authorised connection using a prohibited protocol or untrusted certificate and verify rejection without downgrade or plaintext fallback.",
+        "Search controlled logs, temporary files and processing locations for the test data and record any unexpected plaintext exposure or uncontrolled copy."
+      ],
       "expected": "Sampled sensitive data is protected in storage and transit according to its classification, with justified and approved exceptions.",
       "related": ["DP-01", "DP-03", "CK-01", "BR-01"],
       "mappings": [
@@ -51,6 +63,12 @@
       "examine": "Review approved information-flow policies, architecture, data-loss controls, monitored channels, alerts, exceptions and investigations.",
       "interview": "Ask data and security owners which movement is permitted, how controls recognise sensitive information and how blocked or suspicious transfers are handled.",
       "test": "Use authorised test data to verify representative permitted and prohibited flows, alert generation and investigation across major transfer channels.",
+      "test_steps": [
+        "Create uniquely marked, non-sensitive test data representing relevant classifications and define permitted and prohibited destinations for each transfer channel.",
+        "Send permitted test transfers through email, web, removable media, cloud sharing and other major channels and verify normal business flow and correct audit records.",
+        "Attempt prohibited transfers using straightforward and mildly altered forms such as archive, rename or copy-paste, staying within the authorised test plan.",
+        "Confirm prevention or alerting, trace the event to a timely investigation with user and destination context, and remove all test data from recipients and queues."
+      ],
       "expected": "Authorised flows operate as designed while prohibited or suspicious movement of sensitive data is blocked or detected and investigated.",
       "related": ["DP-01", "DP-02", "MD-02", "SM-02"],
       "mappings": [

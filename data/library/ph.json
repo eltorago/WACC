@@ -11,6 +11,12 @@
       "examine": "Compare facility risk assessments and zone designs with barriers, entry points, equipment placement and environmental protections.",
       "interview": "Ask facility and service owners how the highest resource risk determines protection and how site changes are reviewed.",
       "test": "Walk representative perimeters and secure areas and verify that barriers and environmental protections match approved designs.",
+      "test_steps": [
+        "Select representative public boundaries, controlled areas, secure rooms, equipment locations and environmental protections at critical sites.",
+        "Walk the perimeter and compare doors, locks, barriers, alarms, surveillance, fire, water, power and temperature controls with approved site designs and risk decisions.",
+        "Perform authorised checks of selected barriers and alarm points, including loss of power or communications where safe, and confirm alerts reach the responsible personnel.",
+        "Inspect defects and maintenance records and verify temporary weaknesses receive immediate protection, an owner and timely permanent repair."
+      ],
       "expected": "Facilities and equipment are protected at a level consistent with assessed risk, and gaps or changes are identified and addressed.",
       "related": ["PH-02"],
       "mappings": [
@@ -29,6 +35,12 @@
       "examine": "Review authorised-access lists, approvals, visitor and escort records, physical access logs, monitoring coverage and periodic reviews.",
       "interview": "Ask security staff and area owners how access need is approved, anomalous entry is investigated and privileges are removed.",
       "test": "Sample credentials and visitors, verify current authorisation, and trace selected access events through monitoring and review.",
+      "test_steps": [
+        "Select current, transferred, departed, temporary and visitor identities and compare facility permissions with sponsorship, clearance, role and expiry.",
+        "Use authorised test credentials at permitted and prohibited zones and verify correct entry, denial, anti-passback or escort rules and event recording.",
+        "Trace a visitor from identity check and sign-in through badge issue, escort, restricted-area access and sign-out or badge return.",
+        "Review unusual and denied events and confirm obsolete credentials are disabled promptly and monitoring cases reach an accountable owner."
+      ],
       "expected": "Only authorised people enter controlled areas, unescorted access is limited as required and suspicious entry is detected and investigated.",
       "related": ["PH-01", "PA-04"],
       "mappings": [

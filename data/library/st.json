@@ -11,6 +11,12 @@
       "examine": "Compare the assessment schedule and approved plans with system risk, control scope, assessor competence and independence, procedures used, evidence retained and final reports.",
       "interview": "Ask authorising officers, control owners and assessors how scope and depth are chosen, conflicts are managed and effectiveness conclusions are supported.",
       "test": "Select completed assessments and independently repeat a small sample of procedures, checking whether the evidence supports the reported design, implementation and operating conclusions.",
+      "test_steps": [
+        "Select completed assessments across systems and risk levels and compare their timing, scope and assessor competence or independence with the assurance plan.",
+        "Inspect the approved assessment procedure and evidence for sampled controls, confirming the assessor tested design, implementation and operation in the real environment.",
+        "Independently repeat selected interviews, examinations and technical checks and compare actual results with the assessment conclusion.",
+        "Record unsupported conclusions, stale evidence and scope exclusions and verify they are corrected in the report and assurance decision."
+      ],
       "expected": "Assessments cover the relevant controls and environment, use suitable assessors and repeatable procedures, and reach conclusions supported by current evidence.",
       "related": ["ST-02", "ST-03", "GV-01", "SM-03"],
       "mappings": [
@@ -30,6 +36,12 @@
       "examine": "Review the testing program, risk-based scope, frequency, pre-deployment and change triggers, tester qualifications, independence, authorisation, safety limits and reports.",
       "interview": "Ask service owners and testers how critical attack paths are selected, operational harm is prevented and exclusions or constraints affect assurance.",
       "test": "Trace a sample of critical and recently changed services to completed testing and verify that authorised scenarios covered realistic internal, external and application attack paths.",
+      "test_steps": [
+        "Select critical, internet-facing, internal and recently changed services and compare completed penetration testing with the approved risk-based schedule and scope.",
+        "Verify tester qualification and independence, written authorisation, rules of engagement, safety limits, test identities, contacts and restoration plan before execution.",
+        "Review evidence that testing combined weaknesses into realistic attack paths across network, application, identity and privilege boundaries rather than reporting scanner output alone.",
+        "Reproduce a sample finding safely or inspect a witnessed replay, confirm severity reflects business impact and verify test artefacts and access are removed afterward."
+      ],
       "expected": "Critical and changed services receive timely, authorised testing by qualified people, with controlled execution and clear, reproducible findings.",
       "related": ["ST-01", "ST-03", "VM-01", "SD-03", "NA-03"],
       "mappings": [
@@ -51,6 +63,12 @@
       "examine": "Reconcile assessment reports with remediation plans, risk ratings, owners, deadlines, accepted exceptions, closure evidence, retest results and resulting control changes.",
       "interview": "Ask finding owners and risk owners how priorities are agreed, overdue work is escalated and closure is independently verified.",
       "test": "Sample high, overdue and closed findings and confirm ownership and treatment decisions, then repeat the relevant check to verify that closed weaknesses are no longer exploitable.",
+      "test_steps": [
+        "Reconcile assessment and penetration-test reports with the central finding register, including high, overdue, accepted and reported-closed findings.",
+        "Verify each finding has risk-based priority, accountable owner, due date, treatment decision and escalation when progress misses the agreed date.",
+        "For closed findings, repeat the original assessment or exploit check in a safe environment and confirm the weakness and equivalent paths no longer succeed.",
+        "Check whether testing exposed a detection or design gap and verify the relevant rule, baseline, architecture or procedure changed and was itself validated."
+      ],
       "expected": "Findings remain visible until an authorised resolution, overdue actions are escalated, and closure is supported by a successful retest or equivalent verification.",
       "related": ["ST-01", "ST-02", "RM-03", "VM-02", "SD-03"],
       "mappings": [

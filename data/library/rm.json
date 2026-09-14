@@ -11,6 +11,12 @@
       "examine": "Review the cyber risk method, enterprise risk framework, risk criteria, tolerance statements, decision authorities, response options and records showing executive approval.",
       "interview": "Ask executives, risk owners and system owners how they compare cyber risks, escalate decisions and determine who may accept residual risk.",
       "test": "Select recent risk decisions from different business areas and verify that each used the approved criteria, stayed within delegated authority and escalated exceptions appropriately.",
+      "test_steps": [
+        "Select recent cyber risk decisions from different business areas, impact levels and acceptance authorities.",
+        "Reperform the categorisation and scoring using the approved scope, assumptions, likelihood and impact criteria, tolerance and response options.",
+        "Compare the reproduced result with the recorded decision and confirm the decision maker held the required delegated authority.",
+        "For decisions outside tolerance or with material uncertainty, verify escalation, conditions, review date and communication to affected owners."
+      ],
       "expected": "Risk decisions use common criteria, reflect the organisation's tolerance and are made or accepted by an authorised owner.",
       "related": ["RM-02", "RM-03", "GV-01", "GV-02"],
       "mappings": [
@@ -31,6 +37,12 @@
       "examine": "Compare risk assessments with asset and service criticality, threat information, vulnerability findings, dependencies, existing controls, likelihood and impact analysis.",
       "interview": "Ask business, system and risk owners how they identify plausible scenarios, estimate consequences and challenge assumptions or incomplete information.",
       "test": "Sample important systems and services and trace whether their material threats, weaknesses and dependencies appear in a current assessment with supported likelihood and impact ratings.",
+      "test_steps": [
+        "Select important systems and services and assemble independent inputs on assets, business impact, dependencies, threats, vulnerabilities and existing controls.",
+        "Compare those inputs with the current risk assessment and confirm it states plausible events, affected outcomes, threat sources and exploitable conditions.",
+        "Reperform likelihood and impact analysis for selected scenarios using the approved method and challenge unsupported assumptions or missing dependencies.",
+        "Verify new material scenarios and changed ratings enter the risk process with an accountable owner and response decision."
+      ],
       "expected": "Current assessments describe plausible scenarios, affected business outcomes, relevant threats and weaknesses, and a reasoned likelihood and impact.",
       "related": ["RM-01", "RM-03", "AM-01", "VM-01", "SC-02"],
       "mappings": [
@@ -53,6 +65,12 @@
       "examine": "Review risk-register fields, owners, treatment actions, due dates, acceptance records, overdue items, reassessment triggers and closure evidence.",
       "interview": "Ask risk and action owners how priorities are set, stalled treatments are escalated, residual risk is accepted and material changes trigger reassessment.",
       "test": "Sample open, accepted and closed risks and verify current ownership, authorised decisions, action progress, reassessment after relevant change and evidence supporting closure.",
+      "test_steps": [
+        "Select open, accepted, overdue and closed risks and verify each has a clear scenario, owner, rating, treatment or acceptance decision and review trigger.",
+        "Trace treatment actions to funded work, responsible people, milestones and current progress, escalating overdue or ineffective actions according to policy.",
+        "For accepted risk, verify the approver's authority, conditions and expiry; for closed risk, inspect evidence that exposure ended or treatment became effective.",
+        "Choose material system, supplier or threat changes and confirm affected risks were reassessed and reprioritised rather than waiting for a routine review."
+      ],
       "expected": "Material risks remain traceable to an accountable owner and current decision until treatment or evidenced closure, and are reassessed when exposure changes.",
       "related": ["RM-01", "RM-02", "GV-02", "AM-03", "ST-03"],
       "mappings": [

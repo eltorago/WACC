@@ -11,6 +11,12 @@
       "examine": "Compare users, systems and access paths with authentication policies, technical enforcement, exclusions and sign-in records.",
       "interview": "Ask identity and service owners how high-risk access is identified, how exceptions are approved and how new access paths are brought into scope.",
       "test": "Use authorised test accounts to sign in through primary, recovery and alternate paths. Verify that the required factors are enforced and cannot be bypassed.",
+      "test_steps": [
+        "Identify primary, alternate, legacy, recovery, remote and privileged sign-in paths for representative high-risk systems and users.",
+        "Use authorised accounts to sign in through each supported path and verify the required independent factors, binding to the intended user and resistance to factor reuse.",
+        "Attempt safe bypass cases such as direct protocol access, remembered sessions, fallback authentication, account recovery and a user outside the MFA policy group.",
+        "Confirm bypasses fail or have an approved exception, and trace successful and failed factor events to central monitoring with enough context for investigation."
+      ],
       "expected": "Each in-scope access path requires the prescribed independent factors; unsupported systems and approved exceptions are recorded and reviewed.",
       "related": ["MF-02", "PA-03"],
       "mappings": [
@@ -32,6 +38,12 @@
       "examine": "Inspect enrolment controls, cryptographic protection, event collection, alert rules and investigations of suspicious authentication activity.",
       "interview": "Ask identity operators how factor changes are authorised and how unusual enrolment or authentication activity is investigated.",
       "test": "Perform an authorised factor enrolment and successful and failed sign-ins. Trace approval, protected secret handling and complete events into central monitoring.",
+      "test_steps": [
+        "Enrol, replace and remove an authentication factor for an authorised test identity using normal and recovery workflows.",
+        "Verify identity proofing, approval, notification, protected secret establishment and prevention of enrolment by an unauthorised or recently compromised session.",
+        "Perform successful, failed and repeated authentication attempts and trace factor type, account, time, result and source into central monitoring.",
+        "Confirm suspicious enrolment or authentication creates the expected alert and that factor revocation prevents further use across active sessions."
+      ],
       "expected": "Factor enrolment is authorised, authenticator secrets use approved protection, and relevant authentication events reach monitoring with enough detail for investigation.",
       "related": ["MF-01", "SM-01"],
       "mappings": [

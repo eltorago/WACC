@@ -11,6 +11,12 @@
       "examine": "Compare detection timestamps, triage records, severity decisions and response initiation for sampled suspected incidents.",
       "interview": "Ask responders how the four-hour clock starts, who makes the triage decision and how delays are escalated.",
       "test": "Trace sampled suspected incidents from first detection to documented triage and response selection.",
+      "test_steps": [
+        "Select suspected incidents from different reporting channels and include cases later confirmed, dismissed and escalated.",
+        "Establish the earliest documented awareness time from source records and compare it with triage start, classification, decision and responsible person.",
+        "Recalculate elapsed time against the four-hour requirement and verify the record explains pauses, ambiguity and the selected response path.",
+        "Inject a controlled suspected-incident report and confirm the on-call process acknowledges, triages and records it before the deadline."
+      ],
       "expected": "Triage and an appropriate response decision are recorded within four hours of detection.",
       "related": ["IN-02", "IN-03"],
       "mappings": [
@@ -26,6 +32,12 @@
       "examine": "Review awareness evidence, availability impact assessment, report content, delivery timestamp and any oral-report follow-up.",
       "interview": "Ask legal, operational and incident leaders how significant availability impact is identified and who owns the twelve-hour report.",
       "test": "For sampled qualifying incidents, calculate elapsed time from documented awareness to delivery to the relevant Commonwealth body.",
+      "test_steps": [
+        "Select incidents that met or approached the applicable critical-incident threshold and independently confirm the trigger from incident facts.",
+        "Establish when the entity became aware of the qualifying incident and obtain the submission receipt or other evidence of delivery to the relevant Commonwealth body.",
+        "Recalculate the elapsed time to the initial report, accounting for the exact statutory trigger rather than ticket creation or later confirmation.",
+        "Compare the submitted content, follow-up process and contact route with the applicable requirement and record late, incomplete or unsupported non-reporting decisions."
+      ],
       "expected": "Each qualifying incident was reported as soon as practicable and no later than twelve hours after the entity became aware.",
       "related": ["IN-01", "IN-03"],
       "mappings": [
@@ -41,6 +53,12 @@
       "examine": "Inspect the obligations register, incident classifications, awareness and detection timestamps, notifications, recipients and evidence of submission.",
       "interview": "Ask legal and incident leaders how concurrent obligations are identified and which timestamp starts each clock.",
       "test": "Sample incidents under each regime and independently recalculate the applicable deadline and actual reporting time.",
+      "test_steps": [
+        "Create a matrix of reporting regimes, incident classes, triggers, recipients, initial and follow-up deadlines and required content.",
+        "Select incidents under each applicable regime and independently determine which triggers and clocks applied from the underlying facts.",
+        "Compare calculated deadlines with submission timestamps, receipts and follow-up reports, including cases where several regimes applied to one incident.",
+        "Run a tabletop scenario that changes severity and available information over time and verify staff select, update and meet every applicable reporting path."
+      ],
       "expected": "Each incident is reported to every required recipient within its own trigger and deadline, with the decision trail retained.",
       "related": ["IN-01", "IN-02"],
       "mappings": [
