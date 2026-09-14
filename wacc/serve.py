@@ -21,6 +21,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from typing import Dict, Optional
 
 from .analysis import analyse, gather
+from . import control_workspace
 from .build import build
 from .derive import DetailIndex, derive
 from .lookup import IdentifierIndex, Status, looks_like_identifier
@@ -131,6 +132,11 @@ def _handler(state: State):
             params = urllib.parse.parse_qs(parsed.query)
             query = (params.get("q") or [""])[0]
             limit = _limit(params)
+
+            if parsed.path == "/library/export.csv":
+                return self._send(control_workspace.export_csv(params), "text/csv", "control-mappings.csv")
+            if parsed.path == "/library" or (parsed.path in ("/", "/index.html") and not params):
+                return self._send(control_workspace.render(state.corpus, params), "text/html")
 
             if parsed.path == "/control":
                 return self._panel((params.get("uid") or [""])[0])

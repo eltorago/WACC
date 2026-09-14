@@ -831,6 +831,7 @@ def render(
         '<meta name="viewport" content="width=device-width, initial-scale=1">'
         "<title>%(title)s</title><style>%(style)s</style></head>"
         '<body data-density="comfortable" data-focus-fw="%(focus_fw)s">'
+        '<p><a href="/library">← Control workspace</a></p>'
         "<h1>%(title)s</h1>"
         '<div class="sub">%(sub)s</div>'
         "%(toolbar)s%(furniture)s%(main)s%(sections)s"

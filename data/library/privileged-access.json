@@ -1,0 +1,237 @@
+{
+  "version": 1,
+  "topic": "Privileged access",
+  "controls": [
+    {
+      "id": "PA-01",
+      "title": "Validate privileged-access requests",
+      "statement": "Validate and authorise the business need for privileged access before activating it. Limit the granted permissions to the approved duties.",
+      "risk": "Administrator access granted without a valid need could allow unauthorised changes, disclosure of sensitive information or disruption of services.",
+      "scope": "Requests for new or changed privileged access to systems and data.",
+      "examine": "Sample new requests, approvals, business justifications and actual permissions. Compare validation and approval timestamps with account activation.",
+      "interview": "Ask the approving owner how business need is established, who can approve access and how exceptions are handled.",
+      "test": "Trace sampled requests through the workflow. Confirm that granted permissions match the approved duties and that activation followed validation.",
+      "expected": "Each sampled grant has a validated need, an authorised decision and permissions matching that decision before activation.",
+      "related": [
+        "PA-02",
+        "PA-04"
+      ],
+      "mappings": [
+        {
+          "uid": "ism:ism-1507",
+          "relationship": "Directly addresses",
+          "basis": "Validating initial requests is the central requirement.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "ism:ism-1508",
+          "relationship": "Partially addresses",
+          "basis": "Validates the initial permission set; ongoing least privilege also requires access review.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "cis-controls:6.1",
+          "relationship": "Partially addresses",
+          "basis": "Covers privileged access; the safeguard also covers other enterprise access and role changes.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "nist-800-53:ac-2",
+          "relationship": "Partially addresses",
+          "basis": "Supports approval and provisioning requirements, not every account lifecycle activity.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "aescsf:access-ap1",
+          "relationship": "Related only",
+          "basis": "This is an anti-pattern: access is provisioned before need is confirmed. Use it to identify a failure condition, not as a required practice.",
+          "provenance": "Locally reviewed mapping"
+        }
+      ]
+    },
+    {
+      "id": "PA-02",
+      "title": "Separate administrative accounts",
+      "statement": "Assign dedicated administrator accounts for privileged work. Use non-privileged accounts for routine email, browsing and office work.",
+      "risk": "Using administrator accounts for everyday work could allow a malicious email or website to cause widespread damage.",
+      "scope": "Human users who perform administrative duties.",
+      "examine": "Compare personnel, account inventories and assigned roles. Inspect separation between routine and administrative identities.",
+      "interview": "Ask administrators how they switch accounts and how emergency access is managed.",
+      "test": "Sample administrators and verify that routine accounts cannot perform privileged actions. Review whether dedicated accounts are being used for routine activities.",
+      "expected": "Administrative identities are separate and used only for duties requiring privilege; routine identities lack unnecessary administrative rights.",
+      "related": [
+        "PA-01",
+        "PA-03",
+        "PA-05"
+      ],
+      "mappings": [
+        {
+          "uid": "ism:ism-445",
+          "relationship": "Directly addresses",
+          "basis": "Requires a dedicated privileged account used solely for privileged duties.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "cis-controls:5.4",
+          "relationship": "Directly addresses",
+          "basis": "Separates administrator accounts from general computing activities.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "aescsf:access-1g",
+          "relationship": "Supports",
+          "basis": "Account separation helps limit privileged credentials to the processes that require them; it does not alone enforce all use restrictions.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "nist-800-53:ac-6.5",
+          "relationship": "Partially addresses",
+          "basis": "Supports restriction of privileged accounts; the source also requires the organisation to define the allowed personnel or roles.",
+          "provenance": "Locally reviewed mapping"
+        }
+      ]
+    },
+    {
+      "id": "PA-03",
+      "title": "Require strong authentication for administrative access",
+      "statement": "Require multi-factor authentication for human administrative access. Identify entry points and prevent alternative sign-in paths from bypassing it.",
+      "risk": "A stolen administrator password could give an attacker control of important systems if no additional identity check is required.",
+      "scope": "Human administrative accounts, remote access paths and supported applications, including externally managed services.",
+      "examine": "Compare privileged accounts and administrative entry points with authentication policies, exclusions and sign-in records.",
+      "interview": "Ask the identity owner how new services, recovery paths and emergency accounts are covered.",
+      "test": "Use an authorised test account to verify the additional factor and check alternative sign-in routes for bypasses.",
+      "expected": "In-scope administrative sign-ins require the prescribed factors; unsupported systems and exceptions are identified and reviewed against the applicable source requirements.",
+      "related": [
+        "PA-02",
+        "PA-05"
+      ],
+      "mappings": [
+        {
+          "uid": "ism:ism-1173",
+          "relationship": "Directly addresses",
+          "basis": "Requires multi-factor authentication for privileged human users.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "cis-controls:6.5",
+          "relationship": "Directly addresses",
+          "basis": "Retain the safeguard’s where-supported condition and third-party scope.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "nist-800-53:ia-2.1",
+          "relationship": "Directly addresses",
+          "basis": "Requires multi-factor authentication for privileged accounts.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "aescsf:access-1h",
+          "relationship": "Partially addresses",
+          "basis": "Covers privileged human access; the source also covers other high-risk access and permits other credential approaches.",
+          "provenance": "Locally reviewed mapping"
+        }
+      ]
+    },
+    {
+      "id": "PA-04",
+      "title": "Review and remove unnecessary privileged access",
+      "statement": "Review privileged access at an agreed frequency and when roles or responsibilities change. Remove or adjust access that is no longer needed.",
+      "risk": "Unnecessary administrator access could be misused after a person changes roles or leaves, putting information and services at risk.",
+      "scope": "Privileged identities, permissions, temporary grants and account owners.",
+      "examine": "Compare current access with personnel changes, review decisions and removal records. Identify temporary, dormant and ownerless accounts.",
+      "interview": "Ask reviewers how they validate continuing need and ensure decisions are carried out.",
+      "test": "Sample retained and removed access. Verify business need, review dates and completed permission changes against the applicable deadlines.",
+      "expected": "Reviews and triggered changes are completed on time; each retained privilege is justified and removal decisions are implemented. Source-specific deadlines must be checked separately.",
+      "related": [
+        "PA-01",
+        "PA-05"
+      ],
+      "mappings": [
+        {
+          "uid": "ism:ism-1647",
+          "relationship": "Partially addresses",
+          "basis": "Specifically requires disabling privileged access after 12 months unless revalidated; verify this deadline.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "ism:ism-1648",
+          "relationship": "Partially addresses",
+          "basis": "Requires disabling privileged access after 45 days of inactivity; scheduled reviews alone do not satisfy this condition.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "cis-controls:6.8",
+          "relationship": "Partially addresses",
+          "basis": "Covers privileged reviews; the safeguard also requires role definitions and reviews at least annually across enterprise assets.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "nist-800-53:ac-6.7",
+          "relationship": "Directly addresses",
+          "basis": "Review privileges and reassign or remove them; the organisation must define the frequency and covered roles.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "aescsf:access-2h",
+          "relationship": "Directly addresses",
+          "basis": "Includes periodic reviews and triggers such as organisational changes and temporary elevation.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "aescsf:access-ap10",
+          "relationship": "Related only",
+          "basis": "Anti-pattern describing failure to validate continuing need during reviews.",
+          "provenance": "Locally reviewed mapping"
+        }
+      ]
+    },
+    {
+      "id": "PA-05",
+      "title": "Record privileged activity",
+      "statement": "Record privileged access and administrative actions in central logs that identify the actor, time, target and action. Protect those records against unauthorised changes.",
+      "risk": "Without reliable records of administrator activity, harmful changes could go unnoticed and an investigation may not establish what happened.",
+      "scope": "Privileged sign-ins and administrative actions on in-scope systems, including third-party administration.",
+      "examine": "Compare the system inventory with collected log sources. Inspect event fields, central collection and protection settings.",
+      "interview": "Ask the logging owner how missing sources, collection failures and access to records are managed.",
+      "test": "Perform an authorised benign administrative action and trace its record to central storage. Verify actor, time, target and action, and test protection using test records.",
+      "expected": "Sampled activity is recorded centrally with sufficient detail to trace it, and unauthorised changes to records are prevented.",
+      "related": [
+        "PA-02",
+        "PA-03",
+        "PA-04"
+      ],
+      "mappings": [
+        {
+          "uid": "ism:ism-1509",
+          "relationship": "Directly addresses",
+          "basis": "Specifically requires central logging of privileged access events.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "ism:ism-1985",
+          "relationship": "Partially addresses",
+          "basis": "Covers protection from changes; also verify the source requirement to prevent unauthorised access, including reading.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "nist-800-53:ac-6.9",
+          "relationship": "Directly addresses",
+          "basis": "Requires logging the execution of privileged functions.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "cis-controls:8.2",
+          "relationship": "Partially addresses",
+          "basis": "Covers privileged events; the safeguard requires audit logging more broadly across enterprise assets.",
+          "provenance": "Locally reviewed mapping"
+        },
+        {
+          "uid": "aescsf:situation-ap8",
+          "relationship": "Related only",
+          "basis": "Anti-pattern describing third-party privileged access that is not logged.",
+          "provenance": "Locally reviewed mapping"
+        }
+      ]
+    }
+  ]
+}
