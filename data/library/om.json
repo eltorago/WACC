@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "topic": "Restrict Microsoft Office macros",
+  "controls": [
+    {
+      "id": "OM-01",
+      "title": "Limit macro use to approved business needs",
+      "statement": "Disable Microsoft Office macros for users without a business need and permit required macros only from approved trust locations or publishers.",
+      "risk": "A malicious document could run attacker-controlled commands if users can enable macros that have no approved business purpose.",
+      "scope": "Microsoft Office users, macro-enabled documents, trusted locations and trusted publishers.",
+      "examine": "Compare approved macro users and workflows with deployed macro policy, trusted locations, publisher lists and exceptions.",
+      "interview": "Ask business and application owners how macro need is approved and how trust decisions are reviewed.",
+      "test": "Use safe signed, unsigned, trusted-location and untrusted test documents with representative users.",
+      "expected": "Users without an approved need cannot run macros; permitted macros are limited to the configured trusted paths and publishers.",
+      "related": ["OM-02", "UH-01"],
+      "mappings": [
+        {"uid":"ism:ism-1671","relationship":"Directly addresses","basis":"Requires macros to be disabled for users who do not have a demonstrated business requirement.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1674","relationship":"Partially addresses","basis":"Restricts macros to a sandbox, trusted location or trusted publisher in the source scope.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1487","relationship":"Partially addresses","basis":"Restricts write access to trusted locations to personnel whose role requires it.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1675","relationship":"Directly addresses","basis":"Prevents users from enabling macros signed by an untrusted publisher.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1891","relationship":"Directly addresses","basis":"Prevents users from enabling macros that do not use the required version of digital signature.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "OM-02",
+      "title": "Scan macros and block unsafe capabilities",
+      "statement": "Scan Office macros for malicious content, block high-risk calls and Internet-sourced macros, and prevent users from weakening the settings.",
+      "risk": "A permitted or signed macro could still deliver malware if its content and capabilities are not checked and constrained.",
+      "scope": "Microsoft Office macro scanning, source controls, Win32 API restrictions, signing checks and managed settings.",
+      "examine": "Inspect macro policies, antivirus integration, Internet-origin controls, Win32 API restrictions, signing validation and annual publisher reviews.",
+      "interview": "Ask security and application owners how signed macros are checked and how policy failures or malicious detections are handled.",
+      "test": "Use safe test macros to verify Internet-origin blocking, antivirus scanning, high-risk API blocking and resistance to user policy changes.",
+      "expected": "Unsafe macros and capabilities are blocked, allowed signed macros are checked as required, and users cannot weaken enforcement.",
+      "related": ["OM-01", "AP-01"],
+      "mappings": [
+        {"uid":"ism:ism-1488","relationship":"Directly addresses","basis":"Requires macros in files from the Internet to be blocked.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1672","relationship":"Directly addresses","basis":"Requires macros to be scanned by antivirus software.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1673","relationship":"Directly addresses","basis":"Requires macros to be blocked from making Win32 API calls.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1890","relationship":"Partially addresses","basis":"Requires signed or trusted macros to be checked as clean before use.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1676","relationship":"Partially addresses","basis":"Requires annual validation of the trusted-publisher list.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1489","relationship":"Directly addresses","basis":"Prevents users from changing Microsoft Office macro security settings.","provenance":"Locally reviewed mapping"}
+      ]
+    }
+  ]
+}

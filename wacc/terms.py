@@ -481,6 +481,52 @@ CONCEPTS: List[Concept] = [
             "and without the exclusion it took slot one on a supply-chain query"
         ),
     ),
+    Concept(
+        "cybersecurity-governance",
+        ["cybersecurity governance", "cyber security governance", "cybersecurity program",
+         "cyber security program", "risk management strategy", "accountable authority",
+         "risk executive", "govern function"],
+        why="governance appears as a PSPF responsibility, an AESCSF program and an 800-53 risk-management function",
+    ),
+    Concept(
+        "personnel-security",
+        ["personnel security", "personnel screening", "pre-employment screening",
+         "background check", "personnel termination", "personnel transfer", "rescreening"],
+        why="the subject spans checks before access and access changes when employment changes",
+    ),
+    Concept(
+        "physical-security",
+        ["physical security", "physical access", "facility access", "security zone",
+         "secure area", "physical perimeter", "access logs"],
+        why="publishers describe both facility protection and the authorisation and monitoring of entry",
+    ),
+    Concept(
+        "asset-and-change-management",
+        ["asset inventory", "enterprise asset inventory", "software inventory",
+         "system component inventory", "configuration baseline", "configuration management",
+         "change management", "configuration change control"],
+        why="the control chain runs from knowing assets through secure baselines to authorised change",
+    ),
+    Concept(
+        "network-architecture",
+        ["network architecture", "network segmentation", "network segregation",
+         "security zone", "boundary protection", "network boundary", "managed interface",
+         "demilitarized zone", "demilitarised zone"],
+        why="ASD says segmentation and segregation while 800-53 says managed interfaces and boundary protection",
+    ),
+    Concept(
+        "security-awareness",
+        ["security awareness", "cybersecurity awareness", "cyber security awareness",
+         "literacy training", "role-based training", "role specific training",
+         "security culture", "workforce training"],
+        why="the same workforce outcome is labelled awareness, literacy and role-based training",
+    ),
+    Concept(
+        "operational-technology",
+        ["operational technology", "ot network", "ot system", "ot asset", "it and ot",
+         "industrial control system", "scada", "field device"],
+        why="the subject is usually abbreviated to OT and is expressed through assets, networks and operational playbooks",
+    ),
 ]
 
 CONCEPTS_BY_KEY = {c.key: c for c in CONCEPTS}

@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "topic": "Asset inventory and configuration/change management",
+  "controls": [
+    {
+      "id": "AM-01",
+      "title": "Maintain complete asset inventories",
+      "statement": "Maintain current inventories of hardware, software, IT and OT assets with the ownership, location, version and business context needed for security decisions.",
+      "risk": "Unknown or incorrectly recorded assets could remain unprotected, unsupported or connected after their business use has ended.",
+      "scope": "Enterprise hardware, software, virtual assets, cloud resources, network devices and operational technology.",
+      "examine": "Reconcile discovery, procurement, licensing, network and service records with hardware and software inventories and required attributes.",
+      "interview": "Ask asset owners how new, changed, temporary and retired assets are detected and how discrepancies are resolved.",
+      "test": "Sample assets from both the environment and the register and confirm bidirectional coverage, current attributes and assigned ownership.",
+      "expected": "In-scope assets appear in current inventories with enough accurate information to support risk, support and lifecycle decisions.",
+      "related": ["AM-02", "AM-03", "OT-01"],
+      "mappings": [
+        {"uid":"cis-controls:1.1","relationship":"Directly addresses","basis":"Requires a detailed, accurate and current inventory of enterprise assets with specified attributes.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:2.1","relationship":"Directly addresses","basis":"Requires a detailed inventory of licensed software with specified lifecycle and business information.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:cm-8","relationship":"Directly addresses","basis":"Requires a complete, accurate system-component inventory at defined granularity and periodic review.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:asset-1e","relationship":"Directly addresses","basis":"Requires IT and OT inventory attributes that support cybersecurity activities.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:asset-1g","relationship":"Directly addresses","basis":"Requires the IT and OT asset inventory to be updated periodically and on defined triggers.","provenance":"Locally reviewed mapping"},
+        {"uid":"oag-wa:report-24 2.1.4","relationship":"Partially addresses","basis":"Calls for an up-to-date asset register and controlled asset disposal.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "AM-02",
+      "title": "Maintain secure configuration baselines",
+      "statement": "Establish approved secure configuration baselines, use them for deployment and restoration, and monitor assets for unauthorised drift.",
+      "risk": "Inconsistent or weakened configurations could expose systems to attack and make reliable recovery harder.",
+      "scope": "Operating systems, applications, network devices, cloud services, firmware and OT configurations.",
+      "examine": "Inspect baseline standards, approvals, deployment records, configuration monitoring, deviations and baseline review history.",
+      "interview": "Ask platform owners how baselines are tested, updated and applied to legacy or constrained systems.",
+      "test": "Compare representative live and restored configurations with the approved baseline and verify that significant drift is detected.",
+      "expected": "Assets use approved current baselines, deviations are visible and authorised, and restoration returns assets to a known secure state.",
+      "related": ["AM-01", "AM-03"],
+      "mappings": [
+        {"uid":"cis-controls:4.1","relationship":"Directly addresses","basis":"Requires a documented secure-configuration process for enterprise assets and software with annual review.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:cm-2","relationship":"Directly addresses","basis":"Requires a documented, current baseline configuration reviewed and updated under defined conditions.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:asset-3a","relationship":"Directly addresses","basis":"Requires configuration baselines to be established.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:asset-3e","relationship":"Directly addresses","basis":"Requires asset configurations to be monitored against baselines throughout their lifecycle.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "AM-03",
+      "title": "Authorise and verify changes",
+      "statement": "Evaluate, approve, document and test changes before release, with added scrutiny for changes to high-priority assets and security controls.",
+      "risk": "An unreviewed change could introduce a security weakness or outage with no reliable record of what changed or how to reverse it.",
+      "scope": "Configuration-controlled changes to applications, infrastructure, cloud services, firmware and OT assets.",
+      "examine": "Review change classifications, security impact analyses, approvals, test results, implementation records, rollback plans and post-change checks.",
+      "interview": "Ask change and asset owners how emergency work is controlled and when a change receives security review.",
+      "test": "Sample routine and emergency changes and trace each from request through approval, testing, implementation and verification.",
+      "expected": "Changes are approved with security impact considered, tested where required, fully recorded and verified after implementation.",
+      "related": ["AM-01", "AM-02", "AP-02"],
+      "mappings": [
+        {"uid":"nist-800-53:cm-3","relationship":"Directly addresses","basis":"Requires controlled change definition, security and privacy review, decision records, implementation, retention and oversight.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:asset-4a","relationship":"Directly addresses","basis":"Requires asset changes to be evaluated and approved before implementation.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:asset-4b","relationship":"Directly addresses","basis":"Requires changes to assets to be documented.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:asset-4d","relationship":"Partially addresses","basis":"Requires changes to higher-priority assets to be tested before deployment.","provenance":"Locally reviewed mapping"}
+      ]
+    }
+  ]
+}

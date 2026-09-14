@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "topic": "Personnel security",
+  "controls": [
+    {
+      "id": "PS-01",
+      "title": "Screen personnel before granting access",
+      "statement": "Verify identity, eligibility and role-appropriate trustworthiness before personnel receive access, and repeat screening when risk or role requires it.",
+      "risk": "A person using a false identity or unsuitable for a sensitive role could gain trusted access to information, systems or facilities.",
+      "scope": "Employees, contractors and other personnel before access, plus roles subject to rescreening.",
+      "examine": "Sample personnel files, identity and eligibility checks, role risk ratings, screening outcomes, access dates and rescreening records.",
+      "interview": "Ask personnel-security and hiring owners how screening depth is chosen and how adverse or incomplete results affect access.",
+      "test": "Compare sampled access activation dates with completed screening and verify rescreening occurred for selected higher-risk roles.",
+      "expected": "Required checks finish before access is authorised, screening matches role risk and required rescreening is current.",
+      "related": ["PS-02"],
+      "mappings": [
+        {"uid":"pspf:req 117","relationship":"Partially addresses","basis":"Requires a pre-employment identity check for all personnel to the specified assurance level.","provenance":"Locally reviewed mapping"},
+        {"uid":"pspf:req 119","relationship":"Partially addresses","basis":"Requires a pre-employment eligibility check for all personnel.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-434","relationship":"Directly addresses","basis":"Requires appropriate employment screening or security clearance before system access.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:ps-3","relationship":"Directly addresses","basis":"Requires screening before access and rescreening under defined conditions.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:workforce-1c","relationship":"Partially addresses","basis":"Requires screening at hire and periodically for positions with access to important assets.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "PS-02",
+      "title": "Secure personnel transfers and departures",
+      "statement": "Coordinate role changes and departures so access, credentials and organisational property are changed or recovered within approved timeframes.",
+      "risk": "Departed or transferred personnel could retain access or property that allows unauthorised activity after their business need has ended.",
+      "scope": "Employment termination, transfer and extended absence affecting logical or physical access.",
+      "examine": "Compare personnel events with disabled access, revoked credentials, returned property, retained records and documented transfer decisions.",
+      "interview": "Ask managers, HR and access owners how urgent departures and role changes are coordinated.",
+      "test": "Sample departures and transfers and calculate the time to remove or amend each relevant access path and recover assigned property.",
+      "expected": "Access and credentials change within approved deadlines, property is recovered and continuing access follows the new role.",
+      "related": ["PS-01", "PA-04"],
+      "mappings": [
+        {"uid":"nist-800-53:ps-4","relationship":"Partially addresses","basis":"Requires access disablement, credential revocation, exit discussion, property recovery and retention of organisational information after termination.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:workforce-1d","relationship":"Directly addresses","basis":"Requires separation and transfer procedures to address cybersecurity, including supplementary vetting where appropriate.","provenance":"Locally reviewed mapping"}
+      ]
+    }
+  ]
+}

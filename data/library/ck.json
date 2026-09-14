@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "topic": "Cryptographic keys and algorithms",
+  "controls": [
+    {
+      "id": "CK-01",
+      "title": "Use approved cryptographic algorithms",
+      "statement": "Select approved algorithms, protocols, cipher suites and key sizes for each cryptographic use and remove disallowed choices.",
+      "risk": "Weak or obsolete cryptography could allow protected information or transactions to be read, changed or forged.",
+      "scope": "Cryptographic uses in applications, services, network protocols, stored data and authentication systems.",
+      "examine": "Compare the cryptographic inventory and technical configurations with the approved algorithm, protocol, strength and key-size requirements for each use.",
+      "interview": "Ask security architects how approved choices are set, updated and communicated when standards or threats change.",
+      "test": "Inspect or negotiate representative cryptographic connections and operations and verify that disallowed algorithms and cipher suites are rejected.",
+      "expected": "Every sampled use applies an approved algorithm and strength for its purpose, and disallowed choices cannot be selected.",
+      "related": ["CK-02"],
+      "mappings": [
+        {"uid":"nist-800-131a:sp 800-131a rev 2 §2#1","relationship":"Partially addresses","basis":"States approval status for symmetric algorithms, including disallowed two-key TDEA; other algorithm classes require their own table checks.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1369","relationship":"Directly addresses","basis":"Requires AES-GCM for encryption of TLS connections in its stated scope.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:sc-13","relationship":"Partially addresses","basis":"Requires the organisation to determine cryptographic uses and implement the cryptography required for them.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "CK-02",
+      "title": "Manage cryptographic keys through their lifecycle",
+      "statement": "Generate, store, distribute, rotate, revoke and destroy cryptographic keys using approved methods and defined cryptoperiods.",
+      "risk": "Compromised, poorly generated or overused keys could expose protected information and make trusted identities or transactions unreliable.",
+      "scope": "Cryptographic keys and secrets from generation through archival or destruction.",
+      "examine": "Inspect key inventories, generation records, protection controls, cryptoperiods, rotation and revocation records, and destruction evidence.",
+      "interview": "Ask key custodians how key lifetimes are chosen, how compromise is handled and how duties are separated.",
+      "test": "Sample active and retired keys and trace their creation, storage, use, rotation or revocation and final disposition.",
+      "expected": "Keys are generated with approved cryptography, protected throughout use and retired within the applicable cryptoperiod or immediately after compromise.",
+      "related": ["CK-01"],
+      "mappings": [
+        {"uid":"nist-800-57pt1:sp 800-57 part 1 rev 5 §5.3.6#1","relationship":"Partially addresses","basis":"Provides suggested cryptoperiods by key type; lifecycle controls beyond the period require separate evidence.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-63:63b §b.2#1","relationship":"Partially addresses","basis":"Requires keys used by authenticators to be generated using approved cryptography.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:architecture-5e","relationship":"Directly addresses","basis":"Requires key-management infrastructure covering generation, storage, destruction, update and revocation.","provenance":"Locally reviewed mapping"}
+      ]
+    }
+  ]
+}

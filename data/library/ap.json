@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "topic": "Application control",
+  "controls": [
+    {
+      "id": "AP-01",
+      "title": "Allow only authorised code to execute",
+      "statement": "Use application control to allow approved software, libraries and scripts and block unapproved code on in-scope systems.",
+      "risk": "Malicious or unapproved software could run, steal information or disrupt services if systems accept any executable code.",
+      "scope": "Workstations, servers and operational technology where application control is required and technically feasible.",
+      "examine": "Compare the approved software inventory with application-control policies, deployment coverage, block events and exceptions.",
+      "interview": "Ask system and application owners how code becomes authorised and how blocked business software and emergency changes are handled.",
+      "test": "Attempt to run authorised benign code and a safe unapproved test file, library and script on representative systems.",
+      "expected": "Authorised code runs, unapproved code is blocked and logged, and policy coverage and exceptions match approved scope.",
+      "related": ["AP-02", "UH-02", "OM-02"],
+      "mappings": [
+        {"uid":"ism:ism-843","relationship":"Directly addresses","basis":"Requires application control on workstations.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:2.5","relationship":"Directly addresses","basis":"Requires technical controls so only authorised software can execute or be accessed, with reassessment at least twice yearly.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:cm-7.5","relationship":"Directly addresses","basis":"Requires deny-all, permit-by-exception software execution and review of the allowed software list.","provenance":"Locally reviewed mapping"},
+        {"uid":"oag-wa:report-24 2.6.4","relationship":"Partially addresses","basis":"Calls for application control across IT and OT to prevent unapproved software, scripts, macros and libraries.","provenance":"Locally reviewed mapping"},
+        {"uid":"asd-ad:appendix a §mitigating a golden certificate#2","relationship":"Partially addresses","basis":"Recommends application control on certification authorities as one mitigation for forged-certificate attacks.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "AP-02",
+      "title": "Govern application-control coverage",
+      "statement": "Define application-control scope, review allowed code and exceptions, and keep enforcement aligned with system changes.",
+      "risk": "Application control could provide false confidence if important systems are excluded or old allow rules continue to permit unsafe code.",
+      "scope": "Application-control policy ownership, system coverage, allow rules, review cycles and exceptions.",
+      "examine": "Review the approved scope, Essential Eight maturity decision, coverage reports, allowed-code reviews and exception records.",
+      "interview": "Ask control owners how coverage and maturity targets are set and how system changes trigger policy review.",
+      "test": "Sample new and changed systems and confirm that enforcement and allowed-code rules were reviewed before use.",
+      "expected": "The approved scope is implemented, allowed code and exceptions are current, and changes do not create unmonitored gaps.",
+      "related": ["AP-01", "AM-03"],
+      "mappings": [
+        {"uid":"pspf:req 103","relationship":"Partially addresses","basis":"Requires the Essential Eight application-control strategy at Maturity Level Two.","provenance":"Locally reviewed mapping"},
+        {"uid":"wa-csp:3.1.1a","relationship":"Related only","basis":"Requires implementation of the Essential Eight; application control is one member and its detailed conditions must be assessed separately.","provenance":"Locally reviewed mapping"}
+      ]
+    }
+  ]
+}

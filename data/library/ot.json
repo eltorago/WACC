@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "topic": "Operational technology security",
+  "controls": [
+    {
+      "id": "OT-01",
+      "title": "Maintain a definitive view of operational technology",
+      "statement": "Maintain current OT asset, configuration, architecture and data-flow records that show system functions, dependencies and criticality.",
+      "risk": "Responders and decision-makers could overlook critical devices or dependencies during a change or incident if the OT environment is not understood.",
+      "scope": "Operational technology assets, networks, configurations, owners, dependencies and information flows.",
+      "examine": "Reconcile OT discovery, engineering, maintenance and network records with asset inventories, architecture diagrams and required attributes.",
+      "interview": "Ask engineers and asset owners how unmanaged, legacy and transient devices are identified and how records change with the plant.",
+      "test": "Sample physical and network-visible OT assets and flows and confirm each is accurately represented with ownership and criticality.",
+      "expected": "The recorded OT environment matches observed assets and flows and provides the context needed for risk, change and response decisions.",
+      "related": ["OT-02", "OT-03", "AM-01"],
+      "mappings": [
+        {"uid":"aescsf:architecture-1c","relationship":"Partially addresses","basis":"Requires documented cybersecurity architecture that includes IT and OT systems and networks.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:asset-1a","relationship":"Directly addresses","basis":"Requires IT and OT assets important to delivery of the function to be inventoried.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:asset-1e","relationship":"Directly addresses","basis":"Requires IT and OT inventory attributes supporting cybersecurity activities.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:asset-1g","relationship":"Directly addresses","basis":"Requires IT and OT inventories to be updated periodically and on defined changes.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "OT-02",
+      "title": "Separate and broker access to operational technology",
+      "statement": "Separate IT and OT networks and identity systems, prevent direct external or IT access, and broker necessary connections through controlled and monitored gateways.",
+      "risk": "A compromise in corporate IT or a remote supplier could reach safety-critical operations and cause service disruption, equipment damage or physical harm.",
+      "scope": "IT-to-OT boundaries, OT zones, identity systems, remote maintenance, jump hosts and external connectivity.",
+      "examine": "Inspect IT and OT diagrams, identity trusts, routes, firewall rules, jump-host controls, remote-access approvals and monitoring.",
+      "interview": "Ask OT engineers and security owners how access needs are approved and how direct, obsolete or emergency connectivity is controlled.",
+      "test": "Attempt authorised benign access from IT and remote paths, verifying that direct routes fail and approved brokered routes enforce authentication and monitoring.",
+      "expected": "IT and OT remain segmented, identity trust is not shared without explicit risk treatment, and necessary access is brokered, limited and monitored.",
+      "related": ["OT-01", "OT-03", "NA-01"],
+      "mappings": [
+        {"uid":"oag-wa:report-24 2.4.1","relationship":"Directly addresses","basis":"Calls for IT and OT separation, a demilitarised zone and further OT segmentation by function and risk.","provenance":"Locally reviewed mapping"},
+        {"uid":"oag-wa:report-24 2.4.3","relationship":"Directly addresses","basis":"Prohibits direct IT or Internet access to OT and calls for jump hosts, connecting-device baselines and monitored exceptions.","provenance":"Locally reviewed mapping"},
+        {"uid":"oag-wa:report-24 2.5.1","relationship":"Directly addresses","basis":"Calls for separate IT and OT access-control systems with no trusts and controlled remote maintenance.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:architecture-2b","relationship":"Directly addresses","basis":"Requires physical or logical segmentation between IT and OT systems.","provenance":"Locally reviewed mapping"},
+        {"uid":"c2m2:architecture-2b","relationship":"Directly addresses","basis":"Requires IT systems to be separated from OT systems by physical or logical segmentation.","provenance":"Locally reviewed mapping"},
+        {"guidance":"ncsc-ot-connectivity","relationship":"Related only","basis":"NCSC describes desirable secure-connectivity end states for OT but explicitly presents them as goals rather than minimum requirements.","excerpt":"External access should use brokered connections through a secure gateway in a separate, controlled segment so the OT system is not directly exposed and access is mediated, monitored and controlled.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "OT-03",
+      "title": "Develop and test OT incident playbooks",
+      "statement": "Maintain and exercise OT-specific response and recovery playbooks that account for safety, availability, isolation and manual operation.",
+      "risk": "An IT-focused response could worsen an OT incident by stopping unsafe equipment, losing operational visibility or delaying restoration of essential services.",
+      "scope": "Incident scenarios affecting OT operations, engineering systems, IT dependencies, safety and recovery.",
+      "examine": "Review OT playbooks, safety and operations input, isolation options, manual fallback procedures, exercise records and improvement actions.",
+      "interview": "Ask incident leaders and engineers how cyber containment decisions account for physical process safety and service continuity.",
+      "test": "Run or inspect a recent scenario involving compromised IT-to-OT access, loss of connectivity or isolation of an affected OT segment.",
+      "expected": "The playbook supports safe isolation and recovery, responsible people can execute it, and exercise findings are resolved.",
+      "related": ["OT-01", "OT-02", "AW-02"],
+      "mappings": [
+        {"uid":"oag-wa:report-24 2.8.3","relationship":"Directly addresses","basis":"Calls for OT-specific incident playbooks to be developed and tested because IT plans often overlook OT.","provenance":"Locally reviewed mapping"},
+        {"guidance":"ncsc-ot-connectivity","relationship":"Related only","basis":"NCSC describes isolation strategies and operational resilience considerations that inform OT scenarios but are not an Australian control.","excerpt":"Connectivity should preserve OT safety, reliability and availability, including understanding failure conditions and maintaining tested manual fallback. Well-designed controls enable targeted isolation of affected services and routes.","provenance":"Locally reviewed mapping"}
+      ]
+    }
+  ]
+}

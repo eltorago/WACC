@@ -29,27 +29,56 @@ class ControlWorkspaceTests(unittest.TestCase):
             return response.read().decode('utf-8')
     def test_all_pilot_sources_exist_and_anti_patterns_are_not_requirements(self):
         ids={c['id'] for c in workspace.CONTROLS}
-        self.assertEqual(len(ids),13)
+        self.assertEqual(len(ids),48)
+        self.assertEqual(len(workspace.TOPICS),19)
         for c in workspace.CONTROLS:
             self.assertTrue(set(c['related'])<=ids)
             for other in c['related']:
                 self.assertIn(c['id'], next(x['related'] for x in workspace.CONTROLS if x['id']==other))
             for m in c['mappings']:
-                self.assertIsNotNone(self.state.corpus.control(m['uid']),m['uid'])
+                if 'uid' in m:
+                    self.assertIsNotNone(self.state.corpus.control(m['uid']),m['uid'])
+                else:
+                    self.assertIn(m['guidance'], self.state.corpus.guidance)
+                    self.assertTrue(m['excerpt'])
                 self.assertEqual(m['provenance'],'Locally reviewed mapping')
-                if '-ap' in m['uid']:
+                if not c['id'].startswith(('PA-','BR-','SM-','VM-')):
+                    self.assertIn(m['relationship'],('Directly addresses','Partially addresses','Related only'))
+                if '-ap' in m.get('uid',''):
                     self.assertEqual(m['relationship'],'Related only')
     def test_scope_and_export_exclude_deselected_frameworks(self):
         params={'scope':['1'],'fw':['cis-controls']}
         rows=list(csv.DictReader(io.StringIO(workspace.export_csv(params))))
-        self.assertEqual(len({r['Control'] for r in rows}),13)
+        expected={c['id'] for c in workspace.CONTROLS if any(m.get('uid','').startswith('cis-controls:') for m in c['mappings'])}
+        self.assertEqual({r['Control'] for r in rows},expected)
         self.assertTrue(all(r['Source UID'].startswith('cis-controls:') for r in rows))
         self.assertEqual(workspace.matching('',workspace.scope({'scope':['1']})),[])
         self.assertEqual(len(list(csv.reader(io.StringIO(workspace.export_csv({'scope':['1']}))))),1)
+        guidance=list(csv.DictReader(io.StringIO(workspace.export_csv({'scope':['1'],'fw':['guidance']}))))
+        self.assertTrue(guidance)
+        self.assertTrue(all(r['Source UID'].startswith('guidance:') for r in guidance))
     def test_identifier_search_finds_canonical_control(self):
         found=workspace.matching('ISM-1507',set(workspace.FRAMEWORKS))
         self.assertEqual([c['id'] for c in found],['PA-01'])
         self.assertEqual(workspace.matching('ISM-1507', {'cis-controls'}), [])
+
+    def test_new_topics_cover_the_requested_source_sets(self):
+        required={
+            'Multi-factor authentication':{'ism','nist-800-53','nist-800-63','cis-controls','aescsf','pspf','oag-wa','asd-ad'},
+            'Application control':{'ism','pspf','wa-csp','cis-controls','asd-ad','oag-wa','nist-800-53'},
+            'Cryptographic keys and algorithms':{'nist-800-57pt1','nist-800-131a','ism','nist-800-63','nist-800-53'},
+            'Media sanitisation and disposal':{'ism','nist-800-53','nist-800-88','wa-csp','pspf'},
+            'Incident notification timeframes':{'soci-act','wa-csp','wa-circular'},
+            'Supply chain and third-party risk':{'csf','ism','nist-800-53','aescsf','wa-csp','cirmp-rules','pspf','oag-wa','cis-controls'},
+            'Physical security':{'pspf','ism','nist-800-53','oag-wa','aescsf'},
+            'Asset inventory and configuration/change management':{'cis-controls','nist-800-53','aescsf','oag-wa'},
+            'Network architecture and segmentation':{'ism','nist-800-53','cis-controls','aescsf','guidance'},
+            'Security awareness and workforce training':{'cis-controls','nist-800-53','aescsf','oag-wa'},
+            'Operational technology security':{'oag-wa','aescsf','c2m2','guidance'},
+        }
+        for topic, expected in required.items():
+            actual={workspace.mapping_source_key(m) for c in workspace.CONTROLS if c['topic']==topic for m in c['mappings']}
+            self.assertTrue(expected<=actual,(topic,expected-actual))
     def test_home_and_each_control_render_without_record_entry(self):
         self.assertIn('Control workspace',self.get('/'))
         for c in workspace.CONTROLS:
@@ -64,6 +93,10 @@ class ControlWorkspaceTests(unittest.TestCase):
         page=self.get('/library?scope=1&fw=cis-controls&control=PA-01')
         self.assertNotIn('q=ism%3Aism-1507',page)
         self.assertIn('q=cis-controls%3A6.1',page)
+        guidance=self.get('/library?scope=1&fw=guidance&control=OT-02')
+        self.assertIn('UK NCSC',guidance)
+        self.assertIn('Guidance context',guidance)
+        self.assertNotIn('Source text is not loaded',guidance)
     def test_topic_filter_applies_to_list_and_export(self):
         selected=set(workspace.FRAMEWORKS)
         controls=workspace.matching('', selected, 'Backup and recovery')

@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "topic": "User application hardening",
+  "controls": [
+    {
+      "id": "UH-01",
+      "title": "Harden user applications",
+      "statement": "Apply and maintain approved security settings for office suites, PDF software and web browsers using ASD or vendor guidance.",
+      "risk": "A malicious document or website could exploit weak application settings to steal information or compromise a user device.",
+      "scope": "Office productivity suites, PDF software, web browsers and their extensions; macro execution is assessed under OM controls.",
+      "examine": "Compare deployed application settings, versions and extensions with approved hardening standards and exception records.",
+      "interview": "Ask application owners how baselines are selected, tested, deployed and updated after product or threat changes.",
+      "test": "Inspect representative managed devices and verify required settings and extension restrictions cannot be bypassed by a standard user.",
+      "expected": "In-scope applications apply current approved security settings, restrict unapproved extensions and record justified exceptions.",
+      "related": ["UH-02", "OM-01"],
+      "mappings": [
+        {"uid":"ism:ism-1859","relationship":"Directly addresses","basis":"Requires office productivity suites to be hardened using ASD or vendor guidance.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1860","relationship":"Directly addresses","basis":"Requires PDF software to be hardened using ASD or vendor guidance.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1412","relationship":"Directly addresses","basis":"Requires web browsers to be hardened using ASD or vendor guidance.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:9.4","relationship":"Partially addresses","basis":"Requires browser and email-client extensions to be restricted to authorised extensions.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "UH-02",
+      "title": "Block unsafe application behaviour",
+      "statement": "Prevent user applications from launching child processes, executing embedded content, injecting code or using other unnecessary high-risk functions.",
+      "risk": "An attacker could turn a trusted office or PDF application into a pathway for running malicious code on the device.",
+      "scope": "User applications and risky functions other than Microsoft Office macro execution, which is assessed under OM controls.",
+      "examine": "Inspect managed policies for child processes, executable content, code injection, OLE packages and user-change restrictions.",
+      "interview": "Ask application and security owners how risky functions are identified and how business exceptions are constrained.",
+      "test": "Use safe test documents to confirm blocked process creation, executable content, code injection and prohibited embedded packages.",
+      "expected": "Prohibited behaviours are blocked and logged, users cannot weaken the settings, and approved exceptions are narrow and reviewed.",
+      "related": ["UH-01", "AP-01"],
+      "mappings": [
+        {"uid":"ism:ism-1667","relationship":"Directly addresses","basis":"Requires office productivity suites to be prevented from creating child processes.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1668","relationship":"Directly addresses","basis":"Requires office productivity suites to be prevented from creating executable content.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1669","relationship":"Directly addresses","basis":"Requires office productivity suites to be prevented from injecting code into other processes.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1542","relationship":"Directly addresses","basis":"Requires activation of Object Linking and Embedding packages to be prevented.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1585","relationship":"Partially addresses","basis":"Prevents users from changing specified web-browser security settings.","provenance":"Locally reviewed mapping"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "topic": "Physical security",
+  "controls": [
+    {
+      "id": "PH-01",
+      "title": "Protect facilities and equipment",
+      "statement": "Use physical zones, barriers and environmental protections suited to the highest risk of the information, systems and services at each facility.",
+      "risk": "Unauthorised entry, theft, damage or environmental failure could expose information and interrupt important services.",
+      "scope": "Facilities, secure areas, communications rooms, network devices and other equipment supporting in-scope services.",
+      "examine": "Compare facility risk assessments and zone designs with barriers, entry points, equipment placement and environmental protections.",
+      "interview": "Ask facility and service owners how the highest resource risk determines protection and how site changes are reviewed.",
+      "test": "Walk representative perimeters and secure areas and verify that barriers and environmental protections match approved designs.",
+      "expected": "Facilities and equipment are protected at a level consistent with assessed risk, and gaps or changes are identified and addressed.",
+      "related": ["PH-02"],
+      "mappings": [
+        {"uid":"pspf:req 192","relationship":"Directly addresses","basis":"Requires facilities to be secured and access controlled to the highest risk level for entity resources under the Security Zone definitions.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:pro-15","relationship":"Partially addresses","basis":"Requires physical access to systems and infrastructure to be restricted and monitored in the source procedure.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1296","relationship":"Partially addresses","basis":"Requires physical protection of network devices in the stated circumstances.","provenance":"Locally reviewed mapping"},
+        {"uid":"oag-wa:report-24 2.7.1","relationship":"Partially addresses","basis":"Addresses physical perimeter protection for operational environments.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "PH-02",
+      "title": "Authorise and monitor physical access",
+      "statement": "Grant physical access only for an approved need, monitor entry to sensitive areas and review access records and privileges.",
+      "risk": "A person could enter a sensitive area unnoticed and tamper with equipment, disrupt operations or remove information.",
+      "scope": "Physical credentials, visitors, escorts, access points, monitoring and access logs for controlled facilities.",
+      "examine": "Review authorised-access lists, approvals, visitor and escort records, physical access logs, monitoring coverage and periodic reviews.",
+      "interview": "Ask security staff and area owners how access need is approved, anomalous entry is investigated and privileges are removed.",
+      "test": "Sample credentials and visitors, verify current authorisation, and trace selected access events through monitoring and review.",
+      "expected": "Only authorised people enter controlled areas, unescorted access is limited as required and suspicious entry is detected and investigated.",
+      "related": ["PH-01", "PA-04"],
+      "mappings": [
+        {"uid":"nist-800-53:pe-6","relationship":"Directly addresses","basis":"Requires physical access monitoring, access-log review and coordination with incident response.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:access-3a","relationship":"Partially addresses","basis":"Requires logical and physical access controls for assets important to the function where feasible.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:access-3i","relationship":"Partially addresses","basis":"Requires physical access privileges to be reviewed.","provenance":"Locally reviewed mapping"},
+        {"uid":"oag-wa:report-24 2.7.2","relationship":"Partially addresses","basis":"Addresses physical access controls for sensitive OT areas.","provenance":"Locally reviewed mapping"}
+      ]
+    }
+  ]
+}
