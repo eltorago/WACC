@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "topic": "Secure software development",
+  "controls": [
+    {
+      "id": "SD-01",
+      "title": "Integrate security into the development lifecycle",
+      "statement": "Build security requirements, responsibilities, design standards, secure coding and risk decisions into the lifecycle for developed and materially changed software.",
+      "risk": "Software can reach production with avoidable weaknesses when security is considered only after design and development decisions have already been made.",
+      "scope": "Software, applications, components, services, interfaces and infrastructure code developed or materially tailored for the organisation.",
+      "examine": "Review lifecycle standards, security requirements, role assignments, design gates, coding practices, training, risk records and monitored performance measures.",
+      "interview": "Ask product, engineering and security leaders when security decisions occur, who can accept risk and how teams handle urgent changes.",
+      "test": "Sample recent releases and trace security requirements and decisions from planning through design, development, testing and approval for deployment.",
+      "expected": "Sampled releases show assigned security responsibilities, documented requirements and completed security activities throughout the lifecycle.",
+      "related": ["SD-02", "SD-03", "VM-01", "SC-03"],
+      "mappings": [
+        {"uid":"cis-controls:16.1","relationship":"Directly addresses","basis":"Requires a secure application-development process covering design, coding, training, third-party code, vulnerability management and testing.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:sa-3","relationship":"Directly addresses","basis":"Requires a development lifecycle incorporating security and privacy responsibilities and risk management.","provenance":"Locally reviewed mapping"},
+        {"uid":"csf:pr.ps-6","relationship":"Directly addresses","basis":"Requires secure development practices to be integrated and monitored throughout the software lifecycle.","provenance":"Locally reviewed mapping"},
+        {"uid":"c2m2:architecture-4d","relationship":"Directly addresses","basis":"Requires all internally developed software to use secure development practices.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "SD-02",
+      "title": "Model threats throughout development",
+      "statement": "Model likely threats and trust boundaries early enough to change the design, then update the model as the software and threat environment change.",
+      "risk": "Design weaknesses can remain hidden until exploitation or expensive rework if teams assess only the finished code and overlook how attackers could abuse the system.",
+      "scope": "New and materially changed software, architectures, interfaces, data flows, trust boundaries and deployment models.",
+      "examine": "Review threat models, diagrams, assumptions, abuse cases, risk decisions, acceptance criteria, review dates and links to design or backlog changes.",
+      "interview": "Ask developers, architects and security reviewers how threats are identified, challenged and kept aligned with the implemented design.",
+      "test": "Sample changed applications and compare their current architecture and exposed entry points with the threat model and resulting mitigations.",
+      "expected": "Threat models reflect the implemented system and current threats, identify material attack paths and lead to tracked design or control decisions.",
+      "related": ["SD-01", "SD-03", "NA-01"],
+      "mappings": [
+        {"uid":"cis-controls:16.14","relationship":"Directly addresses","basis":"Requires threat modelling to identify and address application design flaws before code is created.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:sa-11.2","relationship":"Directly addresses","basis":"Requires developer threat modelling and vulnerability analysis with defined context, methods, rigor and acceptance evidence.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1238","relationship":"Directly addresses","basis":"Requires threat modelling to support the software development lifecycle.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-2039","relationship":"Directly addresses","basis":"Requires the software threat model to be reviewed against the as-built software and changes in the threat environment.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "SD-03",
+      "title": "Test software and remediate security flaws",
+      "statement": "Use risk-appropriate code review and automated and manual security testing before release and after significant change, then verify that identified flaws are corrected.",
+      "risk": "Exploitable defects can enter production and remain unresolved when testing is too narrow, occurs too late or produces findings without accountable remediation.",
+      "scope": "Internally developed and tailored software, components, interfaces, build pipelines and releases.",
+      "examine": "Inspect the testing strategy, code-review criteria, static and dynamic analysis, penetration or fuzz testing, results, risk decisions and remediation evidence.",
+      "interview": "Ask engineering and security owners how testing depth is selected, failures block release and unresolved findings are accepted and tracked.",
+      "test": "Sample releases and trace required tests, findings, approvals and fixes; independently confirm that selected high-risk findings are no longer reproducible.",
+      "expected": "Sampled releases complete the required security checks, material findings have accountable decisions and corrected flaws are verified before closure.",
+      "related": ["SD-01", "SD-02", "VM-02", "AP-02"],
+      "mappings": [
+        {"uid":"nist-800-53:sa-11","relationship":"Directly addresses","basis":"Requires planned developer testing, evidence, a verifiable flaw-remediation process and correction of identified flaws.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:sa-11.4","relationship":"Partially addresses","basis":"Requires manual review of defined code using specified processes or techniques.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:16.12","relationship":"Partially addresses","basis":"Requires static and dynamic analysis in the application lifecycle to check secure coding practices.","provenance":"Locally reviewed mapping"},
+        {"uid":"c2m2:architecture-4h","relationship":"Directly addresses","basis":"Requires periodic and trigger-based static, dynamic, fuzz or penetration testing for developed and tailored applications.","provenance":"Locally reviewed mapping"},
+        {"uid":"ztmm:applications and workloads/application security testing","relationship":"Related only","basis":"Describes a maturity progression from manual pre-deployment testing to integrated and automated application security testing.","provenance":"Locally reviewed mapping"}
+      ]
+    }
+  ]
+}

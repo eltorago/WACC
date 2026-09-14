@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "topic": "Incident response and management",
+  "controls": [
+    {
+      "id": "IR-01",
+      "title": "Maintain an executable incident response plan",
+      "statement": "Maintain a current incident response plan that assigns accountable roles, covers the full incident lifecycle and defines internal, external and third-party coordination.",
+      "risk": "During a serious incident, unclear authority and improvised coordination can delay decisions, increase disruption and produce inconsistent communication.",
+      "scope": "Cyber security incidents affecting business services, information, technology, suppliers and operational technology.",
+      "examine": "Review the response plan, role assignments, contact lists, declaration criteria, communications arrangements, playbooks and approval and review history.",
+      "interview": "Ask incident, technology, business, legal and communications leaders who can declare an incident and how decisions and handoffs are coordinated.",
+      "test": "Walk a representative scenario through the plan and confirm that current personnel can locate it, understand their authority and contact required parties.",
+      "expected": "The current plan is available during disruption, covers the incident lifecycle and gives named roles clear authority, actions and communication paths.",
+      "related": ["IR-02", "IR-03", "IN-01", "OT-03"],
+      "mappings": [
+        {"uid":"wa-csp:5.1","relationship":"Directly addresses","basis":"Requires each entity to develop and exercise a cyber security incident management and response plan.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:ir-8","relationship":"Directly addresses","basis":"Requires an organisation-specific response plan defining structure, reportable incidents, resources, responsibilities and distribution.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:17.4","relationship":"Directly addresses","basis":"Requires a maintained incident response process covering roles, compliance requirements and communications.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:17.1","relationship":"Partially addresses","basis":"Requires designated primary and backup personnel to coordinate and document incident handling.","provenance":"Locally reviewed mapping"},
+        {"uid":"c2m2:response-3d","relationship":"Directly addresses","basis":"Requires maintained response plans covering all phases of the incident lifecycle.","provenance":"Locally reviewed mapping"},
+        {"uid":"pspf:req 27","relationship":"Partially addresses","basis":"Requires security incident management and response plans to be incorporated into business continuity arrangements.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "IR-02",
+      "title": "Analyse, contain and recover from incidents",
+      "statement": "Use a consistent incident-handling process to validate reports, establish scope and cause, contain harm, remove the cause and restore normal operations.",
+      "risk": "An incident that is misunderstood or contained too slowly can spread to more systems, prolong service disruption and cause avoidable loss of information.",
+      "scope": "Declared or suspected cyber security incidents from initial triage through containment, eradication and recovery.",
+      "examine": "Inspect incident records, triage decisions, analysis artefacts, timelines, containment actions, eradication evidence, recovery approvals and coordination logs.",
+      "interview": "Ask responders how they confirm an incident, determine its boundaries, choose containment actions and decide that recovery is safe.",
+      "test": "Trace sampled incidents from report through closure and verify that each handling stage, decision owner and supporting evidence is recorded.",
+      "expected": "Sampled incidents are validated, analysed and contained promptly, their cause is addressed and recovery is authorised with a clear decision trail.",
+      "related": ["IR-01", "IR-03", "SM-03", "BR-03"],
+      "mappings": [
+        {"uid":"nist-800-53:ir-4","relationship":"Directly addresses","basis":"Requires preparation, detection and analysis, containment, eradication and recovery through a consistent handling capability.","provenance":"Locally reviewed mapping"},
+        {"uid":"csf:rs.ma-2","relationship":"Partially addresses","basis":"Requires incident reports to be triaged and validated.","provenance":"Locally reviewed mapping"},
+        {"uid":"csf:rs.an-3","relationship":"Partially addresses","basis":"Requires analysis to establish what occurred and its root cause.","provenance":"Locally reviewed mapping"},
+        {"uid":"csf:rs.mi-1","relationship":"Partially addresses","basis":"Requires incidents to be contained.","provenance":"Locally reviewed mapping"},
+        {"uid":"c2m2:response-1d","relationship":"Related only","basis":"Correlation of event information supports incident analysis but does not establish the complete handling process.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "IR-03",
+      "title": "Exercise response and apply lessons",
+      "statement": "Exercise incident response using realistic scenarios, evaluate decisions and communications, and track lessons and corrective actions to completion.",
+      "risk": "An untested response may fail when pressure is highest, allowing known weaknesses in plans, communications and recovery decisions to persist.",
+      "scope": "Incident response personnel, executives, business owners, suppliers and technical teams with response responsibilities.",
+      "examine": "Review the exercise schedule, scenarios, participants, observations, post-incident reviews, corrective actions, owners, deadlines and plan updates.",
+      "interview": "Ask response leaders how scenarios are selected, executives and suppliers are involved and overdue improvements are escalated.",
+      "test": "Select completed exercises and real incidents and trace significant lessons through assigned corrective actions to verified closure and updated plans.",
+      "expected": "Exercises test realistic decisions and communication paths, and material lessons from exercises and incidents result in completed, verified improvements.",
+      "related": ["IR-01", "IR-02", "BC-03", "OT-03"],
+      "mappings": [
+        {"uid":"wa-csp:5.2","relationship":"Directly addresses","basis":"Requires annual cyber security incident response testing.","provenance":"Locally reviewed mapping"},
+        {"uid":"wa-csp:6.2","relationship":"Directly addresses","basis":"Requires lessons learned and a post-incident review following significant incidents or crises.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:ir-3","relationship":"Directly addresses","basis":"Requires testing the effectiveness of the incident response capability.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:17.7","relationship":"Directly addresses","basis":"Requires routine response exercises testing communications, decisions and workflows.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:17.8","relationship":"Directly addresses","basis":"Requires post-incident reviews that identify lessons and follow-up actions.","provenance":"Locally reviewed mapping"},
+        {"uid":"c2m2:response-3g","relationship":"Directly addresses","basis":"Requires periodic and trigger-based response plan exercises.","provenance":"Locally reviewed mapping"},
+        {"uid":"c2m2:response-3h","relationship":"Directly addresses","basis":"Requires lessons-learned activities and corrective updates to the response plan.","provenance":"Locally reviewed mapping"}
+      ]
+    }
+  ]
+}

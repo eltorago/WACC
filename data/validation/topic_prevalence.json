@@ -1,5 +1,5 @@
 {
-  "method": "Explicit phrase matches for each of the 19 Control workspace topics against assessable corpus entries. Duplicate text within a framework is counted once; topics overlap. Counts measure how often the corpus states the subject, not its importance, implementation priority or compliance status.",
+  "method": "Explicit phrase matches for each Control workspace topic against assessable corpus entries. Duplicate text within a framework is counted once; topics overlap. Counts measure how often the corpus states the subject, not its importance, implementation priority or compliance status.",
   "rating_scale": {
     "5 - Very high": "200 or more matching entries",
     "4 - High": "100 to 199 matching entries",
@@ -9,12 +9,16 @@
   },
   "rating_distribution": {
     "Very high": 1,
-    "High": 2,
-    "Medium": 9,
-    "Low": 4,
+    "High": 4,
+    "Medium": 10,
+    "Low": 6,
     "Very low": 3
   },
   "patterns": {
+    "IA": {
+      "topic": "Identity and access management",
+      "pattern": "\\b(access control|access (?:rights|permissions|authori[sz]ations)|account (?:management|lifecycle|provisioning|deprovisioning)|identity (?:management|lifecycle|governance)|identities and credentials|user accounts?|service accounts?|authenticator management)\\b"
+    },
     "PA": {
       "topic": "Privileged access",
       "pattern": "\\b(privileged (?:access|accounts?|users?|operations?)|administrative (?:access|accounts?|privileges?)|administrator accounts?|least privilege|elevated privilege|domain admin)\\b"
@@ -51,9 +55,17 @@
       "topic": "Incident notification timeframes",
       "pattern": "\\b(incident (?:notification|reporting)|report (?:a |the )?cyber security incident|notify .*cyber security incident|notifiable incident|within (?:4|12|24|72) hours)\\b"
     },
+    "IR": {
+      "topic": "Incident response and management",
+      "pattern": "\\b(incident (?:management|response|handling|analysis|containment|eradication|recovery|triage|declaration|lessons.learned)|post.incident reviews?|response plans?|response exercises?)\\b"
+    },
     "SC": {
       "topic": "Supply chain and third-party risk",
       "pattern": "\\b(supply chain|suppliers?|third.part(?:y|ies)|service providers?|outsourc\\w*|vendors?|subcontractors?)\\b"
+    },
+    "DP": {
+      "topic": "Data protection",
+      "pattern": "\\b(data (?:classification|categorization|protection|inventory|sensitivity|handling|retention|loss prevention|exfiltration)|information (?:classification|categorization|handling|flow)|sensitive (?:data|information)|data at rest|data in transit)\\b"
     },
     "UH": {
       "topic": "User application hardening",
@@ -90,6 +102,14 @@
     "OT": {
       "topic": "Operational technology security",
       "pattern": "\\b(operational technology|ot (?:assets?|networks?|systems?|environment|environments|security|playbooks?)|it and ot|it.ot segmentation|industrial control systems?|scada|field devices?)\\b"
+    },
+    "SD": {
+      "topic": "Secure software development",
+      "pattern": "\\b(secure (?:software|application) development|software development life.?cycle|system development life.?cycle|secure coding|threat model(?:ling|ing)|code reviews?|application security testing|developer testing)\\b"
+    },
+    "BC": {
+      "topic": "Business continuity and resilience",
+      "pattern": "\\b(business continuity|continuity plans?|contingency plans?|continuity of operations|business impact analysis|recovery objectives?|minimum operations|essential (?:mission|business) functions)\\b"
     }
   },
   "loaded_controls": 5321,
@@ -166,6 +186,38 @@
       "rank": 2
     },
     {
+      "code": "IA",
+      "topic": "Identity and access management",
+      "controls": 152,
+      "frameworks": 10,
+      "frequency_score": 4,
+      "frequency_rating": "High",
+      "mean_framework_share": 2.5,
+      "per_framework": {
+        "aescsf": 3,
+        "asd-ad": 4,
+        "c2m2": 3,
+        "cis-controls": 11,
+        "csf": 3,
+        "ism": 72,
+        "nist-800-53": 44,
+        "oag-wa": 9,
+        "pspf": 2,
+        "wa-csp": 1
+      },
+      "sample_uids": [
+        "ism:pro-15",
+        "ism:ism-2071",
+        "ism:ism-2126",
+        "ism:ism-1146",
+        "ism:ism-1554",
+        "ism:ism-1555",
+        "ism:ism-1556",
+        "ism:ism-383"
+      ],
+      "rank": 3
+    },
+    {
       "code": "PA",
       "topic": "Privileged access",
       "controls": 116,
@@ -197,7 +249,40 @@
         "ism:ism-1928",
         "ism:ism-1835"
       ],
-      "rank": 3
+      "rank": 4
+    },
+    {
+      "code": "IR",
+      "topic": "Incident response and management",
+      "controls": 104,
+      "frameworks": 11,
+      "frequency_score": 4,
+      "frequency_rating": "High",
+      "mean_framework_share": 3.24,
+      "per_framework": {
+        "aescsf": 15,
+        "c2m2": 13,
+        "cis-controls": 7,
+        "csf": 11,
+        "ism": 10,
+        "nist-800-53": 30,
+        "oag-wa": 1,
+        "pspf": 1,
+        "soci-act": 5,
+        "wa-circular": 2,
+        "wa-csp": 9
+      },
+      "sample_uids": [
+        "ism:pro-16",
+        "ism:res-1",
+        "ism:res-3",
+        "ism:ism-576",
+        "ism:ism-1784",
+        "ism:ism-1819",
+        "ism:ism-1970",
+        "ism:ism-43"
+      ],
+      "rank": 5
     },
     {
       "code": "PH",
@@ -229,7 +314,7 @@
         "ism:ism-1327",
         "ism:ism-465"
       ],
-      "rank": 4
+      "rank": 6
     },
     {
       "code": "BR",
@@ -263,7 +348,7 @@
         "ism:ism-1555",
         "ism:ism-1928"
       ],
-      "rank": 5
+      "rank": 7
     },
     {
       "code": "SM",
@@ -296,7 +381,7 @@
         "ism:ism-1815",
         "ism:ism-1959"
       ],
-      "rank": 6
+      "rank": 8
     },
     {
       "code": "GV",
@@ -325,7 +410,7 @@
         "nist-800-53:pm-14",
         "nist-800-53:pm-29"
       ],
-      "rank": 7
+      "rank": 9
     },
     {
       "code": "MD",
@@ -356,7 +441,7 @@
         "ism:ism-1742",
         "ism:ism-1218"
       ],
-      "rank": 8
+      "rank": 10
     },
     {
       "code": "PS",
@@ -386,7 +471,7 @@
         "nist-800-53:ma-5.2",
         "nist-800-53:ma-5.4"
       ],
-      "rank": 9
+      "rank": 11
     },
     {
       "code": "CK",
@@ -417,7 +502,7 @@
         "ism:ism-1059",
         "ism:ism-1928"
       ],
-      "rank": 10
+      "rank": 12
     },
     {
       "code": "AM",
@@ -447,7 +532,38 @@
         "nist-800-53:cm-3.4",
         "nist-800-53:cm-3.6"
       ],
-      "rank": 11
+      "rank": 13
+    },
+    {
+      "code": "DP",
+      "topic": "Data protection",
+      "controls": 58,
+      "frameworks": 9,
+      "frequency_score": 3,
+      "frequency_rating": "Medium",
+      "mean_framework_share": 2.09,
+      "per_framework": {
+        "aescsf": 5,
+        "c2m2": 5,
+        "cis-controls": 17,
+        "ism": 10,
+        "nist-800-53": 12,
+        "nist-800-88": 1,
+        "oag-wa": 1,
+        "wa-csp": 2,
+        "ztmm": 5
+      },
+      "sample_uids": [
+        "ism:ism-1504",
+        "ism:ism-1679",
+        "ism:ism-1680",
+        "ism:ism-1920",
+        "ism:ism-2046",
+        "ism:ism-2052",
+        "ism:ism-2093",
+        "ism:ism-2094"
+      ],
+      "rank": 14
     },
     {
       "code": "OT",
@@ -474,7 +590,7 @@
         "oag-wa:report-24 2.6.1",
         "oag-wa:report-24 2.6.2"
       ],
-      "rank": 12
+      "rank": 15
     },
     {
       "code": "NA",
@@ -506,7 +622,7 @@
         "ism:ism-637",
         "nist-800-53:sc-7"
       ],
-      "rank": 13
+      "rank": 16
     },
     {
       "code": "MF",
@@ -539,7 +655,65 @@
         "ism:ism-1919",
         "ism:ism-1173"
       ],
-      "rank": 14
+      "rank": 17
+    },
+    {
+      "code": "BC",
+      "topic": "Business continuity and resilience",
+      "controls": 48,
+      "frameworks": 7,
+      "frequency_score": 2,
+      "frequency_rating": "Low",
+      "mean_framework_share": 0.88,
+      "per_framework": {
+        "aescsf": 12,
+        "c2m2": 11,
+        "ism": 4,
+        "nist-800-53": 13,
+        "oag-wa": 2,
+        "pspf": 3,
+        "wa-csp": 3
+      },
+      "sample_uids": [
+        "ism:res-1",
+        "ism:ism-734",
+        "ism:ism-1732",
+        "ism:ism-1511",
+        "nist-800-53:cp-2",
+        "nist-800-53:cp-2.1",
+        "nist-800-53:cp-2.3",
+        "nist-800-53:cp-2.7"
+      ],
+      "rank": 18
+    },
+    {
+      "code": "SD",
+      "topic": "Secure software development",
+      "controls": 41,
+      "frameworks": 7,
+      "frequency_score": 2,
+      "frequency_rating": "Low",
+      "mean_framework_share": 0.7,
+      "per_framework": {
+        "aescsf": 4,
+        "c2m2": 4,
+        "cis-controls": 4,
+        "csf": 1,
+        "ism": 12,
+        "nist-800-53": 14,
+        "ztmm": 2
+      },
+      "sample_uids": [
+        "ism:ide-4",
+        "ism:ism-2120",
+        "ism:ism-2033",
+        "ism:ism-2035",
+        "ism:ism-2037",
+        "ism:ism-401",
+        "ism:ism-1238",
+        "ism:ism-2039"
+      ],
+      "rank": 19
     },
     {
       "code": "AW",
@@ -570,7 +744,7 @@
         "nist-800-53:at-2",
         "nist-800-53:at-2.1"
       ],
-      "rank": 15
+      "rank": 20
     },
     {
       "code": "AP",
@@ -600,7 +774,7 @@
         "ism:ism-1658",
         "ism:ism-955"
       ],
-      "rank": 16
+      "rank": 21
     },
     {
       "code": "UH",
@@ -624,7 +798,7 @@
         "ism:ism-1691",
         "ism:ism-1692"
       ],
-      "rank": 17
+      "rank": 22
     },
     {
       "code": "IN",
@@ -651,7 +825,7 @@
         "wa-csp:5.1c",
         "wa-csp:5.1d"
       ],
-      "rank": 18
+      "rank": 23
     },
     {
       "code": "OM",
@@ -675,7 +849,7 @@
         "ism:ism-1487",
         "ism:ism-1675"
       ],
-      "rank": 19
+      "rank": 24
     }
   ]
 }

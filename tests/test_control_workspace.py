@@ -29,8 +29,8 @@ class ControlWorkspaceTests(unittest.TestCase):
             return response.read().decode('utf-8')
     def test_all_pilot_sources_exist_and_anti_patterns_are_not_requirements(self):
         ids={c['id'] for c in workspace.CONTROLS}
-        self.assertEqual(len(ids),48)
-        self.assertEqual(len(workspace.TOPICS),19)
+        self.assertEqual(len(ids),63)
+        self.assertEqual(len(workspace.TOPICS),24)
         for c in workspace.CONTROLS:
             self.assertTrue(set(c['related'])<=ids)
             for other in c['related']:
@@ -75,6 +75,11 @@ class ControlWorkspaceTests(unittest.TestCase):
             'Network architecture and segmentation':{'ism','nist-800-53','cis-controls','aescsf','guidance'},
             'Security awareness and workforce training':{'cis-controls','nist-800-53','aescsf','oag-wa'},
             'Operational technology security':{'oag-wa','aescsf','c2m2','guidance'},
+            'Identity and access management':{'wa-csp','oag-wa','nist-800-53','cis-controls','c2m2','csf'},
+            'Incident response and management':{'wa-csp','nist-800-53','cis-controls','c2m2','pspf','csf'},
+            'Data protection':{'cis-controls','nist-800-53','ztmm','ism','c2m2','aescsf'},
+            'Secure software development':{'cis-controls','nist-800-53','csf','c2m2','ism','ztmm'},
+            'Business continuity and resilience':{'oag-wa','nist-800-53','c2m2','pspf','wa-csp'},
         }
         for topic, expected in required.items():
             actual={workspace.mapping_source_key(m) for c in workspace.CONTROLS if c['topic']==topic for m in c['mappings']}

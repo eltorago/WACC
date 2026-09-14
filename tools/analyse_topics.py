@@ -12,9 +12,16 @@ from wacc.control_workspace import TOPICS
 from wacc.serve import State
 
 
-# These patterns represent the 19 workspace topics rather than broad security domains.
+# These patterns represent every workspace topic rather than broad security domains.
 # A corpus entry may support more than one topic, so topic counts intentionally overlap.
 TOPIC_PATTERNS = {
+    "IA": (
+        "Identity and access management",
+        r"\b(access control|access (?:rights|permissions|authori[sz]ations)|account "
+        r"(?:management|lifecycle|provisioning|deprovisioning)|identity (?:management|"
+        r"lifecycle|governance)|identities and credentials|user accounts?|service "
+        r"accounts?|authenticator management)\b",
+    ),
     "PA": (
         "Privileged access",
         r"\b(privileged (?:access|accounts?|users?|operations?)|administrative "
@@ -65,10 +72,23 @@ TOPIC_PATTERNS = {
         r"incident|notify .*cyber security incident|notifiable incident|"
         r"within (?:4|12|24|72) hours)\b",
     ),
+    "IR": (
+        "Incident response and management",
+        r"\b(incident (?:management|response|handling|analysis|containment|eradication|"
+        r"recovery|triage|declaration|lessons.learned)|post.incident reviews?|response "
+        r"plans?|response exercises?)\b",
+    ),
     "SC": (
         "Supply chain and third-party risk",
         r"\b(supply chain|suppliers?|third.part(?:y|ies)|service providers?|"
         r"outsourc\w*|vendors?|subcontractors?)\b",
+    ),
+    "DP": (
+        "Data protection",
+        r"\b(data (?:classification|categorization|protection|inventory|sensitivity|"
+        r"handling|retention|loss prevention|exfiltration)|information (?:classification|"
+        r"categorization|handling|flow)|sensitive (?:data|information)|data at rest|"
+        r"data in transit)\b",
     ),
     "UH": (
         "User application hardening",
@@ -123,6 +143,18 @@ TOPIC_PATTERNS = {
         r"\b(operational technology|ot (?:assets?|networks?|systems?|environment|"
         r"environments|security|playbooks?)|it and ot|it.ot segmentation|"
         r"industrial control systems?|scada|field devices?)\b",
+    ),
+    "SD": (
+        "Secure software development",
+        r"\b(secure (?:software|application) development|software development life.?cycle|"
+        r"system development life.?cycle|secure coding|threat model(?:ling|ing)|code "
+        r"reviews?|application security testing|developer testing)\b",
+    ),
+    "BC": (
+        "Business continuity and resilience",
+        r"\b(business continuity|continuity plans?|contingency plans?|continuity of "
+        r"operations|business impact analysis|recovery objectives?|minimum operations|"
+        r"essential (?:mission|business) functions)\b",
     ),
 }
 
@@ -197,7 +229,7 @@ def measure(state):
     rating_distribution = Counter(row["frequency_rating"] for row in ranked)
     return {
         "method": (
-            "Explicit phrase matches for each of the 19 Control workspace topics against "
+            "Explicit phrase matches for each Control workspace topic against "
             "assessable corpus entries. Duplicate text within a framework is counted once; "
             "topics overlap. Counts measure how often the corpus states the subject, not its "
             "importance, implementation priority or compliance status."

@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "topic": "Business continuity and resilience",
+  "controls": [
+    {
+      "id": "BC-01",
+      "title": "Define continuity and recovery requirements",
+      "statement": "Use business impact analysis to identify critical services, dependencies, minimum operating needs and achievable recovery time and recovery point objectives.",
+      "risk": "Recovery effort can restore the wrong systems in the wrong order while critical services remain unavailable if business priorities and dependencies are not defined in advance.",
+      "scope": "Critical services and their business processes, information, technology, facilities, people, suppliers and IT and OT dependencies.",
+      "examine": "Review business impact analyses, critical-service definitions, dependency maps, minimum operating requirements, recovery objectives and accountable approvals.",
+      "interview": "Ask business and recovery owners how they determine service priorities, tolerable disruption and dependencies across internal and third-party services.",
+      "test": "Sample critical services and trace approved recovery objectives to supporting systems, data, people, facilities and supplier arrangements.",
+      "expected": "Critical services have approved, achievable recovery objectives and complete dependency information that can guide restoration priorities.",
+      "related": ["BC-02", "BR-02", "SC-02", "OT-01"],
+      "mappings": [
+        {"uid":"oag-wa:report-24 2.8.1","relationship":"Directly addresses","basis":"Requires business impact analysis to establish achievable recovery objectives aligned with business objectives.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:cp-2","relationship":"Directly addresses","basis":"Requires identification of essential functions, contingency requirements, recovery objectives, restoration priorities and metrics.","provenance":"Locally reviewed mapping"},
+        {"uid":"c2m2:response-4g","relationship":"Directly addresses","basis":"Requires recovery time and recovery point objectives for assets supporting the function to be included in continuity plans.","provenance":"Locally reviewed mapping"},
+        {"uid":"pspf:req 55","relationship":"Partially addresses","basis":"Requires continuity planning to minimise disruption to critical services and assets based on assessed risk.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "BC-02",
+      "title": "Maintain integrated continuity plans",
+      "statement": "Maintain coordinated plans for sustaining minimum operations and restoring services after cyber incidents and other significant disruptions.",
+      "risk": "Separate or incomplete plans can leave teams competing for resources, overlooking dependencies and extending disruption to essential services.",
+      "scope": "Continuity and recovery arrangements for critical and risk-significant services, assets and supporting external providers.",
+      "examine": "Inspect continuity plans, emergency and incident-plan integration, dependencies, roles, contacts, alternative arrangements, restoration sequences and review history.",
+      "interview": "Ask business, incident and recovery leaders how plans work together and how changes to services, suppliers and technology are reflected.",
+      "test": "Walk a disruption scenario across related plans and verify consistent priorities, handoffs, dependencies, resource assumptions and restoration actions.",
+      "expected": "Plans are current and mutually consistent, sustain defined minimum operations and provide workable restoration actions across key dependencies.",
+      "related": ["BC-01", "BC-03", "IR-01", "BR-03"],
+      "mappings": [
+        {"uid":"pspf:req 55","relationship":"Directly addresses","basis":"Requires a maintained continuity plan that minimises the impact of significant disruptions on critical services and assets.","provenance":"Locally reviewed mapping"},
+        {"uid":"pspf:req 56","relationship":"Directly addresses","basis":"Requires plans for a broad range of emergencies to be integrated into the business continuity plan.","provenance":"Locally reviewed mapping"},
+        {"uid":"c2m2:response-4d","relationship":"Partially addresses","basis":"Requires continuity plans to address potential impacts from cyber security incidents.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:cp-2","relationship":"Directly addresses","basis":"Requires a maintained contingency plan addressing essential functions, recovery, responsibilities and eventual restoration.","provenance":"Locally reviewed mapping"},
+        {"uid":"oag-wa:report-24 2.8.2","relationship":"Partially addresses","basis":"Requires resilience plans and objectives to align and document internal, technical and external dependencies.","provenance":"Locally reviewed mapping"},
+        {"uid":"wa-csp:6.1","relationship":"Partially addresses","basis":"Requires restoration capability within the timeframes defined by continuity or incident-management plans.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "BC-03",
+      "title": "Exercise continuity plans and improve them",
+      "statement": "Test continuity plans against realistic high-priority disruptions, compare performance with recovery objectives and complete corrective actions.",
+      "risk": "Plans that have not been exercised may rely on unavailable people, systems or suppliers and fail to restore critical services within expected timeframes.",
+      "scope": "Continuity plans, recovery teams, critical services and the internal and external dependencies needed during disruption.",
+      "examine": "Review the exercise program, scenarios, participants, observed results, measured recovery performance, corrective actions, owners and completion evidence.",
+      "interview": "Ask business and recovery leaders how scenarios reflect material risks and how failed assumptions or missed objectives change plans and investment decisions.",
+      "test": "Sample exercises and trace significant observations through approved corrective actions to verified completion and updated continuity arrangements.",
+      "expected": "Exercises address priority risks, measure performance against objectives and produce verified improvements to plans, capability and dependencies.",
+      "related": ["BC-01", "BC-02", "IR-03", "BR-03"],
+      "mappings": [
+        {"uid":"nist-800-53:cp-4","relationship":"Directly addresses","basis":"Requires contingency-plan testing, review of results and corrective action.","provenance":"Locally reviewed mapping"},
+        {"uid":"c2m2:response-4i","relationship":"Directly addresses","basis":"Requires periodic and trigger-based continuity-plan evaluations and exercises.","provenance":"Locally reviewed mapping"},
+        {"uid":"c2m2:response-4n","relationship":"Directly addresses","basis":"Requires continuity exercises to address higher-priority risks.","provenance":"Locally reviewed mapping"},
+        {"uid":"c2m2:response-4o","relationship":"Directly addresses","basis":"Requires test or activation results to be compared with recovery objectives and plans improved accordingly.","provenance":"Locally reviewed mapping"}
+      ]
+    }
+  ]
+}

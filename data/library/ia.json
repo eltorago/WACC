@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "topic": "Identity and access management",
+  "controls": [
+    {
+      "id": "IA-01",
+      "title": "Manage identities and accounts through their lifecycle",
+      "statement": "Create, change, disable and remove human and non-human identities through documented processes tied to an authorised business need.",
+      "risk": "Accounts that remain active without a current owner or purpose can be used to enter systems without attracting attention or clear accountability.",
+      "scope": "Workforce, contractor, service, application and device identities and their associated accounts.",
+      "examine": "Compare personnel, contractor and service records with account inventories, provisioning approvals, role changes, expiry dates and deprovisioning records.",
+      "interview": "Ask identity and system owners how joiners, movers, leavers, temporary access and non-human identities enter the lifecycle process.",
+      "test": "Sample newly created, changed, expired and terminated identities and trace whether each account was authorised, updated and disabled within the applicable timeframe.",
+      "expected": "Every sampled account has a current owner and purpose, follows the approved lifecycle process and is disabled or removed when no longer required.",
+      "related": ["IA-02", "IA-03", "PA-01"],
+      "mappings": [
+        {"uid":"wa-csp:3.6a","relationship":"Directly addresses","basis":"Requires appropriate user lifecycle management supporting personnel management.","provenance":"Locally reviewed mapping"},
+        {"uid":"oag-wa:report-12 2.3.1","relationship":"Directly addresses","basis":"Requires formal, documented and accountable provisioning for human and non-human identities and addresses dormant accounts.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:ac-2","relationship":"Directly addresses","basis":"Requires approved creation, enablement, modification, monitoring, disabling and removal of accounts.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:5.1","relationship":"Partially addresses","basis":"Requires an account inventory and recurring validation of active accounts, supporting lifecycle control without specifying the full workflow.","provenance":"Locally reviewed mapping"},
+        {"uid":"c2m2:access-1a","relationship":"Partially addresses","basis":"Covers provisioning identities for personnel, services and devices.","provenance":"Locally reviewed mapping"},
+        {"uid":"c2m2:access-1c","relationship":"Partially addresses","basis":"Covers deprovisioning identities when they are no longer required.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "IA-02",
+      "title": "Approve and review access rights",
+      "statement": "Grant access only after accountable approval, keep permissions aligned with current duties and review them when roles or risk conditions change.",
+      "risk": "People and services can accumulate access they no longer need, increasing the damage possible from error, misuse or a compromised account.",
+      "scope": "Logical access rights, roles, entitlements and authorisations for enterprise systems and information.",
+      "examine": "Inspect access policies, owner approvals, role definitions, access-review results, exceptions and evidence that identified excess access was removed.",
+      "interview": "Ask business and system owners how they decide what access is appropriate and how they respond to transfers, temporary assignments and review findings.",
+      "test": "Sample access grants and review decisions, compare permissions with current duties and verify that rejected or obsolete access was removed.",
+      "expected": "Sampled access is owner-approved, matches current responsibilities and has been reviewed and corrected at defined triggers.",
+      "related": ["IA-01", "PA-01", "PA-04"],
+      "mappings": [
+        {"uid":"oag-wa:report-12 2.4.2","relationship":"Directly addresses","basis":"Requires regular verification that human and non-human access remains required and appropriate, including after role changes.","provenance":"Locally reviewed mapping"},
+        {"uid":"csf:pr.aa-5","relationship":"Directly addresses","basis":"Requires permissions, entitlements and authorisations to be defined, managed, enforced and reviewed.","provenance":"Locally reviewed mapping"},
+        {"uid":"c2m2:access-2f","relationship":"Partially addresses","basis":"Requires logical access requests to be reviewed and approved by the asset owner.","provenance":"Locally reviewed mapping"},
+        {"uid":"c2m2:access-2h","relationship":"Partially addresses","basis":"Requires periodic and trigger-based review and updating of logical access privileges.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:6.1","relationship":"Partially addresses","basis":"Requires a defined process for granting access after hiring, rights grants and role changes.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:ac-2","relationship":"Directly addresses","basis":"Requires account approvals, authorised users, role membership, access authorisations and ongoing account management.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "IA-03",
+      "title": "Protect and manage authentication credentials",
+      "statement": "Issue, store, use, change and revoke passwords, keys, certificates and other authenticators through controlled processes appropriate to their risk.",
+      "risk": "Poorly protected or unmanaged credentials can let an attacker impersonate a trusted user or service and retain access after the credential should have been revoked.",
+      "scope": "Passwords, authentication secrets, tokens, certificates and other authenticators for people, services and devices.",
+      "examine": "Review authenticator standards, issue and recovery procedures, approved storage, default-credential handling, compromise response and revocation records.",
+      "interview": "Ask identity and platform owners how recipients are verified, credential strength is selected and lost, exposed or expired credentials are handled.",
+      "test": "Sample authenticators across user, service and device accounts and verify controlled issue, protected storage, required changes and effective revocation.",
+      "expected": "Sampled authenticators are issued to verified recipients, protected according to policy and promptly changed or revoked when their trust is lost.",
+      "related": ["IA-01", "MF-01", "CK-01"],
+      "mappings": [
+        {"uid":"nist-800-53:ia-5","relationship":"Directly addresses","basis":"Requires controls for authenticator issue, strength, distribution, default values, compromise and revocation.","provenance":"Locally reviewed mapping"},
+        {"uid":"oag-wa:report-12 2.3.4","relationship":"Directly addresses","basis":"Requires secure storage and handling of credentials and encryption keys, including centrally managed credential storage.","provenance":"Locally reviewed mapping"},
+        {"uid":"csf:pr.aa-1","relationship":"Partially addresses","basis":"Requires identities and credentials for authorised users, services and hardware to be managed.","provenance":"Locally reviewed mapping"},
+        {"uid":"c2m2:access-1b","relationship":"Partially addresses","basis":"Covers issuing passwords, smartcards, certificates and keys to entities requiring access.","provenance":"Locally reviewed mapping"}
+      ]
+    }
+  ]
+}
