@@ -10,11 +10,15 @@
   "rating_distribution": {
     "Very high": 1,
     "High": 4,
-    "Medium": 10,
+    "Medium": 11,
     "Low": 6,
     "Very low": 3
   },
   "patterns": {
+    "AD": {
+      "topic": "Active Directory security",
+      "pattern": "\\b(active directory|ad ds|domain controllers?|domain admins?|dcsync|kerberos|ntlm|ldap signing|service principal names?|spns?|group managed service accounts?|gmsas?|sid filtering|unconstrained delegation|krbtgt|entra connect|ad fs|ad cs)\\b"
+    },
     "IA": {
       "topic": "Identity and access management",
       "pattern": "\\b(access control|access (?:rights|permissions|authori[sz]ations)|account (?:management|lifecycle|provisioning|deprovisioning)|identity (?:management|lifecycle|governance)|identities and credentials|user accounts?|service accounts?|authenticator management)\\b"
@@ -384,6 +388,31 @@
       "rank": 8
     },
     {
+      "code": "AD",
+      "topic": "Active Directory security",
+      "controls": 87,
+      "frameworks": 3,
+      "frequency_score": 3,
+      "frequency_rating": "Medium",
+      "mean_framework_share": 4.02,
+      "per_framework": {
+        "asd-ad": 52,
+        "ism": 34,
+        "oag-wa": 1
+      },
+      "sample_uids": [
+        "ism:ism-1926",
+        "ism:ism-1927",
+        "ism:ism-1928",
+        "ism:ism-1830",
+        "ism:ism-1827",
+        "ism:ism-1929",
+        "ism:ism-1828",
+        "ism:ism-1931"
+      ],
+      "rank": 9
+    },
+    {
       "code": "GV",
       "topic": "Governance and cybersecurity program management",
       "controls": 80,
@@ -410,7 +439,7 @@
         "nist-800-53:pm-14",
         "nist-800-53:pm-29"
       ],
-      "rank": 9
+      "rank": 10
     },
     {
       "code": "MD",
@@ -441,7 +470,7 @@
         "ism:ism-1742",
         "ism:ism-1218"
       ],
-      "rank": 10
+      "rank": 11
     },
     {
       "code": "PS",
@@ -471,7 +500,7 @@
         "nist-800-53:ma-5.2",
         "nist-800-53:ma-5.4"
       ],
-      "rank": 11
+      "rank": 12
     },
     {
       "code": "CK",
@@ -502,7 +531,7 @@
         "ism:ism-1059",
         "ism:ism-1928"
       ],
-      "rank": 12
+      "rank": 13
     },
     {
       "code": "AM",
@@ -532,7 +561,7 @@
         "nist-800-53:cm-3.4",
         "nist-800-53:cm-3.6"
       ],
-      "rank": 13
+      "rank": 14
     },
     {
       "code": "DP",
@@ -563,7 +592,7 @@
         "ism:ism-2093",
         "ism:ism-2094"
       ],
-      "rank": 14
+      "rank": 15
     },
     {
       "code": "OT",
@@ -590,7 +619,7 @@
         "oag-wa:report-24 2.6.1",
         "oag-wa:report-24 2.6.2"
       ],
-      "rank": 15
+      "rank": 16
     },
     {
       "code": "NA",
@@ -622,7 +651,7 @@
         "ism:ism-637",
         "nist-800-53:sc-7"
       ],
-      "rank": 16
+      "rank": 17
     },
     {
       "code": "MF",
@@ -655,7 +684,7 @@
         "ism:ism-1919",
         "ism:ism-1173"
       ],
-      "rank": 17
+      "rank": 18
     },
     {
       "code": "BC",
@@ -684,7 +713,7 @@
         "nist-800-53:cp-2.3",
         "nist-800-53:cp-2.7"
       ],
-      "rank": 18
+      "rank": 19
     },
     {
       "code": "SD",
@@ -713,7 +742,7 @@
         "ism:ism-1238",
         "ism:ism-2039"
       ],
-      "rank": 19
+      "rank": 20
     },
     {
       "code": "AW",
@@ -744,7 +773,7 @@
         "nist-800-53:at-2",
         "nist-800-53:at-2.1"
       ],
-      "rank": 20
+      "rank": 21
     },
     {
       "code": "AP",
@@ -774,7 +803,7 @@
         "ism:ism-1658",
         "ism:ism-955"
       ],
-      "rank": 21
+      "rank": 22
     },
     {
       "code": "UH",
@@ -798,7 +827,7 @@
         "ism:ism-1691",
         "ism:ism-1692"
       ],
-      "rank": 22
+      "rank": 23
     },
     {
       "code": "IN",
@@ -825,7 +854,7 @@
         "wa-csp:5.1c",
         "wa-csp:5.1d"
       ],
-      "rank": 23
+      "rank": 24
     },
     {
       "code": "OM",
@@ -849,7 +878,7 @@
         "ism:ism-1487",
         "ism:ism-1675"
       ],
-      "rank": 24
+      "rank": 25
     }
   ]
 }

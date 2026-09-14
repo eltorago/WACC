@@ -1,0 +1,110 @@
+{
+  "version": 1,
+  "topic": "Active Directory security",
+  "controls": [
+    {
+      "id": "AD-01",
+      "title": "Harden and isolate directory infrastructure",
+      "statement": "Use domain controllers and related identity servers only for their security roles, remove unnecessary services and protocols, and place them in protected network and management paths.",
+      "risk": "If a domain controller or related identity server is compromised, an attacker could take control of authentication across the organisation and gain broad access to systems and information.",
+      "scope": "Microsoft AD DS domain controllers, AD CS, AD FS and Microsoft Entra Connect servers, including their installed software, enabled services, network paths and administration interfaces.",
+      "examine": "Compare the approved identity architecture and hardened build standards with installed applications, enabled roles and services, network rules, administrative paths and current configuration records.",
+      "interview": "Ask directory and infrastructure owners how additional software is prevented, how management traffic reaches identity servers and how insecure or obsolete services are identified and removed.",
+      "test": "Sample each identity-server role and verify that only approved security functions are installed, unnecessary services are disabled and administration is possible only through the authorised management path.",
+      "expected": "Identity servers perform only approved security functions, expose only required services and accept administration only from protected management paths.",
+      "related": ["PA-02", "NA-02", "AM-02"],
+      "mappings": [
+        {"uid":"ism:ism-1926","relationship":"Directly addresses","basis":"Restricts AD DS domain controllers, AD CS, AD FS and Entra Connect servers to their designed roles and security-related applications or services.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1828","relationship":"Partially addresses","basis":"Requires the Print Spooler service to be disabled on AD DS domain controllers.","provenance":"Locally reviewed mapping"},
+        {"uid":"asd-ad:appendix a §mitigating dumping ntds.dit#4","relationship":"Directly addresses","basis":"Restricts domain controllers to AD DS and prohibits non-security-related services and applications.","provenance":"Locally reviewed mapping"},
+        {"uid":"asd-ad:appendix a §mitigating dumping ntds.dit#7","relationship":"Partially addresses","basis":"Requires SMB version 1 to be disabled on domain controllers.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:cm-7","relationship":"Partially addresses","basis":"Requires systems to provide only mission-essential capabilities and restrict unnecessary functions, ports, protocols, software and services.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "AD-02",
+      "title": "Restrict Active Directory administrative access",
+      "statement": "Limit directory administration to named people with a current need, use dedicated administrative accounts, and allow privileged access only from protected workstations or jump servers.",
+      "risk": "An attacker who compromises a directory administrator could create trusted accounts, change security policy and take control of connected systems.",
+      "scope": "Directory administrators, privileged security groups, administrative accounts, secure administrative workstations, jump servers and management connections to identity infrastructure.",
+      "examine": "Reconcile approved administrators with Domain Admins, Enterprise Admins and equivalent groups, dedicated account inventories, workstation assignments, jump-server rules and privileged access logs.",
+      "interview": "Ask directory owners who can approve administrative access, how ordinary and privileged duties are separated and how urgent or temporary access is removed.",
+      "test": "Sample directory administrators and trace their approval, dedicated account, protected workstation and permitted management route. Confirm that an ordinary account or unapproved workstation cannot administer a domain controller.",
+      "expected": "Every directory administrator has a current approved need, uses a dedicated account from an authorised management device and cannot reach directory administration through ordinary access paths.",
+      "related": ["PA-02", "PA-03", "PA-04", "IA-02"],
+      "mappings": [
+        {"uid":"ism:ism-1827","relationship":"Directly addresses","basis":"Requires domain controllers to be administered with dedicated domain administrator accounts that are not used to administer other systems.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1927","relationship":"Partially addresses","basis":"Limits access to AD DS, AD CS, AD FS and Entra Connect servers to privileged users who require it.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1939","relationship":"Partially addresses","basis":"Requires membership of Domain Admins, Enterprise Admins and other highly privileged groups to be minimised.","provenance":"Locally reviewed mapping"},
+        {"uid":"asd-ad:appendix a §mitigating dumping ntds.dit#1","relationship":"Partially addresses","basis":"Limits domain-controller access to privileged users who require access.","provenance":"Locally reviewed mapping"},
+        {"uid":"asd-ad:appendix a §mitigating dumping ntds.dit#2","relationship":"Directly addresses","basis":"Restricts privileged paths to domain controllers to jump servers and secure administrative workstations using only required ports and services.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:ac-6.5","relationship":"Partially addresses","basis":"Restricts privileged accounts to authorised personnel or roles.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:architecture-3c","relationship":"Partially addresses","basis":"Requires least privilege to be enforced for administrative users and service accounts.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "AD-03",
+      "title": "Secure service accounts and delegation",
+      "statement": "Identify and assign owners to directory service accounts, use managed credentials where supported, grant only the permissions they need, and prevent unnecessary delegation or directory replication rights.",
+      "risk": "A weak or over-privileged service account could let an attacker move through the domain, obtain more powerful credentials and retain access without using a personal account.",
+      "scope": "Service and computer accounts, service principal names, group Managed Service Accounts, delegation settings, DCSync permissions, credentials, owners and review records.",
+      "examine": "Compare service-account inventories and owners with SPN registrations, gMSA use, group memberships, effective permissions, DCSync rights, delegation settings and review results.",
+      "interview": "Ask application and directory owners how service accounts are created, how managed credentials are selected and how excessive permissions or delegation are found and removed.",
+      "test": "Sample service and computer accounts, verify ownership and purpose, inspect their effective privileges and delegation, and confirm that credentials rotate through the managed process without being known or reused by people.",
+      "expected": "Each service account has a current owner and purpose, uses a managed credential where supported, holds only required access and has no unnecessary DCSync or delegation capability.",
+      "related": ["IA-01", "IA-03", "PA-04", "CK-02"],
+      "mappings": [
+        {"uid":"ism:ism-1619","relationship":"Directly addresses","basis":"Requires service accounts to be created as group Managed Service Accounts.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1933","relationship":"Partially addresses","basis":"Prohibits DCSync permissions for service accounts configured with a service principal name.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1844","relationship":"Partially addresses","basis":"Prohibits non-domain-controller computer accounts from being trusted for delegation to services.","provenance":"Locally reviewed mapping"},
+        {"uid":"asd-ad:appendix a §mitigating kerberoasting#2","relationship":"Partially addresses","basis":"Calls for accounts with service principal names to use gMSAs, or strong managed passwords where gMSAs are not feasible.","provenance":"Locally reviewed mapping"},
+        {"uid":"asd-ad:appendix a §mitigating an unconstrained delegation compromise#1","relationship":"Partially addresses","basis":"Requires computer objects not to be configured for unconstrained delegation.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:5.5","relationship":"Partially addresses","basis":"Requires an owned inventory of service accounts and recurring reviews that accounts remain authorised.","provenance":"Locally reviewed mapping"},
+        {"uid":"c2m2:access-1h","relationship":"Partially addresses","basis":"Requires stronger credentials, multi-factor authentication or single-use credentials for higher-risk access, including service accounts.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "AD-04",
+      "title": "Harden directory authentication and trusts",
+      "statement": "Require protected directory authentication, remove obsolete protocols, and allow domain, forest and connected-environment trusts only when their security boundaries are explicit and enforced.",
+      "risk": "Weak authentication or an unsafe trust could allow a compromised account or connected environment to impersonate users and cross into systems that should remain separate.",
+      "scope": "Kerberos and LDAP configuration, NTLM and SMB protocols, domain and forest trusts, SID filtering, connected identity systems and IT-to-OT identity boundaries.",
+      "examine": "Review domain authentication policy, protocol configuration, LDAP signing, Kerberos pre-authentication exceptions, trust inventory, trust direction, SID filtering and connected-environment architecture.",
+      "interview": "Ask directory and system owners why each legacy protocol, authentication exception and trust exists, who accepts its risk and how its continued need is reviewed.",
+      "test": "Use authorised checks to verify LDAP signing and Kerberos pre-authentication, identify attempted use of prohibited protocols, and confirm that selected trusts enforce the approved direction and SID filtering.",
+      "expected": "Directory authentication uses approved protected protocols, exceptions are justified and monitored, and each trust is necessary, documented and technically constrained to its intended boundary.",
+      "related": ["MF-01", "IA-03", "NA-02", "OT-02"],
+      "mappings": [
+        {"uid":"ism:ism-1929","relationship":"Directly addresses","basis":"Requires LDAP signing on AD DS domain controllers.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1836","relationship":"Partially addresses","basis":"Requires Kerberos pre-authentication for user accounts.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1931","relationship":"Partially addresses","basis":"Requires SID Filtering for domain and forest trusts.","provenance":"Locally reviewed mapping"},
+        {"uid":"asd-ad:appendix a §mitigating a machineaccountquota compromise#4","relationship":"Partially addresses","basis":"Requires LDAP signing on domain controllers.","provenance":"Locally reviewed mapping"},
+        {"uid":"asd-ad:appendix a §mitigating password spraying#7","relationship":"Partially addresses","basis":"Requires the NTLM protocol to be disabled.","provenance":"Locally reviewed mapping"},
+        {"uid":"asd-ad:appendix a §mitigating a sid history compromise#3","relationship":"Partially addresses","basis":"Requires SID Filtering for domain and forest trusts.","provenance":"Locally reviewed mapping"},
+        {"uid":"oag-wa:report-24 2.5.1","relationship":"Partially addresses","basis":"Calls for separate IT and OT domain controllers without trusts and for built-in remote maintenance to be disabled or closely monitored.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "AD-05",
+      "title": "Monitor and protect recovery of identity infrastructure",
+      "statement": "Centrally collect and review security events from directory infrastructure, and maintain encrypted, access-controlled backups needed to rebuild trusted identity services.",
+      "risk": "A directory compromise may remain undetected or leave the organisation unable to restore trusted access to critical services.",
+      "scope": "Security events and backups for AD DS domain controllers, AD CS, AD FS and Microsoft Entra Connect, including log pipelines, alerts, storage, encryption and administrative access.",
+      "examine": "Compare critical identity systems with log-source coverage, event selections, alert and investigation records, backup schedules, encryption settings, storage locations, access lists and recovery procedures.",
+      "interview": "Ask monitoring and recovery owners how directory attacks are detected, who can access identity backups and how they establish that retained copies can support a trusted rebuild.",
+      "test": "Generate an authorised security event and trace it into central monitoring, then sample recent backup jobs and verify successful completion, encryption, restricted access and availability to the documented recovery process.",
+      "expected": "Relevant identity events reach central monitoring in time for investigation, and current protected backups are available only to authorised recovery personnel.",
+      "related": ["SM-01", "SM-03", "BR-02", "BR-03", "IR-02"],
+      "mappings": [
+        {"uid":"ism:ism-1830","relationship":"Directly addresses","basis":"Requires security-relevant events from AD DS domain controllers, AD CS, AD FS and Entra Connect to be centrally logged.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1928","relationship":"Directly addresses","basis":"Requires backups of identity servers to use ASD-approved encryption, secure storage and access limited to backup administrators.","provenance":"Locally reviewed mapping"},
+        {"uid":"asd-ad:appendix a §mitigating dumping ntds.dit#3","relationship":"Partially addresses","basis":"Requires domain-controller backups to be encrypted, securely stored and accessible only to Backup Administrators.","provenance":"Locally reviewed mapping"},
+        {"uid":"asd-ad:appendix a §mitigating dumping ntds.dit#5","relationship":"Partially addresses","basis":"Requires domain-controller logs to be centrally logged and analysed promptly for malicious activity.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:au-2","relationship":"Partially addresses","basis":"Requires organisations to identify and coordinate the event types needed to support audit and investigation.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:au-6","relationship":"Partially addresses","basis":"Requires audit records to be reviewed and analysed for unusual activity and findings to be reported.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:cp-9","relationship":"Partially addresses","basis":"Requires backups of system information and documentation and protection of backup confidentiality, integrity and availability.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:8.2","relationship":"Partially addresses","basis":"Requires audit logging to be enabled across enterprise assets through the audit-log management process.","provenance":"Locally reviewed mapping"}
+      ]
+    }
+  ]
+}
