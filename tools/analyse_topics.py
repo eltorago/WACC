@@ -15,6 +15,13 @@ from wacc.serve import State
 # These patterns represent every workspace topic rather than broad security domains.
 # A corpus entry may support more than one topic, so topic counts intentionally overlap.
 TOPIC_PATTERNS = {
+    "AD": (
+        "Active Directory security",
+        r"\b(active directory|ad ds|domain controllers?|domain admins?|dcsync|"
+        r"kerberos|ntlm|ldap signing|service principal names?|spns?|group managed "
+        r"service accounts?|gmsas?|sid filtering|unconstrained delegation|krbtgt|"
+        r"entra connect|ad fs|ad cs)\b",
+    ),
     "IA": (
         "Identity and access management",
         r"\b(access control|access (?:rights|permissions|authori[sz]ations)|account "
