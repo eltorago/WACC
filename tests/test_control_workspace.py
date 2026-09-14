@@ -50,14 +50,17 @@ class ControlWorkspaceTests(unittest.TestCase):
         found=workspace.matching('ISM-1507',set(workspace.FRAMEWORKS))
         self.assertEqual([c['id'] for c in found],['PA-01'])
         self.assertEqual(workspace.matching('ISM-1507', {'cis-controls'}), [])
-    def test_home_and_each_control_render_with_records_and_source_navigation(self):
+    def test_home_and_each_control_render_without_record_entry(self):
         self.assertIn('Control workspace',self.get('/'))
         for c in workspace.CONTROLS:
             page=self.get('/library?control='+c['id'])
             self.assertIn(c['title'],page)
-            self.assertIn('id="assessment-record"',page)
+            self.assertNotIn('Evidence and result',page)
+            self.assertNotIn('localStorage',page)
+            self.assertNotIn('Not assessed',page)
             self.assertIn('Open source control',page)
-            self.assertIn('Download assessment',page)
+            self.assertNotIn('Download assessment',page)
+            self.assertIn('Assess this control',page)
         page=self.get('/library?scope=1&fw=cis-controls&control=PA-01')
         self.assertNotIn('q=ism%3Aism-1507',page)
         self.assertIn('q=cis-controls%3A6.1',page)
@@ -70,29 +73,8 @@ class ControlWorkspaceTests(unittest.TestCase):
         self.assertTrue(all(r['Control'].startswith('BR-') for r in rows))
         page=self.get('/library?topic=Backup+and+recovery&control=BR-02')
         self.assertIn('BR-02 · Backup and recovery',page)
-        self.assertIn('id="choose-record"',page)
-        self.assertIn('data-record-id="BR-02"',page)
-
-    def test_restore_validator_rejects_wrong_control_and_malformed_records(self):
-        import shutil
-        import subprocess
-        if not shutil.which('node'):
-            self.skipTest('Node is needed only for the browser record validator tests')
-        js=workspace.SCRIPT.split('(function(){',1)[0]+r"""
-const assert=require('node:assert/strict');
-const a={owner:'Example',date:'2026-09-14',scope:'Example',applicability:'Applicable',result:'Partially effective',evidence:'Example',findings:'Example',actions:'Example'};
-const data={version:1,control:{id:'BR-01'},assessment:a};
-assert.deepEqual(validateRecord(data,'BR-01'),a);
-assert.throws(()=>validateRecord(data,'PA-01'));
-assert.throws(()=>validateRecord({...data,version:2},'BR-01'));
-assert.throws(()=>validateRecord({...data,assessment:{...a,result:'Compliant'}},'BR-01'));
-assert.throws(()=>validateRecord({...data,assessment:{...a,date:'2026-02-31'}},'BR-01'));
-assert.throws(()=>validateRecord({...data,assessment:{...a,owner:{html:'bad'}}},'BR-01'));
-assert.throws(()=>validateRecord({...data,assessment:{...a,unexpected:'bad'}},'BR-01'));
-assert.deepEqual(data.assessment,a);
-"""
-        result=subprocess.run(['node'],input=js,text=True,capture_output=True)
-        self.assertEqual(result.returncode,0,result.stderr)
+        self.assertNotIn('id="choose-record"',page)
+        self.assertNotIn('data-record-id=',page)
 
     def test_query_is_escaped_and_no_match_is_explicit(self):
         page=workspace.render(self.state.corpus,{'q':['<script>alert(1)</script>']})
