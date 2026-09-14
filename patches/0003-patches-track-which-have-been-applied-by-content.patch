@@ -1,5 +1,5 @@
 From 746e028880017327f1b9239f410835598e3322f1 Mon Sep 17 00:00:00 2001
-From: Aidan <eltorago@gmail.com>
+From: 
 Date: Sun, 13 Sep 2026 06:15:15 +0000
 Subject: [PATCH 3/3] patches: track which have been applied, by content
 MIME-Version: 1.0
