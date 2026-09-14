@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "topic": "Governance and cybersecurity program management",
+  "controls": [
+    {
+      "id": "GV-01",
+      "title": "Assign accountable cybersecurity governance",
+      "statement": "Define and approve governance arrangements, accountable leaders, decision rights and oversight for cybersecurity risk.",
+      "risk": "Material cyber risks could remain unresolved when leaders, committees and delivery teams do not know who can decide or who is accountable.",
+      "scope": "Accountable authorities, senior risk leadership, governance forums and cybersecurity roles.",
+      "examine": "Inspect approved governance arrangements, role charters, delegations, committee records and evidence of decisions on material cyber risk.",
+      "interview": "Ask accountable leaders and control owners how cyber issues are escalated, decided and tracked across the organisation.",
+      "test": "Trace recent material cyber decisions from identification through accountable review, decision and follow-up.",
+      "expected": "Governance is approved and suited to organisational risk, decision rights are clear, and material issues reach an accountable authority.",
+      "related": ["GV-02"],
+      "mappings": [
+        {"uid":"pspf:req 16","relationship":"Directly addresses","basis":"Requires the Accountable Authority to approve security governance tailored to entity size, complexity and risk.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:pm-29","relationship":"Partially addresses","basis":"Requires a senior accountable risk official and an organisation-wide risk executive function.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:program-1d","relationship":"Directly addresses","basis":"Requires governance and oversight for the cybersecurity program.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:program-2e","relationship":"Partially addresses","basis":"Requires cybersecurity program responsibilities to be assigned with sufficient authority.","provenance":"Locally reviewed mapping"},
+        {"uid":"csf:gv.rr-2","relationship":"Directly addresses","basis":"Requires roles, responsibilities and authorities related to cybersecurity risk to be established, communicated and enforced.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "GV-02",
+      "title": "Maintain a cybersecurity risk strategy",
+      "statement": "Maintain an organisation-wide cybersecurity strategy that reflects business objectives and risk tolerance, and review progress and changing risk.",
+      "risk": "Security investment could be fragmented or misdirected if it is not tied to business priorities, accepted risk and measurable decisions.",
+      "scope": "Cybersecurity strategy, risk management approach, priorities, measures and executive reporting.",
+      "examine": "Review the strategy, risk criteria, approved priorities, measures, executive reports and updates following organisational or threat changes.",
+      "interview": "Ask executives, risk owners and program leaders how business objectives and risk tolerance shape priorities and funding.",
+      "test": "Sample current priorities and confirm each traces to a documented business objective or risk decision and is reported to the responsible forum.",
+      "expected": "The strategy is current, implemented across the organisation and demonstrably guides decisions, investment and executive oversight.",
+      "related": ["GV-01"],
+      "mappings": [
+        {"uid":"pspf:req 98","relationship":"Partially addresses","basis":"Requires a maintained cyber security strategy and plan for managing entity cyber risk under the named Australian guidance.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:pm-9","relationship":"Directly addresses","basis":"Requires a comprehensive risk-management strategy, consistent implementation and periodic or event-driven review.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:program-1b","relationship":"Partially addresses","basis":"Requires the cybersecurity program strategy to define goals and objectives; implementation and review need separate evidence.","provenance":"Locally reviewed mapping"},
+        {"uid":"csf:gv.rm-1","relationship":"Directly addresses","basis":"Requires cybersecurity risk-management objectives to be established and agreed by stakeholders.","provenance":"Locally reviewed mapping"}
+      ]
+    }
+  ]
+}

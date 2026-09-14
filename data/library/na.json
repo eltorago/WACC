@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "topic": "Network architecture and segmentation",
+  "controls": [
+    {
+      "id": "NA-01",
+      "title": "Segment networks by risk and function",
+      "statement": "Place systems into defined security zones based on business criticality, sensitivity and trust, and separate IT from OT where applicable.",
+      "risk": "A compromise of one device could spread widely and interrupt critical services if the network provides broad, flat access.",
+      "scope": "Internal networks, cloud networks, management networks, security zones, IT and OT boundaries.",
+      "examine": "Compare current diagrams, asset criticality and data flows with implemented zones, routing, firewalls and authentication boundaries.",
+      "interview": "Ask architects and service owners how zone placement and permitted communications are decided and reviewed.",
+      "test": "From representative zones, attempt authorised benign connections to approved and prohibited destinations and verify enforcement and logging.",
+      "expected": "Assets are placed in justified zones and prohibited cross-zone paths are blocked while approved business flows remain available.",
+      "related": ["NA-02", "NA-03", "OT-02"],
+      "mappings": [
+        {"uid":"ism:pro-18","relationship":"Partially addresses","basis":"The networking procedure requires segmentation by criticality and trust with communications constrained to controlled paths.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:architecture-2b","relationship":"Directly addresses","basis":"Requires IT systems to be separated from OT systems through physical or logical segmentation.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:architecture-2d","relationship":"Directly addresses","basis":"Requires important assets to be segmented into security zones based on cybersecurity requirements.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:12.2","relationship":"Partially addresses","basis":"Requires a secure network architecture addressing segmentation, least privilege and availability.","provenance":"Locally reviewed mapping"},
+        {"guidance":"asd-network-segmentation","relationship":"Related only","basis":"ASD describes segmentation and segregation design practices but the document is guidance rather than an auditable control.","excerpt":"Network segmentation partitions a network into smaller networks, while segregation develops and enforces rules controlling communications between hosts and services. Effective measures must be planned, enforced, monitored and unable to be bypassed.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "NA-02",
+      "title": "Control traffic across network boundaries",
+      "statement": "Route communications through managed boundary controls and allow only authenticated and authorised traffic needed for defined business functions.",
+      "risk": "Uncontrolled network paths could let an attacker move between systems, extract information or bypass monitoring.",
+      "scope": "External interfaces, internal zone boundaries, gateways, firewalls, proxies and other managed network controls.",
+      "examine": "Inspect data-flow approvals, boundary rules, gateway designs, rule reviews, monitoring and exceptions.",
+      "interview": "Ask network and service owners how each allowed flow is justified and how obsolete or emergency rules are removed.",
+      "test": "Sample allowed and denied flows across external and internal boundaries and verify source, destination, service and logging behaviour.",
+      "expected": "Traffic crosses boundaries only through managed controls and only for current authorised flows, with blocked attempts visible to monitoring.",
+      "related": ["NA-01", "NA-03", "SC-03"],
+      "mappings": [
+        {"uid":"ism:ism-628","relationship":"Directly addresses","basis":"Requires gateways between security domains in the source scope.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:sc-7","relationship":"Directly addresses","basis":"Requires monitored managed interfaces, separated public components and boundary-protection devices aligned to architecture.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:architecture-2c","relationship":"Directly addresses","basis":"Requires network protections to be defined and enforced for selected asset types according to risk and priority.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:13.3","relationship":"Related only","basis":"Requires network intrusion detection on enterprise assets where appropriate; it can observe boundary traffic but does not define or restrict allowed flows.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "NA-03",
+      "title": "Maintain and test network architecture",
+      "statement": "Keep network architecture and data-flow diagrams current and test that the design remains resilient after system, threat and business changes.",
+      "risk": "Unknown connections and outdated designs could hide single points of failure or paths attackers can use to reach critical systems.",
+      "scope": "Network architecture records, diagrams, reviews and resilience testing for in-scope environments.",
+      "examine": "Compare diagrams and architecture decisions with discovered connections, current assets, review records and resilience test results.",
+      "interview": "Ask architects how material change triggers review and how operational failure and attack scenarios influence design.",
+      "test": "Sample network segments and data flows against diagrams, then review evidence from a recent failure, isolation or penetration test.",
+      "expected": "Architecture records match the environment, material changes receive review and testing demonstrates that critical functions remain protected.",
+      "related": ["NA-01", "NA-02", "AM-03"],
+      "mappings": [
+        {"uid":"aescsf:architecture-1c","relationship":"Directly addresses","basis":"Requires a documented cybersecurity architecture covering IT and OT systems and networks.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:architecture-1i","relationship":"Directly addresses","basis":"Requires periodic and trigger-based evaluation of conformance to the cybersecurity architecture.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:12.4","relationship":"Directly addresses","basis":"Requires current network architecture diagrams and annual or significant-change updates.","provenance":"Locally reviewed mapping"},
+        {"guidance":"asd-defensible-architecture","relationship":"Related only","basis":"ASD provides architecture design and validation context but the document is guidance rather than an auditable control.","excerpt":"Resilient networks restrict lateral and vertical movement to authorised requests. Network design must support business requirements, be regularly reviewed and be tested through exercises, penetration tests and simulated failures.","provenance":"Locally reviewed mapping"}
+      ]
+    }
+  ]
+}

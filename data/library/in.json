@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "topic": "Incident notification timeframes",
+  "controls": [
+    {
+      "id": "IN-01",
+      "title": "Triage suspected incidents within four hours",
+      "statement": "Triage suspected cyber security incidents and determine an appropriate response within four hours where the WA Cyber Security Policy applies.",
+      "risk": "A slow initial decision could allow an incident to spread and delay the people responsible for containment and external reporting.",
+      "scope": "Suspected incidents handled by entities subject to the WA Cyber Security Policy.",
+      "examine": "Compare detection timestamps, triage records, severity decisions and response initiation for sampled suspected incidents.",
+      "interview": "Ask responders how the four-hour clock starts, who makes the triage decision and how delays are escalated.",
+      "test": "Trace sampled suspected incidents from first detection to documented triage and response selection.",
+      "expected": "Triage and an appropriate response decision are recorded within four hours of detection.",
+      "related": ["IN-02", "IN-03"],
+      "mappings": [
+        {"uid":"wa-csp:5.1b","relationship":"Directly addresses","basis":"Requires incident triage and development of an appropriate response within four hours.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "IN-02",
+      "title": "Report critical incidents within twelve hours",
+      "statement": "Report a cyber security incident affecting a critical infrastructure asset as soon as practicable and within twelve hours when it has a significant impact on asset availability.",
+      "risk": "Late reporting of a serious outage could delay national coordination and assistance while an essential service remains disrupted.",
+      "scope": "Responsible entities and critical infrastructure assets to which Part 2B of the SOCI Act applies.",
+      "examine": "Review awareness evidence, availability impact assessment, report content, delivery timestamp and any oral-report follow-up.",
+      "interview": "Ask legal, operational and incident leaders how significant availability impact is identified and who owns the twelve-hour report.",
+      "test": "For sampled qualifying incidents, calculate elapsed time from documented awareness to delivery to the relevant Commonwealth body.",
+      "expected": "Each qualifying incident was reported as soon as practicable and no later than twelve hours after the entity became aware.",
+      "related": ["IN-01", "IN-03"],
+      "mappings": [
+        {"uid":"soci-act:s 30bc.1","relationship":"Directly addresses","basis":"For an applicable critical infrastructure asset, requires a report when an incident significantly affects availability, as soon as practicable and within 12 hours of awareness.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "IN-03",
+      "title": "Meet other applicable incident-reporting clocks",
+      "statement": "Identify every external reporting obligation and meet the shortest applicable clock, including seventy-two hours under the SOCI Act and twenty-four hours under the WA Cyber Security Policy.",
+      "risk": "An incident could go unreported or be sent to the wrong authority when teams treat different legal and policy clocks as interchangeable.",
+      "scope": "Incidents with a relevant impact on critical infrastructure and confirmed incidents handled by WA Government entities.",
+      "examine": "Inspect the obligations register, incident classifications, awareness and detection timestamps, notifications, recipients and evidence of submission.",
+      "interview": "Ask legal and incident leaders how concurrent obligations are identified and which timestamp starts each clock.",
+      "test": "Sample incidents under each regime and independently recalculate the applicable deadline and actual reporting time.",
+      "expected": "Each incident is reported to every required recipient within its own trigger and deadline, with the decision trail retained.",
+      "related": ["IN-01", "IN-02"],
+      "mappings": [
+        {"uid":"soci-act:s 30bd.1","relationship":"Directly addresses","basis":"For an applicable critical infrastructure asset, requires reporting of an incident with a relevant impact as soon as practicable and within 72 hours of awareness.","provenance":"Locally reviewed mapping"},
+        {"uid":"wa-csp:5.1c","relationship":"Directly addresses","basis":"Requires reporting a confirmed cyber security incident to DGov within 24 hours of detection.","provenance":"Locally reviewed mapping"},
+        {"uid":"wa-circular:2c","relationship":"Partially addresses","basis":"Requires suspected or confirmed incidents to be reported to the WA portal within the timeframes set by the Policy.","provenance":"Locally reviewed mapping"}
+      ]
+    }
+  ]
+}

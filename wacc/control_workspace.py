@@ -19,7 +19,12 @@ for _control in CONTROLS:
         if _related in _by_id and _control['id'] not in _by_id[_related]['related']:
             _by_id[_related]['related'].append(_control['id'])
 TOPICS = list(dict.fromkeys(c['topic'] for c in CONTROLS))
-FRAMEWORKS = sorted({m['uid'].split(':')[0] for c in CONTROLS for m in c['mappings']})
+def mapping_source_key(mapping):
+    """Return the scope key for either a control or a named guidance document."""
+    return mapping['uid'].split(':')[0] if 'uid' in mapping else 'guidance'
+
+
+FRAMEWORKS = sorted({mapping_source_key(m) for c in CONTROLS for m in c['mappings']})
 
 
 def scope(params):
@@ -27,7 +32,7 @@ def scope(params):
 
 
 def mappings(control, selected):
-    return [m for m in control['mappings'] if m['uid'].split(':')[0] in selected]
+    return [m for m in control['mappings'] if mapping_source_key(m) in selected]
 
 
 def matching(query, selected, topic=""):
@@ -54,7 +59,8 @@ def export_csv(params):
     writer.writerow(['Control','Title','Source UID','Relationship','Mapping provenance','Scope conditions'])
     for c in matching((params.get('q') or [''])[0], selected, (params.get('topic') or [''])[0]):
         for m in mappings(c, selected):
-            writer.writerow([c['id'],c['title'],m['uid'],m['relationship'],m['provenance'],m['basis']])
+            source_uid = m['uid'] if 'uid' in m else 'guidance:'+m['guidance']
+            writer.writerow([c['id'],c['title'],source_uid,m['relationship'],m['provenance'],m['basis']])
     return out.getvalue()
 
 
@@ -65,7 +71,10 @@ STYLE = '''
 '''
 
 def render(corpus, params):
+    from .relate import Relations
+
     esc = html.escape
+    relations = Relations(corpus)
     selected = scope(params)
     query = (params.get('q') or [''])[0]
     topic = (params.get('topic') or [''])[0]
@@ -74,7 +83,7 @@ def render(corpus, params):
     chosen = next((c for c in CONTROLS if c['id'] == requested), None) if requested else (found[0] if found else None)
     source_url = '/?' + urlencode({'q': query or (chosen['topic'] if chosen else topic)})
     checkboxes=''.join('<label><input type="checkbox" name="fw" value="%s"%s>%s</label>' %
-                      (esc(f),' checked' if f in selected else '',esc(corpus.frameworks[f].short_name if f in corpus.frameworks else f)) for f in FRAMEWORKS)
+                      (esc(f),' checked' if f in selected else '',esc(corpus.frameworks[f].short_name if f in corpus.frameworks else 'Guidance' if f == 'guidance' else f)) for f in FRAMEWORKS)
     listing=''.join('<a class="control-link" href="%s"%s><small>%s</small><strong>%s</strong><small>%d source references</small></a>' %
                     (esc(url(selected,c['id'],query,topic)), ' aria-current="page"' if chosen and chosen['id']==c['id'] else '',c['id'],esc(c['title']),len(mappings(c,selected))) for c in found)
     topic_options = '<option value="">All topics</option>' + ''.join('<option%s>%s</option>' % (' selected' if t==topic else '',esc(t)) for t in TOPICS)
@@ -85,9 +94,10 @@ def render(corpus, params):
         refs=mappings(c,selected)
         rows=[]
         for m in refs:
-            source=corpus.control(m['uid'])
-            label=('%s %s' % (corpus.frameworks[source.framework_key].short_name,source.identifier)) if source else m['uid']
-            body='<p class="source-text">%s</p>' % esc(source.text) if source else '<p>Source text is not loaded in this build. This reference cannot be assessed here.</p>'
+            source=corpus.control(m['uid']) if 'uid' in m else None
+            guidance=corpus.guidance.get(m.get('guidance',''))
+            label=('%s %s' % (corpus.frameworks[source.framework_key].short_name,source.identifier)) if source else ('%s — %s' % (guidance.publisher,guidance.title) if guidance else m.get('uid','Unknown source'))
+            body='<p class="source-text">%s</p>' % esc(relations.quotable_text(source.uid)) if source else ('<p class="source-text">%s</p><p class="muted">Guidance context; this document is not an auditable control.</p>' % esc(m['excerpt']) if guidance else '<p>Source text is not loaded in this build. This reference cannot be assessed here.</p>')
             if source:
                 body+='<p><a href="/?%s">Open source control, assessment methods and linked controls →</a></p>' % esc(urlencode({'q':source.uid,'view':'cards'}))
                 statements=[s for s in corpus.statements_for(source.uid) if s.is_published]

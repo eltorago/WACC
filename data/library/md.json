@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "topic": "Media sanitisation and disposal",
+  "controls": [
+    {
+      "id": "MD-01",
+      "title": "Sanitise media before reuse or disposal",
+      "statement": "Select and verify a sanitisation method suited to the media, information sensitivity and intended disposition before media leaves its current control.",
+      "risk": "Information could be recovered from reused or discarded media and exposed to people who were never authorised to receive it.",
+      "scope": "Digital media and devices being reused, returned, transferred, repaired or disposed of.",
+      "examine": "Inspect the media register, information classification, selected sanitisation method, operator records and verification results.",
+      "interview": "Ask information owners and disposal staff how methods are selected and how failed or unsupported sanitisation is handled.",
+      "test": "Sample sanitised media and verify the recorded method was completed and checked before release or reuse.",
+      "expected": "Each sampled item has an approved disposition, a suitable completed method and recorded verification before it leaves control.",
+      "related": ["MD-02"],
+      "mappings": [
+        {"uid":"nist-800-88:sp 800-88 rev 2 §3.1.2#1","relationship":"Partially addresses","basis":"Defines purge techniques intended to make recovery infeasible while preserving media for reuse.","provenance":"Locally reviewed mapping"},
+        {"uid":"wa-csp:1.6","relationship":"Partially addresses","basis":"Requires oversight of secure disposal for devices, computers and media.","provenance":"Locally reviewed mapping"},
+        {"uid":"pspf:req 58","relationship":"Partially addresses","basis":"Keeps the originator responsible for controlling sanitisation and approving changes to information classification.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "MD-02",
+      "title": "Destroy media that cannot be sanitised",
+      "statement": "Destroy media when an approved sanitisation method cannot provide adequate assurance, using controlled handling and independent authorisation where required.",
+      "risk": "Sensitive information could remain recoverable if damaged, obsolete or specialised media is discarded without effective destruction.",
+      "scope": "Media that cannot be sanitised, failed sanitisation attempts and destruction services.",
+      "examine": "Review destruction decisions, authorisations, chain-of-custody records, certificates and reconciliation with the media register.",
+      "interview": "Ask media custodians how they decide that sanitisation is not possible and how destruction is witnessed and reconciled.",
+      "test": "Trace sampled media from decision through secure storage, transport, destruction evidence and removal from inventory.",
+      "expected": "Media that cannot be safely sanitised is controlled and destroyed, with complete authorisation and custody evidence.",
+      "related": ["MD-01"],
+      "mappings": [
+        {"uid":"ism:ism-1742","relationship":"Directly addresses","basis":"Requires destruction of equipment when it cannot be sanitised.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:mp-6.7","relationship":"Partially addresses","basis":"Requires dual authorisation for sanitisation operations on specified media; verify the organisation-defined scope.","provenance":"Locally reviewed mapping"}
+      ]
+    }
+  ]
+}

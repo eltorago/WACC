@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "topic": "Security awareness and workforce training",
+  "controls": [
+    {
+      "id": "AW-01",
+      "title": "Build practical security awareness",
+      "statement": "Provide recurring security awareness for employees, managers, executives and contractors, updated for current threats, system changes and lessons from incidents.",
+      "risk": "People could expose information or enable an attack because they do not recognise threats or understand the safe action to take.",
+      "scope": "Personnel and third parties who use organisational information, systems or services.",
+      "examine": "Review awareness objectives, audience coverage, content, completion, delivery dates, incident lessons and effectiveness measures.",
+      "interview": "Ask personnel how they recognise and report common threats and ask program owners how content changes when risk changes.",
+      "test": "Sample personnel across roles and verify timely participation and practical understanding using an approved exercise or scenario.",
+      "expected": "The intended audience completes current awareness activities and can identify and respond to relevant security situations.",
+      "related": ["AW-02"],
+      "mappings": [
+        {"uid":"cis-controls:14.1","relationship":"Directly addresses","basis":"Requires a security-awareness program with at least annual maintenance.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:at-2","relationship":"Directly addresses","basis":"Requires initial and recurring literacy training and awareness, content updates and incident lessons.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:workforce-2a","relationship":"Directly addresses","basis":"Requires cybersecurity awareness activities to occur.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:workforce-2g","relationship":"Partially addresses","basis":"Requires periodic and trigger-based evaluation and improvement of awareness effectiveness.","provenance":"Locally reviewed mapping"},
+        {"uid":"oag-wa:report-24 2.2.1","relationship":"Partially addresses","basis":"Calls for specific, regular training for staff and contractors with access to critical sites and systems and says general IT-focused training is insufficient.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "AW-02",
+      "title": "Train people for their security responsibilities",
+      "statement": "Provide role-based training before people perform security-sensitive duties and refresh it for changes, incidents and evolving responsibilities.",
+      "risk": "People in sensitive roles could make unsafe decisions or respond poorly because general awareness does not teach the skills their duties require.",
+      "scope": "Personnel with security, administration, development, incident, privacy, physical-security or OT responsibilities.",
+      "examine": "Map roles and assigned responsibilities to training requirements, prerequisite completion, refresh cycles and assessed capability.",
+      "interview": "Ask role owners and participants how training prepares them for actual decisions, tools and incident scenarios.",
+      "test": "Sample sensitive roles and verify required training preceded access or duties and remains current after relevant changes.",
+      "expected": "People receive timely training matched to their responsibilities and can demonstrate the knowledge needed to perform them safely.",
+      "related": ["AW-01", "OT-03"],
+      "mappings": [
+        {"uid":"cis-controls:14.9","relationship":"Directly addresses","basis":"Requires role-specific security awareness and skills training.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:at-3","relationship":"Directly addresses","basis":"Requires role-based training before access or duties, periodically and when systems change.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:workforce-2e","relationship":"Partially addresses","basis":"Requires cybersecurity awareness activities to be tailored to job role.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:workforce-4d","relationship":"Directly addresses","basis":"Requires cybersecurity training before access to assets important to the function.","provenance":"Locally reviewed mapping"},
+        {"uid":"oag-wa:report-24 2.2.3","relationship":"Partially addresses","basis":"Requires workforce development and security material to be updated after incidents or environmental changes and promptly communicated.","provenance":"Locally reviewed mapping"}
+      ]
+    }
+  ]
+}

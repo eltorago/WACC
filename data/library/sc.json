@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "topic": "Supply chain and third-party risk",
+  "controls": [
+    {
+      "id": "SC-01",
+      "title": "Know and prioritise third parties",
+      "statement": "Maintain a current inventory of suppliers and service providers, the services and access they provide, and their importance to business operations.",
+      "risk": "The organisation could depend on an unknown or poorly understood provider whose failure or compromise interrupts critical services.",
+      "scope": "Suppliers, outsourced services, technology providers, subcontractors and third parties with access to information, systems or facilities.",
+      "examine": "Reconcile contracts, payments, accounts, network connections and service inventories with the approved third-party register and criticality ratings.",
+      "interview": "Ask procurement, service and security owners how providers are discovered, assigned owners and prioritised.",
+      "test": "Sample providers from operational records and confirm each appears in the register with current services, access, owner and criticality.",
+      "expected": "In-scope providers are known, owned and prioritised using current information about their service, access and business importance.",
+      "related": ["SC-02", "SC-03"],
+      "mappings": [
+        {"uid":"csf:gv.sc-4","relationship":"Directly addresses","basis":"Requires suppliers to be known and prioritised by criticality.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1786","relationship":"Directly addresses","basis":"Requires an approved supplier list for the source control's stated procurement scope.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:15.1","relationship":"Directly addresses","basis":"Requires an inventory of service providers and annual review and update.","provenance":"Locally reviewed mapping"},
+        {"uid":"wa-csp:2.1d","relationship":"Partially addresses","basis":"Requires the ICT environment inventory to include personnel and third parties.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "SC-02",
+      "title": "Assess and treat third-party risk",
+      "statement": "Assess security and continuity risks before engagement and during the relationship, then assign and approve treatment of material and residual risk.",
+      "risk": "A provider could introduce a serious security or continuity weakness that management never sees or accepts.",
+      "scope": "Provider selection, due diligence, risk assessment, material changes and recurring review.",
+      "examine": "Review due diligence, provider risk assessments, identified weaknesses, treatment plans, approvals and reassessments after material changes.",
+      "interview": "Ask procurement, risk and service owners how supplier threats, access, concentration and outage tolerance affect decisions.",
+      "test": "Sample higher-risk providers and trace identified risks to controls, accountable owners, deadlines and residual-risk approval.",
+      "expected": "Material provider risks are identified before acceptance, treated and approved by the required authority, then reassessed while the relationship continues.",
+      "related": ["SC-01", "SC-03"],
+      "mappings": [
+        {"uid":"nist-800-53:sr-3","relationship":"Directly addresses","basis":"Requires supply-chain weaknesses and vulnerabilities to be identified, addressed and documented with controls.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:third-parties-2a","relationship":"Partially addresses","basis":"Requires supplier and third-party selection to consider cybersecurity qualifications; the broader risk assessment and treatment remain separate.","provenance":"Locally reviewed mapping"},
+        {"uid":"cirmp-rules:s 10a.5","relationship":"Partially addresses","basis":"Requires consideration of supplier ownership, access and influence, material risk, maximum tolerable outage and risk minimisation for the specified critical components.","provenance":"Locally reviewed mapping"},
+        {"uid":"pspf:req 48","relationship":"Partially addresses","basis":"Requires secure and verifiable third parties unless business operations require otherwise, with residual risks managed and approved by the CISO.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "SC-03",
+      "title": "Control third-party access and exit",
+      "statement": "Limit provider connections and access to approved needs, monitor them during service, and remove accounts, data flows and retained information when the service ends.",
+      "risk": "A supplier compromise or abandoned provider access could give attackers a trusted route into internal systems and information.",
+      "scope": "Provider accounts, remote connections, network paths, integrations, data exchanges and service termination.",
+      "examine": "Inspect approved connection designs, access lists, monitoring, termination checklists, disabled accounts, closed data flows and data disposition records.",
+      "interview": "Ask service and access owners how provider connectivity is approved, monitored and removed when contracts change or end.",
+      "test": "Sample active and terminated providers and verify least-access paths, monitoring and complete removal of obsolete access and data flows.",
+      "expected": "Provider access follows approved paths while needed and is promptly and completely removed or changed when the relationship changes.",
+      "related": ["SC-01", "SC-02", "NA-02"],
+      "mappings": [
+        {"uid":"oag-wa:report-24 2.3.4","relationship":"Directly addresses","basis":"Advises avoiding direct connections to supplier networks.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:15.7","relationship":"Directly addresses","basis":"Requires secure decommissioning of service providers, including accounts, data flows and enterprise data.","provenance":"Locally reviewed mapping"}
+      ]
+    }
+  ]
+}

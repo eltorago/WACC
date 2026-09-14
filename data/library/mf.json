@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "topic": "Multi-factor authentication",
+  "controls": [
+    {
+      "id": "MF-01",
+      "title": "Require multi-factor authentication",
+      "statement": "Require multi-factor authentication for remote, privileged and other high-risk human access, and prevent alternate sign-in paths from bypassing it.",
+      "risk": "A stolen password could give an attacker access to sensitive information or important systems if no independent identity check is required.",
+      "scope": "Human access to remote services, privileged functions, critical systems and other access identified as high risk.",
+      "examine": "Compare users, systems and access paths with authentication policies, technical enforcement, exclusions and sign-in records.",
+      "interview": "Ask identity and service owners how high-risk access is identified, how exceptions are approved and how new access paths are brought into scope.",
+      "test": "Use authorised test accounts to sign in through primary, recovery and alternate paths. Verify that the required factors are enforced and cannot be bypassed.",
+      "expected": "Each in-scope access path requires the prescribed independent factors; unsupported systems and approved exceptions are recorded and reviewed.",
+      "related": ["MF-02", "PA-03"],
+      "mappings": [
+        {"uid":"ism:ism-1173","relationship":"Directly addresses","basis":"Requires multi-factor authentication for privileged human users.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:ia-2.1","relationship":"Directly addresses","basis":"Requires multi-factor authentication for privileged accounts.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:6.4","relationship":"Directly addresses","basis":"Requires multi-factor authentication for remote network access.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:access-1i","relationship":"Partially addresses","basis":"Requires multi-factor authentication for access where feasible; feasibility and system scope remain source-specific.","provenance":"Locally reviewed mapping"},
+        {"uid":"pspf:req 101","relationship":"Partially addresses","basis":"Requires the Essential Eight multi-factor authentication strategy at Maturity Level Two.","provenance":"Locally reviewed mapping"},
+        {"uid":"oag-wa:report-24 2.5.3","relationship":"Partially addresses","basis":"Calls for mandatory multi-factor authentication on jump hosts, critical systems, appliances and networks.","provenance":"Locally reviewed mapping"},
+        {"uid":"asd-ad:appendix a §mitigating a golden certificate#1","relationship":"Partially addresses","basis":"Recommends multi-factor authentication for privileged users as one mitigation for forged-certificate attacks.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "MF-02",
+      "title": "Protect and monitor authentication factors",
+      "statement": "Protect factor enrolment and secret material, and centrally monitor successful and unsuccessful multi-factor authentication events.",
+      "risk": "Attackers could register their own factor or abuse authentication failures without being detected, defeating the protection expected from multi-factor authentication.",
+      "scope": "Factor enrolment, authenticator secrets, multi-factor authentication services and their security events.",
+      "examine": "Inspect enrolment controls, cryptographic protection, event collection, alert rules and investigations of suspicious authentication activity.",
+      "interview": "Ask identity operators how factor changes are authorised and how unusual enrolment or authentication activity is investigated.",
+      "test": "Perform an authorised factor enrolment and successful and failed sign-ins. Trace approval, protected secret handling and complete events into central monitoring.",
+      "expected": "Factor enrolment is authorised, authenticator secrets use approved protection, and relevant authentication events reach monitoring with enough detail for investigation.",
+      "related": ["MF-01", "SM-01"],
+      "mappings": [
+        {"uid":"nist-800-63:63b §3.1.5.2#1","relationship":"Partially addresses","basis":"Requires approved cryptography when establishing multi-factor OTP keys and secrets.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1683","relationship":"Directly addresses","basis":"Requires successful and unsuccessful multi-factor authentication events to be centrally logged.","provenance":"Locally reviewed mapping"}
+      ]
+    }
+  ]
+}
