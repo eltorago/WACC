@@ -17,7 +17,7 @@ topics**. Each control has:
 - reviewed links to relevant publisher requirements; and
 - links to other controls that address the same problem.
 
-The wider source browser contains **more than 5,300 records from 18 frameworks**. You can search by
+The wider source browser contains **more than 5,300 records from 18 frameworks, WA CSP included**. You can search by
 subject or identifier, inspect the source wording and published assessment material, move
 between linked controls, limit results to selected frameworks and export mappings to CSV.
 
