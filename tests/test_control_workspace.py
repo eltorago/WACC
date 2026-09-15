@@ -139,6 +139,15 @@ class ControlWorkspaceTests(unittest.TestCase):
         self.assertNotIn('id="choose-record"',page)
         self.assertNotIn('data-record-id=',page)
 
+    def test_topic_change_refreshes_and_framework_scope_follows_controls(self):
+        page=self.get('/library')
+        topic=page.index('id="topic"')
+        controls=page.index('controls in scope')
+        frameworks=page.index('<legend>Framework scope</legend>')
+        self.assertIn('onchange="this.form.requestSubmit()"',page[topic:topic+250])
+        self.assertLess(topic,controls)
+        self.assertLess(controls,frameworks)
+
     def test_query_is_escaped_and_no_match_is_explicit(self):
         page=workspace.render(self.state.corpus,{'q':['<script>alert(1)</script>']})
         self.assertNotIn('<script>alert(1)</script>',page)

@@ -28,12 +28,12 @@ from .loaders import (
     ztmm,
 )
 
-# WACC_SOURCES points to the publisher files used to build the live corpus. It accepts
-# both the repository's flat sources/files archive and the older development layout with
-# documents and OSCAL catalogues in subfolders. Any framework that cannot be loaded is
-# named as unavailable in the results.
+# WACC_SOURCES points to the local cache of publisher files used to build the live corpus.
+# The cache is populated with ``python -m wacc sources`` and is never distributed with
+# WACC. A custom folder may use the older development layout with documents and OSCAL
+# catalogues in subfolders. Any framework that cannot be loaded is named as unavailable.
 RAW = os.environ.get("WACC_SOURCES") or os.path.join(
-    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "raw"
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "sources", "files"
 )
 CORPUS = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "corpus"

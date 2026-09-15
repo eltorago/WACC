@@ -1,8 +1,9 @@
 """Decide which repository files may be distributed.
 
-Publisher documents are excluded unless ``sources/permissions.json`` approves their
-exact filename and hash. Generated extracts follow the licence recorded for their source
-framework. The same rules generate ``.gitignore`` and validate release contents.
+Publisher files are always local inputs and never part of the repository or a release.
+``sources/permissions.json`` records reviewed hashes so locally acquired files can still
+be checked. Generated extracts follow the licence recorded for their source framework.
+The same rules generate ``.gitignore`` and validate release contents.
 """
 
 import os
@@ -19,7 +20,7 @@ SOURCE_SUFFIXES = (".pdf", ".xlsx", ".xlsm", ".xls", ".docx", ".doc", ".zip", ".
 
 
 def approved_sources(root: str) -> Dict[str, Dict]:
-    """Explicit source paths; no automatic approval of new names or editions."""
+    """Reviewed local source paths and the hashes acquisition must reproduce."""
     manifest = os.path.join(root, "sources", "permissions.json")
     if not os.path.isfile(manifest):
         return {}
@@ -30,8 +31,7 @@ def approved_sources(root: str) -> Dict[str, Dict]:
         name = entry["filename"]
         if not name or name in (".", "..") or any(c in name for c in "/\\\n\r*?[]"):
             raise ValueError("Unsafe source filename: %r" % name)
-        if entry["status"] == "included":
-            approved[os.path.join("sources", "files", name)] = entry
+        approved[os.path.join("sources", "files", name)] = entry
     return approved
 
 # Never shipped whatever is in them.
@@ -96,8 +96,6 @@ def would_ship(root: str) -> List[str]:
     kept: List[str] = []
     excluded = tuple(os.path.normpath(d) for d in EXCLUDED_DIRECTORIES)
     forbidden_names = import_only_sources()
-    approved = approved_sources(root)
-
     for directory, subdirectories, files in os.walk(root):
         subdirectories[:] = [d for d in subdirectories if d not in NOISE]
         relative_dir = os.path.relpath(directory, root)
@@ -110,8 +108,6 @@ def would_ship(root: str) -> List[str]:
         for name in files:
             path = os.path.normpath(os.path.join(relative_dir, name))
             if path.startswith(os.path.join("sources", "files") + os.sep):
-                if path in approved:
-                    kept.append(path)
                 continue
             if name.endswith(NOISE_SUFFIXES) or name in TRANSPORT:
                 continue
@@ -131,11 +127,11 @@ def check(root: str) -> List[Violation]:
     excluded = tuple(os.path.normpath(d) for d in EXCLUDED_DIRECTORIES)
     approved = approved_sources(root)
 
+    # A missing source is valid in a clean checkout: ``python -m wacc sources`` obtains
+    # it. When a reviewed file is present, changed bytes still fail loudly.
     for path, entry in approved.items():
         full = os.path.join(root, path)
-        if not os.path.isfile(full):
-            out.append(Violation(path, "missing approved source", "restore the reviewed file"))
-        else:
+        if os.path.isfile(full):
             with open(full, "rb") as handle:
                 digest = hashlib.sha256(handle.read()).hexdigest()
             if digest != entry["sha256"]:
@@ -144,10 +140,10 @@ def check(root: str) -> List[Violation]:
     for path in would_ship(root):
         name = os.path.basename(path)
         parent = os.path.dirname(path)
-        if name.lower().endswith(SOURCE_SUFFIXES) and path not in approved:
+        if name.lower().endswith(SOURCE_SUFFIXES):
             out.append(
                 Violation(path, "publisher source document",
-                          "publisher source has no reviewed permission entry")
+                          "publisher files are local inputs and never distributed")
             )
         if any(parent == d or parent.startswith(d + os.sep) for d in excluded):
             out.append(
@@ -171,8 +167,6 @@ def excluded_but_present(root: str) -> List[Tuple[str, str]]:
     caught: List[Tuple[str, str]] = []
     forbidden_names = import_only_sources()
     excluded = tuple(os.path.normpath(d) for d in EXCLUDED_DIRECTORIES)
-    approved = approved_sources(root)
-
     for directory, subdirectories, files in os.walk(root):
         subdirectories[:] = [d for d in subdirectories if d not in NOISE]
         relative_dir = os.path.relpath(directory, root)
@@ -184,10 +178,8 @@ def excluded_but_present(root: str) -> List[Tuple[str, str]]:
             path = os.path.normpath(
                 os.path.join(relative_dir, name) if normalised != "." else name
             )
-            if path in approved:
-                continue
             if path.startswith(os.path.join("sources", "files") + os.sep):
-                caught.append((path, "unreviewed source document"))
+                caught.append((path, "local source cache"))
                 continue
             if in_excluded_dir:
                 caught.append((path, "excluded directory"))
@@ -205,8 +197,8 @@ GITIGNORE_HEADER = """# Generated from wacc/packaging.py. Do not hand-edit.
 # file from the rules in that module, and a case in tests/test_packaging.py fails if the
 # file on disk no longer matches them.
 #
-# Source documents are excluded by default. Only reviewed paths from
-# sources/permissions.json are allowed under sources/files/; check() verifies hashes.
+# Publisher files are obtained into sources/files/ when needed. The entire local cache is
+# ignored; check() verifies any reviewed bytes that are present.
 """
 
 
@@ -239,10 +231,7 @@ def gitignore() -> str:
     for name in sorted(import_only_sources()):
         lines.append(name)
 
-    lines.extend(["", "# Reviewed, unmodified source documents only", "/sources/files/*"])
-    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    for path in sorted(approved_sources(root)):
-        lines.append("!/%s" % path.replace(os.sep, "/"))
+    lines.extend(["", "# Local publisher source cache; never commit or distribute", "/sources/files/*"])
 
     return "\n".join(lines) + "\n"
 

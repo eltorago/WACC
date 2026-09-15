@@ -64,10 +64,9 @@ def run() -> int:
         "; ".join(v.describe() for v in violations[:3]),
     )
     check_.expect(
-        not any(p.lower().endswith(SOURCE_SUFFIXES) and p not in approved_sources(ROOT)
-                for p in shipping),
-        "ship", "only reviewed publisher source documents ship",
-        "each included file needs a permission entry and matching SHA-256",
+        not any(p.startswith(os.path.join("sources", "files")) for p in shipping),
+        "ship", "no publisher source file ships",
+        "publisher files belong in the ignored local source cache",
     )
     check_.expect(
         not any(p.startswith(os.path.join("data", "raw")) for p in shipping),
@@ -110,9 +109,10 @@ def run() -> int:
         "a list computed from the thing being tested is not independent of it",
     )
 
-    # -- the registry names reviewed files that exist ---------------------
+    # -- every registry input can be acquired ------------------------------
 
-    source_root = os.path.join(ROOT, "sources", "files")
+    from wacc.sources import load_catalogue
+    permission_entries, acquisition_entries = load_catalogue()
     named = [
         (framework.key, name)
         for framework in FRAMEWORKS
@@ -120,11 +120,11 @@ def run() -> int:
     ]
     absent = [
         (key, name) for key, name in named
-        if not os.path.isfile(os.path.join(source_root, name))
+        if name not in permission_entries or name not in acquisition_entries
     ]
     check_.expect(
         bool(named) and not absent,
-        "registry", "every framework's source file is on disk under the name recorded "
+        "registry", "every framework source has permission and acquisition records "
         "(%d checked)" % len(named),
         "missing: %s" % ", ".join("%s -> %s" % pair for pair in absent[:3]),
     )
@@ -201,7 +201,7 @@ def run() -> int:
             capture_output=True, text=True, cwd=shipped, env=environment, timeout=300,
         )
         check_.expect(
-            run.returncode == 0 and "TIER 1" in run.stdout,
+            run.returncode == 0 and "multi-factor authentication" in run.stdout.lower(),
             "runs", "the shipping set alone answers a query (%d files)" % len(shipping),
             "stderr: %s" % (run.stderr or "")[-200:],
         )
@@ -283,7 +283,7 @@ def run() -> int:
     check_.expect(
         os.path.exists(ignore_path),
         "git", ".gitignore is present",
-        "without it a commit tracks the publisher source documents",
+        "without it a commit can track the local publisher source cache",
     )
     if os.path.exists(ignore_path):
         with open(ignore_path, encoding="utf-8") as handle:
