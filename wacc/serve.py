@@ -1,15 +1,11 @@
-"""A local server for the results screen. Standard library, localhost, no network.
+"""Serve the Control workspace and source browser on the local computer.
 
-Bound to 127.0.0.1 by default and never to 0.0.0.0, because the corpus holds import-only
-text that must not be redistributable, and a tool that serves it to the LAN by default is
-redistributing it. Nothing here fetches anything; every page is written from the corpus
-already on disk.
+The server reads data already on disk and does not download anything. It binds to
+127.0.0.1 by default because some corpus material is approved only for this private,
+non-commercial project.
 
-Six routes and they divide in two. The page and the panel are HTML the browser draws; the
-four exports are files a person puts in a working paper. The panel is a fragment rather
-than JSON because the escaping and the wording are both decisions that belong in Python,
-where the suite can read them, and shipping a second copy of them in JavaScript is how the
-two versions start disagreeing.
+Routes provide complete web pages, detail panels and downloadable exports. Rendering stays
+in Python so the web and test outputs use the same wording and escaping rules.
 """
 
 import argparse

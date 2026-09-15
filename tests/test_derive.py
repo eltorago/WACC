@@ -16,6 +16,7 @@ from wacc.build import build  # noqa: E402
 from wacc.derive import DETAIL_FLOOR, DetailIndex, derive  # noqa: E402
 from wacc.model import Licence, Provenance, StatementKind, Tier  # noqa: E402
 from wacc.relate import Relations  # noqa: E402
+from wacc.registry import DETAIL_SOURCES  # noqa: E402
 from wacc.search import SearchIndex  # noqa: E402
 
 # Phrases the brief bars from generated text. A tool that tells a reader what to conclude
@@ -193,9 +194,18 @@ def run() -> int:
 
     # -- product detail ----------------------------------------------------
 
+    expected_details = {
+        str(source["key"]): int(source["expected"]) for source in DETAIL_SOURCES
+    }
+    detail_counts = {}
+    for detail in corpus.details.values():
+        detail_counts[detail.source_key] = detail_counts.get(detail.source_key, 0) + 1
     check.expect(
-        len(corpus.details) == 1273,
-        "detail", "%d benchmark recommendations across six sources" % len(corpus.details),
+        bool(expected_details)
+        and all(expected_details.get(key) == count for key, count in detail_counts.items()),
+        "detail", "%d locally available benchmark recommendations have expected counts"
+        % len(corpus.details),
+        "CIS extracts are intentionally local and the application supports any complete subset",
     )
     check.expect(
         all(d.licence is Licence.IMPORT_ONLY for d in corpus.details.values()),

@@ -1,12 +1,20 @@
-# Source permissions review
+# Publisher sources and permissions
 
-Review date: 2026-09-13. Includes 50 of 57 local source files.
+This folder records which publisher documents WACC may keep in this private,
+non-commercial repository. The project owner confirmed non-commercial use on 13 September
+2026. Public distribution or commercial use needs another review, especially for CIS and
+Western Australian Government material.
 
-**Scope: the existing private WACC repository, solely non-commercial use**, confirmed by the project owner on 13 September 2026. CIS and WA files carry restrictions: public redistribution or commercial use needs a fresh review. This does not assign a new licence to WACC code.
+- `files/` contains 50 reviewed documents in their original form.
+- [permissions.json](permissions.json) records each file's hash, size, source, licence,
+  attribution and review evidence.
+- [MITRE-ATTACK-LICENSE.txt](MITRE-ATTACK-LICENSE.txt) contains the licence distributed
+  with the included MITRE ATT&CK data.
 
-The files in `files/` are unchanged copies. SHA-256 hashes, sizes, source links, permission evidence and decisions for every reviewed file are in [permissions.json](permissions.json). A different edition or modified file needs a new review. Licence terms apply to the source documents independently of WACC code. Inclusion does not certify currency, legal applicability or publisher endorsement.
-
-The review relies on the actual document notices and the linked official publisher policies. Document-specific terms take priority over website defaults. Excluded means that permission for this use is conditional or unresolved, not necessarily that copying is forbidden.
+The source-document licences are separate from the WACC code. Adding a document here does
+not make it current, legally applicable or endorsed by its publisher. A new edition or any
+modified copy must be reviewed again. Where a document notice and a publisher website say
+different things, the document-specific terms take priority.
 
 ## Included files and attribution
 
@@ -156,19 +164,13 @@ Legislation attribution: Sourced from the Federal Register of Legislation; inclu
 
 The generated ignore rules allow only reviewed filenames under `sources/files/`. The packaging check also checks the exact bytes. Existing `data/raw/` and import-only corpus exclusions remain in place. This review does not approve modified extracts merely because the complete source is included.
 
-## Evidence limits
+## Limits of the review
 
 Source links identify publisher landing pages or citations where known; they are not claims that the reviewed bytes were freshly downloaded. Unknown original URLs are null in the manifest. Physical PDF page numbers and workbook notice locations are recorded where they support a document-specific decision. Publisher artwork is retained only in the context of the intact publication, never offered as a standalone asset.
 
-## Validation
+## Check the archive
 
-On 13 September 2026, all seven `test_source_permissions.py` tests passed, including
-changed/missing files, unreviewed JSON and PDF files, path traversal rejection, real
-archive hashes, and agreement with Git ignore rules. `python -m wacc.packaging`
-reported zero violations. A search for `multi-factor authentication` succeeded with
-`WACC_SOURCES` pointing at `sources/files`.
-
-The legacy `test_packaging.py` suite reports two development-fixture failures in this
-checkout: framework sources are absent from `data/raw`, and that excluded directory
-contains no fixture for its exclusion test. Its remaining checks pass. The new archive
-is intentionally separate from the excluded raw-source development tree.
+Run `python -m wacc.packaging` to verify that every included publisher file still matches
+its reviewed hash and that no unapproved source or extract would be distributed. Run
+`python -m unittest tests.test_source_permissions` for the focused permission checks, or
+`python tests/run_all.py` for the complete application suite.

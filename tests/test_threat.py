@@ -1,11 +1,6 @@
-"""The threat layer and the guidance additions. Every case names the defect it came from.
+"""Check threat context and guidance without treating either as a requirement."""
 
-The point of most of these is that ATT&CK must not behave like a control framework. A
-technique is what an adversary does, a mitigation is MITRE explaining what blunts it, and
-neither is a thing an entity is obliged to do. The tests that matter are the ones that
-would fail if that line blurred.
-"""
-
+import json
 import os
 import sys
 
@@ -201,17 +196,16 @@ def run() -> int:
         "guidance", "each names its publisher, its file and why it is not loaded",
         "a guidance entry without a reason is an unexplained omission",
     )
-    here = os.path.join(
-        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-        "data", "raw", "documents",
-    )
-    missing = [
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    with open(os.path.join(root, "sources", "permissions.json"), encoding="utf-8") as handle:
+        reviewed = {entry["filename"] for entry in json.load(handle)["files"]}
+    unreviewed = [
         g.source_file for g in corpus.guidance.values()
-        if g.source_file and not os.path.exists(os.path.join(here, g.source_file))
+        if g.source_file and g.source_file not in reviewed
     ]
     check.expect(
-        not missing, "guidance", "every guidance document is actually present",
-        "citing a document nobody has is worse than not citing it",
+        not unreviewed, "guidance", "every guidance document has a permission decision",
+        "unreviewed: %s" % ", ".join(unreviewed),
     )
 
     print("\nthreat and guidance: %d failed" % check.failed)

@@ -1,19 +1,72 @@
-# WACC
+# WA Control Crosswalk
 
-WA Control Crosswalk. See [running instructions](HOW-TO-RUN.md).
+WA Control Crosswalk (WACC) is a local web application for exploring cybersecurity
+controls across Australian and international frameworks. It brings related requirements
+together without hiding the original source text or treating a crosswalk as proof of
+compliance.
 
-The home page opens a control-centred library with 83 controls across 30 topics,
-detailed testing methods, executive-level business risks and 393 reviewed source references.
-Framework selection scopes the control list, source references and CSV mapping export.
-The full publisher corpus remains available through **Browse source corpus**.
+The application currently includes a workspace of **83 practical controls across 30
+topics**. Each control has:
 
-Mapping relationships describe overlap; source-specific conditions still need assessment.
-All library mappings are locally reviewed, not publisher assertions.
+- a plain-English control statement and business risk;
+- guidance on what to examine and who to interview;
+- a four-step testing method and expected result;
+- reviewed links to relevant publisher requirements; and
+- links to other controls that address the same problem.
 
-The library is in the topic files under `data/library/`. Its assessments are
-locally authored and source procedures remain separately attributed. AESCSF anti-patterns
-are retained as related context, never treated as desired practices.
+The wider source browser contains **5,321 records from 18 frameworks**. You can search by
+subject or identifier, inspect the source wording and published assessment material, move
+between linked controls, limit results to selected frameworks and export mappings to CSV.
 
-Reviewed source files are included under [sources/](sources/README.md), with per-file
-permissions, attribution and SHA-256 hashes. This collection is for the existing
-private, non-commercial project; some sources have additional distribution limits.
+## Run the application
+
+WACC uses Python 3.9 or later and does not need third-party packages. From this repository
+in PowerShell:
+
+```powershell
+$env:WACC_SOURCES = (Resolve-Path .\sources\files).Path
+python -m wacc serve
+```
+
+Open [http://127.0.0.1:8765/](http://127.0.0.1:8765/) in a browser. The server is available
+only on the local computer. See [HOW-TO-RUN.md](HOW-TO-RUN.md) for other commands and
+troubleshooting.
+
+## How the repository is organised
+
+| Path | Purpose |
+|---|---|
+| `wacc/` | Loads the corpus, finds controls, builds relationships and serves the web and command-line interfaces. |
+| `data/library/` | The 83 locally written workspace controls, grouped into one JSON file per topic. |
+| `data/corpus/` | Curated extracts used when a publisher does not provide a suitable machine-readable source. |
+| `data/validation/` | Search expectations and the topic-frequency report used to check coverage and ranking. |
+| `sources/files/` | Reviewed, unchanged publisher documents that this non-commercial repository is permitted to include. |
+| `sources/permissions.json` | File hashes, source links, permissions and attribution evidence for included documents. |
+| `tools/` | Import and verification utilities used to rebuild or check parts of the corpus. |
+| `tests/` | Regression checks for source permissions, loading, search, relationships, assessments and rendering. |
+
+## How to read the results
+
+The workspace controls and their assessment methods are locally authored. Their source
+links describe reviewed overlap with publisher requirements. A linked requirement may
+address all of a control, only part of it, or provide related context. Meeting a workspace
+control therefore does not automatically meet every linked framework requirement.
+
+The source browser preserves provenance, framework identity and hierarchy so readers can
+return to the relevant publisher record. Source documents retain their own licences and
+attribution. See [sources/README.md](sources/README.md) before copying documents, changing
+editions or using the repository outside its confirmed non-commercial scope.
+
+## Check a change
+
+Run the complete regression suite from the repository root:
+
+```powershell
+python tests\run_all.py
+```
+
+For changes to the Control workspace, the focused check is:
+
+```powershell
+python -m unittest tests.test_control_workspace tests.test_terms
+```

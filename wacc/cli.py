@@ -1,4 +1,4 @@
-"""The command line. One entry point, one payload, three renderers behind it.
+"""Command-line access to WACC search, controls, exports and the local web app.
 
     python -m wacc search "media sanitisation"      the crosswalk, in the terminal
     python -m wacc control ISM-1742                 one control in full
@@ -7,7 +7,7 @@
     python -m wacc layout                           the column arithmetic
     python -m wacc build                            load the corpus and report
 
-Nothing here reaches the network. `serve` binds to localhost and refuses anything else.
+Commands read the local corpus. The web command binds to the local computer by default.
 """
 
 import argparse

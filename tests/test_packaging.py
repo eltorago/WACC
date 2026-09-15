@@ -1,20 +1,14 @@
-"""Licensing as a test, not a habit.
+"""Check that releases include only reviewed publisher material.
 
-Half this corpus is publisher text that may not be redistributed. A build that quietly
-includes one of those files is a licence breach and it will not announce itself, so the
-rules run here, over the real tree, in the real suite.
-
-Two halves, and the second matters as much as the first. One asserts that nothing
-forbidden is in the shipping set. The other asserts that the tree still contains things
-the rules had to exclude, because a packaging check that passes for want of anything left
-to catch has stopped checking.
+The tests cover the real repository and small fixtures for exclusion rules that are not
+triggered by the current checkout.
 """
 
 import os
 import shutil
 import subprocess
 import sys
-import tempfile
+import uuid
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -33,6 +27,13 @@ from wacc.registry import DETAIL_SOURCES, FRAMEWORKS  # noqa: E402
 from wacc.search import SearchIndex  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+def temporary_tree(label):
+    """Return a writable, unique fixture path within the repository."""
+    path = os.path.join(ROOT, ".wacc-%s-test-%s" % (label, uuid.uuid4().hex))
+    os.makedirs(path)
+    return path
 
 
 class Check:
@@ -109,28 +110,17 @@ def run() -> int:
         "a list computed from the thing being tested is not independent of it",
     )
 
-    # -- the registry names files that exist -------------------------------
+    # -- the registry names reviewed files that exist ---------------------
 
-    # A source_file that names nothing is invisible: the corpus loads from the extracted
-    # JSON, so the tool works and only a refresh would find out. 800-131A was recorded as
-    # nist-sp-800-131ar2.pdf for a file called NIST.SP.800-131Ar2.pdf.
-    raw_root = os.path.join(ROOT, "data", "raw")
-    present = set()
-    for directory, _, files in os.walk(raw_root):
-        relative = os.path.relpath(directory, raw_root)
-        for name in files:
-            present.add(name)
-            present.add(
-                name if relative == "." else os.path.join(relative, name).replace("\\", "/")
-            )
+    source_root = os.path.join(ROOT, "sources", "files")
     named = [
-        (f.key, f.source_file) for f in FRAMEWORKS
-        if getattr(f, "source_file", None)
+        (framework.key, name)
+        for framework in FRAMEWORKS
+        for name in framework.all_source_files()
     ]
     absent = [
         (key, name) for key, name in named
-        if name.rstrip("/") not in present
-        and not os.path.isdir(os.path.join(raw_root, name.rstrip("/")))
+        if not os.path.isfile(os.path.join(source_root, name))
     ]
     check_.expect(
         bool(named) and not absent,
@@ -150,10 +140,6 @@ def run() -> int:
         "stopped checking",
     )
     check_.expect(
-        "excluded directory" in kinds,
-        "not vacuous", "the directory rule caught something",
-    )
-    check_.expect(
         "import-only publisher text" in kinds,
         "not vacuous", "the import-only rule caught something",
     )
@@ -167,15 +153,16 @@ def run() -> int:
         "will not have, which is a fact worth failing loudly about rather than losing",
     )
 
-    # The suffix rule is dormant on this tree, because every source document happens to
-    # live under data/raw and the directory rule reaches it first. Dormant is not tested,
-    # so it is exercised against a tree built for the purpose.
-    staging = tempfile.mkdtemp()
+    # Exercise rules that the clean repository does not trigger with a purpose-built
+    # tree. This keeps the test meaningful without retaining obsolete raw fixtures.
+    staging = temporary_tree("packaging")
     try:
         os.makedirs(os.path.join(staging, "wacc"))
+        os.makedirs(os.path.join(staging, "data", "raw"))
         open(os.path.join(staging, "wacc", "model.py"), "w").close()
         open(os.path.join(staging, "a-publisher-standard.pdf"), "w").close()
         open(os.path.join(staging, "wacc", "workbook.xlsx"), "w").close()
+        open(os.path.join(staging, "data", "raw", "private-source.pdf"), "w").close()
         staged = would_ship(staging)
         check_.expect(
             staged == [os.path.join("wacc", "model.py")],
@@ -187,17 +174,20 @@ def run() -> int:
             not check(staging),
             "suffix rule", "and the check agrees the staged tree is clean",
         )
+        staged_caught = excluded_but_present(staging)
+        check_.expect(
+            any(rule == "excluded directory" for _, rule in staged_caught),
+            "directory rule", "an excluded development directory is caught",
+        )
     finally:
         shutil.rmtree(staging, ignore_errors=True)
 
     # -- what ships has to run ----------------------------------------------
     #
-    # The rules say what may ship. Nothing said whether what ships is enough to work,
-    # and a package that omits one file the package imports is broken with no test
-    # against it. Worse was what the shipped tree did answer: it loads nine of the
-    # eighteen frameworks and drew the other nine as empty columns, so a multi-factor
-    # query in a shipped build reported that the SOCI Act requires nothing.
-    shipped = tempfile.mkdtemp()
+    # Copy only the calculated shipping set and run a real query from that copy. This
+    # catches missing application files and confirms that intentionally excluded corpus
+    # extracts are reported as unavailable.
+    shipped = temporary_tree("shipping")
     try:
         for relative in shipping:
             destination = os.path.join(shipped, relative)
@@ -205,6 +195,7 @@ def run() -> int:
             shutil.copy2(os.path.join(ROOT, relative), destination)
         environment = dict(os.environ)
         environment["PYTHONDONTWRITEBYTECODE"] = "1"
+        environment["WACC_SOURCES"] = os.path.join(shipped, "sources", "files")
         run = subprocess.run(
             [sys.executable, "-m", "wacc", "search", "multi-factor authentication"],
             capture_output=True, text=True, cwd=shipped, env=environment, timeout=300,
@@ -217,15 +208,13 @@ def run() -> int:
         check_.expect(
             "NOT IN THIS BUILD" in run.stdout,
             "runs", "a shipped build says which frameworks it does not hold",
-            "it holds nine of the eighteen and drew the rest as empty columns, which "
-            "reads as those publishers requiring nothing",
+            "an unavailable framework must not look like a publisher with no matching controls",
         )
         check_.expect(
-            "SOCI Act" in run.stdout.split("NOT IN THIS BUILD")[-1]
+            "WA CSP" in run.stdout.split("NOT IN THIS BUILD")[-1]
             if "NOT IN THIS BUILD" in run.stdout else False,
-            "runs", "the statute is named as absent rather than shown as silent",
-            "a missed control understates an obligation, and this is the one that "
-            "carries the notification deadlines",
+            "runs", "an excluded framework extract is named as unavailable",
+            "the source PDF may be included while its generated text remains import-only",
         )
     finally:
         shutil.rmtree(shipped, ignore_errors=True)

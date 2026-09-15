@@ -1,17 +1,8 @@
-"""What may be shipped, decided by rule rather than by habit.
+"""Decide which repository files may be distributed.
 
-Licensing is a test. Half this corpus is publisher text that may not be redistributed —
-the AESCSF practice text, CIS control and benchmark text, and every extract whose licence
-has not yet been read off the source document's own copyright page. A build that quietly
-includes one of those is a licence breach, and it will not announce itself.
-
-So the rules live here, the test runs them over the real tree in the real test suite, and
-a second test asserts that the tree still contains things the rules must exclude. A
-packaging check that passes because there is nothing left to catch has stopped checking.
-
-Source documents are excluded by default. The exact files reviewed in
-sources/permissions.json may ship under sources/files/ with their original notices.
-Generated extracts still follow the separate framework registry rules.
+Publisher documents are excluded unless ``sources/permissions.json`` approves their
+exact filename and hash. Generated extracts follow the licence recorded for their source
+framework. The same rules generate ``.gitignore`` and validate release contents.
 """
 
 import os

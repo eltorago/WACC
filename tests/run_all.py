@@ -1,18 +1,8 @@
-"""Every suite, in layers, lowest first.
+"""Run the WACC checks in dependency order and report one combined result.
 
-Order is not cosmetic. A vocabulary defect breaks search, search breaks the analysis
-payload, and the payload breaks every renderer, so a run that reports twelve failures
-across five suites is usually one defect and eleven consequences. Running lowest first and
-naming the layer makes the first failure the one worth reading.
-
---injected adds the matrix at the end: every recorded defect is put back, one at a
-time, and the suite that was written for it has to fail. It is opt-in because it runs
-these suites tens of times over.
-
-A suite may exit non-zero and still be a clean run. Three of these record plan corrections
-— cases where a criterion fixed before the code turned out to be the wrong question, kept
-as written with a corrected measure beside it — and those count as failures by design. The
-summary separates them from real failures, and the exit code follows the real ones.
+Lower-level checks run first so a source or search problem appears before the presentation
+failures it may cause. ``--injected`` additionally restores known defects one at a time and
+confirms that the appropriate regression check detects them.
 """
 
 import os
@@ -27,8 +17,8 @@ ROOT = os.path.dirname(HERE)
 # Lowest layer first. Each names what breaks everything above it if it fails.
 LAYERS: List[Tuple[str, str, List[str]]] = [
     ("vocabulary", "spelling, stemming, aliases and concepts", ["test_terms.py"]),
-    ("corpus", "what loaded, under what licence, and quoting which table",
-     ["test_source_permissions.py", "test_patch_integration.py", "test_packaging.py", "test_extracts.py"]),
+    ("corpus", "what loaded, under what licence, and how source text is cleaned",
+     ["test_source_permissions.py", "test_textjoin.py", "test_packaging.py", "test_extracts.py"]),
     ("retrieval", "exact identifiers, then topical search",
      ["test_identifier_lookup.py", "test_topical_search.py"]),
     ("structure", "hierarchy, links, the threat layer and the maturity model",

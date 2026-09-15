@@ -1,7 +1,7 @@
-"""Core data model for WACC.
+"""Shared data types for frameworks, controls, relationships and source provenance.
 
-Fidelity, tier and provenance are fields on the objects themselves, not decoration
-added by a later layer. A control that cannot say where it came from is a defect.
+Each record carries its origin and extraction quality so every result can be traced back
+to its source.
 
 Python 3.9+, standard library only.
 """
