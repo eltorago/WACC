@@ -1,9 +1,10 @@
 # WA Control Crosswalk
 
 WA Control Crosswalk (WACC) is a local web application for exploring cybersecurity
-controls across Australian and international frameworks. It brings related requirements
-together without hiding the original source text or treating a crosswalk as proof of
-compliance.
+controls across Australian and international frameworks, with a specific focus on Western Australian entities covered by the WA Cyber Security Policy (WA CSP). 
+
+It brings related requirements together without hiding the original source text
+or treating a crosswalk as proof of compliance.
 
 The application currently includes a workspace of **84 practical controls across 30
 topics**. Each control has:
