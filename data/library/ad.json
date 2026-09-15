@@ -43,7 +43,7 @@
         "Confirm the approved route is attributable and logged, the unapproved routes fail, and temporary or obsolete group membership has been removed from effective access."
       ],
       "expected": "Every directory administrator has a current approved need, uses a dedicated account from an authorised management device and cannot reach directory administration through ordinary access paths.",
-      "related": ["PA-02", "PA-03", "PA-04", "IA-02"],
+      "related": ["PA-02", "PA-03", "PA-04", "IA-02", "AD-06"],
       "mappings": [
         {"uid":"ism:ism-1827","relationship":"Directly addresses","basis":"Requires domain controllers to be administered with dedicated domain administrator accounts that are not used to administer other systems.","provenance":"Locally reviewed mapping"},
         {"uid":"ism:ism-1927","relationship":"Partially addresses","basis":"Limits access to AD DS, AD CS, AD FS and Entra Connect servers to privileged users who require it.","provenance":"Locally reviewed mapping"},
@@ -57,25 +57,26 @@
     {
       "id": "AD-03",
       "title": "Secure service accounts and delegation",
-      "statement": "Identify and assign owners to directory service accounts, use managed credentials where supported, grant only the permissions they need, and prevent unnecessary delegation or directory replication rights.",
+      "statement": "Identify and assign owners to directory service accounts, use managed credentials where supported, grant only the permissions they need, prevent unnecessary delegation or directory replication rights, and review DCSync permissions at least every six months.",
       "risk": "A weak or over-privileged service account could let an attacker move through the domain, obtain more powerful credentials and retain access without using a personal account.",
       "scope": "Service and computer accounts, service principal names, group Managed Service Accounts, delegation settings, DCSync permissions, credentials, owners and review records.",
-      "examine": "Compare service-account inventories and owners with SPN registrations, gMSA use, group memberships, effective permissions, DCSync rights, delegation settings and review results.",
-      "interview": "Ask application and directory owners how service accounts are created, how managed credentials are selected and how excessive permissions or delegation are found and removed.",
+      "examine": "Compare service-account inventories and owners with SPN registrations, gMSA use, group memberships, effective permissions, DCSync rights, delegation settings and the dates and outcomes of permission reviews.",
+      "interview": "Ask application and directory owners how service accounts are created, how managed credentials are selected, how excessive permissions or delegation are removed and how six-monthly DCSync reviews are completed.",
       "test": "Sample service and computer accounts, verify ownership and purpose, inspect their effective privileges and delegation, and confirm that credentials rotate through the managed process without being known or reused by people.",
       "test_steps": [
         "Build a sample from accounts with service principal names, gMSAs, computer accounts, delegation settings and DCSync-capable permissions, including dormant and high-privilege cases.",
         "For each account, verify a current owner and purpose, managed credential use where supported, recent rotation, minimum group membership and no interactive use unless explicitly required.",
-        "Inspect effective replication rights and constrained or unconstrained delegation; use an authorised query to confirm sampled accounts cannot request capabilities beyond their documented function.",
+        "Inspect effective replication rights and constrained or unconstrained delegation; confirm DCSync-capable accounts were reviewed within six months and use an authorised query to test that sampled accounts cannot exceed their documented function.",
         "For one managed account, observe a scheduled credential rotation or controlled rollover and confirm the dependent service continues without exposing the secret to an operator."
       ],
-      "expected": "Each service account has a current owner and purpose, uses a managed credential where supported, holds only required access and has no unnecessary DCSync or delegation capability.",
-      "related": ["IA-01", "IA-03", "PA-04", "CK-02"],
+      "expected": "Each service account has a current owner and purpose, uses a managed credential where supported, holds only required access and has no unnecessary DCSync or delegation capability. DCSync permissions are reviewed at least every six months.",
+      "related": ["IA-01", "IA-03", "PA-04", "CK-02", "AD-06"],
       "mappings": [
         {"uid":"ism:ism-1619","relationship":"Directly addresses","basis":"Requires service accounts to be created as group Managed Service Accounts.","provenance":"Locally reviewed mapping"},
         {"uid":"ism:ism-1933","relationship":"Partially addresses","basis":"Prohibits DCSync permissions for service accounts configured with a service principal name.","provenance":"Locally reviewed mapping"},
         {"uid":"ism:ism-1844","relationship":"Partially addresses","basis":"Prohibits non-domain-controller computer accounts from being trusted for delegation to services.","provenance":"Locally reviewed mapping"},
         {"uid":"asd-ad:appendix a §mitigating kerberoasting#2","relationship":"Partially addresses","basis":"Calls for accounts with service principal names to use gMSAs, or strong managed passwords where gMSAs are not feasible.","provenance":"Locally reviewed mapping"},
+        {"uid":"asd-ad:appendix a §mitigating dcsync#4","relationship":"Directly addresses","basis":"Requires user objects with DCSync permissions to be reviewed every six months to confirm that the permissions remain necessary.","provenance":"Locally reviewed mapping"},
         {"uid":"asd-ad:appendix a §mitigating an unconstrained delegation compromise#1","relationship":"Partially addresses","basis":"Requires computer objects not to be configured for unconstrained delegation.","provenance":"Locally reviewed mapping"},
         {"uid":"cis-controls:5.5","relationship":"Partially addresses","basis":"Requires an owned inventory of service accounts and recurring reviews that accounts remain authorised.","provenance":"Locally reviewed mapping"},
         {"uid":"c2m2:access-1h","relationship":"Partially addresses","basis":"Requires stronger credentials, multi-factor authentication or single-use credentials for higher-risk access, including service accounts.","provenance":"Locally reviewed mapping"}
@@ -83,28 +84,30 @@
     },
     {
       "id": "AD-04",
-      "title": "Harden directory authentication and trusts",
-      "statement": "Require protected directory authentication, remove obsolete protocols, and allow domain, forest and connected-environment trusts only when their security boundaries are explicit and enforced.",
-      "risk": "Weak authentication or an unsafe trust could allow a compromised account or connected environment to impersonate users and cross into systems that should remain separate.",
-      "scope": "Kerberos and LDAP configuration, NTLM and SMB protocols, domain and forest trusts, SID filtering, connected identity systems and IT-to-OT identity boundaries.",
-      "examine": "Review domain authentication policy, protocol configuration, LDAP signing, Kerberos pre-authentication exceptions, trust inventory, trust direction, SID filtering and connected-environment architecture.",
-      "interview": "Ask directory and system owners why each legacy protocol, authentication exception and trust exists, who accepts its risk and how its continued need is reviewed.",
-      "test": "Use authorised checks to verify LDAP signing and Kerberos pre-authentication, identify attempted use of prohibited protocols, and confirm that selected trusts enforce the approved direction and SID filtering.",
+      "title": "Harden directory authentication, root credentials and trusts",
+      "statement": "Require protected directory authentication, change the KRBTGT password twice at least every six months and after suspected domain compromise, remove obsolete protocols, and allow trusts only when their security boundaries are explicit and enforced.",
+      "risk": "Weak authentication, stale domain root credentials or an unsafe trust could allow an attacker to forge access, impersonate users and cross into systems that should remain separate.",
+      "scope": "KRBTGT credentials, Kerberos and LDAP configuration, NTLM and SMB protocols, domain and forest trusts, SID filtering, connected identity systems and IT-to-OT identity boundaries.",
+      "examine": "Review KRBTGT change records, domain authentication policy, protocol configuration, LDAP signing, Kerberos pre-authentication exceptions, trust inventory, trust direction, SID filtering and connected-environment architecture.",
+      "interview": "Ask directory and system owners how the two-step KRBTGT change is coordinated, why each legacy protocol, authentication exception and trust exists, and how continued need is reviewed.",
+      "test": "Verify the most recent two-step KRBTGT rotation and replication evidence, use authorised checks for LDAP signing and Kerberos pre-authentication, identify attempted use of prohibited protocols, and confirm selected trusts enforce their approved direction and SID filtering.",
       "test_steps": [
-        "Review domain and controller policy for LDAP signing, Kerberos pre-authentication, NTLM, SMBv1 and trust configuration, including documented exceptions.",
+        "Review the last two-step KRBTGT change and replication evidence, confirm it occurred within six months or promptly after suspected compromise, then review LDAP signing, Kerberos pre-authentication, NTLM, SMBv1 and trust policy.",
         "Use authorised protocol tests to attempt unsigned LDAP, prohibited NTLM or SMBv1 and a Kerberos sign-in for sampled accounts; confirm insecure paths are rejected or constrained by an approved exception.",
         "Enumerate domain and forest trusts and test selected cross-boundary authentication in both directions, confirming the documented direction, scope and SID filtering.",
         "Trace failed legacy-protocol and trust-boundary attempts to monitoring, and verify every exception has an owner, business need, expiry date and compensating control."
       ],
-      "expected": "Directory authentication uses approved protected protocols, exceptions are justified and monitored, and each trust is necessary, documented and technically constrained to its intended boundary.",
+      "expected": "KRBTGT credentials are changed twice at least every six months and after suspected compromise, directory authentication uses approved protected protocols, and each trust is necessary and technically constrained.",
       "related": ["MF-01", "IA-03", "NA-02", "OT-02"],
       "mappings": [
         {"uid":"ism:ism-1929","relationship":"Directly addresses","basis":"Requires LDAP signing on AD DS domain controllers.","provenance":"Locally reviewed mapping"},
         {"uid":"ism:ism-1836","relationship":"Partially addresses","basis":"Requires Kerberos pre-authentication for user accounts.","provenance":"Locally reviewed mapping"},
         {"uid":"ism:ism-1931","relationship":"Partially addresses","basis":"Requires SID Filtering for domain and forest trusts.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1847","relationship":"Directly addresses","basis":"Requires two KRBTGT credential changes with domain-controller replication between them after suspected compromise or when six months have elapsed.","provenance":"Locally reviewed mapping"},
         {"uid":"asd-ad:appendix a §mitigating a machineaccountquota compromise#4","relationship":"Partially addresses","basis":"Requires LDAP signing on domain controllers.","provenance":"Locally reviewed mapping"},
         {"uid":"asd-ad:appendix a §mitigating password spraying#7","relationship":"Partially addresses","basis":"Requires the NTLM protocol to be disabled.","provenance":"Locally reviewed mapping"},
         {"uid":"asd-ad:appendix a §mitigating a sid history compromise#3","relationship":"Partially addresses","basis":"Requires SID Filtering for domain and forest trusts.","provenance":"Locally reviewed mapping"},
+        {"uid":"asd-ad:appendix a §mitigating a golden ticket#1","relationship":"Directly addresses","basis":"Requires the KRBTGT password to be changed every six months and after actual or suspected domain compromise.","provenance":"Locally reviewed mapping"},
         {"uid":"oag-wa:report-24 2.5.1","relationship":"Partially addresses","basis":"Calls for separate IT and OT domain controllers without trusts and for built-in remote maintenance to be disabled or closely monitored.","provenance":"Locally reviewed mapping"}
       ]
     },
@@ -124,7 +127,7 @@
         "In an isolated recovery exercise or from recent evidence, verify the backup can supply the directory data and configuration needed by the documented trusted-rebuild sequence."
       ],
       "expected": "Relevant identity events reach central monitoring in time for investigation, and current protected backups are available only to authorised recovery personnel.",
-      "related": ["SM-01", "SM-03", "BR-02", "BR-03", "IR-02"],
+      "related": ["SM-01", "SM-03", "BR-02", "BR-03", "IR-02", "AD-06"],
       "mappings": [
         {"uid":"ism:ism-1830","relationship":"Directly addresses","basis":"Requires security-relevant events from AD DS domain controllers, AD CS, AD FS and Entra Connect to be centrally logged.","provenance":"Locally reviewed mapping"},
         {"uid":"ism:ism-1928","relationship":"Directly addresses","basis":"Requires backups of identity servers to use ASD-approved encryption, secure storage and access limited to backup administrators.","provenance":"Locally reviewed mapping"},
@@ -134,6 +137,34 @@
         {"uid":"nist-800-53:au-6","relationship":"Partially addresses","basis":"Requires audit records to be reviewed and analysed for unusual activity and findings to be reported.","provenance":"Locally reviewed mapping"},
         {"uid":"nist-800-53:cp-9","relationship":"Partially addresses","basis":"Requires backups of system information and documentation and protection of backup confidentiality, integrity and availability.","provenance":"Locally reviewed mapping"},
         {"uid":"cis-controls:8.2","relationship":"Partially addresses","basis":"Requires audit logging to be enabled across enterprise assets through the audit-log management process.","provenance":"Locally reviewed mapping"}
+      ]
+    },
+    {
+      "id": "AD-06",
+      "title": "Control Active Directory key credentials",
+      "statement": "Restrict who can modify the msDS-KeyCredentialLink attribute, minimise privileged group membership and delegated permissions, monitor changes, and regularly identify key credentials that are not part of an approved passwordless authentication service.",
+      "risk": "An attacker who adds a hidden key credential could impersonate a user or computer and keep access even after the account password is changed.",
+      "scope": "User and computer objects, the msDS-KeyCredentialLink attribute, Domain Admins, Key Admins and Enterprise Key Admins, delegated permissions, passwordless authentication services and directory change events.",
+      "examine": "Compare authorised passwordless authentication services and privileged groups with effective rights to modify msDS-KeyCredentialLink, current attribute values, event 5136 records, alerts, investigation results and recurring review evidence.",
+      "interview": "Ask directory and identity owners which services may add key credentials, how delegated rights are approved, how unexpected values or changes are detected and how often all objects are reviewed.",
+      "test": "Reconcile every principal that can modify msDS-KeyCredentialLink, inspect objects for unexplained key credentials, and use an authorised test object to confirm an approved change is logged and an unapproved principal cannot make the same change.",
+      "test_steps": [
+        "Export effective rights to modify msDS-KeyCredentialLink and membership of Domain Admins, Key Admins and Enterprise Key Admins, then reconcile each principal to a current owner, approval and business need.",
+        "Query user and computer objects for key credentials and investigate a risk-based sample of multiple, recent or unexpected values against records from approved passwordless authentication services.",
+        "On an authorised test object, add and remove a key credential through the approved workflow, confirm event 5136 records the actor, object and attribute, and trace the event into central monitoring.",
+        "Attempt the same benign modification with an unapproved test principal, confirm it is denied, and verify periodic reviews record unexplained credentials, investigation decisions and completed removal actions."
+      ],
+      "expected": "Only approved principals and services can add key credentials, every value can be explained, unauthorised changes are denied or detected, and recurring reviews remove unexplained credentials.",
+      "related": ["AD-02", "AD-03", "AD-05"],
+      "mappings": [
+        {"uid":"asd-ad:appendix a §mitigating shadow credentials#1","relationship":"Partially addresses","basis":"Restricts membership of Domain Admins, Key Admins and Enterprise Key Admins, whose members can modify key credentials on directory objects.","provenance":"Locally reviewed mapping"},
+        {"uid":"asd-ad:appendix a §mitigating shadow credentials#2","relationship":"Directly addresses","basis":"Requires delegated permissions that can modify msDS-KeyCredentialLink to be reviewed and minimised.","provenance":"Locally reviewed mapping"},
+        {"uid":"asd-ad:appendix a §mitigating shadow credentials#3","relationship":"Directly addresses","basis":"Requires regular reviews of directory objects for unauthorised key credentials.","provenance":"Locally reviewed mapping"},
+        {"uid":"ism:ism-1939","relationship":"Partially addresses","basis":"Requires membership of Domain Admins, Enterprise Admins and other highly privileged groups to be minimised.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:ac-6","relationship":"Partially addresses","basis":"Requires permissions to be limited to authorised access necessary for assigned functions.","provenance":"Locally reviewed mapping"},
+        {"uid":"nist-800-53:au-12","relationship":"Partially addresses","basis":"Requires systems to generate audit records for selected security events with the defined record content.","provenance":"Locally reviewed mapping"},
+        {"uid":"cis-controls:6.8","relationship":"Partially addresses","basis":"Requires access rights to be defined and recurring reviews to confirm that privileges remain authorised.","provenance":"Locally reviewed mapping"},
+        {"uid":"csf:pr.aa-5","relationship":"Partially addresses","basis":"Requires access permissions and authorisations to be managed, enforced and reviewed using least privilege and separation of duties.","provenance":"Locally reviewed mapping"}
       ]
     }
   ]

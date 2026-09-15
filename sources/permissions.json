@@ -1,5 +1,5 @@
 {
-  "reviewed_on": "2026-09-13",
+  "reviewed_on": "2026-09-15",
   "scope": "Existing private WACC repository, solely non-commercial use confirmed by the owner on 13 September 2026. New editions, public redistribution or commercial use require a fresh review. Source permissions do not relicense WACC code.",
   "files": [
     {
@@ -224,19 +224,19 @@
       "provenance": "User-supplied local file; copied without modification. Source URL is a publisher landing/citation link where identified, not a claim to have freshly downloaded this edition."
     },
     {
-      "filename": "Detecting and mitigating Active Directory compromises (January 2025).pdf",
+      "filename": "Detecting and mitigating Active Directory compromises (September 2026).pdf",
       "status": "included",
       "policy_group": "asd",
       "license": "CC-BY-4.0",
       "permission_url": "https://www.cyber.gov.au/about-us/copyright",
       "basis_and_conditions": "Attribute Australian Signals Directorate, Commonwealth of Australia, using the year on the document. Preserve document notices. Coat of Arms, logos and separately identified third-party material are not relicensed: retained solely as part of the unaltered source publication, not for standalone reuse or WACC branding.",
-      "source_url": null,
-      "sha256": "334cec522bdf46041f92be8ec55c2d4a3109920833aa64bb2e3a5a46ebab48ce",
-      "bytes": 2097029,
-      "reviewed_on": "2026-09-13",
+      "source_url": "https://www.cyber.gov.au/sites/default/files/2026-09/Detecting%20and%20mitigating%20Active%20Directory%20compromises%20%28September%202026%29.pdf",
+      "sha256": "fc629f1e4696d1a4d654a912417adc809105072403a399abde7a65bb6b4b4206",
+      "bytes": 1536625,
+      "reviewed_on": "2026-09-15",
       "modified": false,
-      "provenance": "User-supplied local file; copied without modification. Source URL is a publisher landing/citation link where identified, not a claim to have freshly downloaded this edition.",
-      "document_notice_page": 68
+      "provenance": "Downloaded without modification from the official cyber.gov.au attachment on 15 September 2026.",
+      "document_notice_page": 74
     },
     {
       "filename": "enterprise-attack-v19.2.xlsx",

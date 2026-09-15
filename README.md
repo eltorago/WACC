@@ -5,7 +5,7 @@ controls across Australian and international frameworks. It brings related requi
 together without hiding the original source text or treating a crosswalk as proof of
 compliance.
 
-The application currently includes a workspace of **83 practical controls across 30
+The application currently includes a workspace of **84 practical controls across 30
 topics**. Each control has:
 
 - a plain-English control statement and business risk;
@@ -14,7 +14,7 @@ topics**. Each control has:
 - reviewed links to relevant publisher requirements; and
 - links to other controls that address the same problem.
 
-The wider source browser contains **5,321 records from 18 frameworks**. You can search by
+The wider source browser contains **more than 5,300 records from 18 frameworks**. You can search by
 subject or identifier, inspect the source wording and published assessment material, move
 between linked controls, limit results to selected frameworks and export mappings to CSV.
 
@@ -37,7 +37,7 @@ troubleshooting.
 | Path | Purpose |
 |---|---|
 | `wacc/` | Loads the corpus, finds controls, builds relationships and serves the web and command-line interfaces. |
-| `data/library/` | The 83 locally written workspace controls, grouped into one JSON file per topic. |
+| `data/library/` | The 84 locally written workspace controls, grouped into one JSON file per topic. |
 | `data/corpus/` | Curated extracts used when a publisher does not provide a suitable machine-readable source. |
 | `data/validation/` | Search expectations and the topic-frequency report used to check coverage and ranking. |
 | `sources/files/` | Reviewed, unchanged publisher documents that this non-commercial repository is permitted to include. |

@@ -379,12 +379,18 @@ FRAMEWORKS: List[Framework] = [
         fidelity=Fidelity.CURATED_EXTRACT,
         licence=Licence.SHIPPABLE,
         levels=_levels("Checklist", "Technique", "Mitigation"),
-        source_file="Detecting and mitigating Active Directory compromises (January 2025).pdf",
-        revision="January 2025",
-        revision_source="cover page, 'Last updated'",
+        source_file="Detecting and mitigating Active Directory compromises (September 2026).pdf",
+        source_url=(
+            "https://www.cyber.gov.au/business-government/detecting-responding-to-threats/"
+            "detecting-and-mitigating-active-directory-compromises"
+        ),
+        revision="September 2026",
+        revision_source="publisher attachment title and publication copyright page",
         notes=[
-            "States concrete AD hardening measures, which is what earns it tier 5 "
-            "rather than the guidance layer.",
+            "The 2026 edition adds Shadow Credentials controls and changes the DCSync "
+            "permission review and planned KRBTGT rotation intervals to six months.",
+            "Its checklist states concrete AD hardening measures, so WACC loads it as "
+            "technical control detail rather than general guidance.",
         ],
     ),
     Framework(

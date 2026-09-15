@@ -30,7 +30,7 @@ different things, the document-specific terms take priority.
 | [CIS_Microsoft_Office_Enterprise_Benchmark_v1.2.0.pdf](files/CIS_Microsoft_Office_Enterprise_Benchmark_v1.2.0.pdf) | [CC-BY-NC-SA-4.0](https://www.cisecurity.org/terms-and-conditions-table-of-contents); cis-benchmark |
 | [cisa-vulnerability-review-fy-2024-2025-508.pdf](files/cisa-vulnerability-review-fy-2024-2025-508.pdf) | [U.S. government work; public dissemination](https://www.copyright.gov/title17/92chap1.html#105); cisa |
 | [cisc-cirmp-guidance.pdf](files/cisc-cirmp-guidance.pdf) | [CC-BY-3.0-AU](https://www.homeaffairs.gov.au/access-and-accountability/using-our-website/copyright-and-disclaimer); home |
-| [Detecting and mitigating Active Directory compromises (January 2025).pdf](files/Detecting%20and%20mitigating%20Active%20Directory%20compromises%20%28January%202025%29.pdf) | [CC-BY-4.0](https://www.cyber.gov.au/about-us/copyright); asd |
+| [Detecting and mitigating Active Directory compromises (September 2026).pdf](files/Detecting%20and%20mitigating%20Active%20Directory%20compromises%20%28September%202026%29.pdf) | [CC-BY-4.0](https://www.cyber.gov.au/about-us/copyright); asd |
 | [enterprise-attack-v19.2.xlsx](files/enterprise-attack-v19.2.xlsx) | [MITRE ATT&CK licence](https://attack.mitre.org/resources/terms-of-use/); mitre |
 | [External-attack-surface-management-EASM-buyers-guide.pdf](files/External-attack-surface-management-EASM-buyers-guide.pdf) | [OGL-3.0](https://www.ncsc.gov.uk/section/about-this-website/terms-and-conditions); ncsc |
 | [foundations-for-modern-defensible-architecture.pdf](files/foundations-for-modern-defensible-architecture.pdf) | [CC-BY-4.0](https://www.cyber.gov.au/about-us/copyright); asd |

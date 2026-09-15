@@ -25,16 +25,17 @@ from textjoin import mend_hyphen  # noqa: E402
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SOURCE = os.path.join(
-    HERE, "data", "raw", "documents",
-    "Detecting and mitigating Active Directory compromises (January 2025).pdf",
+    HERE, "sources", "files",
+    "Detecting and mitigating Active Directory compromises (September 2026).pdf",
 )
 OUTPUT = os.path.join(HERE, "data", "corpus", "asd-ad.json")
 
-_APPENDIX_A = "Appendix A – Active Directory security controls"
-_APPENDIX_B = "Appendix B"
 _GROUP = re.compile(r"^(Mitigating|Detecting|Hardening)\b.*", re.IGNORECASE)
 _CHECKBOX = "☐"
-_FOOTER = re.compile(r"^Detecting and Mitigating .*Active Directory Compromises\s*\d*$", re.I)
+_FOOTER = re.compile(
+    r"^(?:\d+\s+)?Detecting and Mitigating .*Active Directory Compromises(?:\s+\d+)?$",
+    re.I,
+)
 
 _PARAMETER = re.compile(
     r"\b\d+\s*(?:-?\s*character|bit|day|hour|minute|month|year)s?\b|\bminimum\b|\bat least\b",
@@ -45,10 +46,15 @@ _PARAMETER = re.compile(
 def appendix_pages(pdf) -> Tuple[int, int]:
     start = end = -1
     for i, page in enumerate(pdf.pages):
-        text = page.extract_text() or ""
-        if start < 0 and _APPENDIX_A in text and i > 10:
+        text = re.sub(r"\s+", " ", page.extract_text() or "")
+        if (
+            start < 0
+            and "Appendix A" in text
+            and "Active Directory security controls" in text
+            and i > 10
+        ):
             start = i
-        elif start >= 0 and _APPENDIX_B in text and i > start:
+        elif start >= 0 and "Appendix B" in text and i > start:
             end = i
             break
     return start, (end if end > 0 else len(pdf.pages))
@@ -66,9 +72,23 @@ def extract() -> Tuple[List[Dict[str, object]], int]:
         for index in range(start, end):
             page = pdf.pages[index]
             words = page.extract_words(extra_attrs=["fontname", "size"])
-            checkboxes = sorted(w["top"] for w in words if _CHECKBOX in w["text"])
+            checkbox_words = [w for w in words if _CHECKBOX in w["text"]]
+            # The 2026 layout draws checkboxes as vector rectangles; earlier editions
+            # exposed them as text glyphs. Both mark the start of a mitigation row.
+            checkbox_rects = [
+                rect for rect in page.rects
+                if 6 <= rect["width"] <= 12
+                and 6 <= rect["height"] <= 12
+                and rect["x0"] < 100
+            ]
+            checkboxes = sorted(
+                [w["top"] for w in checkbox_words]
+                + [rect["top"] for rect in checkbox_rects]
+            )
             box_column = max(
-                (w["x1"] for w in words if _CHECKBOX in w["text"]), default=0.0
+                [w["x1"] for w in checkbox_words]
+                + [rect["x1"] for rect in checkbox_rects]
+                + [0.0]
             )
 
             # Group headings are bold and sit at the left margin, ahead of the boxes.
@@ -85,7 +105,11 @@ def extract() -> Tuple[List[Dict[str, object]], int]:
                 text = " ".join(w["text"] for w in line).strip()
                 if not text or _FOOTER.match(text):
                     continue
-                bold = sum(len(w["text"]) for w in line if "Bold" in w["fontname"])
+                bold = sum(
+                    len(w["text"])
+                    for w in line
+                    if "Bold" in w["fontname"] or "Heavy" in w["fontname"]
+                )
                 total = sum(len(w["text"]) for w in line) or 1
                 if bold / total > 0.6 and _GROUP.match(text):
                     group = text
@@ -94,13 +118,19 @@ def extract() -> Tuple[List[Dict[str, object]], int]:
                     continue
                 if not checkboxes:
                     continue
-                # The checkbox is centred on its row, so it can fall between the two
-                # wrapped lines of the mitigation it marks. Reading order therefore
-                # puts a box after the first line of its own row, and "the box above
-                # this line" attaches every continuation to the wrong mitigation.
-                # Nearest box wins instead.
-                marker = min(checkboxes, key=lambda b: abs(b - top))
-                if abs(marker - top) > 26:
+                if checkbox_rects:
+                    # In the 2026 layout each vector box starts at the first text line.
+                    # Continuation lines belong to the most recent box, even when the
+                    # following row is visually closer.
+                    preceding = [box for box in checkboxes if box <= top + 3]
+                    marker = max(preceding) if preceding else checkboxes[0]
+                    distance = top - marker
+                else:
+                    # Earlier editions expose a checkbox glyph centred on its row, so
+                    # the nearest marker is more reliable than the preceding one.
+                    marker = min(checkboxes, key=lambda b: abs(b - top))
+                    distance = abs(marker - top)
+                if distance > 70:
                     # Too far from any box to be part of a checklist row. This is the
                     # sentence introducing the table, which otherwise attaches itself
                     # to the first mitigation and swallows it.
@@ -144,8 +174,8 @@ def main() -> int:
     with open(OUTPUT, "w", encoding="utf-8") as fh:
         json.dump(
             {
-                "revision": "January 2025",
-                "revision_source": "cover page, 'Last updated'",
+                "revision": "September 2026",
+                "revision_source": "publisher attachment title and publication copyright page",
                 "groups": [
                     {
                         "key": "Appendix A",

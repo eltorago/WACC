@@ -21,7 +21,7 @@ import re
 from typing import Iterable, List
 
 _SUSPENDED = ("and", "or")
-_BREAK = re.compile(r"(?<=[A-Za-z])-\s+(?=[a-z])")
+_BREAK = re.compile(r"(?<=[A-Za-z])-\s+(?=[A-Za-z])")
 
 
 def mend_hyphen(text: str) -> str:
