@@ -3,7 +3,7 @@
 WA Control Crosswalk (WACC) is a local web application for exploring cybersecurity
 controls across Australian and international frameworks, with a specific focus on Western Australian entities covered by the WA Cyber Security Policy (WA CSP).
 
-This project pairs human-directed design with AI-assisted implementation. I selected the frameworks in scope, defined the four-step testing methodology applied to every control, the five-tier hierarchy, the regression self-test suite and reviewed and refined the output through iterative prompting. The code and control content were written using AI models, namely GPT-6 Astra, GPT-5.6 Sol and Claude's Opus 5.1.
+This project pairs human-directed design with AI-assisted implementation. I selected the frameworks in scope, defined the four-step testing methodology applied to every control, the five-tier hierarchy, the regression self-test suite and reviewed and refined the output through iterative prompting. The code and control content were written using AI models, namely GPT-6 Astra, GPT-5.6 Sol and Claude's Opus 5.
 
 It brings related requirements together without hiding the original source text
 or treating a crosswalk as proof of compliance.
