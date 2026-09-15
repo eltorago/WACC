@@ -1,6 +1,7 @@
 {
   "reviewed_on": "2026-09-15",
-  "scope": "Existing private WACC repository, solely non-commercial use confirmed by the owner on 13 September 2026. New editions, public redistribution or commercial use require a fresh review. Source permissions do not relicense WACC code.",
+  "scope": "WACC corpus development for solely non-commercial use, confirmed by the owner on 13 September 2026. New editions or commercial use require a fresh review. Source permissions do not relicense WACC code.",
+  "distribution": "Publisher files are local inputs. WACC does not commit them to Git or include them in release packages, even when redistribution permission exists.",
   "files": [
     {
       "filename": "aescsf-framework-core.xlsx",

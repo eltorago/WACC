@@ -1,14 +1,26 @@
 # Running WACC locally
 
 WACC runs with Python 3.9 or later and the Python standard library. There is no package
-installation step and the application does not download data while it runs.
+installation step. Publisher files are acquired separately and kept out of the repository.
+
+## Acquire source files
+
+From the repository folder, run:
+
+```powershell
+python -m wacc sources
+```
+
+WACC downloads files available from publisher websites, verifies their reviewed hashes
+and stores them in the ignored `sources/files/` cache. It prints instructions for sources
+that require a sign-in, an interactive export or a user-supplied edition. Use
+`python -m wacc sources --list` to review every acquisition method without downloading.
 
 ## Start the web application
 
 Open PowerShell in the repository folder and run:
 
 ```powershell
-$env:WACC_SOURCES = (Resolve-Path .\sources\files).Path
 python -m wacc serve
 ```
 
@@ -20,8 +32,8 @@ The server binds to `127.0.0.1`, so it is visible only on the computer where it 
 
 ## Use a different source folder
 
-The repository includes reviewed source documents in `sources/files/`. To use a separate
-local collection instead, point `WACC_SOURCES` to that folder before starting WACC:
+To use a separate local collection instead, point `WACC_SOURCES` to that folder before
+starting WACC:
 
 ```powershell
 $env:WACC_SOURCES = 'C:\path\to\your\source documents'
@@ -49,6 +61,7 @@ python -m wacc build
 | `export` | Writes search results as CSV or Markdown. |
 | `serve` | Starts the local web application. |
 | `build` | Loads every available framework and reports warnings. |
+| `sources` | Downloads public publisher files and explains manual acquisition. |
 | `layout` | Shows the calculated source-browser layout at supported widths. |
 
 Run `python -m wacc` to see the full command help.
@@ -72,8 +85,8 @@ python tests\run_all.py --injected
 
 - **`No module named wacc`** — run the command from the repository folder containing the
   `wacc` directory.
-- **A framework is reported as unavailable** — confirm `WACC_SOURCES` points to the folder
-  containing the required publisher file.
+- **A framework is reported as unavailable** — run `python -m wacc sources`, follow any
+  manual instructions, or confirm `WACC_SOURCES` points to the required publisher files.
 - **Port 8765 is already in use** — stop the earlier WACC terminal with `Ctrl+C`, or start
   this instance with another port, such as `python -m wacc serve --port 8766`.
 - **The page shows older controls** — stop all earlier WACC processes and restart the

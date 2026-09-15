@@ -134,6 +134,34 @@ def cmd_build(args) -> int:
     return 0
 
 
+def cmd_sources(args) -> int:
+    from pathlib import Path
+    from .sources import acquire, describe
+
+    if args.list:
+        for filename, method, detail in describe():
+            print("%-9s %s" % (method.upper(), filename))
+            print("          %s" % detail)
+        return 0
+
+    destination = Path(args.destination).expanduser().resolve() if args.destination else None
+    kwargs = {"force": args.force}
+    if destination is not None:
+        kwargs["destination"] = destination
+    rows = acquire(args.only or None, **kwargs)
+    failed = False
+    manual = False
+    for filename, state, detail in rows:
+        print("%-10s %s" % (state.upper(), filename))
+        if state in ("manual", "failed"):
+            print("           %s" % detail)
+        failed = failed or state == "failed"
+        manual = manual or state == "manual"
+    if manual:
+        print("\nPlace manually acquired files in the source directory using the exact names above.")
+    return 1 if failed else 0
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     parser = argparse.ArgumentParser(prog="wacc", description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -173,6 +201,19 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     builder = subs.add_parser("build", help="load the corpus and report")
     builder.set_defaults(func=cmd_build)
+
+    sources = subs.add_parser(
+        "sources", help="download public publisher files and explain manual acquisitions"
+    )
+    sources.add_argument("--list", action="store_true",
+                         help="show acquisition methods without downloading")
+    sources.add_argument("--only", action="append", metavar="FILENAME",
+                         help="acquire one named source; repeat to acquire several")
+    sources.add_argument("--destination",
+                         help="source directory (defaults to sources/files)")
+    sources.add_argument("--force", action="store_true",
+                         help="download again even when reviewed bytes are already present")
+    sources.set_defaults(func=cmd_sources)
 
     args = parser.parse_args(argv)
     if not getattr(args, "func", None):

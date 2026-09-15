@@ -24,7 +24,7 @@ WACC uses Python 3.9 or later and does not need third-party packages. From this 
 in PowerShell:
 
 ```powershell
-$env:WACC_SOURCES = (Resolve-Path .\sources\files).Path
+python -m wacc sources
 python -m wacc serve
 ```
 
@@ -40,8 +40,9 @@ troubleshooting.
 | `data/library/` | The 84 locally written workspace controls, grouped into one JSON file per topic. |
 | `data/corpus/` | Curated extracts used when a publisher does not provide a suitable machine-readable source. |
 | `data/validation/` | Search expectations and the topic-frequency report used to check coverage and ranking. |
-| `sources/files/` | Reviewed, unchanged publisher documents that this non-commercial repository is permitted to include. |
-| `sources/permissions.json` | File hashes, source links, permissions and attribution evidence for included documents. |
+| `sources/acquisition.json` | Publisher download locations and instructions for sources that need manual acquisition. |
+| `sources/permissions.json` | File hashes, source links, permissions and attribution evidence for reviewed documents. |
+| `sources/files/` | Ignored local cache populated by `python -m wacc sources`; publisher files are not distributed with WACC. |
 | `tools/` | Import and verification utilities used to rebuild or check parts of the corpus. |
 | `tests/` | Regression checks for source permissions, loading, search, relationships, assessments and rendering. |
 
@@ -54,8 +55,8 @@ control therefore does not automatically meet every linked framework requirement
 
 The source browser preserves provenance, framework identity and hierarchy so readers can
 return to the relevant publisher record. Source documents retain their own licences and
-attribution. See [sources/README.md](sources/README.md) before copying documents, changing
-editions or using the repository outside its confirmed non-commercial scope.
+attribution. See [sources/README.md](sources/README.md) for automatic downloads, manual
+acquisition and edition checks.
 
 ## Check a change
 
