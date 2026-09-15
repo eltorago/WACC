@@ -29,7 +29,7 @@ class ControlWorkspaceTests(unittest.TestCase):
             return response.read().decode('utf-8')
     def test_all_sources_exist_and_anti_patterns_are_not_requirements(self):
         ids={c['id'] for c in workspace.CONTROLS}
-        self.assertEqual(len(ids),83)
+        self.assertEqual(len(ids),84)
         self.assertEqual(len(workspace.TOPICS),30)
         for c in workspace.CONTROLS:
             self.assertGreaterEqual(len(c.get('test_steps', [])),3,c['id'])
@@ -48,6 +48,20 @@ class ControlWorkspaceTests(unittest.TestCase):
                     self.assertIn(m['relationship'],('Directly addresses','Partially addresses','Related only'))
                 if '-ap' in m.get('uid',''):
                     self.assertEqual(m['relationship'],'Related only')
+
+    def test_september_2026_active_directory_guidance_is_loaded(self):
+        framework=self.state.corpus.frameworks['asd-ad']
+        self.assertEqual(framework.revision,'September 2026')
+        shadow=[
+            c for c in self.state.corpus.controls_for('asd-ad')
+            if 'mitigating shadow credentials#' in c.identifier.lower()
+        ]
+        self.assertEqual(len(shadow),3)
+        self.assertTrue(any('msDS-KeyCredentialLink' in c.text for c in shadow))
+        dcsync=self.state.corpus.control('asd-ad:appendix a §mitigating dcsync#4')
+        golden=self.state.corpus.control('asd-ad:appendix a §mitigating a golden ticket#1')
+        self.assertIn('every 6 months',dcsync.text)
+        self.assertIn('every 6 months',golden.text)
     def test_scope_and_export_exclude_deselected_frameworks(self):
         params={'scope':['1'],'fw':['cis-controls']}
         rows=list(csv.DictReader(io.StringIO(workspace.export_csv(params))))

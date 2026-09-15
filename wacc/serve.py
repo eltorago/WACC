@@ -69,7 +69,7 @@ class State:
         """Test procedure and risk statement for everything on screen.
 
         Derived per request rather than at start-up. Twenty-five controls cost about
-        twenty milliseconds, and pre-deriving 5,321 would spend four seconds on the
+        twenty milliseconds, and pre-deriving thousands would spend several seconds on the
         5,296 nobody asked for.
         """
         out: Dict[str, object] = {}

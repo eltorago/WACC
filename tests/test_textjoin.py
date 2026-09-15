@@ -26,6 +26,10 @@ class TextJoinTests(unittest.TestCase):
             mend_hyphen("security-\nand\nprivacy"),
             "security- and\nprivacy",
         )
+        self.assertEqual(
+            mend_hyphen("msDS- KeyCredentialLink"),
+            "msDS-KeyCredentialLink",
+        )
 
 
 if __name__ == "__main__":

@@ -1,11 +1,11 @@
 {
- "revision": "January 2025",
- "revision_source": "cover page, 'Last updated'",
+ "revision": "September 2026",
+ "revision_source": "publisher attachment title and publication copyright page",
  "groups": [
   {
    "key": "Appendix A",
    "title": "Active Directory security controls checklist",
-   "source_file": "Detecting and mitigating Active Directory compromises (January 2025).pdf",
+   "source_file": "Detecting and mitigating Active Directory compromises (September 2026).pdf",
    "records": [
     {
      "section_number": "Mitigating Kerberoasting",
@@ -48,7 +48,7 @@
       "bound"
      ],
      "kind": "statement",
-     "text": "Ensure user objects require Kerberos pre-authentication. However, if user objects must be configured to bypass Kerberos pre-authentication, then these user objects should be granted the minimum set of privileges required for them to perform their functions. They should not be members of highly privileged security groups, such as Domain Admins. Additionally, set a minimum 30-character password that is"
+     "text": "Ensure user objects require Kerberos pre-authentication. However, if user objects must be configured to bypass Kerberos pre-authentication, then these user objects should be granted the minimum set of privileges required for them to perform their functions. They should not be members of highly privileged security groups, such as Domain Admins. Additionally, set a minimum 30-character password that is unique, unpredictable and managed."
     },
     {
      "section_number": "Mitigating password spraying",
@@ -432,7 +432,7 @@
       "bound"
      ],
      "kind": "statement",
-     "text": "Review user objects with DCSync permissions every 12 months to determine if these permissions are still required."
+     "text": "Review user objects with DCSync permissions every 6 months to determine if these permissions are still required."
     },
     {
      "section_number": "Mitigating DCSync",
@@ -533,7 +533,7 @@
       "bound"
      ],
      "kind": "statement",
-     "text": "Change the KRBTGT password every 12 months, or when the domain has been compromised or suspected to have been compromised."
+     "text": "Change the KRBTGT password every 6 months, or when the domain has been compromised or suspected to have been compromised."
     },
     {
      "section_number": "Mitigating a Silver Ticket",
@@ -928,6 +928,36 @@
      ],
      "kind": "statement",
      "text": "Disable the Print Spooler service on Domain Controllers."
+    },
+    {
+     "section_number": "Mitigating Shadow Credentials",
+     "section_title": "Mitigating Shadow Credentials",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Restrict membership of privileged security groups, including Domain Admins, Key Admins, and Enterprise Key Admins"
+    },
+    {
+     "section_number": "Mitigating Shadow Credentials",
+     "section_title": "Mitigating Shadow Credentials",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Review and minimise delegated permissions that allow modification of the msDS-KeyCredentialLink attribute."
+    },
+    {
+     "section_number": "Mitigating Shadow Credentials",
+     "section_title": "Mitigating Shadow Credentials",
+     "obligation": "",
+     "parameters": [
+      "mitigation"
+     ],
+     "kind": "statement",
+     "text": "Regularly review objects for unauthorised key credentials."
     }
    ]
   }
