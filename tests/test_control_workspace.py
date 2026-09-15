@@ -1,4 +1,4 @@
-"""Pilot scope, mapping integrity and HTTP navigation checks."""
+"""Checks the Control workspace data, filtering, exports and web pages."""
 from pathlib import Path
 import csv
 import io
@@ -27,7 +27,7 @@ class ControlWorkspaceTests(unittest.TestCase):
         with urllib.request.urlopen(self.base+path,timeout=15) as response:
             self.assertEqual(response.status,200)
             return response.read().decode('utf-8')
-    def test_all_pilot_sources_exist_and_anti_patterns_are_not_requirements(self):
+    def test_all_sources_exist_and_anti_patterns_are_not_requirements(self):
         ids={c['id'] for c in workspace.CONTROLS}
         self.assertEqual(len(ids),83)
         self.assertEqual(len(workspace.TOPICS),30)

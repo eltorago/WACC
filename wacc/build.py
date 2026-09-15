@@ -28,16 +28,10 @@ from .loaders import (
     ztmm,
 )
 
-# Publisher source documents never ship, so an installed copy of this tool has an empty
-# data/raw and loads nine of the eighteen frameworks. The other nine load straight from
-# the publisher's own file, which the person running the tool already has: WACC_SOURCES
-# points at the folder they were downloaded into.
-#
-# Two shapes, because both exist. This repository keeps sources in data/raw/documents with
-# the OSCAL catalogues in their own subfolders; a folder someone has downloaded into is
-# usually flat. So a subfolder is used when it is there and the sources folder itself when
-# it is not. Nothing is searched for beyond that, and whatever did not load is named in
-# every result rather than drawn as a publisher with nothing to say.
+# WACC_SOURCES points to the publisher files used to build the live corpus. It accepts
+# both the repository's flat sources/files archive and the older development layout with
+# documents and OSCAL catalogues in subfolders. Any framework that cannot be loaded is
+# named as unavailable in the results.
 RAW = os.environ.get("WACC_SOURCES") or os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "raw"
 )

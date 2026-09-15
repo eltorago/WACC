@@ -1,12 +1,10 @@
-"""Where every corpus sits, decided once.
+"""Describe every framework WACC can load and where it appears in the source browser.
 
-Tier is the abstraction band. Jurisdiction is an attribute that orders within a band,
-not a structure. Nothing here loads a document; this is the placement, and the loaders
-read it.
+This file records publisher, jurisdiction, source file, display order and reuse status.
+The loaders use that information to find documents and preserve their identity.
 
-Every licence value is a working position with its basis written next to it. A wrong
-call here ships someone else's text, so IMPORT_ONLY is the default whenever the basis
-has not been read off the document itself.
+Licence values are conservative working decisions. Material remains import-only until its
+reuse terms have been reviewed.
 """
 
 from typing import Dict, List
@@ -308,7 +306,7 @@ FRAMEWORKS: List[Framework] = [
         fidelity=Fidelity.OFFICIAL_MACHINE_READABLE,
         licence=Licence.SHIPPABLE,
         levels=_levels("Chapter", "Section", "Control"),
-        source_file="acsc-ism/ISM_catalog.json",
+        source_file="ISM_catalog.json",
         source_url="https://www.cyber.gov.au/ism/oscal",
         revision="2026.09.4",
         revision_source="OSCAL metadata version field",
@@ -331,7 +329,7 @@ FRAMEWORKS: List[Framework] = [
         fidelity=Fidelity.OFFICIAL_MACHINE_READABLE,
         licence=Licence.SHIPPABLE,
         levels=_levels("Family", "Control", "Enhancement"),
-        source_file="nist-800-53/NIST_SP-800-53_rev5_catalog.json",
+        source_file="NIST_SP-800-53_rev5_catalog.json",
         revision="Rev 5.2.0",
         revision_source="OSCAL metadata version field",
         notes=[
@@ -400,7 +398,12 @@ FRAMEWORKS: List[Framework] = [
         fidelity=Fidelity.CURATED_EXTRACT,
         licence=Licence.SHIPPABLE,
         levels=_levels("Volume", "Section", "Normative statement"),
-        source_file="nist-800-63/",
+        source_files=[
+            "sp800-63.html",
+            "sp800-63a.html",
+            "sp800-63b.html",
+            "sp800-63c.html",
+        ],
         notes=[
             "Volumes 63A, 63B and 63C in one framework, identifiers prefixed by "
             "volume. Three columns of digital identity would crowd out the rest of "
@@ -422,7 +425,7 @@ FRAMEWORKS: List[Framework] = [
         fidelity=Fidelity.CURATED_EXTRACT,
         licence=Licence.SHIPPABLE,
         levels=_levels("Algorithm class", "Transition statement"),
-        source_file="documents/NIST.SP.800-131Ar2.pdf",
+        source_file="NIST.SP.800-131Ar2.pdf",
         notes=[
             "Rev 2 final is the corpus. Rev 3 initial public draft attaches to the "
             "same parameters as a proposed change and never as a requirement.",

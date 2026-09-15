@@ -3,10 +3,11 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import shutil
 import subprocess
-import tempfile
 import unittest
 import sys
+import uuid
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
@@ -16,6 +17,13 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class SourcePermissionTests(unittest.TestCase):
+    def setUp(self):
+        self.test_root = ROOT / (".wacc-permission-test-" + uuid.uuid4().hex)
+        self.test_root.mkdir()
+
+    def tearDown(self):
+        shutil.rmtree(self.test_root, ignore_errors=True)
+
     def fixture(self, root):
         directory = root / 'sources' / 'files'
         directory.mkdir(parents=True)
@@ -29,46 +37,41 @@ class SourcePermissionTests(unittest.TestCase):
         return directory
 
     def test_unreviewed_files_excluded_including_json(self):
-        with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
-            self.fixture(root)
-            shipping = would_ship(str(root))
-            self.assertIn(os.path.join('sources', 'files', 'approved.pdf'), shipping)
-            self.assertFalse(any('unknown' in p for p in shipping))
-            self.assertEqual(len(excluded_but_present(str(root))), 2)
-            self.assertEqual(check(str(root)), [])
+        root = self.test_root
+        self.fixture(root)
+        shipping = would_ship(str(root))
+        self.assertIn(os.path.join('sources', 'files', 'approved.pdf'), shipping)
+        self.assertFalse(any('unknown' in p for p in shipping))
+        self.assertEqual(len(excluded_but_present(str(root))), 2)
+        self.assertEqual(check(str(root)), [])
 
     def test_changed_source_is_rejected(self):
-        with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
-            directory = self.fixture(root)
-            (directory / 'approved.pdf').write_bytes(b'a different edition')
-            self.assertIn('unreviewed source bytes', [v.rule for v in check(str(root))])
+        root = self.test_root
+        directory = self.fixture(root)
+        (directory / 'approved.pdf').write_bytes(b'a different edition')
+        self.assertIn('unreviewed source bytes', [v.rule for v in check(str(root))])
 
     def test_missing_source_is_rejected(self):
-        with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
-            directory = self.fixture(root)
-            (directory / 'approved.pdf').unlink()
-            self.assertIn('missing approved source', [v.rule for v in check(str(root))])
+        root = self.test_root
+        directory = self.fixture(root)
+        (directory / 'approved.pdf').unlink()
+        self.assertIn('missing approved source', [v.rule for v in check(str(root))])
 
     def test_no_manifest_does_not_approve_any_source(self):
-        with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
-            (root / 'sources' / 'files').mkdir(parents=True)
-            (root / 'sources' / 'files' / 'unknown.json').write_text('{}')
-            self.assertEqual(would_ship(str(root)), [])
+        root = self.test_root
+        (root / 'sources' / 'files').mkdir(parents=True)
+        (root / 'sources' / 'files' / 'unknown.json').write_text('{}')
+        self.assertEqual(would_ship(str(root)), [])
 
     def test_manifest_cannot_escape_source_directory(self):
-        with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
-            self.fixture(root)
-            manifest = root / 'sources' / 'permissions.json'
-            data = json.loads(manifest.read_text())
-            data['files'][0]['filename'] = '../../outside.pdf'
-            manifest.write_text(json.dumps(data))
-            with self.assertRaises(ValueError):
-                approved_sources(str(root))
+        root = self.test_root
+        self.fixture(root)
+        manifest = root / 'sources' / 'permissions.json'
+        data = json.loads(manifest.read_text())
+        data['files'][0]['filename'] = '../../outside.pdf'
+        manifest.write_text(json.dumps(data))
+        with self.assertRaises(ValueError):
+            approved_sources(str(root))
 
     def test_real_archive_has_reviewed_bytes_and_no_excluded_file(self):
         self.assertEqual(check(str(ROOT)), [])
