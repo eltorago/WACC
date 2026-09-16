@@ -1,0 +1,1880 @@
+{
+  "VM-02": [
+    {
+      "uid": "essential-eight:ml1-pa-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-pa-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-pa-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-pa-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-pa-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-pa-6",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-pa-7",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-pa-8",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-pa-9",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-po-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-po-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-po-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-po-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-po-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-po-6",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-po-7",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-po-8",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-pa-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-pa-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-pa-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-pa-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-pa-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-pa-6",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-pa-7",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-pa-8",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-pa-9",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-pa-10",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-pa-11",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-po-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-po-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-po-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-po-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-po-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-po-6",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-po-7",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-po-8",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-pa-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-pa-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-pa-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-pa-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-pa-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-pa-6",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-pa-7",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-pa-8",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-pa-9",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-pa-10",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-pa-11",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-pa-12",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-pa-13",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch applications. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-po-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-po-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-po-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-po-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-po-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-po-6",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-po-7",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-po-8",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-po-9",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-po-10",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-po-11",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-po-12",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-po-13",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-po-14",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-po-15",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-po-16",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    }
+  ],
+  "MF-01": [
+    {
+      "uid": "essential-eight:ml1-mfa-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-mfa-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-mfa-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-mfa-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-mfa-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-mfa-6",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-mfa-7",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-mfa-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-mfa-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-mfa-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-mfa-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-mfa-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-mfa-6",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-mfa-7",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-mfa-8",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-mfa-9",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-mfa-10",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-mfa-11",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-mfa-12",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-mfa-13",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-mfa-14",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-mfa-15",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-mfa-16",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-mfa-17",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-mfa-18",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-mfa-19",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mfa-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mfa-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mfa-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mfa-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mfa-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mfa-6",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mfa-7",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mfa-8",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mfa-9",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mfa-10",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mfa-11",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mfa-12",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mfa-13",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mfa-14",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mfa-15",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mfa-16",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mfa-17",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mfa-18",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mfa-19",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mfa-20",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mfa-21",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mfa-22",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mfa-23",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    }
+  ],
+  "PA-04": [
+    {
+      "uid": "essential-eight:ml1-rap-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-rap-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-rap-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-rap-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-rap-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-rap-6",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-rap-7",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rap-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rap-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rap-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rap-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rap-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rap-6",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rap-7",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rap-8",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rap-9",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rap-10",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rap-11",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rap-12",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rap-13",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rap-14",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rap-15",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rap-16",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rap-17",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rap-18",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rap-19",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rap-20",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-6",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-7",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-8",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-9",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-10",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-11",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-12",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-13",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-14",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-15",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-16",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-17",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-18",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-19",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-20",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-21",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-22",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-23",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-24",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-25",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-26",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-27",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-28",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rap-29",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    }
+  ],
+  "AP-01": [
+    {
+      "uid": "essential-eight:ml1-ac-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-ac-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-ac-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-ac-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-ac-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-ac-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-ac-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-ac-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-ac-6",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-ac-7",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-ac-8",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-ac-9",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-ac-10",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-ac-11",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-ac-12",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-ac-13",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-ac-14",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-ac-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-ac-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-ac-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-ac-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-ac-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-ac-6",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-ac-7",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-ac-8",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-ac-9",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-ac-10",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-ac-11",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-ac-12",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-ac-13",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-ac-14",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-ac-15",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-ac-16",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-ac-17",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-ac-18",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-ac-19",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    }
+  ],
+  "OM-01": [
+    {
+      "uid": "essential-eight:ml1-mac-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Restrict Microsoft Office macros. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-mac-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Restrict Microsoft Office macros. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-mac-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Restrict Microsoft Office macros. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-mac-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Restrict Microsoft Office macros. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-mac-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Restrict Microsoft Office macros. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-mac-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Restrict Microsoft Office macros. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-mac-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Restrict Microsoft Office macros. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-mac-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Restrict Microsoft Office macros. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-mac-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Restrict Microsoft Office macros. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mac-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict Microsoft Office macros. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mac-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict Microsoft Office macros. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mac-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict Microsoft Office macros. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mac-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict Microsoft Office macros. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mac-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict Microsoft Office macros. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mac-6",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict Microsoft Office macros. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mac-7",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict Microsoft Office macros. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mac-8",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict Microsoft Office macros. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mac-9",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict Microsoft Office macros. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mac-10",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict Microsoft Office macros. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-mac-11",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Restrict Microsoft Office macros. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    }
+  ],
+  "UH-01": [
+    {
+      "uid": "essential-eight:ml1-uah-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-uah-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-uah-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-uah-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-uah-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-uah-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-uah-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-uah-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-uah-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-uah-6",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-uah-7",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-uah-8",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-uah-9",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-uah-10",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-uah-11",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-uah-12",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-uah-13",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-uah-14",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-uah-15",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-uah-16",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-uah-17",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-uah-18",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-uah-19",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-uah-20",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-uah-21",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-uah-22",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-uah-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-uah-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-uah-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-uah-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-uah-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-uah-6",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-uah-7",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-uah-8",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-uah-9",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-uah-10",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-uah-11",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-uah-12",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-uah-13",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-uah-14",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-uah-15",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-uah-16",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-uah-17",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-uah-18",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-uah-19",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-uah-20",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-uah-21",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-uah-22",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-uah-23",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-uah-24",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-uah-25",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-uah-26",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-uah-27",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    }
+  ],
+  "BR-01": [
+    {
+      "uid": "essential-eight:ml1-rb-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Regular backups. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-rb-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Regular backups. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-rb-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Regular backups. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-rb-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Regular backups. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-rb-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Regular backups. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml1-rb-6",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML1 > Regular backups. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rb-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Regular backups. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rb-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Regular backups. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rb-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Regular backups. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rb-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Regular backups. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rb-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Regular backups. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rb-6",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Regular backups. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rb-7",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Regular backups. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml2-rb-8",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML2 > Regular backups. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rb-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Regular backups. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rb-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Regular backups. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rb-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Regular backups. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rb-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Regular backups. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rb-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Regular backups. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rb-6",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Regular backups. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rb-7",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Regular backups. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rb-8",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Regular backups. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rb-9",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Regular backups. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rb-10",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Regular backups. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "essential-eight:ml3-rb-11",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Essential Eight ML3 > Regular backups. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    }
+  ],
+  "GV-01": [
+    {
+      "uid": "scf:gov-1",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "SCF meta-framework context for this subject. SCF mappings do not substitute for the underlying publisher requirements."
+    }
+  ],
+  "SC-01": [
+    {
+      "uid": "scf:cld-1",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "SCF meta-framework context for this subject. SCF mappings do not substitute for the underlying publisher requirements."
+    }
+  ],
+  "SC-02": [
+    {
+      "uid": "scf:cld-6.1",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "SCF meta-framework context for this subject. SCF mappings do not substitute for the underlying publisher requirements."
+    }
+  ],
+  "NA-01": [
+    {
+      "uid": "scf:cld-3",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "SCF meta-framework context for this subject. SCF mappings do not substitute for the underlying publisher requirements."
+    }
+  ],
+  "SM-01": [
+    {
+      "uid": "scf:cld-6.2",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "SCF meta-framework context for this subject. SCF mappings do not substitute for the underlying publisher requirements."
+    }
+  ]
+}

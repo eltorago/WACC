@@ -229,9 +229,10 @@ def run() -> int:
     )
     for framework in requiring:
         check_.expect(
-            framework.licence is Licence.SHIPPABLE,
-            "attribution", "%s states an attribution and is shippable" % framework.key,
-            "an attribution on an import-only framework is a rule nobody can follow",
+            framework.licence is Licence.SHIPPABLE or
+            (framework.key == 'scf' and framework.licence is Licence.IMPORT_ONLY and 'CC BY-ND' in framework.attribution),
+            "attribution", "%s states attribution with a reviewed distribution policy" % framework.key,
+            "SCF attribution must remain visible for local use while adapted material remains excluded from distribution",
         )
 
     corpus, _ = build(verbose=False)

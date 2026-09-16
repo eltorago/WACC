@@ -201,9 +201,10 @@ def run() -> int:
         "position in a diagram is an assertion and a missing row reads as a question "
         "never asked",
     )
+    empty_payload = analyse(corpus, "", [])
     check.expect(
-        any(band.is_empty for band in payload.bands)
-        and any("shown empty rather than omitted" in n for n in payload.notes),
+        any(band.is_empty for band in empty_payload.bands)
+        and any("shown empty rather than omitted" in n for n in empty_payload.notes),
         "bands", "an empty tier is stated in the notes",
     )
 

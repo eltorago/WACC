@@ -482,6 +482,45 @@ FRAMEWORKS: List[Framework] = [
 ]
 
 
+FRAMEWORKS.extend([
+    Framework(key='scuba',name='CISA SCuBA Microsoft 365 security baselines',short_name='SCuBA M365',
+        publisher='CISA',jurisdiction=Jurisdiction.US,tier=Tier.SPECIFICATION,intra_tier_order=1,
+        fidelity=Fidelity.PUBLISHER_IMPORT,licence=Licence.SHIPPABLE,
+        levels=_levels('Policy'),revision_source='Pinned ScubaGear commit and baseline policy version identifiers',
+        revision='ScubaGear 2f8c824 (reviewed September 2026)',source_file='scuba-m365-baselines.zip',
+        source_url='https://github.com/cisagov/ScubaGear/tree/2f8c8241a5753a83a502d06688ce82081023dd0a/PowerShell/ScubaGear/baselines',
+        attribution='CISA SCuBA. Includes Microsoft documentation adapted by CISA under CC BY 4.0; original sources and licence notices are retained in the linked baseline documents.',
+        notes=['US federal baseline; informative for WA entities. Original SHALL wording does not establish a WA obligation.',
+               'Imports seven current baselines and excludes superseded Defender and removed-policy documents.']),
+    Framework(key='scf',name='Secure Controls Framework 2026.2',short_name='SCF',
+        publisher='Secure Controls Framework Council',jurisdiction=Jurisdiction.INTERNATIONAL,
+        tier=Tier.CATALOGUE,intra_tier_order=10,fidelity=Fidelity.PUBLISHER_IMPORT,
+        licence=Licence.IMPORT_ONLY,revision='2026.2',
+        levels=_levels('Control'),revision_source='Workbook filename and SCF 2026.2 worksheet',
+        source_file='secure-controls-framework-scf-2026-2.xlsx',
+        source_url='https://github.com/securecontrolsframework/securecontrolsframework',
+        attribution='Secure Controls Framework (SCF), SCF Council, CC BY-ND 4.0. Control wording imported without alteration. https://securecontrolsframework.com/terms-and-conditions',
+        notes=['SCF is a meta-framework. Its mappings are assertions by SCF, not endorsements by the target publishers.',
+               'Local import only. CC BY-ND 4.0 restricts distribution of adapted SCF material. WACC technical checks are authored independently from ACSC and Microsoft guidance.']),
+    Framework(key='essential-eight',name='ASD Essential Eight maturity model',short_name='Essential Eight',
+        publisher='Australian Signals Directorate',jurisdiction=Jurisdiction.AU_COMMONWEALTH,
+        tier=Tier.OUTCOME,intra_tier_order=5,fidelity=Fidelity.PUBLISHER_IMPORT,
+        licence=Licence.SHIPPABLE,revision='November 2023',
+        levels=_levels('Requirement'),revision_source='Publisher page last-updated date and maturity model edition heading',
+        source_file='essential-eight-maturity-model.html',
+        source_url='https://www.cyber.gov.au/business-government/asds-cyber-security-frameworks/essential-eight/essential-eight-maturity-model',
+        attribution='Australian Signals Directorate, Commonwealth of Australia 2023. CC BY 4.0.',
+        notes=['Imported from the publisher tables. Row identifiers are WACC locators, not ASD-issued control identifiers.']),
+    Framework(key='mcsb',name='Microsoft cloud security benchmark v1',short_name='MCSB v1',
+        publisher='Microsoft',jurisdiction=Jurisdiction.INTERNATIONAL,
+        tier=Tier.CATALOGUE,intra_tier_order=11,fidelity=Fidelity.PUBLISHER_IMPORT,
+        licence=Licence.SHIPPABLE,revision='v1',source_file='Microsoft_cloud_security_benchmark_v1.xlsx',
+        levels=_levels('Control'),revision_source='Publisher workbook filename and Readme worksheet',
+        source_url='https://learn.microsoft.com/en-us/security/benchmark/azure/overview-mcsb-v1',
+        attribution='Microsoft and contributors. Microsoft Cloud Security Benchmark v1. CC BY 4.0. https://github.com/MicrosoftDocs/SecurityBenchmarks/blob/master/LICENSE',
+        notes=['The complete v1 workbook is imported. Microsoft also publishes v2 preview guidance; this import does not claim v2 coverage.'])
+])
+
 FRAMEWORKS_BY_KEY: Dict[str, Framework] = {f.key: f for f in FRAMEWORKS}
 
 
@@ -848,5 +887,16 @@ GUIDANCE: List[GuidanceDocument] = [
     ),
 ]
 
+
+from .wa_audit_context import REPORTS as WA_AUDIT_REPORTS
+
+GUIDANCE.extend(GuidanceDocument(key=r['key'],title=r['title'],
+    publisher='Office of the Auditor General Western Australia',jurisdiction=Jurisdiction.WA,
+    reason=r['date']+' | '+r['sector']+'. Historical audit context. '+r['finding'],
+    url=r['url'],relates_to=['oag-wa']) for r in WA_AUDIT_REPORTS)
+GUIDANCE.append(GuidanceDocument(key='asd-cloud-blueprint',title="ASD Blueprint for Secure Cloud",
+    publisher='Australian Signals Directorate',jurisdiction=Jurisdiction.AU_COMMONWEALTH,
+    reason='Microsoft cloud implementation guidance; tailor to the entity and verify effective settings.',
+    url='https://blueprint.asd.gov.au/configuration/',relates_to=['ism','mcsb','scuba']))
 
 GUIDANCE_BY_KEY: Dict[str, GuidanceDocument] = {g.key: g for g in GUIDANCE}

@@ -30,6 +30,12 @@ use the application. Press `Ctrl+C` in that window to stop it.
 
 The server binds to `127.0.0.1`, so it is visible only on the computer where it is running.
 
+In the Control workspace, select **GRC Focused** or **Technical** beneath **Assess this
+control**. The Technical view contains individual checks, artefacts, collection examples
+and expected results. WACC displays the assessment instructions; it does not run commands
+against your systems. **Framework coverage & checks** lists the new frameworks and offers
+direct links to every technical check.
+
 ## Use a different source folder
 
 To use a separate local collection instead, point `WACC_SOURCES` to that folder before
@@ -69,7 +75,9 @@ Run `python -m wacc` to see the full command help.
 ## Run the checks
 
 ```powershell
+$env:PYTHONUTF8 = '1'
 python tests\run_all.py
+python tools/revalidate_corpus.py
 ```
 
 The suite checks source permissions, corpus loading, identifier lookup, search quality,
@@ -91,3 +99,5 @@ python tests\run_all.py --injected
   this instance with another port, such as `python -m wacc serve --port 8766`.
 - **The page shows older controls** — stop all earlier WACC processes and restart the
   server so it reloads the library files.
+- **New frameworks are missing from results** — check their source files were acquired,
+  then enable them in Framework scope. Bookmarked URLs retain their previous selection.
