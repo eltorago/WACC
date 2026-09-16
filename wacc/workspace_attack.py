@@ -65,8 +65,6 @@ def render(control_id, corpus):
     if assessment is None:
         out.append('<p>ATT&amp;CK assessment has not yet been completed for this control.</p>')
     else:
-        out.append('<p class="muted">These are local WACC assessments of how the control helps. '
-                   'MITRE publishes the technique and mitigation references; these links do not establish coverage.</p>')
         if assessment.get('note'):
             out.append('<p><span class="badge">No direct technique mapping</span></p><p>%s</p>' % esc(assessment['note']))
         connections = assessment['connections']
@@ -95,8 +93,7 @@ def render(control_id, corpus):
                            % (esc(mitigation_key), esc(mitigation_key), esc(mitigation.name)))
             out.append('</div>')
         source = corpus.threat_sources.get('attack-enterprise')
-        out.append('<small>Enterprise ATT&amp;CK · mappings reviewed against %s%s. '
-                   'Mobile and ICS techniques are outside this mapping.</small>'
+        out.append('<small>WACC mappings · Enterprise ATT&amp;CK %s%s.</small>'
                    % (esc(DATA['reviewed_version']), (' · loaded source ' + esc(source.version))
                       if source and source.version != DATA['reviewed_version'] else ''))
         if source and source.version != DATA['reviewed_version']:

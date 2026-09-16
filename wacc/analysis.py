@@ -36,6 +36,7 @@ from .model import (
     tier_bands,
 )
 from .terms import concepts_for
+from . import framework_families as families
 from .thresholds import (
     AT_LEAST,
     AT_MOST,
@@ -274,7 +275,7 @@ class Analysis:
             for coverage in band.coverage
             if not coverage.absent
         }
-        return len(keys)
+        return families.count(keys)
 
     @property
     def strengths_are_commensurable(self) -> bool:
@@ -444,7 +445,7 @@ def _disagreements(thresholds: Sequence[Threshold]) -> List[Disagreement]:
         for right in usable[i + 1 :]:
             if left.dimension != right.dimension:
                 continue
-            if left.control_uid.split(":", 1)[0] == right.control_uid.split(":", 1)[0]:
+            if families.family(left.control_uid.split(":", 1)[0]) == families.family(right.control_uid.split(":", 1)[0]):
                 # One document stating two numbers is usually two cases, not a dispute.
                 continue
             if left.bound == right.bound and abs(left.canonical - right.canonical) < 1e-9:

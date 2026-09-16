@@ -29,7 +29,7 @@ def for_control(control_id):
 
 def search_text(control_id):
     # Source identifiers belong to scoped mappings, not unscoped technical text.
-    return json.dumps([{k:v for k,v in c.items() if k not in ('references','sources')} for c in for_control(control_id)])
+    return json.dumps([{k:v for k,v in c.items() if k not in ('references','sources','execution')} for c in for_control(control_id)])
 
 
 def source_mappings(control_id):
@@ -38,14 +38,18 @@ def source_mappings(control_id):
         for uid in check['references']:
             out[uid]={'uid':uid,'relationship':'Partially addresses',
                       'provenance':'Locally reviewed mapping',
-                      'basis':'Technical assessment '+check['id']+' addresses this source within '+check['platform']+'. Confirm the source scope, edition and local applicability.'}
+                      'basis':check['id']+' · '+check['platform']}
     return list(out.values())
 
 
 def render(control_id,corpus,selected):
     esc=html.escape
     checks=for_control(control_id)
-    intro='<p>Individual technical checks · %d. Each check supports this control within its stated platform and scope. These are locally authored assessment methods, not publisher certification tests.</p><p class="muted">Read-only examples collect configuration evidence; WACC does not execute them. Use the prerequisites and a permitted test environment for behavioural tests. A query error, inaccessible system or incomplete population means unknown, not pass.</p>'%len(checks)
+    intro='<p>%d technical checks</p>'%len(checks)
+    profiles=sorted({p for c in checks for p in c['execution']['profile'].split('+')})
+    intro+='<details class="assessment-setup"><summary>Console setup and validation</summary><p>Save commands as a .ps1 file and run them in the indicated console. Record the device/tenant, time and scope. Use test accounts and harmless data for behaviour tests. Missing evidence or query errors mean unknown.</p>'
+    intro+=''.join('<p id="setup-%s"><strong>%s:</strong> %s</p>'%(esc(p),esc(p.title()),esc(PROCEDURES['profiles'][p])) for p in profiles)
+    intro+='<p>Validation: official command references, PowerShell 5.1/7 syntax and offline fixtures. Live AD/M365/Azure behaviour still needs testing in your environment.</p></details>'
     items=[]
     for c in checks:
         procedure=c['execution']
@@ -53,6 +57,8 @@ def render(control_id,corpus,selected):
         for key in c['sources']:
             title,url=SOURCES[key]
             links.append('<a href="%s">%s</a>'%(esc(url),esc(title)))
+        if c.get('criteria'):
+            links.insert(0,esc(c['criteria']))
         command_links=[]
         for key in procedure['sources']:
             source=COMMAND_SOURCES[key]
@@ -66,21 +72,15 @@ def render(control_id,corpus,selected):
                 refs.append('<a href="/?%s">%s %s</a>'%(esc(urlencode({'q':uid,'view':'cards'})),esc(corpus.frameworks[source.framework_key].short_name),esc(source.identifier)))
             else:
                 refs.append(esc(uid)+' (source not loaded)')
-        setup=''.join('<p>%s</p>'%esc(PROCEDURES['profiles'][profile]) for profile in procedure['profile'].split('+'))
+        setup='<p><strong>Console:</strong> '+', '.join('<a href="#setup-%s" onclick="document.querySelector(\'.assessment-setup\').open=true">%s</a>'%(esc(p),esc(p.title())) for p in procedure['profile'].split('+'))+'</p>'
         if procedure.get('scopes'): setup+='<p><strong>Graph delegated permissions:</strong> %s</p>'%esc(procedure['scopes'])
         if procedure.get('inputs'): setup+='<p><strong>Inputs:</strong> %s</p>'%esc(procedure['inputs'])
-        validation=procedure.get('validation',{})
-        validation_text=validation.get('summary','Command validation has not been recorded; review before use.')
-        command=('<h4>Run this check</h4>%s<p>Save the example as a .ps1 file in your approved assessment folder and run it in the console above. It prompts for scoped inputs. Review output for missing fields and errors; neither means pass. Commands read configuration or supplied exports; the AppLocker example also writes a local XML evidence file.</p><details><summary>PowerShell collection example</summary><button type="button" class="copy-command" onclick="copyAssessmentCommand(this)">Copy commands</button><pre><code>%s</code></pre></details><p><strong>Command references:</strong> %s</p><p class="muted"><strong>Validation:</strong> %s</p>'%(setup,esc(c['command']),' · '.join(command_links),esc(validation_text))) if c.get('command') else ''
-        context='<p class="muted">%s</p>'%esc(c['vendor_context']) if c.get('vendor_context') else ''
+        command=('<details><summary>PowerShell commands</summary>%s<button type="button" class="copy-command" onclick="copyAssessmentCommand(this)">Copy commands</button><pre><code>%s</code></pre></details>'%(setup,esc(c['command']))) if c.get('command') else ''
         items.append('''<details class="technical-check" id="%s"><summary><span class="badge">%s</span> <strong>%s</strong><small> · %s</small></summary>
-<p>%s</p><h4>Prerequisites and access</h4><p>%s</p><h4>Artefacts to inspect</h4><ul>%s</ul>%s
-<h4>Test steps</h4><ol>%s</ol><h4>Expected result</h4><p>%s</p><h4>Interpretation and limits</h4><p>%s</p>%s
-<p><strong>Sources:</strong> %s</p>%s</details>''' %
-            (esc(c['id']),esc(c['id']),esc(c['title']),esc(c['platform']),esc(c['statement']),esc(c['prerequisites']),
-             ''.join('<li>%s</li>'%esc(x) for x in c['artifacts']),command,
-             ''.join('<li>%s</li>'%esc(x) for x in c['steps']),esc(c['expected']),esc(c['limitations']),context,
-             ' · '.join(links),'<p><strong>Requirements in scope:</strong> '+ ' · '.join(refs)+'</p>' if refs else ''))
-    if any(c.get('vendor_context') for c in checks):
-        intro+='<p class="muted">AD checks reference selected public PingCastle and Purple Knight criteria. Their engines, scoring, proprietary detection logic and complete coverage are not reproduced. PingCastle references use the dated public 3.3.0.1 list; Purple Knight references use the public 4.2 Community list.</p>'
+<h4>Before you start</h4><p>%s</p><h4>Steps</h4><ol>%s</ol><h4>Expected result</h4><p>%s</p><p class="muted">%s</p>%s
+<details><summary>Evidence and sources</summary><ul>%s</ul><p>%s</p>%s</details></details>''' %
+            (esc(c['id']),esc(c['id']),esc(c['title']),esc(c['platform']),esc(c['prerequisites']),
+             ''.join('<li>%s</li>'%esc(x) for x in c['steps']),esc(c['expected']),esc(c['limitations']),command,
+             ''.join('<li>%s</li>'%esc(x) for x in c['artifacts']),
+             ' · '.join(dict.fromkeys(command_links+links)),'<p><strong>Requirements in scope:</strong> '+ ' · '.join(refs)+'</p>' if refs else ''))
     return intro+''.join(items)

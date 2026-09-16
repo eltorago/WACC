@@ -13,6 +13,7 @@ from typing import Dict, List, Optional, Sequence
 
 from ..analysis import Analysis
 from ..model import Corpus, Provenance
+from ..framework_families import count as family_count
 
 # Jurisdiction.WA is 0, so `if framework.jurisdiction` is False for every Western
 # Australian framework and the export dropped the jurisdiction from exactly the rows a WA
@@ -117,11 +118,11 @@ def to_csv(corpus: Corpus, analysis: Analysis) -> str:
 def to_markdown(corpus: Corpus, analysis: Analysis) -> str:
     out: List[str] = ["# %s" % analysis.subject, ""]
     out.append(
-        "%d controls shown of %d read, across %d frameworks."
+        "%d source records shown of %d read, across %d framework families."
         % (
             len(analysis.controls),
             analysis.depth,
-            len({c.framework_key for c in analysis.controls}),
+            family_count(c.framework_key for c in analysis.controls),
         )
     )
     out.append("")

@@ -14,6 +14,7 @@ from wacc.workspace_technical import CHECKS
 from wacc.wa_audit_context import REPORTS
 from wacc.packaging import check
 from wacc.sources import load_catalogue
+from wacc.framework_families import count as family_count, family, preferred_uids
 
 CANDIDATES=[
     ('Email authentication and message protection','High','UH-01 UH-02 DP-03',
@@ -64,19 +65,21 @@ def main():
         problems.append('Technical-check parent coverage mismatch')
     candidates=[]
     for title,priority,existing,uids,pattern,reason in CANDIDATES:
-        counts=Counter(c.framework_key for c in corpus.controls.values() if re.search(pattern,(c.title or '')+' '+c.text,re.I))
+        matched=[c for c in corpus.controls.values() if re.search(pattern,(c.title or '')+' '+c.text,re.I)]
+        keep=preferred_uids(c.uid for c in matched)
+        counts=Counter(family(c.framework_key) for c in matched if c.uid in keep)
         for uid in uids.split():
             if not corpus.control(uid): problems.append('Candidate reference missing: '+uid)
         candidates.append(dict(title=title,priority=priority,existing_controls=existing.split(),source_uids=uids.split(),
                                mention_counts_by_framework=dict(sorted(counts.items())),reason=reason))
-    data=dict(reviewed_on=date.today().isoformat(),records=len(corpus.controls),frameworks=len(report.loaded),
+    data=dict(reviewed_on=date.today().isoformat(),records=len(corpus.controls),frameworks=family_count(report.loaded),source_sets=len(report.loaded),
               framework_counts={f.key:len(corpus.controls_for(f.key)) for f in corpus.ordered_frameworks()},
               workspace_controls=len(CONTROLS),technical_checks=len(CHECKS),oag_reports=len(REPORTS),
               published_and_local_links=len(corpus.links),problems=problems,load_warnings=corpus.load_warnings,candidates=candidates)
     (ROOT/'data/validation/corpus-revalidation.json').write_text(json.dumps(data,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
     lines=['# Corpus revalidation and additional control candidates','',
            'Review date: '+data['reviewed_on'], '',
-           '%s source records across %d loaded frameworks; %d practical controls, %d technical checks and %d dated OAG reports.'%(format(data['records'],','),data['frameworks'],len(CONTROLS),len(CHECKS),len(REPORTS)),
+           '%s source records across %d framework families (%d source sets); %d practical controls, %d technical checks and %d dated OAG reports.'%(format(data['records'],','),data['frameworks'],data['source_sets'],len(CONTROLS),len(CHECKS),len(REPORTS)),
            '', '## Integrity checks','',
            'Checked local publisher hashes, acquisition catalogue consistency, corpus structure, every corpus link, every workspace source reference and technical-check coverage for all practical controls.',
            '', 'Blocking integrity problems: %d.'%len(problems)]

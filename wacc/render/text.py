@@ -37,15 +37,14 @@ def render(corpus: Corpus, analysis: Analysis, width: int = 78, show: int = 3) -
     out.append("SUBJECT  %s" % (subject_lines[0] if subject_lines else ""))
     for line in subject_lines[1:]:
         out.append("         %s" % line)
-    speaking = sum(
-        1 for band in analysis.bands for cov in band.coverage if cov.total
-    )
+    from ..framework_families import count as family_count
+    speaking = family_count(cov.framework.key for band in analysis.bands for cov in band.coverage if cov.total)
     absent = analysis.frameworks_absent
-    out.append(
-        "         %d controls shown of %d read, across %d of %d frameworks in this build"
+    out.extend(_wrap(
+        "%d source records shown of %d read, across %d of %d framework families in this build"
         % (len(analysis.controls), analysis.depth, speaking,
-           analysis.frameworks_present)
-    )
+           analysis.frameworks_present), width, "         "
+    ))
     if absent:
         # Said on the second line of every result, because a build missing half its
         # corpora answers a narrower question than the one that was asked.

@@ -6,6 +6,7 @@ confirms that the appropriate regression check detects them.
 """
 
 import os
+import re
 import subprocess
 import sys
 import time
@@ -18,11 +19,11 @@ ROOT = os.path.dirname(HERE)
 LAYERS: List[Tuple[str, str, List[str]]] = [
     ("vocabulary", "spelling, stemming, aliases and concepts", ["test_terms.py"]),
     ("corpus", "what loaded, under what licence, and how source text is cleaned",
-     ["test_source_permissions.py", "test_source_workflow.py", "test_textjoin.py", "test_packaging.py", "test_extracts.py"]),
+     ["test_source_permissions.py", "test_source_workflow.py", "test_framework_import.py", "test_textjoin.py", "test_packaging.py", "test_extracts.py"]),
     ("retrieval", "exact identifiers, then topical search",
      ["test_identifier_lookup.py", "test_topical_search.py"]),
     ("structure", "hierarchy, links, the threat layer and the maturity model",
-     ["test_relate.py", "test_threat.py", "test_ztmm.py", "test_c2m2.py"]),
+     ["test_relate.py", "test_threat.py", "test_ztmm.py", "test_c2m2.py", "test_framework_families.py"]),
     ("meaning", "thresholds, the analysis payload, archetypes and derivation",
      ["test_analysis.py", "test_derive.py", "test_assessment.py", "test_corpus_assessment.py", "test_assessment_procedures.py"]),
     ("presentation", "layout arithmetic, the three renderers and the server",
@@ -44,6 +45,12 @@ def _counts(output: str) -> Tuple[int, int, int]:
     passes = output.count("  pass ")
     corrections = output.count("PLAN WRONG")
     failures = output.count("  FAIL ")
+    unit=re.search(r'Ran (\d+) tests? in ',output)
+    if unit:
+        failure=re.search(r'FAILED \(([^)]+)\)',output)
+        failures=sum(int(n) for n in re.findall(r'(?:failures|errors)=(\d+)',failure[1])) if failure else 0
+        skipped=re.search(r'skipped=(\d+)',output)
+        passes=int(unit[1])-failures-(int(skipped[1]) if skipped else 0)
     return passes, failures, corrections
 
 
@@ -79,7 +86,8 @@ def main(argv=None) -> int:
                 broken.append(suite)
             if verbose or code != 0:
                 for line in output.splitlines():
-                    if line.startswith("  FAIL") or line.startswith("        from:"):
+                    if line.startswith(("  FAIL","        from:","FAIL:","ERROR:","  File ","AssertionError:","ValueError:","ImportError:")):
+                        line=line[:700]
                         print("      %s" % line.strip())
         print()
 

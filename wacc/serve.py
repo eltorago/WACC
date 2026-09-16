@@ -254,10 +254,10 @@ def serve(host: str = "127.0.0.1", port: int = 8765, verbose: bool = True,
     port = free_port(port, host)
     server = ThreadingHTTPServer((host, port), _handler(state))
     url = "http://%s:%d/" % (host, port)
-    print(
-        "WACC on %s  (%d controls, %d frameworks). Ctrl-C to stop."
-        % (url, len(state.corpus.controls), len(state.corpus.frameworks))
-    )
+    from .framework_families import count as family_count
+    loaded={c.framework_key for c in state.corpus.controls.values()}
+    print("WACC on %s  (%d source records, %d framework families). Ctrl-C to stop."
+          % (url, len(state.corpus.controls), family_count(loaded)))
     if open_browser:
         import threading
 

@@ -32,6 +32,7 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Sequence, Set, Tuple
 
 from .model import Control, Corpus, Tier, order_controls_governance_first
+from .framework_families import family, preferred_uids
 from .terms import (
     Concept,
     PreparedQuery,
@@ -315,6 +316,8 @@ class SearchIndex:
         best = scored[0].score
         floor = max(ABSOLUTE_FLOOR, best * RELATIVE_FLOOR)
         above = [s for s in scored if s.score >= floor] if apply_floor else scored
+        keep = preferred_uids(s.control.uid for s in above)
+        above = [s for s in above if s.control.uid in keep]
         kept = (self._compose(above, best) if compose else above)[:limit]
 
         note = None
@@ -344,19 +347,19 @@ class SearchIndex:
             return hits
         out: List[Scored] = list(hits[:LEAD_BY_SCORE])
         taken: Set[str] = {hit.control.uid for hit in out}
-        represented: Set[str] = {hit.control.framework_key for hit in out}
+        represented: Set[str] = {family(hit.control.framework_key) for hit in out}
 
         remaining: Dict[str, List[Scored]] = {}
         for hit in hits[LEAD_BY_SCORE:]:
-            if hit.control.framework_key in represented:
+            if family(hit.control.framework_key) in represented:
                 continue
-            remaining.setdefault(hit.control.framework_key, []).append(hit)
+            remaining.setdefault(family(hit.control.framework_key), []).append(hit)
 
         leaders = [group[0] for group in remaining.values()]
         for control in order_controls_governance_first(
             self.corpus, [hit.control for hit in leaders]
         ):
-            hit = remaining[control.framework_key][0]
+            hit = remaining[family(control.framework_key)][0]
             out.append(hit)
             taken.add(hit.control.uid)
 

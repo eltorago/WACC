@@ -143,11 +143,6 @@ def test_procedure(
     applies = _applicability_line(control)
     if applies:
         lines.append(applies)
-    if archetype.key == "prohibition":
-        lines.append(
-            "A statement that the condition does not occur is not evidence that it does "
-            "not occur. Look for instances."
-        )
 
     return Statement(
         control_uid=control.uid,

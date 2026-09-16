@@ -7,6 +7,7 @@ from pathlib import Path
 import re
 from urllib.parse import urlencode
 from . import workspace_attack, workspace_technical, workspace_grc, wa_audit_context, publisher_guidance
+from . import framework_families as families
 
 LIBRARY_DIR = Path(__file__).resolve().parents[1] / 'data/library'
 CONTROLS = []
@@ -40,8 +41,10 @@ def scope(params):
     return set(params.get('fw', [])) & set(FRAMEWORKS) if 'scope' in params else set(FRAMEWORKS)
 
 
-def mappings(control, selected):
-    return [m for m in control['mappings'] if mapping_source_key(m) in selected]
+def mappings(control, selected, deduplicate=True):
+    refs = [m for m in control['mappings'] if mapping_source_key(m) in selected]
+    keep = families.preferred_uids(m.get('uid') for m in refs if 'uid' in m) if deduplicate else None
+    return [m for m in refs if keep is None or 'uid' not in m or m['uid'] in keep]
 
 
 def matching(query, selected, topic="", corpus=None):
@@ -49,7 +52,7 @@ def matching(query, selected, topic="", corpus=None):
     tokens = re.findall(r'\w+', re.sub(r'\b[tm]\d{4}(?:\.\d{3})?\b', '', query, flags=re.I).lower())
     found = []
     for c in CONTROLS:
-        refs = mappings(c, selected)
+        refs = mappings(c, selected, deduplicate=False)
         if (topic and c['topic'] != topic) or not refs:
             continue
         if not workspace_attack.matches_identifiers(c['id'], identifiers):
@@ -107,8 +110,15 @@ def render(corpus, params):
     requested = (params.get('control') or [''])[0]
     chosen = next((c for c in CONTROLS if c['id'] == requested), None) if requested else (found[0] if found else None)
     source_url = '/?' + urlencode({'q': query or (chosen['topic'] if chosen else topic)})
-    checkboxes=''.join('<label><input type="checkbox" name="fw" value="%s"%s>%s</label>' %
-                      (esc(f),' checked' if f in selected else '',esc(corpus.frameworks[f].short_name if f in corpus.frameworks else 'Guidance' if f == 'guidance' else f)) for f in FRAMEWORKS)
+    def checkbox(f, label=None):
+        label=label or (corpus.frameworks[f].short_name if f in corpus.frameworks else 'Guidance' if f=='guidance' else f)
+        return '<label><input type="checkbox" name="fw" value="%s"%s>%s</label>'%(esc(f),' checked' if f in selected else '',esc(label))
+    checkboxes=''
+    for f in FRAMEWORKS:
+        if f=='essential-eight': continue
+        if f=='asd-strategies':
+            checkboxes+='<fieldset class="framework-family"><legend>%s</legend>%s%s</fieldset>'%(esc(families.ASD_LABEL),checkbox(f,'Strategies · February 2017'),checkbox('essential-eight','Essential Eight maturity detail · November 2023'))
+        else: checkboxes+=checkbox(f)
     listing=''.join('<a class="control-link" href="%s"%s><small>%s</small><strong>%s</strong><small>%d source references</small></a>' %
                     (esc(url(selected,c['id'],query,topic,assessment)), ' aria-current="page"' if chosen and chosen['id']==c['id'] else '',c['id'],esc(c['title']),len(mappings(c,selected))) for c in found)
     topic_options = '<option value="">All topics</option>' + ''.join('<option%s>%s</option>' % (' selected' if t==topic else '',esc(t)) for t in TOPICS)
@@ -118,6 +128,10 @@ def render(corpus, params):
     if chosen:
         c=chosen
         refs=mappings(c,selected)
+        # Exact source searches retain the requested source even when its maturity
+        # detail is preferred in normal mixed-framework lists.
+        exact=next((m for m in mappings(c,selected,False) if m.get('uid','').casefold()==query.casefold()),None)
+        if exact and exact not in refs: refs.append(exact)
         test_method='<p class="test-summary">%s</p><ol class="test-method">%s</ol>' % (
             esc(c['test']),
             ''.join('<li>%s</li>' % esc(step) for step in c.get('test_steps', [])),
@@ -127,7 +141,7 @@ def render(corpus, params):
             source=corpus.control(m['uid']) if 'uid' in m else None
             guidance=corpus.guidance.get(m.get('guidance',''))
             label=('%s %s' % (corpus.frameworks[source.framework_key].short_name,source.identifier)) if source else ('%s — %s' % (guidance.publisher,guidance.title) if guidance else m.get('uid','Unknown source'))
-            body='<p class="source-text">%s</p>' % esc(relations.quotable_text(source.uid)) if source else ('<p class="source-text">%s</p><p class="muted">Guidance context; this document is not an auditable control.</p>' % esc(m['excerpt']) if guidance else '<p>Source text is not loaded in this build. This reference cannot be assessed here.</p>')
+            body='<p class="source-text">%s</p>' % esc(relations.quotable_text(source.uid)) if source else ('<p class="source-text">%s</p>' % esc(m['excerpt']) if guidance else '<p>Source text is not loaded in this build. This reference cannot be assessed here.</p>')
             if source:
                 body+=publisher_guidance.render(source)
                 body+='<p><a href="/?%s">Open source control, assessment methods and linked controls →</a></p>' % esc(urlencode({'q':source.uid,'view':'cards'}))
@@ -137,11 +151,11 @@ def render(corpus, params):
             rows.append('<details><summary><strong>%s</strong> <span class="badge">%s</span></summary><p>%s</p><small>%s</small>%s</details>'%(esc(label),esc(m['relationship']),esc(m['basis']),esc(m['provenance']),body))
         related=' · '.join('<a href="%s">%s — %s</a>'%(esc(url(selected,uid,assessment=assessment)),uid,esc(next(x['title'] for x in CONTROLS if x['id']==uid))) for uid in c['related'])
         tabs='<nav class="assessment-tabs" aria-label="Assessment focus">'+''.join('<a href="%s#assessment" aria-current="%s">%s</a>'%(esc(url(selected,c['id'],query,topic,mode)),str(assessment==mode).lower(),label) for mode,label in [('grc','GRC'),('technical','Technical')])+'</nav>'
-        grc='<dl class="steps"><dt>Examine</dt><dd>%s</dd><dt>Interview</dt><dd>%s</dd><dt>Test</dt><dd>%s</dd><dt>Expected result</dt><dd>%s</dd></dl><small>Suggested assessment for this control. Check the source-specific conditions below.</small>'%(esc(c['examine']),esc(c['interview']),test_method,esc(c['expected']))
+        grc='<dl class="steps"><dt>Examine</dt><dd>%s</dd><dt>Interview</dt><dd>%s</dd><dt>Test</dt><dd>%s</dd><dt>Expected result</dt><dd>%s</dd></dl>'%(esc(c['examine']),esc(c['interview']),test_method,esc(c['expected']))
         assessment_body=workspace_technical.render(c['id'],corpus,selected) if assessment=='technical' else grc+workspace_grc.render(c['id'],corpus,selected)
         main='''<article><section class="box"><div class="eyebrow">%s · %s</div><h2>%s</h2><p>%s</p><p class="muted"><strong>Scope:</strong> %s</p>%s<div class="risk"><strong>Business risk</strong><br>%s</div><nav><a href="#attack">ATT&amp;CK techniques</a><a href="#assessment">Assessment</a><a href="#sources">Source requirements</a></nav></section>
 %s
 <section class="box" id="assessment"><h3>Assess this control</h3>%s%s</section>%s
-<section class="box" id="sources"><h3>Source requirements · %d references in scope</h3><p class="muted">These locally reviewed connections describe overlap, not compliance. An effective control does not automatically satisfy every linked requirement.</p>%s</section><section class="box"><h3>Related controls</h3><p>%s</p></section></article>''' % (
+<section class="box" id="sources"><h3>Source requirements · %d references in scope</h3>%s</section><section class="box"><h3>Related controls</h3><p>%s</p></section></article>''' % (
             c['id'],esc(c['topic']),esc(c['title']),esc(c['statement']),esc(c['scope']),'<p class="muted">This control has no references in the selected framework scope.</p>' if not refs else '',esc(c['risk']),workspace_attack.render(c['id'],corpus),tabs,assessment_body,wa_audit_context.render(c['id']),len(refs),''.join(rows) or '<p>No source references selected.</p>',related)
-    return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>WACC · Control workspace</title><style>%s</style></head><body><header><div><div class="eyebrow">WA Control Crosswalk</div><h1>Control workspace</h1></div><nav><a href="/sources">Sources</a><a href="/frameworks">Framework coverage &amp; checks</a><a href="%s">Browse source corpus →</a></nav></header><p class="workspace-summary">Control library · %d controls across %d topics, with reviewed source connections. The full corpus remains available in the source browser.</p><div class="workspace">%s<main>%s</main></div><script>async function copyAssessmentCommand(button){const code=button.parentElement.querySelector("code");try{await navigator.clipboard.writeText(code.textContent);button.textContent="Copied";setTimeout(()=>button.textContent="Copy commands",2000);}catch(error){const range=document.createRange();range.selectNodeContents(code);const selection=window.getSelection();selection.removeAllRanges();selection.addRange(range);button.textContent="Selected — press Ctrl+C";}}function openCheck(){const el=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(el && el.tagName==="DETAILS")el.open=true;}addEventListener("hashchange",openCheck);openCheck();</script></body></html>' % (STYLE,esc(source_url),len(CONTROLS),len(TOPICS),sidebar,main)
+    return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>WACC · Control workspace</title><style>%s</style></head><body><header><div><div class="eyebrow">WA Control Crosswalk</div><h1>Control workspace</h1></div><nav><a href="/sources">Sources</a><a href="/frameworks">Framework coverage &amp; checks</a><a href="%s">Browse source corpus →</a></nav></header><p class="workspace-summary">Control library · %d controls across %d topics, with reviewed source connections. The full corpus remains available in the source browser.</p><div class="workspace">%s<main>%s</main></div><script>async function copyAssessmentCommand(button){const code=button.parentElement.querySelector("code");const range=document.createRange();range.selectNodeContents(code);const selection=window.getSelection();selection.removeAllRanges();selection.addRange(range);button.textContent="Selected — press Ctrl+C";try{await navigator.clipboard.writeText(code.textContent);button.textContent="Copied";setTimeout(()=>button.textContent="Copy commands",2000);}catch(error){/* Selected text remains available for manual copying. */}}function openCheck(){const el=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(el && el.tagName==="DETAILS")el.open=true;}addEventListener("hashchange",openCheck);openCheck();</script></body></html>' % (STYLE,esc(source_url),len(CONTROLS),len(TOPICS),sidebar,main)

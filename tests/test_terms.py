@@ -142,7 +142,7 @@ def run() -> int:
 
     # Naming a document is not searching for a word in it.
     if named_set("ISM") and named_set("ISM")[0] == "ism" and named_set("E8") and (
-        named_set("E8")[1] == "essential_eight_maturity"
+        named_set("E8")[0] == "essential-eight" and named_set("E8")[1] is None
     ):
         print("  pass  named set   ISM and E8 resolve to a document, not a term")
     else:

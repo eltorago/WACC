@@ -1,0 +1,21 @@
+{
+  "catalog": {
+    "uuid": "90b30040-42f4-4554-9aec-afd0a1a3c3f4",
+    "metadata": {
+      "title": "WACC fictional onboarding example",
+      "version": "1.0",
+      "last-modified": "2026-09-16T00:00:00Z",
+      "oscal-version": "1.1.2"
+    },
+    "controls": [{
+      "id": "ex-1",
+      "title": "Review privileged access",
+      "parts": [
+        {"id": "ex-1-statement", "name": "statement", "prose": "Review privileged access against approved roles each quarter."},
+        {"id": "ex-1-examine", "name": "assessment-method",
+         "props": [{"name": "method", "value": "EXAMINE"}],
+         "parts": [{"name": "assessment-objects", "prose": "Privileged access register and completed quarterly reviews."}]}
+      ]
+    }]
+  }
+}

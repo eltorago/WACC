@@ -69,7 +69,7 @@
         "Inspect the live asset for the installed fix or compensating control and repeat the relevant scan or safe exploit check rather than relying on ticket closure.",
         "Confirm overdue and failed remediation is escalated, accepted exceptions have authority and expiry, and successful retests update risk and reporting."
       ],
-      "expected": "The treatment is verified and timely; exceptions have documented justification and follow-up, with each source-specific deadline assessed.",
+      "expected": "Remediation is verified within the required deadline; exceptions have an approved reason, owner and expiry.",
       "related": [
         "VM-01",
         "BR-03"

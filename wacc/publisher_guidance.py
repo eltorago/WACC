@@ -1,11 +1,16 @@
 """Display publisher implementation context with its original edition."""
 import html
+from urllib.parse import urlencode
+from .framework_families import strategy_uid
 
 
 def render(control):
     esc=html.escape
     attributes=control.attributes
     result=''
+    broader=strategy_uid(control.uid)
+    if broader:
+        result+='<p>Essential Eight maturity detail · <a href="/?%s">View the broader ACSC strategy (2017)</a></p>'%esc(urlencode({'q':broader,'view':'cards'}))
     if attributes.get('edition_note'):
         result+='<p class="muted"><strong>Source edition:</strong> %s</p>'%esc(attributes['edition_note'])
     if attributes.get('identifier_note'):

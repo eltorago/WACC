@@ -5,7 +5,7 @@
     "citool": {
       "url": "https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/operations/citool-commands",
       "final_url": "https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/operations/citool-commands",
-      "sha256": "642a2bc44bd91f7ec4217c5132ba32a24e6c38b2d5d2a9dff00556cea2e85224",
+      "sha256": "a3d4a0f259ad74a276b2f29be7f57c523b262845a92e42939e470ee6195bd4f5",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -13,7 +13,7 @@
     "get-applocker": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/applocker/get-applockerpolicy",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/applocker/get-applockerpolicy?view=windowsserver2025-ps",
-      "sha256": "9cf293e12d2406364bc8c5958c780283abea01ca1379bcd4a656189d1620bc29",
+      "sha256": "c15ada971f0df5915e0fc03a1ea80a24645e08e917f887f7c237188f65152821",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -21,7 +21,7 @@
     "test-applocker": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/applocker/test-applockerpolicy",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/applocker/test-applockerpolicy?view=windowsserver2025-ps",
-      "sha256": "ad2e13f68fbd78f1d566c2350808a13b92336104db47ca2a894a48011bedfead",
+      "sha256": "f0c73fa39657d390590b32d1f7a77e37ec955e6f463066a41965b4dcfbb62280",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -29,7 +29,7 @@
     "applocker-events": {
       "url": "https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/applocker/using-event-viewer-with-applocker",
       "final_url": "https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/applocker/using-event-viewer-with-applocker",
-      "sha256": "224049d12344a15fafbe8ca502e628525e186e81e83deebeaa936679da02a227",
+      "sha256": "3c4a621892620e214def0adb2909a5d92c64f7195a574a9e77966fc98af5ffb4",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -37,7 +37,7 @@
     "ci-events": {
       "url": "https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/operations/event-id-explanations",
       "final_url": "https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/operations/event-id-explanations",
-      "sha256": "413490b75d57e1e8fe6b57f7eb2614a1521bb625c90fbd77b23a34e318698088",
+      "sha256": "401b3c24956baa868e0cb233f673380d23824a8d5e1712271b20037a65f0dcd8",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -45,7 +45,7 @@
     "applocker-csp": {
       "url": "https://learn.microsoft.com/en-us/windows/client-management/mdm/applocker-csp",
       "final_url": "https://learn.microsoft.com/en-us/windows/client-management/mdm/applocker-csp",
-      "sha256": "a523e5baed44e1ab2c0ac8ea5657d720c1b9864f2368cedb9d9123032ed8f070",
+      "sha256": "811672eecf8e4e89b08a00b65cec5bb55cd757ade847fd211164308008b818dd",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -53,7 +53,7 @@
     "ci-rules": {
       "url": "https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/design/select-types-of-rules-to-create",
       "final_url": "https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/design/select-types-of-rules-to-create",
-      "sha256": "d21302b6667b1d9fd39c324d706785e6124f65880c7758bfeb5d756b7fcce396",
+      "sha256": "42ab307c28cc7780fd17cc92350ad17567129449bd0843843441ecd6587e9c3f",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -146,14 +146,6 @@
       "status": "retrieved",
       "missing_terms": []
     },
-    "sp-schema": {
-      "url": "https://learn.microsoft.com/en-us/graph/api/resources/serviceprincipal?view=graph-rest-1.0",
-      "final_url": "https://learn.microsoft.com/en-us/graph/api/resources/serviceprincipal?view=graph-rest-1.0",
-      "sha256": "2cc5118bb7b56d4a079cc6565bab7c0c4384bd2bcde3bba9ace53dc82419b89d",
-      "reviewed_on": "2026-09-16",
-      "status": "retrieved",
-      "missing_terms": []
-    },
     "graph-approles": {
       "url": "https://learn.microsoft.com/en-us/graph/api/serviceprincipal-list-approleassignments?view=graph-rest-1.0",
       "final_url": "https://learn.microsoft.com/en-us/graph/api/serviceprincipal-list-approleassignments?view=graph-rest-1.0",
@@ -202,14 +194,6 @@
       "status": "retrieved",
       "missing_terms": []
     },
-    "app-schema": {
-      "url": "https://learn.microsoft.com/en-us/graph/api/resources/application?view=graph-rest-1.0",
-      "final_url": "https://learn.microsoft.com/en-us/graph/api/resources/application?view=graph-rest-1.0",
-      "sha256": "7b856606583dc47d4c1cf434f074294471a3777eb30aa0a7278315e1d83c057b",
-      "reviewed_on": "2026-09-16",
-      "status": "retrieved",
-      "missing_terms": []
-    },
     "graph-devices": {
       "url": "https://learn.microsoft.com/en-us/graph/api/intune-devices-manageddevice-list?view=graph-rest-1.0",
       "final_url": "https://learn.microsoft.com/en-us/graph/api/intune-devices-manageddevice-list?view=graph-rest-1.0",
@@ -245,7 +229,7 @@
     "graph-connect": {
       "url": "https://learn.microsoft.com/en-us/powershell/microsoftgraph/authentication-commands",
       "final_url": "https://learn.microsoft.com/en-us/powershell/microsoftgraph/authentication-commands?view=graph-powershell-1.0",
-      "sha256": "42ce60931573eec0edfbf08a13b2fb798eaf87349036a2133803cbd10f4527a6",
+      "sha256": "7b20c484c49d34c2c2cad87522542597be83fafbfa6b605c39a39a9bb000a28d",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -253,7 +237,7 @@
     "graph-request": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.graph.authentication/invoke-mggraphrequest",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.graph.authentication/invoke-mggraphrequest?view=graph-powershell-1.0",
-      "sha256": "f7886347612b58d33425dc629e04333c057b96bd3a4c7e11954d2f68aa7bd8e9",
+      "sha256": "eeaf30378bb1301d20c7eeb66bfa1b35acc5871aeffdd62bf000cc1a1ccfd62b",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -261,15 +245,7 @@
     "transport": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-transportconfig",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-transportconfig?view=exchange-ps",
-      "sha256": "025682f1868e656f8cd736584cc6f2abfc8b316e6280d504b3b6e8020b7fb78a",
-      "reviewed_on": "2026-09-16",
-      "status": "retrieved",
-      "missing_terms": []
-    },
-    "smtp-auth": {
-      "url": "https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/authenticated-client-smtp-submission",
-      "final_url": "https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/authenticated-client-smtp-submission",
-      "sha256": "71787a1a7945b65e9529008ae524bc59753ebb4a704fcb3248f7db23d8cd5392",
+      "sha256": "5ace63e69381bb4b6c27c454638bdbd4054b7ad3208e20c528485538af655d8f",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -277,7 +253,7 @@
     "cas-mailbox": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-casmailbox",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-casmailbox?view=exchange-ps",
-      "sha256": "14679b82e5dc451cfcfa07b789972aad29bef3332b53db273a673bdf0bd33ac4",
+      "sha256": "18e8fd50e36f697041c07217b2ebf868eddf5fbafc8e3fd56d318265b4666986",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -285,7 +261,7 @@
     "mailbox": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-mailbox",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-mailbox?view=exchange-ps",
-      "sha256": "8bec24753c8ac8cf58a290127b2705cfa06adf37b24ad09bbe06dc9e7ffc569d",
+      "sha256": "50a48f009746e1edb567ec68c3e7842bc4870a7d7ec6ecd146dd08c632e95ed4",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -293,7 +269,7 @@
     "dkim": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-dkimsigningconfig",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-dkimsigningconfig?view=exchange-ps",
-      "sha256": "89196a9a871e16c97ce8fc8febe1f33adb34f9e3ccbcf8234acd0c1641cc4b2b",
+      "sha256": "8790a67613a42eaefbe37b69853914565bd76826f5a058d79ad74be7f7d659f2",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -301,7 +277,7 @@
     "dns": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/dnsclient/resolve-dnsname",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/dnsclient/resolve-dnsname?view=windowsserver2025-ps",
-      "sha256": "ae1c615a51f9ee7b4f1b896a54f09f16146ba263aca26a538f909f2dcb31b114",
+      "sha256": "6285920fee7de5a93e30d75b16af7b4f0599346460b13e548bbd2a181354b062",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -309,7 +285,7 @@
     "safeattachments": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-safeattachmentpolicy",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-safeattachmentpolicy?view=exchange-ps",
-      "sha256": "92418accd240a668e691b9958dab13d60090a8a22bf32e8f8d064536edb69ed4",
+      "sha256": "3599eb9e54680c4a7943920fc60c74a5313817f9df42f840320ee0aaa9c4fc5a",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -317,7 +293,7 @@
     "safeattachmentrules": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-safeattachmentrule",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-safeattachmentrule?view=exchange-ps",
-      "sha256": "db8062c42af262142c7a138d2fb758474fefa61d2b63c125f42857d60a4ded6d",
+      "sha256": "1a1d9e9548763edb2d25ccc9f5e263cb4bff1cb1cb82705a401dd32059477e42",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -325,7 +301,7 @@
     "safelinks": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-safelinkspolicy",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-safelinkspolicy?view=exchange-ps",
-      "sha256": "ac64cd7f3c89ccef24df4d53a095ac0c4d56e8cdea3937b803f8e1860f4795a6",
+      "sha256": "9b016a9211f7b4ed7a091e70b4cf5d87987ad4697f84537fb29e35e8322100cd",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -333,7 +309,7 @@
     "safelinkrules": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-safelinksrule",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-safelinksrule?view=exchange-ps",
-      "sha256": "9c46fb43f9fd3d7716f9f3f34568dcd6abb8097a511a04f6e8759c4d1bf1012a",
+      "sha256": "617ec6467631f8697751d51a53bdb116bcda6cd9e6cdc066100f82bf717a00e0",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -341,7 +317,7 @@
     "phish": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-antiphishpolicy",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-antiphishpolicy?view=exchange-ps",
-      "sha256": "5fd0ba82bdac41aaeb1ae0f88bc6bdb4c4c9482da1d134932e85dbda842fb49a",
+      "sha256": "32d12343ffb975b9f20f1905a3bc7b7ecef0b3cddf2a7e26af3bf975326afa0c",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -349,7 +325,7 @@
     "phishrules": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-antiphishrule",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-antiphishrule?view=exchange-ps",
-      "sha256": "d543de43ed57535f6c39da75585d5e873ba8d3010a7d76f56ec46628cbf10f73",
+      "sha256": "595786c5829d891f923ca73c691c3e12b5525f8e444dc944e69358045ef21968",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -357,7 +333,7 @@
     "preset": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-atpprotectionpolicyrule",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-atpprotectionpolicyrule?view=exchange-ps",
-      "sha256": "ee2b51b3cb02ca7b04f28ce4b6388eb3dd56cf58b9930ef1754969baa2c32ec8",
+      "sha256": "c7f40b1196cdbfebbda2a9b8d23bff2a4bbf8b748d000c1ea4eba91f7549bf65",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -365,7 +341,7 @@
     "eop-preset": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-eopprotectionpolicyrule",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-eopprotectionpolicyrule?view=exchange-ps",
-      "sha256": "41911478ec295fb9b40c157d338ffcbb1f4af08646ebd802e4c5b0334c086695",
+      "sha256": "ae51a896471136b40912f3d89310a155095d7073a75d6884eaeb23b6851b6044",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -373,7 +349,7 @@
     "outboundspam": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-hostedoutboundspamfilterpolicy",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-hostedoutboundspamfilterpolicy?view=exchange-ps",
-      "sha256": "6b3415cd33d46242b56206a9781c4fa9ca3b65572d03221c377ac896cd2c1f16",
+      "sha256": "630d9918850e4392bb36f9d92e7881c588eed7b3ad8718a13e920bad80306fed",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -381,7 +357,7 @@
     "outboundspamrules": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-hostedoutboundspamfilterrule",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-hostedoutboundspamfilterrule?view=exchange-ps",
-      "sha256": "319ccf1263cbdad5268c0ad40472cbd30fdf8632cd3bb5836a8efb75d019008e",
+      "sha256": "0e44282301057ffb8ee1f542905a7ef76e6101580b78bb2ef525be8c697c4eab",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -389,7 +365,7 @@
     "spo": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.online.sharepoint.powershell/get-sposite",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.online.sharepoint.powershell/get-sposite?view=sharepoint-ps",
-      "sha256": "6b0b0f9f42d5cb8b0802bed648849fa5686ae715e17b827fe8f617339af93930",
+      "sha256": "ae59c0a1e1dfa7546f9019b8dd7898d48b0651e1aaa659c2d6adb298a54a8e70",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -397,7 +373,7 @@
     "spotenant": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.online.sharepoint.powershell/get-spotenant",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.online.sharepoint.powershell/get-spotenant?view=sharepoint-ps",
-      "sha256": "3187da2596ec23aee51588b0f029385d37629a0cda76f9f3d9b398089368c3ca",
+      "sha256": "3a66ee8a5f82f1998244671069507131582d3b3a59a9a2056bcbdb8b9e7a9008",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -405,7 +381,7 @@
     "dlppolicy": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-dlpcompliancepolicy",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-dlpcompliancepolicy?view=exchange-ps",
-      "sha256": "c27c4c72d2e338707df67c24910ce3b80a0b2fbe65a15a3875bb5f8e8d6a67b9",
+      "sha256": "0824c0b4a08bc60ca35c15b757dd33051ba54b2711ffbb688172a8fb303dbec1",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -413,7 +389,7 @@
     "dlprule": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-dlpcompliancerule",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-dlpcompliancerule?view=exchange-ps",
-      "sha256": "c5ada9ec0c10bc05b17c16dfe25b5515ad1f36faee610bf0680ce034b01e30f0",
+      "sha256": "04000687201ddb7e9288b2f263ba14baf2f0378d184647f6fd4b29c00f679881",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -421,7 +397,7 @@
     "retention": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-unifiedauditlogretentionpolicy",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-unifiedauditlogretentionpolicy?view=exchange-ps",
-      "sha256": "681959862d85ed5ca99a1f256fa69fc38ee05457972760c940f888d51cf9a2bf",
+      "sha256": "84a2bcfd9112a8018a99217f24ce24ba64b23e63bb116f59e6a1f28e172a59c7",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -437,7 +413,7 @@
     "teams-federation": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/microsoftteams/get-cstenantfederationconfiguration",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/microsoftteams/get-cstenantfederationconfiguration?view=teams-ps",
-      "sha256": "b8bd659ad32904a985aa783aaab25c7746061827f2c9b66f1d326202f938d065",
+      "sha256": "6cff84777daf6007ebf4af4aa3e817a9f03ba77e13aa64ee9f2e149ce1d0cb72",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -445,7 +421,7 @@
     "teams-meeting": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/microsoftteams/get-csteamsmeetingpolicy",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/microsoftteams/get-csteamsmeetingpolicy?view=teams-ps",
-      "sha256": "c5ecc00880f069bc94c12ccc7ed8ddb1a7015f01412235c705cdf5568d58bc00",
+      "sha256": "a42aeedf2fc63c2411c61803dff05176d5695e9baf5416ff4c9895907e3c0ecf",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -453,7 +429,7 @@
     "teams-user": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/microsoftteams/get-csonlineuser",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/microsoftteams/get-csonlineuser?view=teams-ps",
-      "sha256": "a39592ff8fc2e80e12aa3cf747a3602153351d6fa75b30e5363eda7ccde11924",
+      "sha256": "fb3a93f7c4fc6e8a33047701f29b14b07336c70b2c99f57cf490de6fa5dbe3c9",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -461,7 +437,7 @@
     "teams-assignment": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/microsoftteams/get-csuserpolicyassignment",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/microsoftteams/get-csuserpolicyassignment?view=teams-ps",
-      "sha256": "43e3fc930129f068db3c132e53aa72c54cee26611cbee8d288a54f23a05c38d0",
+      "sha256": "4c46c87aa9d515b59e35b39136da6d8e9a66a559f4f56b27690a1e44c4c4731e",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -469,15 +445,7 @@
     "power-powershell": {
       "url": "https://learn.microsoft.com/en-us/power-platform/admin/powerapps-powershell",
       "final_url": "https://learn.microsoft.com/en-us/power-platform/admin/powerapps-powershell",
-      "sha256": "ceab4eba5b0e825c713c630206fc7653b4f0edb51fbffbc21d4c17797bf43478",
-      "reviewed_on": "2026-09-16",
-      "status": "retrieved",
-      "missing_terms": []
-    },
-    "power-dlp": {
-      "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powerapps.administration.powershell/get-admindlppolicy",
-      "final_url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powerapps.administration.powershell/get-admindlppolicy?view=pa-ps-latest",
-      "sha256": "53046737b4819b9207e8a421904b2b1ce09a3e9eb1937615d3da79530a5b848f",
+      "sha256": "5ac0611e331d8ae500cc5bb852826ed33b45d0454fbe479837731e590ac5260a",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -485,7 +453,7 @@
     "mpstatus": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/defender/get-mpcomputerstatus",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/defender/get-mpcomputerstatus?view=windowsserver2025-ps",
-      "sha256": "99adaf83975ee2b79a8a36b57095a0a85d968b222142f7da8af0ae4489ef8bc4",
+      "sha256": "985d54fe94be73ba3f70b7d2c36551eed03dd7d26019f441f51302531d36d72e",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -493,7 +461,7 @@
     "mpprefs": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/defender/get-mppreference",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/defender/get-mppreference?view=windowsserver2025-ps",
-      "sha256": "023b599fd674911d4997fa88707441c3af20123af0793c579a70cbd0373a5ef8",
+      "sha256": "fa2995faa6e25d9f7b81f716e4db97570b37610559a490979953cf72a163f373",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -501,7 +469,7 @@
     "hotfix": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-hotfix",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-hotfix?view=powershell-7.6",
-      "sha256": "fb82a4bba8c2e706ddc52f2c7b53ea02564db626f75e99ac77e3d6c3cd4c7b57",
+      "sha256": "e9dae83c9b013423fc3ad7a4da8872ce76aa280ddce99738a0165a9bccc7f1ab",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -509,7 +477,7 @@
     "cim": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/cimcmdlets/get-ciminstance",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/cimcmdlets/get-ciminstance?view=powershell-7.6",
-      "sha256": "0eb8585a04f5d932c8f86f40330d599f8812e9b984ebf22cc6d56c6d12f93674",
+      "sha256": "0114b4798e933b0d8d3e141999ede29a62c87f6ead3c5766daa44ed788046c37",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -517,7 +485,7 @@
     "laps-access": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/laps/find-lapsadextendedrights",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/laps/find-lapsadextendedrights?view=windowsserver2025-ps",
-      "sha256": "27af86a6234d6d0178db7a3dad728734c638dea02febe6cc9e6bb13aa48ae893",
+      "sha256": "6ccb6ef47fee283e535a4685c441c681affca3f8b38cb411818928607b294139",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -525,7 +493,7 @@
     "adcomputer": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-adcomputer",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-adcomputer?view=windowsserver2025-ps",
-      "sha256": "3ff2712b68a928a84dd86d6fbf7ddb54d9c4a61912901f6c87a37cdb1e1af2db",
+      "sha256": "a86e9987d9e69fc7ede5911eeda20bb61f95a682c921bc41e04d1ffc306c1632",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -533,7 +501,7 @@
     "adobject": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-adobject",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-adobject?view=windowsserver2025-ps",
-      "sha256": "433ebf5f6dc432d769d42dbdc45e9a5504345fa4a3335973aa29627b8976a889",
+      "sha256": "e5a9ff53581f24951433700dee1dfe661d79d586d695d2eb557932af1d402705",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -541,7 +509,7 @@
     "adroot": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-adrootdse",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-adrootdse?view=windowsserver2025-ps",
-      "sha256": "45f524dbe9df2ef0ed2b860b1386370cff966c1335156d01cee3f63a4bcf27fd",
+      "sha256": "66e1e8eb418dc4a78fe7a097bccce41abd41a1bbfbd5ff161f0ac553a04600d6",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -549,7 +517,7 @@
     "aduser": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-aduser",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-aduser?view=windowsserver2025-ps",
-      "sha256": "3d3a8b786490796407845f13a6e7cb38c1fb47b58e6407ef91715f8266958a8b",
+      "sha256": "b33799ae706fcc8667c904068fea062eb7f61080988ce4d374f30e431791e228",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -557,7 +525,7 @@
     "acl": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/get-acl",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/get-acl?view=powershell-7.6",
-      "sha256": "24d967e391a8ab16189937bb4f10a857bb8ee198dcf22e81ac668d7f0085196a",
+      "sha256": "e2be46719ab7ff193030be7f76cbfc77b43a86323b0a616a332ccb5a0e13b3f5",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -565,7 +533,7 @@
     "adtrust": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-adtrust",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-adtrust?view=windowsserver2025-ps",
-      "sha256": "91d3454d9fddb274729075f4d630847af809183f38c32e62043e4b625f2311c3",
+      "sha256": "6f3484c9777324db3a0b6936cebef3b01f4753450d7009d037a3e5c8b6c5ab36",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -573,7 +541,7 @@
     "adpolicy": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-addefaultdomainpasswordpolicy",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-addefaultdomainpasswordpolicy?view=windowsserver2025-ps",
-      "sha256": "92374725c972a531d2a1ad0a2c761fdb331c66ff9fd15294feaee5bd2351f0b8",
+      "sha256": "f4daee72eaf4c8d05e7a909ab98f6c5dbd126d78ddd5ce5acfaa4df934d4bdc6",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -581,7 +549,7 @@
     "adpso": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-aduserresultantpasswordpolicy",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-aduserresultantpasswordpolicy?view=windowsserver2025-ps",
-      "sha256": "487958b32af7258b0f5583677375c39b4f80f9bf4356d44b70c3d7ea717e38c7",
+      "sha256": "d0ef0bf7a3b07fec22e243d7b72eb099db7e150c1b099191f108fc738f1dbb02",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -589,7 +557,7 @@
     "adreplication": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-adreplicationattributemetadata",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-adreplicationattributemetadata?view=windowsserver2025-ps",
-      "sha256": "3ff5a09380fc96dc8b369565cfd81fdc10a6fc2ccc0dc2b8bffa3e8904e7ffbe",
+      "sha256": "ad8db6578fb5a8d48a23d348138f4aac59b946a7550b072b51ae2b3c117af2e5",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -597,7 +565,7 @@
     "smbconfig": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/smbshare/get-smbserverconfiguration",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/smbshare/get-smbserverconfiguration?view=windowsserver2025-ps",
-      "sha256": "ae678e15c2c61b91048f21b6570d857724a004e08714ffc39bac59161592898b",
+      "sha256": "622a363dded1e7a5117661e309b80fce6e873caac0b9fa2a53a69c4e09453cb2",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -605,7 +573,7 @@
     "winevent": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/get-winevent",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/get-winevent?view=powershell-7.6",
-      "sha256": "49713d12dbb7599816c456a0834a89749909d9b3cbf955f754badb31ee68f434",
+      "sha256": "5d78b4e8c34e6f94401c13727fbd3204b80504e2477cb994af2e347ec9bbf1b9",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -613,7 +581,7 @@
     "bitlocker": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/bitlocker/get-bitlockervolume",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/bitlocker/get-bitlockervolume?view=windowsserver2025-ps",
-      "sha256": "a508e5f0f227d7972c84f3869b714d3995495dcb2d80cb5fbe5648d77609819a",
+      "sha256": "5ba9f2df3a58e07c2050004f1f45a2ee037dc95b67b81d8842ed04199d6d97aa",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -621,7 +589,7 @@
     "vault": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/az.keyvault/get-azkeyvault",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/az.keyvault/get-azkeyvault?view=azps-16.3.0",
-      "sha256": "91877af20876cb9042e2af2a431e42809cee30c7b9daaa829eb4b29a6168d2b3",
+      "sha256": "cbe51f9c521d958c29f0d22d20f89660fbff2529a7e11866a79df5df89927d1a",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -629,7 +597,7 @@
     "vaultkey": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/az.keyvault/get-azkeyvaultkey",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/az.keyvault/get-azkeyvaultkey?view=azps-16.3.0",
-      "sha256": "02e30e7e36ba96f3c3d32974b9a2b3a852359b7f860c3c1455bfc0179b0b8686",
+      "sha256": "d9986269a324ba83dffccb6b0fad84d8565ca04681cb6daef4a37cff1227f56a",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -637,7 +605,7 @@
     "nettest": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/nettcpip/test-netconnection",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/nettcpip/test-netconnection?view=windowsserver2025-ps",
-      "sha256": "9547967e0fe7da68608cba490230330d83881bd1133f66f7e709a0a5557c8e82",
+      "sha256": "302ba309f4671d125304774214b31ed0d867fd710a64e4ab7a855b2b06d3be4d",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -645,7 +613,7 @@
     "firewall": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/netsecurity/get-netfirewallprofile",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/netsecurity/get-netfirewallprofile?view=windowsserver2025-ps",
-      "sha256": "4edf99b1186b19d2c01677631e2b68aa63c2f13bcda7c5119d57b62b7b528bf3",
+      "sha256": "27b7a891c8ebdf6e012342f6a0f9b28d8d8feeb8dc806744d0aac5378f2a469e",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -653,7 +621,7 @@
     "azresource": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/az.resources/get-azresource",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/az.resources/get-azresource?view=azps-16.3.0",
-      "sha256": "2fef6906626a888c03c2b7b4772dc8dc52c435d6936fea650bac0a3a4bbf02a2",
+      "sha256": "493a2aa820e980274d769fbbc85aa58eff325ce4100571a531eef34a11f4746d",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -661,7 +629,7 @@
     "azpolicy": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/az.policyinsights/get-azpolicystate",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/az.policyinsights/get-azpolicystate?view=azps-16.3.0",
-      "sha256": "32c222dd9225acf5061e8cc93c8b724e4457636f5f3ebb963fa6cfa47fea3d94",
+      "sha256": "208c92d2ffcfbc4caa91906cc4d82c82198d55ddde3fa7fab853a15d20372b93",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -669,7 +637,7 @@
     "azbackup": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/az.recoveryservices/get-azrecoveryservicesbackupjob",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/az.recoveryservices/get-azrecoveryservicesbackupjob?view=azps-16.3.0",
-      "sha256": "c2430e275ba6df9f1de6ba971840f32c9c29ecbc2f0680306eb5497922c95ddd",
+      "sha256": "66049441e4cb97af4acf4f43757c334f72a4a2ac77bc269738c87d01a5ac925b",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -677,7 +645,7 @@
     "azvault": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/az.recoveryservices/get-azrecoveryservicesvault",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/az.recoveryservices/get-azrecoveryservicesvault?view=azps-16.3.0",
-      "sha256": "2c5e57c1d2cc86c268152ea5a42fad91962967b92865f96661119cd1fda01a5f",
+      "sha256": "a24b7e20925867bc9a59df4754ca72c044f101554bc06924ec261c129a5b6654",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -685,7 +653,7 @@
     "importcsv": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/import-csv",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/import-csv?view=powershell-7.6",
-      "sha256": "60c6340e4d70bc1cfec9c77f15c26d6a36e56ef9887245092007a371a0acd509",
+      "sha256": "22bc0d40fa351e83437e96ce4187ba35ab93576bff039bbab38e9c033bef96aa",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -693,7 +661,7 @@
     "compare": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/compare-object",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/compare-object?view=powershell-7.6",
-      "sha256": "1df152ece22039bb143e7156215132d04b8442dffd2d0f9d9fc72ef386a50a10",
+      "sha256": "1accec9b11294509935e53ff964295835bf838680018fc08787748d5706771f1",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -701,7 +669,7 @@
     "wlan": {
       "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/netsh-wlan",
       "final_url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/netsh-wlan",
-      "sha256": "f90f20f777984f4374a9482337ee1e34e1661483eef57a6bc70c2c774f39b4d6",
+      "sha256": "6730f7988868e37a6717a84ce17639c83bc650383f502930211319b1784fab6e",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -709,7 +677,7 @@
     "certutil": {
       "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certutil",
       "final_url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certutil",
-      "sha256": "d71f5e64f7d4dcc7b8fa737630c8f2ecde4c0bae46767c54902fbb8843391453",
+      "sha256": "2ccea748f974396c4a0a73e228645806f8df1e99b684e889b13fd7cd5c2c3104",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -717,23 +685,7 @@
     "macro-policy": {
       "url": "https://learn.microsoft.com/en-us/microsoft-365-apps/security/internet-macros-blocked",
       "final_url": "https://learn.microsoft.com/en-us/microsoft-365-apps/security/internet-macros-blocked",
-      "sha256": "9d9e025f5b24fea81beb3614ffa4edc7f2390e9bf1ae8e1a73adb195d52cbd36",
-      "reviewed_on": "2026-09-16",
-      "status": "retrieved",
-      "missing_terms": []
-    },
-    "gpresult": {
-      "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/gpresult",
-      "final_url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/gpresult",
-      "sha256": "926216e907d553762e44bb9a99bccc019951c50234ae02e70c8ef7f48e1817f9",
-      "reviewed_on": "2026-09-16",
-      "status": "retrieved",
-      "missing_terms": []
-    },
-    "getcontent": {
-      "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-content",
-      "final_url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-content?view=powershell-7.6",
-      "sha256": "939034ccf78186f5678aecef6c2c119cae422441f3fabc91f101a517ea311ab9",
+      "sha256": "f49896aca61a315e0ce104bb3b6da6365c6587ab7cc5860fa572d91e521b2c28",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -741,7 +693,7 @@
     "asr-demo": {
       "url": "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-deployment-test",
       "final_url": "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-deployment-test",
-      "sha256": "20bb69b20dab5860e2af296c093155fe24c3ef630177619c8a7b0956c1df2805",
+      "sha256": "927328f2e325b906c52c5b2f78ef574573e84a2a61d318541abf3c5b84450a16",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -765,7 +717,7 @@
     "orgconfig": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-organizationconfig",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-organizationconfig?view=exchange-ps",
-      "sha256": "ca0179764a80c2c8018c334180add34f552198d1d13c5b435eaa3315a007aa06",
+      "sha256": "ac0efb27a1d1bf3870221e3711f71150afe977f8b9ac2ce4e7aa38c0305fc06c",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -773,7 +725,55 @@
     "bypass": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-mailboxauditbypassassociation",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-mailboxauditbypassassociation?view=exchange-ps",
-      "sha256": "099676adb4df98fe377f8167df89088f2a43b87ebbefe25579b32712047de6cd",
+      "sha256": "da57378b2661f1b9e6ad8e0657ced134980397d5ed0a15154f11dc22189dc6e6",
+      "reviewed_on": "2026-09-16",
+      "status": "retrieved",
+      "missing_terms": []
+    },
+    "sp-schema": {
+      "url": "https://learn.microsoft.com/en-us/graph/api/resources/serviceprincipal?view=graph-rest-1.0",
+      "final_url": "https://learn.microsoft.com/en-us/graph/api/resources/serviceprincipal?view=graph-rest-1.0",
+      "sha256": "2cc5118bb7b56d4a079cc6565bab7c0c4384bd2bcde3bba9ace53dc82419b89d",
+      "reviewed_on": "2026-09-16",
+      "status": "retrieved",
+      "missing_terms": []
+    },
+    "app-schema": {
+      "url": "https://learn.microsoft.com/en-us/graph/api/resources/application?view=graph-rest-1.0",
+      "final_url": "https://learn.microsoft.com/en-us/graph/api/resources/application?view=graph-rest-1.0",
+      "sha256": "7b856606583dc47d4c1cf434f074294471a3777eb30aa0a7278315e1d83c057b",
+      "reviewed_on": "2026-09-16",
+      "status": "retrieved",
+      "missing_terms": []
+    },
+    "smtp-auth": {
+      "url": "https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/authenticated-client-smtp-submission",
+      "final_url": "https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/authenticated-client-smtp-submission",
+      "sha256": "4262adfdf1b03508ee6b49123bf58d6f6c59e67164ad102f1ce9fd46ec3ba45a",
+      "reviewed_on": "2026-09-16",
+      "status": "retrieved",
+      "missing_terms": []
+    },
+    "power-dlp": {
+      "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powerapps.administration.powershell/get-admindlppolicy",
+      "final_url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powerapps.administration.powershell/get-admindlppolicy?view=pa-ps-latest",
+      "sha256": "2bfed1045ab106131a0611f69c4bfa691f5ff79b79a38622eb9f4112cf2586b6",
+      "reviewed_on": "2026-09-16",
+      "status": "retrieved",
+      "missing_terms": []
+    },
+    "gpresult": {
+      "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/gpresult",
+      "final_url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/gpresult",
+      "sha256": "97884b780cf76c812e75336d224d6d3286ea1bc18e658ece353304db2b2faa6a",
+      "reviewed_on": "2026-09-16",
+      "status": "retrieved",
+      "missing_terms": []
+    },
+    "getcontent": {
+      "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-content",
+      "final_url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-content?view=powershell-7.6",
+      "sha256": "7ca8d40189c1290ae767145b950c66ed58aefd3fdcba0436f7b963c441488d21",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -781,7 +781,7 @@
     "uac-flags": {
       "url": "https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/useraccountcontrol-manipulate-account-properties",
       "final_url": "https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/useraccountcontrol-manipulate-account-properties",
-      "sha256": "2f29b2ab4afd52247b87d54a1ff4cd190caa61651d1e5901f8c2c24b55d6012f",
+      "sha256": "89c76ccd86eaf71bcb29ae76cdd6639c1a11007288e69cff1cc667d316280130",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -789,7 +789,7 @@
     "ldap-security": {
       "url": "https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/ldap-session-security-settings-requirements-adv190023",
       "final_url": "https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/ldap-session-security-settings-requirements-adv190023",
-      "sha256": "ad4920dabad94b40e38a767e39d7c26eb7a30158a13484e1dfb1df34a5afbc72",
+      "sha256": "45b505b6d930e6877d6b6343d61d06f20b74b94a5fb0b4699ab33b7000216af0",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -797,7 +797,7 @@
     "adcs-review": {
       "url": "https://learn.microsoft.com/en-us/defender-for-identity/security-posture-assessments/certificates",
       "final_url": "https://learn.microsoft.com/en-us/defender-for-identity/security-posture-assessments/certificates",
-      "sha256": "289d437710d45287a54f9f1cf6e25934ff19539c4ddd6ef40aa3abb933cfc934",
+      "sha256": "f38c248914a9dc5fcfecb866a197103bd6a869abffbf1825c489e7af89695c59",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -805,7 +805,7 @@
     "protected-accounts": {
       "url": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/appendix-c--protected-accounts-and-groups-in-active-directory",
       "final_url": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/appendix-c--protected-accounts-and-groups-in-active-directory",
-      "sha256": "ca57cd36b8bc0532e7ce34935dcc81c29e79ad09775c62b21ac753550e56e766",
+      "sha256": "ef0e1eeba935de332a85a82ba336ca5aefd556c80fb9827a66fe6f93ac6f1f9b",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -813,7 +813,7 @@
     "key-credential": {
       "url": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/f70afbcc-780e-4d91-850c-cfadce5bb15c",
       "final_url": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/f70afbcc-780e-4d91-850c-cfadce5bb15c",
-      "sha256": "1a4cb6246419c87391a00053629612b8ac39090344c2309386c11545f24c1583",
+      "sha256": "c9cb43be63b65bf93052aaebb5aa70a5a02afca6f4440e641c03801c08f9e9d4",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -821,7 +821,7 @@
     "krbtgt": {
       "url": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/forest-recovery-guide/ad-forest-recovery-reset-the-krbtgt-password",
       "final_url": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/forest-recovery-guide/ad-forest-recovery-reset-the-krbtgt-password",
-      "sha256": "8d08d9f71c3b4274445499174d4ebeb762c791f5d35f7ab1f92cab4fe499fa64",
+      "sha256": "5b81fc2fa00b8370adcc2b08cdeeb6e4ae6ebf4892f74ff43a5bfb1f597d3459",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -829,7 +829,7 @@
     "guard-status": {
       "url": "https://learn.microsoft.com/en-us/windows/security/identity-protection/credential-guard/configure",
       "final_url": "https://learn.microsoft.com/en-us/windows/security/identity-protection/credential-guard/configure",
-      "sha256": "ee5b8c07785d557aafbbdbab5ba458d8139f1da7c792e44c42628e70b7e55162",
+      "sha256": "026dbae8b4a189640cffc9959adf3a5167c4ca9e10504cfc4ce8d6ae2370ca74",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -837,7 +837,7 @@
     "asr-actions": {
       "url": "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-deployment-implement",
       "final_url": "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-deployment-implement",
-      "sha256": "b2d04a0af8595db22b69c7bcb4ba1f195aa96e6e55213001238ae38361b6992b",
+      "sha256": "fb7e72b55c17a42b566f9dc8e1f5de84bd8af5db6ee5de06862396be63c7b927",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -845,7 +845,7 @@
     "optionalfeatures": {
       "url": "https://learn.microsoft.com/en-us/powershell/module/dism/get-windowsoptionalfeature",
       "final_url": "https://learn.microsoft.com/en-us/powershell/module/dism/get-windowsoptionalfeature?view=windowsserver2025-ps",
-      "sha256": "6e3c10fd3ff46c9cc539243e916b9647ea704494451489cfcedb98a70ae8f477",
+      "sha256": "c2ae42e5184adf6a93cca82d1a4ec94d572683fa4f27c47c38bbc354f59be342",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []
@@ -853,7 +853,7 @@
     "adcs-flags": {
       "url": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-crtd/1192823c-d839-4bc3-9b6b-fa8c53507ae1",
       "final_url": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-crtd/1192823c-d839-4bc3-9b6b-fa8c53507ae1",
-      "sha256": "e0faf9f784f50258cb86e23e12bf4fef380d94032b8254811a361efb4aa32d97",
+      "sha256": "c63615ba9185b1e9ec911b312a2853e145600a14520dca6ada1b9df9f0a8411c",
       "reviewed_on": "2026-09-16",
       "status": "retrieved",
       "missing_terms": []

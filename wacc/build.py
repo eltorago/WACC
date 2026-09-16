@@ -11,6 +11,7 @@ import os
 from typing import Dict, List, Optional, Tuple
 
 from .model import Corpus, Framework, Licence, Tier
+from .framework_families import count as family_count
 from .registry import FRAMEWORKS, GUIDANCE, FRAMEWORKS_BY_KEY
 from .loaders import (
     aescsf,
@@ -318,8 +319,8 @@ def summary(corpus: Corpus, report: LoadReport) -> str:
     shippable = [f for f in corpus.frameworks.values() if f.licence is Licence.SHIPPABLE]
     lines = [
         "",
-        "controls          %d across %d frameworks (%d frameworks still unloaded)"
-        % (len(corpus.controls), len(report.loaded), len(report.skipped)),
+        "source records    %d across %d framework families / %d source sets (%d still unloaded)"
+        % (len(corpus.controls), family_count(report.loaded), len(report.loaded), len(report.skipped)),
         "published stmts   %d" % len(corpus.statements),
         "links             %d published, %d published-tag, %d derived"
         % (published, tagged, derived),

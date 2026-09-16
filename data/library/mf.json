@@ -23,7 +23,7 @@
         {"uid":"ism:ism-1173","relationship":"Directly addresses","basis":"Requires multi-factor authentication for privileged human users.","provenance":"Locally reviewed mapping"},
         {"uid":"nist-800-53:ia-2.1","relationship":"Directly addresses","basis":"Requires multi-factor authentication for privileged accounts.","provenance":"Locally reviewed mapping"},
         {"uid":"cis-controls:6.4","relationship":"Directly addresses","basis":"Requires multi-factor authentication for remote network access.","provenance":"Locally reviewed mapping"},
-        {"uid":"aescsf:access-1i","relationship":"Partially addresses","basis":"Requires multi-factor authentication for access where feasible; feasibility and system scope remain source-specific.","provenance":"Locally reviewed mapping"},
+        {"uid":"aescsf:access-1i","relationship":"Partially addresses","basis":"Requires multi-factor authentication for access where feasible.","provenance":"Locally reviewed mapping"},
         {"uid":"pspf:req 101","relationship":"Partially addresses","basis":"Requires the Essential Eight multi-factor authentication strategy at Maturity Level Two.","provenance":"Locally reviewed mapping"},
         {"uid":"oag-wa:report-24 2.5.3","relationship":"Partially addresses","basis":"Calls for mandatory multi-factor authentication on jump hosts, critical systems, appliances and networks.","provenance":"Locally reviewed mapping"},
         {"uid":"asd-ad:appendix a §mitigating a golden certificate#1","relationship":"Partially addresses","basis":"Recommends multi-factor authentication for privileged users as one mitigation for forged-certificate attacks.","provenance":"Locally reviewed mapping"}

@@ -18,7 +18,6 @@ def render(control_id):
     if not reports:
         return ''
     esc = html.escape
-    return '<section class="box" id="wa-context"><h3>WA audit context</h3><p class="muted">%s</p>%s</section>' % (
-        esc(DATA['notice']), ''.join(
+    return '<section class="box" id="wa-context"><h3>WA audit context</h3>%s</section>' % (''.join(
             '<details><summary>%s · %s</summary><p class="muted">%s</p><p>%s</p><p><strong>Assessment application:</strong> %s</p><a href="%s">Read the OAG report</a></details>' %
             (esc(r['title']),esc(r['date']),esc(r['sector']),esc(r['finding']),esc(r['assessment']),esc(r['url'])) for r in reports))

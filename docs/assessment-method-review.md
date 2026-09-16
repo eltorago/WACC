@@ -1,96 +1,79 @@
-# Assessment method review
+# Assessment review
 
-Reviewed 16 September 2026. The workspace retains 84 practical controls and 58 individual
-technical checks. Shared checks appear under each relevant control. This review covers
-all of them, including the 14 AD checks and five additional Entra/Microsoft 365 checks.
+Reviewed 16 September 2026: all **58 technical checks**, their use across **84 workspace
+controls**, and the document references for every GRC assessment.
 
-## What changed
+## Content and presentation
 
-The Technical view now gives the required console/module and access, input records,
-copyable collection commands, detailed execution steps, expected behaviour and limits.
-Each check distinguishes configuration evidence from a positive/negative behaviour test.
-Queries never run from the application, and no tenant connection or scanner is added.
+Technical instructions, expected results and interpretation notes were reduced from
+9,339 words to about 3,860 words (59%). Most checks now have three steps. AP-01 retains
+six steps to cover WDAC, AppLocker, MDM, file types and event interpretation.
 
-AP-01 explains how to inspect deployed WDAC/App Control policies with CiTool, distinguish
-an active policy from audit/enforce settings, reconcile policy IDs and loaded-policy
-events, and test reviewed benign allowed and unapproved code. The AppLocker path exports
-effective GPO/local XML, checks collection modes, predicts decisions for a representative
-user with Test-AppLockerPolicy, and then corroborates actual execution using event logs.
-Microsoft's documented AppLocker CSP limitation has its own MDM verification path.
-Script-host restrictions, DLL/installer scope, and audit events are not presented as
-equivalent to a blocked executable.
+Steps and expected results appear first. Console setup is shown once per assessment
+page; commands, evidence and sources expand when needed. Repeated disclaimers were
+removed from Technical, GRC, ATT&CK, OAG context and source-reference sections.
+The old technical procedure copies were removed from `workspace-technical*.json`;
+`assessment-procedures.json` is now their single source.
 
-Every GRC control names specific documents found in a published NIST SP 800-53A Examine
-procedure already loaded in the corpus. WACC adds practical review questions, with
-source navigation and a runtime check that the names still occur in the loaded procedure.
-These are evidence recommendations, not a claim that NIST requirements automatically
-apply to WA entities or that the reference covers the entire practical control.
+## Corrections found during command review
 
-For SC-02, SR-3 explicitly lists **risk register documentation**, acquisition contracts
-and a supply-chain risk-management plan. The assessment now follows a provider's risk ID
-through due diligence, ratings, contract controls, treatment owner/deadline, residual-risk
-acceptance and reassessment. Where an artefact name is a local choice, such as a macro
-register or a general risk-treatment register, the text says so. Source-specific incident
-reporting clocks remain grounded in the existing WA/legislative mappings, not NIST.
-
-## Validation performed
-
-| Check | Result and limit |
+| Check | Correction |
 |---|---|
-| Official command/API references | 107 Microsoft documentation pages retrieved successfully. Reviewed command/API paths, access requirements and relevant interpretation; recorded URLs and document hashes. |
-| Parameter spelling | 59 documented cmdlets cross-checked against their reference syntax; no unmatched named parameters. This is not a live service parameter-set test. |
-| PowerShell syntax | All 58 examples parsed without errors in Windows PowerShell 5.1.19041.6456 and PowerShell 7.6.5. |
-| Offline execution | 16 fixture cases passed in both engines. They test Graph paging, access/schema failures, unsafe/repeated nextLink, SMTP inheritance, credential lifetime, badge validity, finding closure and supplier expiry/duplicates. They do not emulate a whole tenant or AD forest. |
-| Local Windows collection | Five read-only calls succeeded: OS CIM, SMB server configuration, Defender ASR preferences, DeviceGuard CIM and Spooler-service CIM. Only success and output shape were recorded; this is not a DC or enforcement test. |
-| App Control/AppLocker on this host | CiTool and AppLocker cmdlets were unavailable. Their official syntax and procedures were reviewed; no local policy deployment or allow/deny test is claimed. |
-| GRC evidence | All 84 document selections match the actual published Examine statement and reference in the corpus. |
-| Application regression | Full suite clean: 426 counted checks plus unittest suites. Corpus integrity and packaging checks reported zero problems. Browser checks confirmed command copying, GRC source navigation and ACSC strategy search. |
-| Target-environment behaviour | Not performed. AD, Entra, Microsoft 365, Azure, PKI, OT, backup, physical-access and deployment tests need the actual authorised environment and evidence. The workspace shows this limit per check. |
+| TECH-CRYPTO | Added Azure setup and separate Windows/Azure execution branches, so each console needs only its own modules. |
+| TECH-MACROS | Setup explicitly uses the standard test user's session for HKCU and user policy. |
+| AD-CHECK-10 / 12 | Read `nTSecurityDescriptor` from the selected DC instead of relying on the current `AD:` provider connection. |
+| TECH-BASELINE | Normalise JSON object-property order before comparing policies; real state changes still appear. Array order remains visible for review. |
+| TECH-EMERGENCY | Collect `onPremisesSyncEnabled` for the cloud-only account review. |
+| TECH-ASR | Filter null rule/action entries so an empty configuration does not produce a fictitious null rule. |
+| Graph collections | Reject null, scalar and object-shaped `value` responses as malformed collections. Preserve paging and permission failures. |
+| TECH-PHYSICAL | Reject unknown event-result values instead of silently skipping them. |
 
-Do not score a missing module, access-denied query, empty/unreconciled population, capped
-search, absent property or unperformed negative test as passing. The scripts stop on
-errors where possible; the assessor still needs to inspect completeness and applicability.
-Read-only collection can reveal sensitive metadata, so keep exports in the organisation's
-approved assessment location. The app stores no submitted tenant evidence or credentials.
+Material platform details remain in the tests: CiTool active versus audit mode,
+AppLocker's CSP limitation, SMTP AUTH inheritance, site-property collection, audit
+search caps, OS defaults and KRBTGT reset evidence.
 
-For each environment, record tenant/domain/device and sample scope, module/OS version,
-collection time, expected result, actual output and matching event/ticket references.
-Complete the positive and negative steps before accepting a control. Use an approved
-test environment for state-changing exercises; collection scripts do not perform those
-changes. A successful query does not establish that a security control is effective.
+## Validation
 
-## ACSC mitigation framework
+| Review | Result |
+|---|---|
+| Official references | All 107 Microsoft documentation pages retrieved; URLs, hashes and review dates recorded in `data/assessment-source-review.json`. |
+| Command parameters | 58 documented cmdlets checked against reference syntax; no unmatched named parameters. |
+| PowerShell syntax | All 58 examples parsed in Windows PowerShell 5.1.19041.6456 and PowerShell 7.6.5. |
+| Offline behaviour | 27 fixture cases passed in both engines: Graph paging/errors, SMTP inheritance, credential lifetime, badge validity, findings, supplier expiry, JSON comparison, DC selection and encryption branches. |
+| GRC source matching | All 84 document selections match their published NIST SP 800-53A Examine procedures. SC-02 retains its specific supplier risk-register review. |
+| Regression | Full suite: 494 passed, zero failed, 19 recorded plan corrections. Corpus and packaging checks: zero problems. |
+| Import guide | The README example imports one control and one published assessment; tests reject duplicate IDs, missing text, empty files and wrong counts. |
 
-The corpus now imports all **37 strategies in five categories** from the official
-[Strategies to Mitigate Cyber Security Incidents](https://www.cyber.gov.au/business-government/asds-cyber-security-frameworks/mitigating-cyber-security-incidents/strategies-to-mitigate-cybersecurity-incidents)
-table, together with the matching sections in the
-[Mitigation details](https://www.cyber.gov.au/business-government/asds-cyber-security-frameworks/mitigating-cyber-security-incidents/strategies-to-mitigate-cyber-security-incidents-mitigation-details).
-Both pages are acquired automatically and cached locally; publisher files are not hosted
-or committed. Source wording is preserved with ASD/Commonwealth attribution under the
-publisher's CC BY 4.0 terms.
+These are documentation, syntax and offline checks. Live AD, Microsoft 365 and Azure
+behaviour has not been tested against an organisation's environment. The application
+provides the steps needed to do that. Record the target, scope, module/OS version,
+expected outcome, actual result and supporting event IDs when running them.
 
-The edition is February 2017, despite newer attachment hosting dates. Deprecated product
-examples and historical thresholds are retained as source text and labelled. S01–S37
-are WACC row locators. Every strategy has a reviewed partial link to at least one practical
-control; those links are WACC analysis, not a published ASD crosswalk.
+## Essential Eight and ACSC strategies
 
-## Reproduce the review
+[ACSC identifies the Essential Eight as a subset of its mitigation strategies](https://www.cyber.gov.au/business-government/asds-cyber-security-frameworks/essential-eight).
+WACC now counts one framework family, with two source editions: the 37 strategies from
+February 2017 and 304 maturity-detail records from November 2023.
 
-Run `python tests/test_assessment_procedures.py` for source matching, framework coverage,
-rendering and the offline PowerShell checks when PowerShell is installed. Run
-`python tests/run_all.py` for the complete application regression suite, and
-`python tools/revalidate_corpus.py` for source/corpus/mapping integrity.
+Mixed results prefer maturity detail over the corresponding eight broad strategy rows.
+Exact source links still open every original record. A maturity record links back to
+its broader strategy. Scope settings can select either edition, and frequency reports
+group the family and remove the overlapping broad rows. Searching `E8` now opens the
+maturity model instead of the ISM's maturity tags.
 
-For command-reference maintenance:
+## Reproduce
 
 ```powershell
 python tools/review_assessment_sources.py
-powershell -NoProfile -File tools/validate_assessment_commands.ps1 -OutputPath data/review/commands-ps51.json
+powershell.exe -NoProfile -File tools/validate_assessment_commands.ps1 -OutputPath data/review/commands-ps51.json
+pwsh -NoProfile -File tools/validate_assessment_commands.ps1 -OutputPath data/review/commands-ps7.json
 python tools/check_assessment_doc_parameters.py
-powershell -NoProfile -File tests/test_assessment_commands.ps1
+python tests/test_assessment_procedures.py
+python tests/run_all.py
+python tools/revalidate_corpus.py
+python tools/analyse_topics.py
+python -m wacc.packaging
 ```
 
-Run locally authored scripts under your approved PowerShell execution policy. The review
-used a process-only RemoteSigned policy, with no machine/user policy changed. The
-reference-refresh command downloads documentation only; it never executes downloaded code.
-Updating a document hash alone does not approve changed procedures or examples.
+Use the organisation's approved execution policy. This review used process-only
+RemoteSigned for the locally authored scripts. Documentation downloads are not executed.

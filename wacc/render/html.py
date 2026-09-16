@@ -826,7 +826,8 @@ def render(
             else _grid_view(corpus, analysis, frameworks, typed, widened)
         )
 
-    speaking = sum(1 for b in analysis.bands for c in b.coverage if c.total)
+    from ..framework_families import count as family_count
+    speaking = family_count(c.framework.key for b in analysis.bands for c in b.coverage if c.total)
     missing = len(analysis.frameworks_absent)
     return (
         '<!doctype html><html lang="en"><head><meta charset="utf-8">'
@@ -843,10 +844,10 @@ def render(
             "title": esc(title),
             "style": STYLE,
             "sub": esc(
-                "%d controls across %d frameworks on this machine"
+                "%d source records across %d framework families on this machine"
                 % (len(corpus.controls), analysis.frameworks_present)
                 if not (analysis.subject or "").strip()
-                else "%s — %d controls shown of %d read, across %d of %d frameworks "
+                else "%s — %d source records shown of %d read, across %d of %d framework families "
                 "in this build%s"
                 % (
                     analysis.subject,

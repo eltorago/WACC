@@ -7,8 +7,7 @@
       "list of software programs authorized to execute on the system",
       "system configuration settings and associated documentation"
     ],
-    "application": "Match each allowed application to its business approval and deployed rule. Compare effective policy version, enforcement mode and scoped device/user coverage with the benign allow/deny results.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Match each allowed application to its business approval and deployed rule. Compare effective policy version, enforcement mode and scoped device/user coverage with the benign allow/deny results."
   },
   "AP-02": {
     "source_uid": "nist-800-53:cm-7.5",
@@ -18,8 +17,7 @@
       "system component inventory",
       "review and update records associated with list of authorized software programs"
     ],
-    "application": "Reconcile the full endpoint/server population with policy deployment. Check exception owner, justification, expiry and the most recent review of the authorised software list.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Reconcile the full endpoint/server population with policy deployment. Check exception owner, justification, expiry and the most recent review of the authorised software list."
   },
   "IR-01": {
     "source_uid": "nist-800-53:ir-8",
@@ -29,8 +27,7 @@
       "procedures addressing incident response planning",
       "records of incident response plan reviews and approvals"
     ],
-    "application": "Verify named responders, contact paths, decision authority, evidence handling and notification dependencies. Walk one current scenario using the approved version and confirm owners can use it.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Verify named responders, contact paths, decision authority, evidence handling and notification dependencies. Walk one current scenario using the approved version and confirm owners can use it."
   },
   "IR-02": {
     "source_uid": "nist-800-53:ir-4",
@@ -40,8 +37,7 @@
       "procedures addressing incident handling",
       "incident response plan"
     ],
-    "application": "Trace the sampled incident timeline through analysis, containment, eradication and recovery against the plan. Incident tickets and forensic notes are local evidence of those steps; plan existence alone does not prove they occurred.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Trace the incident timeline through analysis, containment, eradication and recovery using incident tickets, forensic notes and the response plan."
   },
   "IR-03": {
     "source_uid": "nist-800-53:ir-3",
@@ -51,8 +47,7 @@
       "incident response test plan",
       "incident response test results"
     ],
-    "application": "Compare exercise objectives and participants with observed actions and elapsed times. Trace lessons to owners, due dates and retests, including an unmet objective.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Compare exercise objectives and participants with observed actions and elapsed times. Trace lessons to owners, due dates and retests, including an unmet objective."
   },
   "IA-01": {
     "source_uid": "nist-800-53:ac-2",
@@ -62,8 +57,7 @@
       "list of active system accounts along with the name of the individual associated with each account",
       "notifications of recent transfers, separations, or terminations of employees"
     ],
-    "application": "Reconcile independent HR/vendor changes to account creation, role changes and disablement timestamps. Include shared, service, guest and renamed identities and investigate every unmatched item.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Reconcile independent HR/vendor changes to account creation, role changes and disablement timestamps. Include shared, service, guest and renamed identities and investigate every unmatched item."
   },
   "IA-02": {
     "source_uid": "nist-800-53:ac-2",
@@ -73,8 +67,7 @@
       "access authorization records",
       "account management compliance reviews"
     ],
-    "application": "Check that a resource owner approved the actual entitlements and that reviewers saw an accurate population. Trace at least one rejected entitlement to verified removal.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Check that a resource owner approved the actual entitlements and that reviewers saw an accurate population. Trace at least one rejected entitlement to verified removal."
   },
   "IA-03": {
     "source_uid": "nist-800-53:ia-5",
@@ -84,8 +77,7 @@
       "list of system authenticator types",
       "change control records associated with managing system authenticators"
     ],
-    "application": "Compare approved authentication methods, lifecycle and custodians with registration/replacement/revocation records. Verify a sampled lost or retired credential ceased to authenticate.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Compare approved authentication methods, lifecycle and custodians with registration/replacement/revocation records. Verify a sampled lost or retired credential ceased to authenticate."
   },
   "SC-01": {
     "source_uid": "nist-800-53:sr-6",
@@ -95,8 +87,7 @@
       "records of supplier due diligence reviews",
       "supply chain risk management plan"
     ],
-    "application": "Reconcile procurement, service dependencies and provider/subprocessor lists. Check service criticality, data/access exposure, owner and review priority against the provider due-diligence record.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Reconcile procurement, service dependencies and provider/subprocessor lists. Check service criticality, data/access exposure, owner and review priority against the provider due-diligence record."
   },
   "SC-02": {
     "source_uid": "nist-800-53:sr-3",
@@ -107,8 +98,7 @@
       "acquisition contracts for systems or services",
       "supply chain risk management plan"
     ],
-    "application": "Select a high-risk provider and follow its risk ID from due diligence to the supplier risk register, contract and treatment plan. Check affected service/data, threat and consequence, likelihood/impact, existing controls, treatment owner/due date, residual risk, acceptance authority and reassessment trigger. Test a material change and an overdue treatment.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Select a high-risk provider and follow its risk ID from due diligence to the supplier risk register, contract and treatment plan. Check affected service/data, threat and consequence, likelihood/impact, existing controls, treatment owner/due date, residual risk, acceptance authority and reassessment trigger. Test a material change and an overdue treatment."
   },
   "SC-03": {
     "source_uid": "nist-800-53:sa-9",
@@ -118,8 +108,7 @@
       "contracts",
       "control assessment results or reports from external providers of system services"
     ],
-    "application": "Compare contractual/shared responsibilities with effective supplier identities, connections, monitoring and access reviews. Trace a completed exit to disabled access, closed integrations and evidenced data return or destruction.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Compare contractual/shared responsibilities with effective supplier identities, connections, monitoring and access reviews. Trace a completed exit to disabled access, closed integrations and evidenced data return or destruction."
   },
   "ST-01": {
     "source_uid": "nist-800-53:ca-2",
@@ -129,8 +118,7 @@
       "control assessment plan",
       "control assessment report"
     ],
-    "application": "Match risk-based scope, assessor competence/independence, sample rationale and methods to retained results. Reperform a claimed passing test and account for limitations or excluded systems.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Match risk-based scope, assessor competence/independence, sample rationale and methods to retained results. Reperform a claimed passing test and account for limitations or excluded systems."
   },
   "ST-02": {
     "source_uid": "nist-800-53:ca-8",
@@ -140,8 +128,7 @@
       "assessment plan",
       "penetration test report"
     ],
-    "application": "Check written authorisation, rules of engagement, scoped assets and exclusions. Trace a material attack path to raw evidence, business impact and a verified corrective action; a vulnerability list alone is not a penetration test.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Check authorisation, rules of engagement, scoped assets and exclusions. Trace a material attack path to raw evidence, business impact and verified corrective action."
   },
   "ST-03": {
     "source_uid": "nist-800-53:ca-5",
@@ -151,8 +138,7 @@
       "procedures addressing plan of action and milestones",
       "control assessment evidence"
     ],
-    "application": "Join finding IDs to owners, due dates and remediation evidence. Verify closure uses an independent repeat of the original failure condition, and inspect an overdue or risk-accepted finding.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Join finding IDs to owners, due dates and remediation evidence. Verify closure uses an independent repeat of the original failure condition, and inspect an overdue or risk-accepted finding."
   },
   "GV-01": {
     "source_uid": "nist-800-53:pm-29",
@@ -162,8 +148,7 @@
       "documentation of appointment, roles, and responsibilities of a Senior Accountable Official for Risk Management",
       "documentation of actions taken by the Official"
     ],
-    "application": "Match risk decisions to the named accountable role and current delegation. Inspect committee or decision records for actual approval, escalation and follow-through on a material cyber risk.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Match risk decisions to the named accountable role and current delegation. Inspect committee or decision records for actual approval, escalation and follow-through on a material cyber risk."
   },
   "GV-02": {
     "source_uid": "nist-800-53:pm-9",
@@ -173,8 +158,7 @@
       "risk management strategy",
       "risk assessment results relevant to the risk management strategy"
     ],
-    "application": "Check appetite/tolerance, assessment approach, priorities and review approval against current business risks. Trace a decision or resource allocation that uses the strategy rather than only an approved document.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Check appetite/tolerance, assessment approach, priorities and review approval against current business risks. Trace a decision or resource allocation that uses the strategy rather than only an approved document."
   },
   "PH-01": {
     "source_uid": "nist-800-53:pe-14",
@@ -184,8 +168,7 @@
       "temperature and humidity controls documentation",
       "temperature and humidity records"
     ],
-    "application": "Check facility/environment requirements, sensor coverage, calibrated thresholds, monitoring and responses against a witnessed or recorded alarm test. Use separate inspection/maintenance records for power, fire and equipment protection; PE-14 supports the environmental portion only.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Check facility/environment requirements, sensor coverage, calibrated thresholds, monitoring and responses against a witnessed or recorded alarm test. Use separate inspection/maintenance records for power, fire and equipment protection; PE-14 supports the environmental portion only."
   },
   "PH-02": {
     "source_uid": "nist-800-53:pe-6",
@@ -195,8 +178,7 @@
       "physical access logs or records",
       "physical access log reviews"
     ],
-    "application": "Join badge/visitor entries to current zone authorisations and escort rules. Verify departures are removed, anomalies investigated and the approved access list matches the door test.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Join badge/visitor entries to current zone authorisations and escort rules. Verify departures are removed, anomalies investigated and the approved access list matches the door test."
   },
   "MW-01": {
     "source_uid": "nist-800-53:ac-19",
@@ -206,8 +188,7 @@
       "authorizations for mobile device connections to organizational systems",
       "system configuration settings and associated documentation"
     ],
-    "application": "Reconcile authorised device ownership/use cases to enrolment, compliance and access policy. Test a permitted managed device and an unapproved/noncompliant device for the same resource.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Reconcile authorised device ownership/use cases to enrolment, compliance and access policy. Test a permitted managed device and an unapproved/noncompliant device for the same resource."
   },
   "MW-02": {
     "source_uid": "nist-800-53:ac-19.5",
@@ -217,8 +198,7 @@
       "encryption mechanisms and associated configuration documentation",
       "system audit records"
     ],
-    "application": "Check effective encryption/app protection and remote-loss response against the approved device standard. Witness a test retirement or selective wipe and verify the intended data boundary.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Check effective encryption/app protection and remote-loss response against the approved device standard. Witness a test retirement or selective wipe and verify the intended data boundary."
   },
   "MW-03": {
     "source_uid": "nist-800-53:ac-18",
@@ -228,8 +208,7 @@
       "wireless access authorizations",
       "system configuration settings and associated documentation"
     ],
-    "application": "Match approved SSIDs/APs and client/server trust settings with controller and endpoint evidence. Test permitted association, unauthorised access refusal and guest isolation.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Match approved SSIDs/APs and client/server trust settings with controller and endpoint evidence. Test permitted association, unauthorised access refusal and guest isolation."
   },
   "AM-01": {
     "source_uid": "nist-800-53:cm-8",
@@ -239,8 +218,7 @@
       "procedures addressing system component inventory",
       "inventory reviews and update records"
     ],
-    "application": "Reconcile stable identifiers with independent discovery/procurement/cloud sources, including owner, criticality and support status. Trace an added/retired asset through the inventory update process.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Reconcile stable identifiers with independent discovery/procurement/cloud sources, including owner, criticality and support status. Trace an added/retired asset through the inventory update process."
   },
   "AM-02": {
     "source_uid": "nist-800-53:cm-2",
@@ -250,8 +228,7 @@
       "system architecture and configuration documentation",
       "change control records"
     ],
-    "application": "Compare the approved baseline version with effective configuration on the sample. Verify drift, exclusions and temporary settings have current approvals and a completed change matches its tested baseline.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Compare the approved baseline version with effective configuration on the sample. Verify drift, exclusions and temporary settings have current approvals and a completed change matches its tested baseline."
   },
   "AM-03": {
     "source_uid": "nist-800-53:cm-3",
@@ -261,8 +238,7 @@
       "change control records",
       "change control audit and review reports"
     ],
-    "application": "Trace a normal and emergency change through impact analysis, approval, testing, rollback and post-change verification. Confirm the deployed version and security effects match the authorised change.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Trace a normal and emergency change through impact analysis, approval, testing, rollback and post-change verification. Confirm the deployed version and security effects match the authorised change."
   },
   "BR-01": {
     "source_uid": "nist-800-53:cp-9",
@@ -272,8 +248,7 @@
       "system backup logs or records",
       "Contingency planning policy"
     ],
-    "application": "Reconcile critical systems/data/configuration with backup schedules, retained points and failures. Verify job coverage and retention against approved recovery needs, including an asset newly added to service.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Reconcile critical systems/data/configuration with backup schedules, retained points and failures. Verify job coverage and retention against approved recovery needs, including an asset newly added to service."
   },
   "BR-02": {
     "source_uid": "nist-800-53:cp-9.3",
@@ -283,8 +258,7 @@
       "system backup configurations and associated documentation",
       "backup storage location(s)"
     ],
-    "application": "Verify separation, immutability/offline arrangements and independent administrator access with actual backup settings and storage locations. Inspect deletion/change protection and a failed unauthorised access test.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Verify separation, immutability/offline arrangements and independent administrator access with actual backup settings and storage locations. Inspect deletion/change protection and a failed unauthorised access test."
   },
   "BR-03": {
     "source_uid": "nist-800-53:cp-10",
@@ -294,8 +268,7 @@
       "system backup test results",
       "contingency plan test documentation"
     ],
-    "application": "Match the restored point and dependency scope with measured RPO/RTO and data/transaction checks. Successful backup jobs do not replace a witnessed usable restore.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Check the restored point, dependencies, measured RPO/RTO and data integrity against a witnessed service restore."
   },
   "PW-01": {
     "source_uid": "nist-800-53:ia-5.1",
@@ -305,8 +278,7 @@
       "password policy",
       "password configurations and associated documentation"
     ],
-    "application": "Compare each identity store's effective minimum/maximum length, supported characters and reuse settings with the approved standard. Use safe test-account acceptance/rejection evidence rather than screenshots of defaults only.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Compare each identity store's effective minimum/maximum length, supported characters and reuse settings with the approved standard. Use safe test-account acceptance/rejection evidence rather than screenshots of defaults only."
   },
   "PW-02": {
     "source_uid": "nist-800-53:ia-5.1",
@@ -316,8 +288,7 @@
       "password configurations and associated documentation",
       "procedures addressing authenticator management"
     ],
-    "application": "Verify banned-password sources, filter coverage and update/exception records. Inspect bounded test evidence for guessing throttles/lockout and secure recovery, including a prohibited value.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Verify banned-password sources, filter coverage and update/exception records. Inspect bounded test evidence for guessing throttles/lockout and secure recovery, including a prohibited value."
   },
   "PW-03": {
     "source_uid": "nist-800-53:ia-5.1",
@@ -327,8 +298,7 @@
       "password configurations and associated documentation",
       "procedures addressing authenticator management"
     ],
-    "application": "Check storage protection, managed local/service credential rotation and retrieval authorisation. Verify an unauthorised retrieval is refused and sampled old credentials no longer authenticate after approved rotation.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Check storage protection, managed local/service credential rotation and retrieval authorisation. Verify an unauthorised retrieval is refused and sampled old credentials no longer authenticate after approved rotation."
   },
   "UH-01": {
     "source_uid": "nist-800-53:cm-6",
@@ -338,8 +308,7 @@
       "common secure configuration checklists",
       "evidence supporting approved deviations from established configuration settings"
     ],
-    "application": "Match browser/Office/PDF settings and supported versions with the approved product baseline. Test relevant unsafe content and inspect exceptions, policy precedence and actual endpoint state.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Match browser/Office/PDF settings and supported versions with the approved product baseline. Test relevant unsafe content and inspect exceptions, policy precedence and actual endpoint state."
   },
   "UH-02": {
     "source_uid": "nist-800-53:cm-7",
@@ -349,8 +318,7 @@
       "system configuration settings and associated documentation",
       "common secure configuration checklists"
     ],
-    "application": "Check application behaviour restrictions and exclusions against the intended risk, then match rule IDs/modes to benign positive/negative tests. Audit-only telemetry does not prove blocking.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Check application behaviour restrictions and exclusions against the intended risk, then match rule IDs/modes to benign positive/negative tests. Audit-only telemetry does not prove blocking."
   },
   "AW-01": {
     "source_uid": "nist-800-53:at-2",
@@ -360,8 +328,7 @@
       "security and privacy literacy training materials",
       "training records"
     ],
-    "application": "Reconcile staff/contractor audiences with current content and completion. Inspect a benign awareness scenario and reporting response to establish effectiveness beyond course attendance.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Reconcile staff/contractor audiences with current content and completion. Inspect a benign awareness scenario and reporting response to establish effectiveness beyond course attendance."
   },
   "AW-02": {
     "source_uid": "nist-800-53:at-3",
@@ -371,8 +338,7 @@
       "security and privacy training curriculum",
       "training records"
     ],
-    "application": "Match specialised roles to required training and practical responsibilities. Trace a role change to timely training and test whether the person can perform the expected security action.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Match specialised roles to required training and practical responsibilities. Trace a role change to timely training and test whether the person can perform the expected security action."
   },
   "SM-01": {
     "source_uid": "nist-800-53:au-2",
@@ -382,8 +348,7 @@
       "system auditable events",
       "system audit records"
     ],
-    "application": "Reconcile required event sources/types with the asset inventory and ingested records. Generate a benign known event and match actor, object, time, outcome and collection delay in the central system.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Reconcile required event sources/types with the asset inventory and ingested records. Generate a benign known event and match actor, object, time, outcome and collection delay in the central system."
   },
   "SM-02": {
     "source_uid": "nist-800-53:au-9",
@@ -393,8 +358,7 @@
       "procedures addressing protection of audit information",
       "system configuration settings and associated documentation"
     ],
-    "application": "Check log access separation, retention, export/backup and integrity controls against the required record classes. Retrieve a known event near the retention boundary and test an unauthorised change path safely.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Check log access separation, retention, export/backup and integrity controls against the required record classes. Retrieve a known event near the retention boundary and test an unauthorised change path safely."
   },
   "SM-03": {
     "source_uid": "nist-800-53:au-6",
@@ -404,8 +368,7 @@
       "reports of audit findings",
       "records of actions taken in response to reviews/analyses of audit records"
     ],
-    "application": "Trace a sampled alert from detection through triage, investigation and closure, checking timestamps and responsibility. Reperform a benign detection and verify the relevant response path.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Trace a sampled alert from detection through triage, investigation and closure, checking timestamps and responsibility. Reperform a benign detection and verify the relevant response path."
   },
   "AD-01": {
     "source_uid": "nist-800-53:cm-7",
@@ -415,8 +378,7 @@
       "common secure configuration checklists",
       "system configuration settings and associated documentation"
     ],
-    "application": "Compare the directory/DC baseline with each sampled DC's actual services, patch state and network/admin boundaries. General CM-7 documents support this review; the AD-specific setting and test come from the linked ASD/Microsoft guidance.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Compare the directory/DC baseline with each sampled DC's actual services, patch state and network/admin boundaries. General CM-7 documents support this review; the AD-specific setting and test come from the linked ASD/Microsoft guidance."
   },
   "AD-02": {
     "source_uid": "nist-800-53:ac-6.5",
@@ -426,8 +388,7 @@
       "list of system-generated privileged accounts",
       "list of system administration personnel"
     ],
-    "application": "Reconcile directory roles, privileged groups and delegated ACL rights with named administrators and approvals. Verify separate identities and restricted administration paths, including nested/group-assigned privilege.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Reconcile directory roles, privileged groups and delegated ACL rights with named administrators and approvals. Verify separate identities and restricted administration paths, including nested/group-assigned privilege."
   },
   "AD-03": {
     "source_uid": "nist-800-53:ac-6",
@@ -437,8 +398,7 @@
       "list of assigned access authorizations (user privileges)",
       "system configuration settings and associated documentation"
     ],
-    "application": "Join service identities, SPNs and delegation targets to service owners and approved design. Review effective write/enrolment/delegation permissions and test an approved versus out-of-scope service flow.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Join service identities, SPNs and delegation targets to service owners and approved design. Review effective write/enrolment/delegation permissions and test an approved versus out-of-scope service flow."
   },
   "AD-04": {
     "source_uid": "nist-800-53:ia-5",
@@ -448,8 +408,7 @@
       "list of system authenticator types",
       "change control records associated with managing system authenticators"
     ],
-    "application": "Inspect domain/trust authentication settings, certificate issuance paths and KRBTGT change/recovery evidence. IA-5 supplies general credential evidence; the exact AD tests and setting interpretations use the linked current ASD and Microsoft criteria.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Inspect domain/trust authentication settings, certificate issuance paths and KRBTGT change/recovery evidence. IA-5 supplies general credential evidence; the exact AD tests and setting interpretations use the linked current ASD and Microsoft criteria."
   },
   "AD-05": {
     "source_uid": "nist-800-53:au-2",
@@ -459,8 +418,7 @@
       "system auditable events",
       "system audit records"
     ],
-    "application": "Trace a benign directory change to central detection and response, and separately inspect isolated forest-recovery exercise records and backup integrity. AU-2 supports event coverage, not the whole recovery requirement.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Trace a benign directory change to central detection and response. Check isolated forest-recovery exercise records and backup integrity."
   },
   "AD-06": {
     "source_uid": "nist-800-53:ac-6",
@@ -470,8 +428,7 @@
       "list of assigned access authorizations (user privileges)",
       "system audit records"
     ],
-    "application": "Match approved passwordless registrations to key-credential presence and effective editors. Trace attribute changes to identity, authorisation and alert; presence of a key credential alone is not malicious.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Match key-credential registrations and editors to the approved key-trust design. Trace attribute changes to the actor, approval and alert."
   },
   "NA-01": {
     "source_uid": "nist-800-53:sc-7",
@@ -481,8 +438,7 @@
       "list of key internal boundaries of the system",
       "enterprise security architecture documentation"
     ],
-    "application": "Compare risk zones and allowed data flows with effective network rules. Test one approved and one prohibited path from the actual source segment with corroborating firewall/destination evidence.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Compare risk zones and allowed data flows with effective network rules. Test one approved and one prohibited path from the actual source segment with corroborating firewall/destination evidence."
   },
   "NA-02": {
     "source_uid": "nist-800-53:sc-7",
@@ -492,8 +448,7 @@
       "procedures addressing boundary protection",
       "system configuration settings and associated documentation"
     ],
-    "application": "Join gateway/firewall/proxy rules to business-approved flows and exception expiry. Validate explicit deny behaviour and normal traffic using the right protocol and source identity.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Join gateway/firewall/proxy rules to business-approved flows and exception expiry. Validate explicit deny behaviour and normal traffic using the right protocol and source identity."
   },
   "NA-03": {
     "source_uid": "nist-800-53:pl-8",
@@ -503,8 +458,7 @@
       "information security and privacy architecture documentation",
       "records of information security and privacy architecture reviews and updates"
     ],
-    "application": "Verify diagrams reflect actual routes, cloud/remote boundaries and critical dependencies. Trace a design change through security review and repeat the relevant permitted/prohibited connectivity tests.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Verify diagrams reflect actual routes, cloud/remote boundaries and critical dependencies. Trace a design change through security review and repeat the relevant permitted/prohibited connectivity tests."
   },
   "BC-01": {
     "source_uid": "nist-800-53:cp-2",
@@ -514,8 +468,7 @@
       "Contingency planning policy",
       "evidence of contingency plan reviews and updates"
     ],
-    "application": "Use the business impact analysis as the local working record behind the plan. Verify critical services, dependency priorities, minimum service levels and approved RTO/RPO agree with business owners; document where a target is not technically achievable.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Use the business impact analysis as the local working record behind the plan. Verify critical services, dependency priorities, minimum service levels and approved RTO/RPO agree with business owners; document where a target is not technically achievable."
   },
   "BC-02": {
     "source_uid": "nist-800-53:cp-2",
@@ -525,8 +478,7 @@
       "Contingency planning policy",
       "evidence of contingency plan reviews and updates"
     ],
-    "application": "Check recovery owners, contact methods, dependency order, alternate arrangements and access to offline plans. Walk an outage scenario using the actual current runbooks and supplier commitments.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Check recovery owners, contact methods, dependency order, alternate arrangements and access to offline plans. Walk an outage scenario using the actual current runbooks and supplier commitments."
   },
   "BC-03": {
     "source_uid": "nist-800-53:cp-4",
@@ -536,8 +488,7 @@
       "contingency plan test documentation",
       "contingency plan test results"
     ],
-    "application": "Compare exercise scope and objectives with actual measured service recovery and dependencies. Trace observed gaps to corrective actions and retests rather than recording only that an exercise occurred.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Compare exercise scope and objectives with actual measured service recovery and dependencies. Trace observed gaps to corrective actions and retests rather than recording only that an exercise occurred."
   },
   "MD-01": {
     "source_uid": "nist-800-53:mp-6",
@@ -547,8 +498,7 @@
       "media sanitization records",
       "records retention and disposition policy"
     ],
-    "application": "Match media serial, classification, method/tool version, operator, verification and destination. Confirm legal holds/retention and vendor method applicability before reuse or disposal.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Match media serial, classification, method/tool version, operator, verification and destination. Confirm legal holds/retention and vendor method applicability before reuse or disposal."
   },
   "MD-02": {
     "source_uid": "nist-800-53:mp-6.7",
@@ -558,8 +508,7 @@
       "media sanitization records",
       "authorization records"
     ],
-    "application": "Match destruction authorisation, custody, serials and provider certificate to the asset register. Witness or inspect evidence of the approved destruction method; MP-6(7) supports dual authorisation rather than defining every destruction technique.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Match destruction approval, custody records, serials and provider certificates to the asset register. Witness or inspect the completed destruction and dual authorisation."
   },
   "OT-01": {
     "source_uid": "nist-800-53:cm-8",
@@ -569,8 +518,7 @@
       "procedures addressing system component inventory",
       "inventory reviews and update records"
     ],
-    "application": "Reconcile OT assets, firmware, engineering dependencies and owners using approved passive sources. Identify unsupported/unmanaged components without disruptive scanning and trace inventory updates after engineering changes.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Reconcile OT assets, firmware, engineering dependencies and owners using approved passive sources. Identify unsupported/unmanaged components without disruptive scanning and trace inventory updates after engineering changes."
   },
   "OT-02": {
     "source_uid": "nist-800-53:sc-7",
@@ -580,8 +528,7 @@
       "list of key internal boundaries of the system",
       "system configuration settings and associated documentation"
     ],
-    "application": "Compare OT/IT/conduit design and brokered remote access with effective rules and supplier paths. Use operations-approved safe connectivity tests and verify monitoring and emergency exceptions.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Compare OT/IT/conduit design and brokered remote access with effective rules and supplier paths. Use operations-approved safe connectivity tests and verify monitoring and emergency exceptions."
   },
   "OT-03": {
     "source_uid": "nist-800-53:ir-8",
@@ -591,8 +538,7 @@
       "procedures addressing incident response planning",
       "records of incident response plan reviews and approvals"
     ],
-    "application": "Check that playbooks contain OT safety constraints, operations authority, supplier contacts, isolation decisions and manual fallback. Walk an approved scenario and trace lessons into tested revisions.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Check that playbooks contain OT safety constraints, operations authority, supplier contacts, isolation decisions and manual fallback. Walk an approved scenario and trace lessons into tested revisions."
   },
   "RM-01": {
     "source_uid": "nist-800-53:pm-28",
@@ -602,8 +548,7 @@
       "documentation of risk framing activities",
       "supply chain risk management strategy"
     ],
-    "application": "Verify business objectives, assets/services, stakeholders, assumptions, obligations and tolerance inform the assessment scope. Recheck a material dependency or environmental change against the documented context.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Verify business objectives, assets/services, stakeholders, assumptions, obligations and tolerance inform the assessment scope. Recheck a material dependency or environmental change against the documented context."
   },
   "RM-02": {
     "source_uid": "nist-800-53:ra-3",
@@ -613,8 +558,7 @@
       "risk assessment results",
       "risk assessment reviews"
     ],
-    "application": "Check the risk scenario, affected service/data, credible threat, vulnerability, consequence and likelihood reasoning. Reperform a material rating against the approved method and current evidence.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Check the risk scenario, affected service/data, credible threat, vulnerability, consequence and likelihood reasoning. Reperform a material rating against the approved method and current evidence."
   },
   "RM-03": {
     "source_uid": "nist-800-53:ra-7",
@@ -624,8 +568,7 @@
       "assessment reports",
       "audit records/event logs"
     ],
-    "application": "Use the local risk register/treatment plan to trace risk ID, owner, response, due date, residual risk and review trigger. RA-7 lists assessment reports and audit evidence; it does not explicitly name a risk register, so that record format is a local implementation choice.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Trace risk ID, owner, response, due date, residual risk and review trigger through the local risk register, treatment plan and supporting assessment reports."
   },
   "VM-01": {
     "source_uid": "nist-800-53:ra-5",
@@ -635,8 +578,7 @@
       "vulnerability scanning results",
       "patch and vulnerability management records"
     ],
-    "application": "Reconcile authenticated scan coverage to assets and verify scan freshness, failures and excluded systems. Confirm representative detected versions/findings with vendor advisories and endpoint evidence.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Reconcile authenticated scan coverage to assets and verify scan freshness, failures and excluded systems. Confirm representative detected versions/findings with vendor advisories and endpoint evidence."
   },
   "VM-02": {
     "source_uid": "nist-800-53:si-2",
@@ -646,8 +588,7 @@
       "test results from the installation of software and firmware updates to correct system flaws",
       "installation/change control records for security-relevant software and firmware updates"
     ],
-    "application": "Match vulnerability severity/exposure and deadline to tested deployment, restart and rescan evidence. Verify the actual affected binary/build is fixed and exceptions have accountable, current approval.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Match vulnerability severity/exposure and deadline to tested deployment, restart and rescan evidence. Verify the actual affected binary/build is fixed and exceptions have accountable, current approval."
   },
   "SD-01": {
     "source_uid": "nist-800-53:sa-3",
@@ -657,8 +598,7 @@
       "system development life cycle documentation",
       "data mapping documentation"
     ],
-    "application": "Trace security/privacy requirements through design, review, tests and release gates. Inspect threat/data-flow changes and evidence that a failing security requirement prevents or explicitly conditions release.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Trace security/privacy requirements through design, review, tests and release gates. Inspect threat/data-flow changes and evidence that a failing security requirement prevents or explicitly conditions release."
   },
   "SD-02": {
     "source_uid": "nist-800-53:sa-11.2",
@@ -668,8 +608,7 @@
       "threat and vulnerability analysis reports",
       "system risk assessment reports"
     ],
-    "application": "Check assets, trust boundaries, abuse cases and mitigations against the current design and real integrations. Select one material threat and verify its mitigation/test and residual-risk decision.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Check assets, trust boundaries, abuse cases and mitigations against the current design and real integrations. Select one material threat and verify its mitigation/test and residual-risk decision."
   },
   "SD-03": {
     "source_uid": "nist-800-53:sa-11",
@@ -679,8 +618,7 @@
       "results of developer security and privacy assessments for the system, system component, or system service",
       "security and privacy flaw and remediation tracking records"
     ],
-    "application": "Match test scope/version and security findings to corrected code/dependencies and repeatable retests. Demonstrate a deliberately failing benign test blocks the release path under the approved gate.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Match test scope/version and security findings to corrected code/dependencies and repeatable retests. Demonstrate a deliberately failing benign test blocks the release path under the approved gate."
   },
   "DP-01": {
     "source_uid": "nist-800-53:ra-2",
@@ -690,8 +628,7 @@
       "security categorization documentation",
       "system security plan"
     ],
-    "application": "Reconcile data inventories, owners, classification and handling requirements with real repositories and flows. Check a sampled classification change propagates to the relevant access/retention/protection controls.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Reconcile data inventories, owners, classification and handling requirements with real repositories and flows. Check a sampled classification change propagates to the relevant access/retention/protection controls."
   },
   "DP-02": {
     "source_uid": "nist-800-53:sc-8",
@@ -701,8 +638,7 @@
       "system design documentation",
       "system configuration settings and associated documentation"
     ],
-    "application": "Map the required data paths to actual disk/storage, TLS and key controls. SC-8 supports transit protection; use the existing SC-28 mapping and storage tests for data at rest, and verify exceptions separately.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Map the required data paths to actual disk/storage, TLS and key controls. SC-8 supports transit protection; use the existing SC-28 mapping and storage tests for data at rest, and verify exceptions separately."
   },
   "DP-03": {
     "source_uid": "nist-800-53:ac-4",
@@ -712,8 +648,7 @@
       "information flow control policies",
       "list of information flow authorizations"
     ],
-    "application": "Trace approved recipients/channels and sensitive-data rules to effective sharing/DLP/egress settings. Use synthetic matching/non-matching data to test the prohibited and permitted movement paths.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Trace approved recipients/channels and sensitive-data rules to effective sharing/DLP/egress settings. Use synthetic matching/non-matching data to test the prohibited and permitted movement paths."
   },
   "PI-01": {
     "source_uid": "nist-800-53:pm-5.1",
@@ -723,8 +658,7 @@
       "personally identifiable information inventory",
       "data mapping documentation"
     ],
-    "application": "Reconcile personal-data systems, purposes, subjects, recipients and locations against application/data-flow evidence. Trace a new process and third-party transfer into the inventory with a current owner.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Reconcile personal-data systems, purposes, subjects, recipients and locations against application/data-flow evidence. Trace a new process and third-party transfer into the inventory with a current owner."
   },
   "PI-02": {
     "source_uid": "nist-800-53:pt-3",
@@ -734,8 +668,7 @@
       "documented requirements for enforcing and monitoring the processing of personally identifiable information",
       "organizational privacy notices"
     ],
-    "application": "Match purpose, access/minimisation and recipient rules with notices and effective processing. Test an unauthorised role or non-production copy using synthetic data, and inspect any exception/consent dependency.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Match purpose, access/minimisation and recipient rules with notices and effective processing. Test an unauthorised role or non-production copy using synthetic data, and inspect any exception/consent dependency."
   },
   "PI-03": {
     "source_uid": "nist-800-53:ir-8.1",
@@ -745,8 +678,7 @@
       "procedures addressing incident response planning",
       "privacy plan"
     ],
-    "application": "Trace a privacy incident/request exercise through responsible officers, assessment, escalation and completion evidence. IR-8(1) supports breach-response planning; local request logs and applicable privacy sources are needed for access/correction rights and statutory clocks.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Trace a privacy incident or request through responsible officers, assessment, escalation, applicable deadlines and completion evidence."
   },
   "OM-01": {
     "source_uid": "nist-800-53:cm-7.5",
@@ -756,8 +688,7 @@
       "list of software programs authorized to execute on the system",
       "review and update records associated with list of authorized software programs"
     ],
-    "application": "Use the approved macro register as the local equivalent for authorised executable code. Match each macro's purpose, owner, signature/trusted location and write access to policy and a safe execution test; NIST does not specifically name a macro register.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Match each approved macro to its purpose, owner, signature/trusted location and write permissions. Verify the deployed rule and a safe execution test."
   },
   "OM-02": {
     "source_uid": "nist-800-53:si-3",
@@ -767,8 +698,7 @@
       "scan results from malicious code protection mechanisms",
       "record of actions initiated by malicious code protection mechanisms in response to malicious code detection"
     ],
-    "application": "Match macro scanning and behaviour restrictions to the effective Office/Defender settings and exception list. Inspect benign detection/block evidence and confirm required operations cannot bypass the intended restriction.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Match macro scanning and behaviour restrictions to the effective Office/Defender settings and exception list. Inspect benign detection/block evidence and confirm required operations cannot bypass the intended restriction."
   },
   "CK-01": {
     "source_uid": "nist-800-53:sc-13",
@@ -778,8 +708,7 @@
       "cryptographic module validation certificates",
       "system configuration settings and associated documentation"
     ],
-    "application": "Match the actual product/module version and operating mode to the applicable approved algorithm/module requirement. NIST mentions FIPS artefacts; a FIPS certificate is required only where the selected source/organisation requires it, not automatically for every WA control.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Match product/module versions and operating modes to the approved algorithm standard. Inspect certification evidence where that standard requires it."
   },
   "CK-02": {
     "source_uid": "nist-800-53:sc-12",
@@ -789,8 +718,7 @@
       "procedures addressing cryptographic key establishment and management",
       "system configuration settings and associated documentation"
     ],
-    "application": "Reconcile key inventory, owner, purpose, lifetime, storage, authorised use and recovery with vault/HSM settings and audit records. Verify approved rotation/revocation and an unauthorised access denial without exporting key material.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Reconcile key inventory, owner, purpose, lifetime, storage, authorised use and recovery with vault/HSM settings and audit records. Verify approved rotation/revocation and an unauthorised access denial without exporting key material."
   },
   "IN-01": {
     "source_uid": "nist-800-53:ir-4",
@@ -800,8 +728,7 @@
       "procedures addressing incident handling",
       "incident response plan"
     ],
-    "application": "Trace suspicion/awareness, triage and escalation timestamps for the sampled event against the four-hour source-specific requirement already mapped to this control. NIST supplies evidence categories, not that four-hour deadline.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Compare detection, triage and escalation timestamps with the mapped four-hour requirement."
   },
   "IN-02": {
     "source_uid": "nist-800-53:ir-6",
@@ -811,8 +738,7 @@
       "incident reporting records and documentation",
       "incident response plan"
     ],
-    "application": "Verify criticality/applicability and the actual awareness trigger, responsible reporter, content and receipt timestamp against the mapped twelve-hour reporting requirement. NIST does not establish that legal clock.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Check incident criticality, awareness time, responsible reporter, required content and receipt time against the mapped twelve-hour requirement."
   },
   "IN-03": {
     "source_uid": "nist-800-53:ir-6",
@@ -822,8 +748,7 @@
       "incident reporting records and documentation",
       "procedures addressing incident reporting"
     ],
-    "application": "Maintain the local reporting-obligations register with trigger, authority, deadline, decision owner and delivery evidence. Test applicable clocks separately; the generic NIST procedure does not create or replace a statutory deadline.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Check the reporting register for each trigger, authority, deadline and owner. Compare decisions and delivery evidence with each applicable clock."
   },
   "MF-01": {
     "source_uid": "nist-800-53:ia-2.1",
@@ -833,8 +758,7 @@
       "list of system accounts",
       "system configuration settings and associated documentation"
     ],
-    "application": "Reconcile covered users, resources and authentication routes to effective MFA policies and exclusions. Confirm a fresh tested sign-in satisfies required factors/strength and a prohibited route cannot bypass them.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Reconcile covered users, resources and authentication routes to effective MFA policies and exclusions. Confirm a fresh tested sign-in satisfies required factors/strength and a prohibited route cannot bypass them."
   },
   "MF-02": {
     "source_uid": "nist-800-53:ia-5",
@@ -844,8 +768,7 @@
       "list of system authenticator types",
       "change control records associated with managing system authenticators"
     ],
-    "application": "Review factor registration, bootstrap, replacement and recovery against authorised identity verification. Test an unapproved registration/recovery path and monitor a permitted factor change.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Review factor registration, bootstrap, replacement and recovery against authorised identity verification. Test an unapproved registration/recovery path and monitor a permitted factor change."
   },
   "PA-01": {
     "source_uid": "nist-800-53:ac-2",
@@ -855,8 +778,7 @@
       "access authorization records",
       "list of conditions for group and role membership"
     ],
-    "application": "Trace sampled privileged requests to specific roles, business need, owner approval and expiry. Compare the grant timestamp and actual role assignment with the approved request, including a rejected request.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Trace sampled privileged requests to specific roles, business need, owner approval and expiry. Compare the grant timestamp and actual role assignment with the approved request, including a rejected request."
   },
   "PA-02": {
     "source_uid": "nist-800-53:ac-6.5",
@@ -866,8 +788,7 @@
       "list of system-generated privileged accounts",
       "list of system administration personnel"
     ],
-    "application": "Reconcile each human administrator to separate everyday/admin identities and approved activities. Inspect workload use and demonstrate the admin identity cannot take a prohibited everyday access path.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Reconcile each human administrator to separate everyday/admin identities and approved activities. Inspect workload use and demonstrate the admin identity cannot take a prohibited everyday access path."
   },
   "PA-03": {
     "source_uid": "nist-800-53:ia-2.1",
@@ -877,8 +798,7 @@
       "system configuration settings and associated documentation",
       "system audit records"
     ],
-    "application": "Compare effective privileged authentication strength and emergency exceptions with the approved standard. Match a fresh privileged sign-in to actual factor/CA outcomes and a deliberately disallowed path.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Compare effective privileged authentication strength and emergency exceptions with the approved standard. Match a fresh privileged sign-in to actual factor/CA outcomes and a deliberately disallowed path."
   },
   "PA-04": {
     "source_uid": "nist-800-53:ac-6.7",
@@ -888,8 +808,7 @@
       "validation reviews of privileges assigned to roles or classes or users",
       "records of privilege removals or reassignments for roles or classes of users"
     ],
-    "application": "Verify review completeness, accountable decisions and timely removal/expiry. Reperform a sampled removal with a fresh access request; a closed review task is insufficient.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Verify review completeness, accountable decisions and timely removal/expiry. Reperform a sampled removal with a fresh access request; a closed review task is insufficient."
   },
   "PA-05": {
     "source_uid": "nist-800-53:ac-6.9",
@@ -899,8 +818,7 @@
       "list of privileged functions to be audited",
       "system audit records"
     ],
-    "application": "Match required privileged activities to actual actor/target/action/outcome/time fields. Generate an approved harmless privileged action and trace it through retention and monitoring without exposing secrets.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Match required privileged activities to actual actor/target/action/outcome/time fields. Generate an approved harmless privileged action and trace it through retention and monitoring without exposing secrets."
   },
   "PS-01": {
     "source_uid": "nist-800-53:ps-3",
@@ -910,8 +828,7 @@
       "records of screened personnel",
       "procedures addressing personnel screening"
     ],
-    "application": "Check that the screening level and approval date meet the role requirement before access. Inspect status/authorisation metadata with restricted access rather than copying sensitive screening details.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Check that the screening level and approval date meet the role requirement before access. Inspect status/authorisation metadata with restricted access rather than copying sensitive screening details."
   },
   "PS-02": {
     "source_uid": "nist-800-53:ps-4",
@@ -921,7 +838,6 @@
       "records of personnel termination actions",
       "records of terminated or revoked authenticators/credentials"
     ],
-    "application": "Reconcile HR transfer/departure times with account, credential, session, physical and supplier access removal. Trace a test leaver through the defined deadline and retained ownership/data responsibilities.",
-    "support": "Document names are explicitly listed in the publisher Examine procedure. How WACC applies them to this practical control is a local assessment method; it does not establish full equivalence or a WA obligation."
+    "application": "Reconcile HR transfer/departure times with account, credential, session, physical and supplier access removal. Trace a test leaver through the defined deadline and retained ownership/data responsibilities."
   }
 }

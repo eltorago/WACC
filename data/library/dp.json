@@ -25,7 +25,7 @@
         {"uid":"cis-controls:3.7","relationship":"Directly addresses","basis":"Requires a maintained enterprise data-classification scheme.","provenance":"Locally reviewed mapping"},
         {"uid":"nist-800-53:ra-2","relationship":"Partially addresses","basis":"Requires categorisation of systems and the information they process, store and transmit with documented approval.","provenance":"Locally reviewed mapping"},
         {"uid":"ztmm:data/data categorization","relationship":"Partially addresses","basis":"Describes progressively defined, automated and enterprise-wide data categorisation and labelling.","provenance":"Locally reviewed mapping"},
-        {"uid":"ism:ism-293","relationship":"Related only","basis":"Classifies equipment by the highest data sensitivity or classification it is approved to handle; it does not create the data inventory or classification scheme.","provenance":"Locally reviewed mapping"}
+        {"uid":"ism:ism-293","relationship":"Related only","basis":"Classifies equipment by the highest data sensitivity it is approved to handle.","provenance":"Locally reviewed mapping"}
       ]
     },
     {

@@ -92,7 +92,7 @@
         {
           "uid": "aescsf:access-1g",
           "relationship": "Supports",
-          "basis": "Account separation helps limit privileged credentials to the processes that require them; it does not alone enforce all use restrictions.",
+          "basis": "Account separation limits privileged credentials to the processes that require them.",
           "provenance": "Locally reviewed mapping"
         },
         {
