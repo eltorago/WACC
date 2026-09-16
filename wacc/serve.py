@@ -9,12 +9,16 @@ in Python so the web and test outputs use the same wording and escaping rules.
 """
 
 import argparse
+import json
+import secrets
 import socket
 import sys
 import urllib.parse
 import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from typing import Dict, Optional
+from email.parser import BytesParser
+from email.policy import default as email_policy
 
 from .analysis import analyse, gather
 from . import control_workspace
@@ -104,7 +108,10 @@ def _limit(params) -> int:
 
 def _handler(initial_state: State):
     from .source_workspace import AcquisitionJob, render as render_sources
+    from . import department_assessments as assessments, department_workspace
     states = [initial_state]
+    assessment_store = assessments.Store()
+    assessment_token = secrets.token_urlsafe(32)
 
     def reload_corpus():
         replacement = State()
@@ -118,10 +125,11 @@ def _handler(initial_state: State):
 
         def _send(self, body: str, content_type: str, filename: Optional[str] = None,
                   code: int = 200):
-            data = body.encode("utf-8")
+            data = body.encode("utf-8") if isinstance(body, str) else body
             self.send_response(code)
-            self.send_header("Content-Type", "%s; charset=utf-8" % content_type)
+            self.send_header("Content-Type", content_type + ('; charset=utf-8' if isinstance(body, str) else ''))
             self.send_header("Content-Length", str(len(data)))
+            self.send_header("Cache-Control", "no-store")
             # The page draws a fragment this server sent into the document. Saying so
             # stops a browser guessing the type of anything it did not expect.
             self.send_header("X-Content-Type-Options", "nosniff")
@@ -138,6 +146,20 @@ def _handler(initial_state: State):
             if parsed.path == '/sources':
                 return self._send(render_sources(acquisition), 'text/html')
             params = urllib.parse.parse_qs(parsed.query)
+            if parsed.path == '/assessments':
+                try:
+                    notice = 'Assessment workbooks imported.' if params.get('imported') else ''
+                    return self._send(department_workspace.render(assessment_store, assessment_token, params, notice), 'text/html')
+                except assessments.AssessmentError as exc:
+                    return self._send(str(exc), 'text/plain', code=500)
+            if parsed.path.startswith('/assessments/download/'):
+                name = parsed.path.rsplit('/', 1)[-1]
+                if name not in assessments.DOWNLOADS:
+                    return self.send_error(404, 'no such workbook')
+                path = assessments.ROOT / 'examples/assessments' / name
+                if not path.is_file():
+                    return self.send_error(404, 'example workbook is missing')
+                return self._send(path.read_bytes(), 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', name)
             query = (params.get("q") or [""])[0]
             limit = _limit(params)
 
@@ -191,6 +213,8 @@ def _handler(initial_state: State):
             self.send_error(404, "no such page")
 
         def do_POST(self):
+            if self.path in ('/assessments/import', '/assessments/examples'):
+                return self._import_assessments()
             if self.path != '/sources/acquire':
                 return self.send_error(404, 'no such action')
             try:
@@ -206,6 +230,59 @@ def _handler(initial_state: State):
             self.send_header('Location', '/sources')
             self.send_header('Content-Length', '0')
             self.end_headers()
+
+        def _import_assessments(self):
+            try:
+                origin = self.headers.get('Origin')
+                try:
+                    size = int(self.headers.get('Content-Length', '0'))
+                except ValueError:
+                    size = 0
+                if not 0 < size <= 20 * 1024 * 1024:
+                    raise assessments.AssessmentError('Select files totalling less than 20 MB.')
+                body = self.rfile.read(size)
+                if len(body) != size:
+                    raise assessments.AssessmentError('The upload was incomplete. Try again.')
+                if origin and urllib.parse.urlparse(origin).netloc != self.headers.get('Host'):
+                    raise assessments.AssessmentError('Reload the Assessments page before importing.')
+                if self.path == '/assessments/examples':
+                    params = urllib.parse.parse_qs(body.decode('utf-8', errors='replace'))
+                    token = (params.get('token') or [''])[0]
+                    replace = False
+                    files = [(name, (assessments.ROOT/'examples/assessments'/name).read_bytes()) for name in assessments.EXAMPLES]
+                else:
+                    kind = self.headers.get('Content-Type', '')
+                    if not kind.startswith('multipart/form-data;'):
+                        raise assessments.AssessmentError('Use the file picker on the Assessments page.')
+                    message = BytesParser(policy=email_policy).parsebytes(('Content-Type: '+kind+'\r\nMIME-Version: 1.0\r\n\r\n').encode()+body)
+                    if not message.is_multipart() or message.defects:
+                        raise assessments.AssessmentError('The file upload is malformed.')
+                    token=''; replace=False; files=[]
+                    for part in message.iter_parts():
+                        field = part.get_param('name', header='content-disposition')
+                        data = part.get_payload(decode=True)
+                        if data is None:
+                            raise assessments.AssessmentError('Nested uploads are not supported.')
+                        if field == 'token': token=data.decode('ascii',errors='replace')
+                        elif field == 'replace': replace=data == b'1'
+                        elif field == 'files' and part.get_filename(): files.append((part.get_filename(),data))
+                    if len(files)>10:
+                        raise assessments.AssessmentError('Import no more than ten workbooks at once.')
+                if not secrets.compare_digest(token.encode('utf-8'),assessment_token.encode('ascii')):
+                    raise assessments.AssessmentError('Reload the Assessments page before importing.')
+                imported = assessment_store.import_files(files,replace=replace)
+                location = '/assessments?' + urllib.parse.urlencode({'department':imported[0]['department'],'imported':'1'})
+                if self.path == '/assessments/examples':
+                    self.send_response(303)
+                    self.send_header('Location',location)
+                    self.send_header('Content-Length','0')
+                    self.end_headers()
+                else:
+                    return self._send(json.dumps({'location':location}), 'application/json')
+            except assessments.AssessmentError as exc:
+                return self._send(json.dumps({'error':str(exc)}), 'application/json', code=400)
+            except OSError:
+                return self._send(json.dumps({'error':'Assessment storage is unavailable. Check folder permissions and free space.'}), 'application/json', code=500)
 
         def _panel(self, uid: str):
             state = states[0]

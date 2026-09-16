@@ -23,6 +23,7 @@ __pycache__/
 MANIFEST.json
 
 # Excluded in full, whatever they hold
+/data/local/
 /data/raw/
 /data/corpus/detail/
 /data/review/
@@ -44,6 +45,11 @@ MANIFEST.json
 *.XLSX
 *.zip
 *.ZIP
+# Authored assessment templates and fictional examples
+!/examples/assessments/department-of-silly-walks-2023.xlsx
+!/examples/assessments/department-of-silly-walks-2024.xlsx
+!/examples/assessments/department-of-silly-walks-2025.xlsx
+!/examples/assessments/wa-csp-2024-template.xlsx
 
 # Extracts of publisher text that has not been licensed for reuse
 aescsf.json
