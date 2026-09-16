@@ -130,7 +130,7 @@ def _handler(state: State):
             limit = _limit(params)
 
             if parsed.path == "/library/export.csv":
-                return self._send(control_workspace.export_csv(params), "text/csv", "control-mappings.csv")
+                return self._send(control_workspace.export_csv(params, state.corpus), "text/csv", "control-mappings.csv")
             if parsed.path == "/library" or (parsed.path in ("/", "/index.html") and not params):
                 return self._send(control_workspace.render(state.corpus, params), "text/html")
 

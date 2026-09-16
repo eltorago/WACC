@@ -1,0 +1,952 @@
+{
+  "domain": "enterprise-attack",
+  "reviewed_version": "19.2",
+  "provenance": "Locally authored ATT&CK mapping",
+  "controls": {
+    "PA-01": {
+      "connections": [
+        {
+          "technique": "T1078",
+          "mitigation": "M1026",
+          "effect": "Prevent",
+          "how": "Approving only the privileges required for a job limits what an attacker can do with a stolen account. It does not prevent the account itself from being compromised."
+        }
+      ]
+    },
+    "PA-02": {
+      "connections": [
+        {
+          "technique": "T1078.002",
+          "mitigation": "M1026",
+          "effect": "Prevent",
+          "how": "Keeping domain administrator credentials out of routine browsing and email reduces the chance that compromise of a daily-use account also gives the attacker domain administration rights."
+        },
+        {
+          "technique": "T1003.001",
+          "mitigation": "M1026",
+          "effect": "Prevent",
+          "how": "Restricting where administrator accounts sign in reduces the number of endpoints that hold privileged credentials an attacker could extract from LSASS."
+        }
+      ]
+    },
+    "PA-03": {
+      "connections": [
+        {
+          "technique": "T1078",
+          "mitigation": "M1032",
+          "effect": "Prevent",
+          "how": "Requiring an additional authentication factor makes a stolen administrator password insufficient at protected sign-in points. Alternate entry paths must enforce the same requirement."
+        },
+        {
+          "technique": "T1133",
+          "mitigation": "M1032",
+          "effect": "Prevent",
+          "how": "MFA on remote administrative entry points reduces the chance that stolen credentials can be used to enter through a VPN or other remote access service."
+        }
+      ]
+    },
+    "PA-04": {
+      "connections": [
+        {
+          "technique": "T1078",
+          "mitigation": "M1026",
+          "effect": "Prevent",
+          "how": "Removing dormant accounts and unnecessary privileges reduces the pool of accounts an attacker can reuse and limits the access available after an account is stolen."
+        }
+      ]
+    },
+    "PA-05": {
+      "connections": [
+        {
+          "technique": "T1098",
+          "effect": "Detect",
+          "how": "Logs of privileged account and permission changes allow investigators to identify unauthorised additions or changes that an attacker uses to retain access. Collection needs review or alerts to produce detection."
+        },
+        {
+          "technique": "T1070",
+          "mitigation": "M1029",
+          "effect": "Prevent",
+          "how": "Sending administrative records to a separately protected log service makes it harder for an attacker to erase the evidence by clearing records on the compromised system."
+        }
+      ]
+    },
+    "AD-01": {
+      "connections": [
+        {
+          "technique": "T1210",
+          "mitigation": "M1030",
+          "effect": "Prevent",
+          "how": "Isolating domain controllers and allowing only necessary connections reduces the paths an attacker can use to exploit directory services from a compromised endpoint."
+        },
+        {
+          "technique": "T1003.001",
+          "mitigation": "M1028",
+          "effect": "Prevent",
+          "how": "Hardening identity servers and reducing unnecessary local services limits opportunities to reach credential material. Credential protection settings must be enabled and tested on the affected systems."
+        }
+      ]
+    },
+    "AD-02": {
+      "connections": [
+        {
+          "technique": "T1003.006",
+          "mitigation": "M1026",
+          "effect": "Prevent",
+          "how": "Limiting directory privileges and protecting administrative sessions reduces the chance an attacker can acquire the rights needed to request password data through directory replication."
+        },
+        {
+          "technique": "T1078.002",
+          "mitigation": "M1026",
+          "effect": "Prevent",
+          "how": "Dedicated accounts and protected administration workstations reduce exposure of domain administrator credentials and limit where stolen domain accounts can be used."
+        }
+      ]
+    },
+    "AD-03": {
+      "connections": [
+        {
+          "technique": "T1003.006",
+          "mitigation": "M1015",
+          "effect": "Prevent",
+          "how": "Removing unnecessary directory replication permissions prevents ordinary service accounts from requesting password data through DCSync. Review legitimate replication rights as well as group membership."
+        },
+        {
+          "technique": "T1558.003",
+          "mitigation": "M1027",
+          "effect": "Prevent",
+          "how": "Long, automatically managed service-account passwords make captured service tickets harder to crack offline. Restricted service-account privileges limit the damage if a password is recovered."
+        }
+      ]
+    },
+    "AD-04": {
+      "connections": [
+        {
+          "technique": "T1558.001",
+          "mitigation": "M1015",
+          "effect": "Prevent",
+          "how": "Controlled KRBTGT password rotation invalidates older signing keys used to forge Golden Tickets. Two changes must be coordinated with replication and recovery procedures."
+        },
+        {
+          "technique": "T1484.002",
+          "mitigation": "M1026",
+          "effect": "Prevent",
+          "how": "Restricting who can change domain trusts and enforcing trust boundaries reduces opportunities to extend a compromise into another domain."
+        }
+      ]
+    },
+    "AD-05": {
+      "connections": [
+        {
+          "technique": "T1003.006",
+          "effect": "Detect",
+          "how": "Reviewing directory replication events for unexpected accounts or systems can reveal attempts to obtain password data through DCSync. The required auditing and alert rules must be enabled."
+        },
+        {
+          "technique": "T1485",
+          "mitigation": "M1053",
+          "effect": "Recover",
+          "how": "Protected, tested identity backups provide a route to rebuild directory services after destructive changes. Recovery must also remove compromised credentials and persistence."
+        }
+      ]
+    },
+    "AD-06": {
+      "connections": [
+        {
+          "technique": "T1098",
+          "mitigation": "M1018",
+          "effect": "Prevent",
+          "how": "Restricting writes to msDS-KeyCredentialLink prevents unauthorised users from adding a key credential that lets them authenticate as another account. Review delegated permissions as well as privileged groups."
+        },
+        {
+          "technique": "T1098",
+          "effect": "Detect",
+          "how": "Monitoring key-credential changes and comparing them with approved passwordless enrolments helps identify shadow credentials added for persistent access."
+        }
+      ]
+    },
+    "AM-01": {
+      "connections": [
+        {
+          "technique": "T1190",
+          "mitigation": "M1016",
+          "effect": "Support",
+          "how": "An accurate asset and software inventory identifies internet-facing systems that must be scanned and patched. The inventory supports vulnerability reduction; it does not itself stop exploitation."
+        }
+      ]
+    },
+    "AM-02": {
+      "connections": [
+        {
+          "technique": "T1136.002",
+          "mitigation": "M1028",
+          "effect": "Prevent",
+          "how": "Secure baselines that restrict account creation and administrative access reduce opportunities to create unauthorised domain accounts. Drift monitoring helps find changes to those settings."
+        },
+        {
+          "technique": "T1053.005",
+          "mitigation": "M1028",
+          "effect": "Prevent",
+          "how": "Baselines that restrict scheduled-task permissions reduce opportunities to establish persistent execution. Verify these settings on the deployed systems."
+        }
+      ]
+    },
+    "AM-03": {
+      "connections": [
+        {
+          "technique": "T1484.001",
+          "mitigation": "M1047",
+          "effect": "Support",
+          "how": "Approved change records and post-change checks help distinguish intended Group Policy changes from unauthorised changes that weaken security or distribute malicious settings."
+        }
+      ]
+    },
+    "AP-01": {
+      "connections": [
+        {
+          "technique": "T1059",
+          "mitigation": "M1038",
+          "effect": "Prevent",
+          "how": "Enforced allow rules block unapproved scripts and interpreters used to run attacker commands. Rules must cover the relevant script types and execution paths."
+        },
+        {
+          "technique": "T1218",
+          "mitigation": "M1038",
+          "effect": "Prevent",
+          "how": "Restricting unnecessary signed system utilities and their permitted use reduces ways to run malicious content through trusted programs."
+        }
+      ]
+    },
+    "AP-02": {
+      "connections": [
+        {
+          "technique": "T1204.002",
+          "mitigation": "M1038",
+          "effect": "Support",
+          "how": "Reviewing application-control coverage and exceptions keeps newly deployed systems and unapproved file types from becoming gaps through which a user can launch a malicious file."
+        }
+      ]
+    },
+    "AW-01": {
+      "connections": [
+        {
+          "technique": "T1566",
+          "mitigation": "M1017",
+          "effect": "Prevent",
+          "how": "Practical training helps staff recognise and report suspicious messages before opening attachments, following links or disclosing credentials."
+        },
+        {
+          "technique": "T1204.002",
+          "mitigation": "M1017",
+          "effect": "Prevent",
+          "how": "Teaching staff to verify unexpected files and avoid bypassing security prompts reduces the likelihood that they launch attacker-supplied content."
+        }
+      ]
+    },
+    "AW-02": {
+      "connections": [
+        {
+          "technique": "T1552.001",
+          "mitigation": "M1017",
+          "effect": "Prevent",
+          "how": "Role-specific training for administrators and developers reduces the likelihood of leaving passwords or keys in scripts, configuration files and shared folders."
+        }
+      ]
+    },
+    "BC-01": {
+      "connections": [
+        {
+          "technique": "T1486",
+          "mitigation": "M1053",
+          "effect": "Support",
+          "how": "Recovery objectives identify which data and systems need backups and how quickly they must be restored after ransomware. Achieving those objectives depends on implementing and testing the recovery arrangements."
+        }
+      ]
+    },
+    "BC-02": {
+      "connections": [
+        {
+          "technique": "T1489",
+          "effect": "Recover",
+          "how": "Coordinated continuity plans define alternate operations and service restoration when an attacker stops critical services. The plans reduce disruption only when the required capabilities are available."
+        }
+      ]
+    },
+    "BC-03": {
+      "connections": [
+        {
+          "technique": "T1486",
+          "mitigation": "M1053",
+          "effect": "Support",
+          "how": "Exercising a ransomware disruption reveals gaps in recovery dependencies, backup availability and restoration times before they are needed in a real incident."
+        }
+      ]
+    },
+    "BR-01": {
+      "connections": [
+        {
+          "technique": "T1486",
+          "mitigation": "M1053",
+          "effect": "Recover",
+          "how": "Usable backups allow encrypted data and systems to be restored without relying on an attacker to provide a decryption key."
+        },
+        {
+          "technique": "T1485",
+          "mitigation": "M1053",
+          "effect": "Recover",
+          "how": "Backups preserve a recoverable copy when an attacker deletes or corrupts live information and system configuration."
+        }
+      ]
+    },
+    "BR-02": {
+      "connections": [
+        {
+          "technique": "T1490",
+          "mitigation": "M1053",
+          "effect": "Recover",
+          "how": "Isolated or immutable recovery copies and separate backup administration reduce the chance that an attacker can delete all backups or disable every recovery option."
+        }
+      ]
+    },
+    "BR-03": {
+      "connections": [
+        {
+          "technique": "T1486",
+          "mitigation": "M1053",
+          "effect": "Recover",
+          "how": "Restoration tests establish whether backups can return a working service after ransomware, including applications, configuration and dependencies, within the agreed recovery time."
+        }
+      ]
+    },
+    "CK-01": {
+      "connections": [
+        {
+          "technique": "T1040",
+          "mitigation": "M1041",
+          "effect": "Prevent",
+          "how": "Approved encryption protocols and cipher settings reduce the information an attacker can read by capturing network traffic. Both endpoints must enforce the protected connection."
+        }
+      ]
+    },
+    "CK-02": {
+      "connections": [
+        {
+          "technique": "T1552.004",
+          "mitigation": "M1041",
+          "effect": "Prevent",
+          "how": "Protecting private keys in approved stores and controlling their lifecycle reduces the chance that an attacker can obtain a usable key from an exposed file or old copy."
+        }
+      ]
+    },
+    "DP-01": {
+      "connections": [
+        {
+          "technique": "T1005",
+          "mitigation": "M1057",
+          "effect": "Support",
+          "how": "Knowing which systems hold sensitive data allows access restrictions and data-loss controls to focus on those stores. Classification alone does not prevent an attacker collecting local files."
+        }
+      ]
+    },
+    "DP-02": {
+      "connections": [
+        {
+          "technique": "T1040",
+          "mitigation": "M1041",
+          "effect": "Prevent",
+          "how": "Encrypting sensitive information in transit reduces disclosure from captured network traffic."
+        },
+        {
+          "technique": "T1530",
+          "mitigation": "M1041",
+          "effect": "Prevent",
+          "how": "Storage encryption with separately controlled keys reduces the usefulness of copied cloud data. It does not stop an attacker who has both authorised data access and decryption rights."
+        }
+      ]
+    },
+    "DP-03": {
+      "connections": [
+        {
+          "technique": "T1041",
+          "mitigation": "M1057",
+          "effect": "Prevent",
+          "how": "Data-loss controls can identify and block sensitive information leaving through an attacker's existing command channel where the content or transfer can be inspected."
+        },
+        {
+          "technique": "T1567",
+          "mitigation": "M1057",
+          "effect": "Prevent",
+          "how": "Restrictions and monitoring on uploads reduce opportunities to move sensitive files into an attacker-controlled web service."
+        }
+      ]
+    },
+    "GV-01": {
+      "connections": [],
+      "note": "Governance assigns ownership, funding and oversight for the controls that prevent, detect and respond to attacks. It has no defensible direct mapping to an individual ATT&CK technique."
+    },
+    "GV-02": {
+      "connections": [],
+      "note": "The cybersecurity strategy determines which attack risks and defensive capabilities receive priority. Its effect is delivered through the technical and operational controls selected under it; the strategy itself does not mitigate a specific ATT&CK technique."
+    },
+    "IA-01": {
+      "connections": [
+        {
+          "technique": "T1078",
+          "mitigation": "M1018",
+          "effect": "Prevent",
+          "how": "Disabling unused or unauthorised accounts removes credentials an attacker could reuse to enter systems or retain access."
+        },
+        {
+          "technique": "T1098",
+          "mitigation": "M1018",
+          "effect": "Prevent",
+          "how": "Controlled account changes and review reduce opportunities to add unauthorised credentials or permissions to an existing identity."
+        }
+      ]
+    },
+    "IA-02": {
+      "connections": [
+        {
+          "technique": "T1078",
+          "mitigation": "M1018",
+          "effect": "Prevent",
+          "how": "Keeping permissions aligned with current duties limits the systems and data an attacker can reach using a compromised account."
+        }
+      ]
+    },
+    "IA-03": {
+      "connections": [
+        {
+          "technique": "T1552",
+          "mitigation": "M1027",
+          "effect": "Prevent",
+          "how": "Controlled issue, storage and revocation reduce the availability of exposed or obsolete passwords and other credentials that an attacker could collect and reuse."
+        }
+      ]
+    },
+    "IN-01": {
+      "connections": [
+        {
+          "technique": "T1486",
+          "effect": "Support",
+          "how": "Prompt triage of suspected ransomware brings containment and recovery decisions forward. The four-hour triage requirement does not itself stop encryption; response actions must follow the assessment."
+        }
+      ]
+    },
+    "IN-02": {
+      "connections": [],
+      "note": "External incident notification supports coordination and meets a reporting obligation. Meeting the twelve-hour deadline does not directly prevent or mitigate an ATT&CK technique; containment and recovery are addressed by the incident-response and recovery controls."
+    },
+    "IN-03": {
+      "connections": [],
+      "note": "Meeting external reporting deadlines supports coordination and accountability. Notification alone does not directly mitigate an ATT&CK technique; the technical response determines whether the attack and its consequences are contained."
+    },
+    "IR-01": {
+      "connections": [
+        {
+          "technique": "T1486",
+          "effect": "Support",
+          "how": "A ransomware response plan assigns authority to isolate affected systems, secure backups and begin restoration. It enables those actions but does not prevent encryption on its own."
+        }
+      ]
+    },
+    "IR-02": {
+      "connections": [
+        {
+          "technique": "T1078",
+          "effect": "Respond",
+          "how": "Disabling compromised accounts, revoking sessions and replacing affected credentials can interrupt continued use of valid accounts. The investigation must identify the accounts and alternate access paths involved."
+        },
+        {
+          "technique": "T1486",
+          "effect": "Respond",
+          "how": "Isolating affected systems, removing persistence and restoring clean services limits the spread and duration of ransomware disruption."
+        }
+      ]
+    },
+    "IR-03": {
+      "connections": [
+        {
+          "technique": "T1078",
+          "effect": "Support",
+          "how": "Exercises involving a stolen account test whether responders can identify its use, revoke active access and check for persistence. Closing exercise findings improves the actual response capability."
+        }
+      ]
+    },
+    "MD-01": {
+      "connections": [],
+      "note": "Verified sanitisation prevents recovery of residual information from media that is reused or released. This disposal scenario has no precise direct mapping in the loaded Enterprise ATT&CK corpus; it should not be presented as protection against collection from a live system."
+    },
+    "MD-02": {
+      "connections": [],
+      "note": "Controlled destruction prevents recovery of residual information from discarded media. Physical recovery of data from disposed media has no precise direct mapping in the loaded Enterprise ATT&CK corpus."
+    },
+    "MF-01": {
+      "connections": [
+        {
+          "technique": "T1078",
+          "mitigation": "M1032",
+          "effect": "Prevent",
+          "how": "An additional authentication factor reduces the usefulness of a stolen password at protected sign-in points. Coverage must include remote services and alternate authentication paths."
+        },
+        {
+          "technique": "T1110.004",
+          "mitigation": "M1032",
+          "effect": "Prevent",
+          "how": "MFA makes a reused username and password insufficient for access when an attacker tries credentials obtained from another breach."
+        }
+      ]
+    },
+    "MF-02": {
+      "connections": [
+        {
+          "technique": "T1098.005",
+          "mitigation": "M1032",
+          "effect": "Prevent",
+          "how": "Protecting factor enrolment and recovery reduces the chance an attacker can register their own device as an authentication factor for a victim's account."
+        },
+        {
+          "technique": "T1621",
+          "effect": "Detect",
+          "how": "Monitoring repeated factor challenges and unusual approvals helps identify attempts to pressure a user into accepting an unexpected sign-in."
+        }
+      ]
+    },
+    "MW-01": {
+      "connections": [
+        {
+          "technique": "T1078",
+          "mitigation": "M1018",
+          "effect": "Prevent",
+          "how": "Restricting organisational access to authorised users and compliant devices reduces opportunities to use a stolen account from an unmanaged endpoint. This is an Enterprise access mapping; mobile-specific attack techniques require the Mobile ATT&CK corpus."
+        }
+      ]
+    },
+    "MW-02": {
+      "connections": [
+        {
+          "technique": "T1040",
+          "mitigation": "M1041",
+          "effect": "Prevent",
+          "how": "Protected connections prevent an observer on a public network from reading organisational traffic. Device encryption separately reduces disclosure if the device is lost."
+        }
+      ]
+    },
+    "MW-03": {
+      "connections": [
+        {
+          "technique": "T1040",
+          "mitigation": "M1041",
+          "effect": "Prevent",
+          "how": "Strong wireless authentication and encryption reduce disclosure from interception of wireless traffic."
+        },
+        {
+          "technique": "T1557",
+          "mitigation": "M1030",
+          "effect": "Prevent",
+          "how": "Separating guest wireless access from internal systems limits opportunities for an untrusted wireless client to intercept organisational communications."
+        }
+      ]
+    },
+    "NA-01": {
+      "connections": [
+        {
+          "technique": "T1210",
+          "mitigation": "M1030",
+          "effect": "Prevent",
+          "how": "Security zones and restricted cross-zone connections limit the remote services an attacker can reach and exploit after compromising one system."
+        },
+        {
+          "technique": "T1021.001",
+          "mitigation": "M1030",
+          "effect": "Prevent",
+          "how": "Allowing Remote Desktop only through approved management paths restricts lateral movement between zones using stolen credentials."
+        }
+      ]
+    },
+    "NA-02": {
+      "connections": [
+        {
+          "technique": "T1071",
+          "mitigation": "M1037",
+          "effect": "Prevent",
+          "how": "Outbound allow rules and managed proxies reduce the network destinations and protocols available for command-and-control traffic. Allowed protocols still need inspection and monitoring."
+        },
+        {
+          "technique": "T1048",
+          "mitigation": "M1037",
+          "effect": "Prevent",
+          "how": "Restricting outbound protocols and destinations reduces options for sending stolen information over a separate network channel."
+        }
+      ]
+    },
+    "NA-03": {
+      "connections": [
+        {
+          "technique": "T1210",
+          "mitigation": "M1030",
+          "effect": "Support",
+          "how": "Current diagrams and reachability tests identify unintended paths between security zones so they can be closed before an attacker uses them to reach vulnerable services."
+        }
+      ]
+    },
+    "OM-01": {
+      "connections": [
+        {
+          "technique": "T1059.005",
+          "mitigation": "M1042",
+          "effect": "Prevent",
+          "how": "Disabling unnecessary Office macros and restricting approved macros reduces opportunities to run attacker-supplied Visual Basic code in a document."
+        }
+      ]
+    },
+    "OM-02": {
+      "connections": [
+        {
+          "technique": "T1059.005",
+          "mitigation": "M1040",
+          "effect": "Prevent",
+          "how": "Macro scanning and rules that block unsafe calls or Internet-sourced macros reduce opportunities for malicious Visual Basic code to execute or launch further attack tools."
+        }
+      ]
+    },
+    "OT-01": {
+      "connections": [
+        {
+          "technique": "T1210",
+          "mitigation": "M1030",
+          "effect": "Support",
+          "how": "OT asset and data-flow records identify which network services and boundary connections need restriction. This describes Enterprise techniques affecting OT-connected systems; it is not an ICS ATT&CK assessment."
+        }
+      ]
+    },
+    "OT-02": {
+      "connections": [
+        {
+          "technique": "T1133",
+          "mitigation": "M1030",
+          "effect": "Prevent",
+          "how": "Separating OT identity and networks and brokering remote access reduces the chance that a compromised IT or supplier account can directly enter OT systems."
+        },
+        {
+          "technique": "T1210",
+          "mitigation": "M1030",
+          "effect": "Prevent",
+          "how": "Controlled gateways restrict opportunities to exploit OT-connected services from an IT network. This mapping covers the Enterprise attack path, not ICS-specific process manipulation."
+        }
+      ]
+    },
+    "OT-03": {
+      "connections": [
+        {
+          "technique": "T1489",
+          "effect": "Recover",
+          "how": "OT playbooks define safe isolation, manual operation and restoration when attacker activity stops supporting services. Safety constraints must guide the response. This is Enterprise threat context, not an ICS technique mapping."
+        }
+      ]
+    },
+    "PH-01": {
+      "connections": [
+        {
+          "technique": "T1200",
+          "effect": "Prevent",
+          "how": "Locked equipment areas and protected network ports reduce opportunities for an intruder to connect a rogue device to internal systems. Other physical and environmental protections extend beyond this technique."
+        }
+      ]
+    },
+    "PH-02": {
+      "connections": [
+        {
+          "technique": "T1200",
+          "effect": "Prevent",
+          "how": "Approved access to sensitive areas and supervision of visitors reduce opportunities to attach unauthorised hardware. Entry records support investigation if an unexpected device is found."
+        }
+      ]
+    },
+    "PI-01": {
+      "connections": [
+        {
+          "technique": "T1213",
+          "effect": "Support",
+          "how": "Knowing which repositories contain personal information helps target access controls and monitoring against unauthorised collection. The information register itself does not prevent access."
+        }
+      ]
+    },
+    "PI-02": {
+      "connections": [
+        {
+          "technique": "T1213",
+          "effect": "Support",
+          "how": "Minimising personal information in systems reduces the amount available if a repository is compromised. Purpose and handling rules still require access controls and operational enforcement."
+        }
+      ]
+    },
+    "PI-03": {
+      "connections": [],
+      "note": "Privacy risk reviews and breach response inform protection and response decisions, while enquiry and correction processes protect individual rights. These activities have no direct, technique-specific mitigation mapping in Enterprise ATT&CK."
+    },
+    "PS-01": {
+      "connections": [],
+      "note": "Personnel screening supports decisions about whom to trust with access. It cannot establish that an authorised user will not misuse an account, and has no precise direct Enterprise ATT&CK mitigation mapping."
+    },
+    "PS-02": {
+      "connections": [
+        {
+          "technique": "T1078",
+          "mitigation": "M1018",
+          "effect": "Prevent",
+          "how": "Promptly disabling departed users' accounts, revoking sessions and changing shared credentials removes access that a former worker or attacker could continue to use."
+        }
+      ]
+    },
+    "PW-01": {
+      "connections": [
+        {
+          "technique": "T1110.001",
+          "mitigation": "M1027",
+          "effect": "Prevent",
+          "how": "Long, unpredictable passwords make online guessing less likely to succeed. Account rate limits and MFA provide additional protection."
+        },
+        {
+          "technique": "T1110.002",
+          "mitigation": "M1027",
+          "effect": "Prevent",
+          "how": "Long, unpredictable passwords increase the work required to recover a password from a stolen hash through offline cracking."
+        }
+      ]
+    },
+    "PW-02": {
+      "connections": [
+        {
+          "technique": "T1110.003",
+          "mitigation": "M1036",
+          "effect": "Prevent",
+          "how": "Rejecting common passwords and detecting attempts spread across many accounts reduces the effectiveness of password spraying. Rate limits must consider the pattern across accounts, not only failures on one account."
+        },
+        {
+          "technique": "T1110.004",
+          "mitigation": "M1027",
+          "effect": "Prevent",
+          "how": "Blocking known compromised passwords reduces the chance that credentials from another breach work against organisational accounts."
+        }
+      ]
+    },
+    "PW-03": {
+      "connections": [
+        {
+          "technique": "T1552.001",
+          "mitigation": "M1027",
+          "effect": "Prevent",
+          "how": "Keeping passwords in protected managers and out of readable files reduces opportunities to collect credentials from scripts, documents and configuration files."
+        },
+        {
+          "technique": "T1110.002",
+          "mitigation": "M1027",
+          "effect": "Prevent",
+          "how": "Salted password hashing with an appropriate work factor increases the cost of cracking a stolen password database. Protecting administrative access reduces the chance that database is stolen."
+        }
+      ]
+    },
+    "RM-01": {
+      "connections": [],
+      "note": "Risk criteria determine how attack scenarios are prioritised and accepted. They enable consistent decisions about other controls but do not directly mitigate an ATT&CK technique."
+    },
+    "RM-02": {
+      "connections": [
+        {
+          "technique": "T1190",
+          "effect": "Support",
+          "how": "Assessing exposed applications, known weaknesses and business consequences helps prioritise controls against exploitation. This is an example attack scenario for the assessment; analysing it does not remove the weakness."
+        }
+      ]
+    },
+    "RM-03": {
+      "connections": [],
+      "note": "Risk ownership and treatment tracking help ensure that selected safeguards are implemented and remain effective. The mitigation depends on the actual treatment, so this general process has no single direct ATT&CK technique mapping."
+    },
+    "SC-01": {
+      "connections": [
+        {
+          "technique": "T1199",
+          "effect": "Support",
+          "how": "An inventory of providers and their access identifies trusted connections that an attacker could exploit through a compromised supplier. The inventory enables review and restriction of those connections."
+        }
+      ]
+    },
+    "SC-02": {
+      "connections": [
+        {
+          "technique": "T1195.002",
+          "effect": "Support",
+          "how": "Supplier assessments can identify weaknesses in software build, release and update practices and require treatment before products are trusted. Assessment alone does not ensure that delivered software is safe."
+        }
+      ]
+    },
+    "SC-03": {
+      "connections": [
+        {
+          "technique": "T1199",
+          "mitigation": "M1018",
+          "effect": "Prevent",
+          "how": "Limiting provider permissions and removing accounts and connections when service ends reduces the access available through a compromised trusted partner."
+        }
+      ]
+    },
+    "SD-01": {
+      "connections": [
+        {
+          "technique": "T1190",
+          "effect": "Prevent",
+          "how": "Security requirements and secure coding reduce exploitable input-handling, authentication and authorisation flaws in public applications when those requirements are implemented and verified."
+        }
+      ]
+    },
+    "SD-02": {
+      "connections": [
+        {
+          "technique": "T1190",
+          "effect": "Support",
+          "how": "Threat modelling identifies exposed interfaces and trust-boundary weaknesses early enough to change the design. The resulting design changes and tests provide the protection."
+        }
+      ]
+    },
+    "SD-03": {
+      "connections": [
+        {
+          "technique": "T1190",
+          "mitigation": "M1016",
+          "effect": "Support",
+          "how": "Code review and security tests find exploitable application flaws; verifying their correction reduces opportunities to exploit a public-facing application. Testing without remediation leaves the exposure in place."
+        }
+      ]
+    },
+    "SM-01": {
+      "connections": [
+        {
+          "technique": "T1078",
+          "effect": "Detect",
+          "how": "Central authentication and access records enable detection of unexpected account use across systems when reviewed or correlated with alert rules."
+        },
+        {
+          "technique": "T1059",
+          "effect": "Detect",
+          "how": "Process and script-execution records allow investigation of suspicious command execution when the necessary telemetry is collected and analysed."
+        }
+      ]
+    },
+    "SM-02": {
+      "connections": [
+        {
+          "technique": "T1070",
+          "mitigation": "M1029",
+          "effect": "Prevent",
+          "how": "Separately protected central records preserve evidence when an attacker clears or alters local logs. Retention keeps the records available for investigation."
+        }
+      ]
+    },
+    "SM-03": {
+      "connections": [
+        {
+          "technique": "T1078",
+          "effect": "Detect",
+          "how": "Reviewing unusual sign-in locations, times, devices and access patterns can identify use of stolen accounts and trigger investigation."
+        },
+        {
+          "technique": "T1059",
+          "effect": "Detect",
+          "how": "Investigating unexpected script interpreters, command lines and process relationships helps identify attacker command execution and initiate containment."
+        }
+      ]
+    },
+    "ST-01": {
+      "connections": [
+        {
+          "technique": "T1078",
+          "effect": "Support",
+          "how": "Assessments can verify whether account restrictions, authentication and monitoring work against stolen-account scenarios. Findings must be addressed to improve resistance."
+        }
+      ]
+    },
+    "ST-02": {
+      "connections": [
+        {
+          "technique": "T1210",
+          "effect": "Support",
+          "how": "Authorised adversarial testing checks whether vulnerable services and network paths allow movement from one system to another. It validates exposure and defensive response; the test itself does not mitigate exploitation."
+        }
+      ]
+    },
+    "ST-03": {
+      "connections": [
+        {
+          "technique": "T1190",
+          "effect": "Support",
+          "how": "Tracking and retesting fixes to exposed application weaknesses confirms that the specific attack path identified during assessment has been closed. Other findings require their own technique-specific treatment."
+        }
+      ]
+    },
+    "UH-01": {
+      "connections": [
+        {
+          "technique": "T1189",
+          "mitigation": "M1048",
+          "effect": "Prevent",
+          "how": "Browser and document-reader hardening, including available sandboxing, reduces the reach of malicious content encountered during browsing. Verify that the relevant isolation settings are actually enabled."
+        },
+        {
+          "technique": "T1059.005",
+          "mitigation": "M1042",
+          "effect": "Prevent",
+          "how": "Disabling unnecessary embedded scripting in user applications reduces opportunities to execute malicious Visual Basic content."
+        }
+      ]
+    },
+    "UH-02": {
+      "connections": [
+        {
+          "technique": "T1055",
+          "mitigation": "M1040",
+          "effect": "Prevent",
+          "how": "Application behaviour rules that block code injection reduce opportunities to run malicious code inside another process."
+        },
+        {
+          "technique": "T1059",
+          "mitigation": "M1040",
+          "effect": "Prevent",
+          "how": "Blocking unnecessary child processes and embedded execution stops user applications from launching command interpreters to run attacker instructions."
+        }
+      ]
+    },
+    "VM-01": {
+      "connections": [
+        {
+          "technique": "T1190",
+          "mitigation": "M1016",
+          "effect": "Support",
+          "how": "Scanning identifies exploitable weaknesses in exposed applications so they can be patched or otherwise protected. Complete coverage and follow-up are needed; finding a weakness does not fix it."
+        },
+        {
+          "technique": "T1210",
+          "mitigation": "M1016",
+          "effect": "Support",
+          "how": "Scanning internal services reveals vulnerabilities an attacker could exploit for lateral movement and provides a basis for remediation priorities."
+        }
+      ]
+    },
+    "VM-02": {
+      "connections": [
+        {
+          "technique": "T1190",
+          "mitigation": "M1051",
+          "effect": "Prevent",
+          "how": "Applying and verifying fixes removes known weaknesses attackers can exploit in public-facing applications."
+        },
+        {
+          "technique": "T1210",
+          "mitigation": "M1051",
+          "effect": "Prevent",
+          "how": "Patching vulnerable remote services reduces opportunities for an attacker to compromise additional systems from an initial foothold."
+        }
+      ]
+    }
+  }
+}

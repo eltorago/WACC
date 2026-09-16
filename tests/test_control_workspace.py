@@ -7,9 +7,12 @@ import unittest
 from http.server import ThreadingHTTPServer
 import threading
 import urllib.request
+from dataclasses import replace
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from wacc.serve import State, _handler
 from wacc import control_workspace as workspace
+from wacc import workspace_attack
+from wacc.model import Corpus
 
 
 class ControlWorkspaceTests(unittest.TestCase):
@@ -149,9 +152,77 @@ class ControlWorkspaceTests(unittest.TestCase):
         self.assertLess(controls,frameworks)
 
     def test_query_is_escaped_and_no_match_is_explicit(self):
-        page=workspace.render(self.state.corpus,{'q':['<script>alert(1)</script>']})
-        self.assertNotIn('<script>alert(1)</script>',page)
+        page=workspace.render(self.state.corpus,{'q':["<script>alert('nonexistent-control-xyzzy')</script>"]})
+        self.assertNotIn("<script>alert('nonexistent-control-xyzzy')</script>",page)
         self.assertIn('No control selected',page)
+
+    def test_every_control_has_a_specific_attack_assessment(self):
+        self.assertEqual(set(workspace_attack.ASSESSMENTS), {c['id'] for c in workspace.CONTROLS})
+        for uid, assessment in workspace_attack.ASSESSMENTS.items():
+            self.assertTrue(assessment['connections'] or assessment.get('note'),uid)
+            seen=set()
+            for connection in assessment['connections']:
+                key=(connection['technique'],connection['effect'])
+                self.assertNotIn(key,seen,uid)
+                seen.add(key)
+                self.assertIn(connection['effect'],workspace_attack.EFFECTS)
+                self.assertGreater(len(connection['how']),80,uid)
+                self.assertEqual(workspace_attack.connection_status(connection,self.state.corpus),'',uid)
+            page=self.get('/library?control='+uid)
+            self.assertIn('id="attack"',page)
+            self.assertNotIn('pending source verification',page)
+        self.assertNotIn('attack-enterprise',workspace.FRAMEWORKS)
+
+    def test_attack_relationships_show_their_actual_role_and_provenance(self):
+        mfa=self.get('/library?control=MF-01')
+        self.assertIn('https://attack.mitre.org/techniques/T1078/',mfa)
+        self.assertIn('https://attack.mitre.org/techniques/T1110/004/',mfa)
+        self.assertIn('https://attack.mitre.org/mitigations/M1032/',mfa)
+        self.assertIn('Credential Stuffing',mfa)
+        self.assertIn('Reduces likelihood',mfa)
+        self.assertIn('local WACC assessments',mfa)
+        self.assertIn('Supports detection',self.get('/library?control=SM-03'))
+        self.assertIn('Limits impact / recovery',self.get('/library?control=BR-01'))
+        self.assertIn('Enables other safeguards',self.get('/library?control=VM-01'))
+        reporting=self.get('/library?control=IN-02')
+        self.assertIn('No direct technique mapping',reporting)
+        self.assertNotIn('https://attack.mitre.org/techniques/',reporting)
+
+    def test_attack_search_and_export_respect_control_scope(self):
+        selected=set(workspace.FRAMEWORKS)
+        found=workspace.matching('T1110.004',selected,corpus=self.state.corpus)
+        self.assertIn('MF-01',{c['id'] for c in found})
+        self.assertNotIn('PW-01',{c['id'] for c in found})
+        self.assertEqual(workspace.matching('T1110.999',selected,corpus=self.state.corpus),[])
+        found=workspace.matching('Credential Stuffing',selected,corpus=self.state.corpus)
+        self.assertIn('MF-01',{c['id'] for c in found})
+        self.assertEqual(workspace.matching('T1110.004',set(),corpus=self.state.corpus),[])
+        found=workspace.matching('T1110',selected,'Password security',self.state.corpus)
+        self.assertTrue(found)
+        self.assertTrue(all(c['topic']=='Password security' for c in found))
+        params={'q':['Credential Stuffing'],'scope':['1'],'fw':['cis-controls']}
+        rows=list(csv.DictReader(io.StringIO(workspace.export_csv(params,self.state.corpus))))
+        self.assertTrue(rows)
+        self.assertTrue(all(r['Source UID'].startswith('cis-controls:') for r in rows))
+        self.assertIn('MF-01',{r['Control'] for r in rows})
+
+    def test_missing_or_changed_attack_source_is_not_reported_as_verified(self):
+        empty=Corpus()
+        page=workspace_attack.render('MF-01',empty)
+        self.assertIn('source is not loaded',page)
+        self.assertIn('pending source verification',page)
+        self.assertNotIn('MITRE mitigation reference:',page)
+        partial=Corpus(techniques=self.state.corpus.techniques,mitigations=self.state.corpus.mitigations)
+        page=workspace_attack.render('MF-01',partial)
+        self.assertIn('relationship needs review',page)
+        self.assertNotIn('MITRE mitigation reference:',page)
+        self.assertIn('has not yet been completed',workspace_attack.render('UNKNOWN',empty))
+        changed=Corpus(techniques=self.state.corpus.techniques,
+                       mitigations=self.state.corpus.mitigations,
+                       mitigates=self.state.corpus.mitigates,
+                       threat_sources={'attack-enterprise':replace(
+                           self.state.corpus.threat_sources['attack-enterprise'],version='future-edition')})
+        self.assertIn('edition differs',workspace_attack.render('MF-01',changed))
 
 
 if __name__=='__main__':unittest.main()
