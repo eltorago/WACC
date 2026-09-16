@@ -32,13 +32,13 @@
       "statement": "Assess security and continuity risks before engagement and during the relationship, then assign and approve treatment of material and residual risk.",
       "risk": "A provider could introduce a serious security or continuity weakness that management never sees or accepts.",
       "scope": "Provider selection, due diligence, risk assessment, material changes and recurring review.",
-      "examine": "Review due diligence, provider risk assessments, identified weaknesses, treatment plans, approvals and reassessments after material changes.",
+      "examine": "Review supplier due diligence, the supplier risk register, risk assessments, treatment plans, contracts and service agreements, residual-risk approvals and reassessments after material changes.",
       "interview": "Ask procurement, risk and service owners how supplier threats, access, concentration and outage tolerance affect decisions.",
       "test": "Sample higher-risk providers and trace identified risks to controls, accountable owners, deadlines and residual-risk approval.",
       "test_steps": [
         "Select prospective, active, changed and higher-risk providers and identify the assessment depth and approval required for each.",
-        "Inspect due diligence, independent assurance, control evidence, incident history, data and access model, subcontractors, resilience and applicable obligations.",
-        "Reperform selected risk conclusions and trace identified weaknesses to contract controls, treatment owners, dates and residual-risk acceptance.",
+        "For each provider, follow its risk ID from due diligence into the supplier risk register. Reperform the likelihood and impact assessment using the service, data, access, dependencies and credible failure or compromise scenarios; verify current controls and evidence support the rating.",
+        "Trace each material risk to a contract or treatment action, accountable owner and due date. Verify residual-risk acceptance by the delegated authority and test whether an overdue action or material supplier change triggers reassessment and escalation.",
         "Verify material service, threat or ownership changes trigger reassessment and that overdue provider actions affect escalation or continued use decisions."
       ],
       "expected": "Material provider risks are identified before acceptance, treated and approved by the required authority, then reassessed while the relationship continues.",

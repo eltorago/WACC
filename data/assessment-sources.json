@@ -1,0 +1,837 @@
+{
+  "citool": {
+    "title": "Microsoft: CiTool reference",
+    "url": "https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/operations/citool-commands",
+    "verify_terms": [
+      "-lp",
+      "-json",
+      "IsEnforced"
+    ]
+  },
+  "get-applocker": {
+    "title": "Microsoft: Get-AppLockerPolicy",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/applocker/get-applockerpolicy",
+    "verify_terms": [
+      "Get-AppLockerPolicy",
+      "Effective",
+      "Xml",
+      "CSP"
+    ]
+  },
+  "test-applocker": {
+    "title": "Microsoft: Test-AppLockerPolicy",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/applocker/test-applockerpolicy",
+    "verify_terms": [
+      "Test-AppLockerPolicy",
+      "XmlPolicy",
+      "User",
+      "Path"
+    ]
+  },
+  "applocker-events": {
+    "title": "Microsoft: AppLocker event IDs",
+    "url": "https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/applocker/using-event-viewer-with-applocker",
+    "verify_terms": [
+      "8002",
+      "8003",
+      "8004",
+      "8007"
+    ]
+  },
+  "ci-events": {
+    "title": "Microsoft: App Control events",
+    "url": "https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/operations/event-id-explanations",
+    "verify_terms": [
+      "3076",
+      "3077",
+      "3099"
+    ]
+  },
+  "applocker-csp": {
+    "title": "Microsoft: AppLocker CSP",
+    "url": "https://learn.microsoft.com/en-us/windows/client-management/mdm/applocker-csp",
+    "verify_terms": [
+      "ApplicationLaunchRestrictions",
+      "Policy"
+    ]
+  },
+  "ci-rules": {
+    "title": "Microsoft: App Control rule options",
+    "url": "https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/design/select-types-of-rules-to-create",
+    "verify_terms": [
+      "Audit Mode",
+      "Script Enforcement"
+    ]
+  },
+  "graph-ca": {
+    "title": "Microsoft: List Conditional Access policies",
+    "url": "https://learn.microsoft.com/en-us/graph/api/conditionalaccessroot-list-policies?view=graph-rest-1.0",
+    "verify_terms": [
+      "Policy.Read.All",
+      "conditions",
+      "grantControls"
+    ]
+  },
+  "graph-signins": {
+    "title": "Microsoft: List sign-ins",
+    "url": "https://learn.microsoft.com/en-us/graph/api/signin-list?view=graph-rest-1.0",
+    "verify_terms": [
+      "AuditLog.Read.All",
+      "createdDateTime"
+    ]
+  },
+  "graph-assignments": {
+    "title": "Microsoft: List active directory role assignments",
+    "url": "https://learn.microsoft.com/en-us/graph/api/rbacapplication-list-roleassignments?view=graph-rest-1.0",
+    "verify_terms": [
+      "RoleManagement.Read.Directory",
+      "principalId"
+    ]
+  },
+  "graph-pim": {
+    "title": "Microsoft: List PIM assignment instances",
+    "url": "https://learn.microsoft.com/en-us/graph/api/rbacapplication-list-roleassignmentscheduleinstances?view=graph-rest-1.0",
+    "verify_terms": [
+      "RoleAssignmentSchedule.Read.Directory",
+      "endDateTime"
+    ]
+  },
+  "graph-eligible": {
+    "title": "Microsoft: List PIM eligibility instances",
+    "url": "https://learn.microsoft.com/en-us/graph/api/rbacapplication-list-roleeligibilityscheduleinstances?view=graph-rest-1.0",
+    "verify_terms": [
+      "RoleEligibilitySchedule.Read.Directory",
+      "endDateTime"
+    ]
+  },
+  "graph-rolepolicy": {
+    "title": "Microsoft: List PIM policy rules",
+    "url": "https://learn.microsoft.com/en-us/graph/api/unifiedrolemanagementpolicy-list-rules?view=graph-rest-1.0",
+    "verify_terms": [
+      "RoleManagementPolicy.Read.Directory",
+      "rules"
+    ]
+  },
+  "graph-rolepolicies": {
+    "title": "Microsoft: List PIM policy assignments",
+    "url": "https://learn.microsoft.com/en-us/graph/api/policyroot-list-rolemanagementpolicyassignments?view=graph-rest-1.0",
+    "verify_terms": [
+      "scopeId",
+      "scopeType"
+    ]
+  },
+  "graph-users": {
+    "title": "Microsoft: List users",
+    "url": "https://learn.microsoft.com/en-us/graph/api/user-list?view=graph-rest-1.0",
+    "verify_terms": [
+      "User.Read.All",
+      "accountEnabled"
+    ]
+  },
+  "graph-user": {
+    "title": "Microsoft: Read a user",
+    "url": "https://learn.microsoft.com/en-us/graph/api/user-get?view=graph-rest-1.0",
+    "verify_terms": [
+      "User.Read.All"
+    ]
+  },
+  "graph-grants": {
+    "title": "Microsoft: List delegated consent grants",
+    "url": "https://learn.microsoft.com/en-us/graph/api/oauth2permissiongrant-list?view=graph-rest-1.0",
+    "verify_terms": [
+      "Directory.Read.All",
+      "consentType"
+    ]
+  },
+  "graph-sp": {
+    "title": "Microsoft: List service principals",
+    "url": "https://learn.microsoft.com/en-us/graph/api/serviceprincipal-list?view=graph-rest-1.0",
+    "verify_terms": [
+      "Application.Read.All"
+    ]
+  },
+  "sp-schema": {
+    "title": "Microsoft: Service principal properties",
+    "url": "https://learn.microsoft.com/en-us/graph/api/resources/serviceprincipal?view=graph-rest-1.0",
+    "verify_terms": [
+      "appRoleAssignmentRequired",
+      "passwordCredentials"
+    ]
+  },
+  "graph-approles": {
+    "title": "Microsoft: List application permissions for a service principal",
+    "url": "https://learn.microsoft.com/en-us/graph/api/serviceprincipal-list-approleassignments?view=graph-rest-1.0",
+    "verify_terms": [
+      "Application.Read.All",
+      "resourceId"
+    ]
+  },
+  "graph-consent": {
+    "title": "Microsoft: Read authorisation policy",
+    "url": "https://learn.microsoft.com/en-us/graph/api/authorizationpolicy-get?view=graph-rest-1.0",
+    "verify_terms": [
+      "Policy.Read.All",
+      "allowInvitesFrom"
+    ]
+  },
+  "graph-cross": {
+    "title": "Microsoft: Read default cross-tenant policy",
+    "url": "https://learn.microsoft.com/en-us/graph/api/crosstenantaccesspolicyconfigurationdefault-get?view=graph-rest-1.0",
+    "verify_terms": [
+      "Policy.Read.All",
+      "inboundTrust"
+    ]
+  },
+  "graph-cross-partners": {
+    "title": "Microsoft: List partner cross-tenant policies",
+    "url": "https://learn.microsoft.com/en-us/graph/api/crosstenantaccesspolicy-list-partners?view=graph-rest-1.0",
+    "verify_terms": [
+      "Policy.Read.All",
+      "tenantId"
+    ]
+  },
+  "graph-methods": {
+    "title": "Microsoft: Read authentication methods policy",
+    "url": "https://learn.microsoft.com/en-us/graph/api/authenticationmethodspolicy-get?view=graph-rest-1.0",
+    "verify_terms": [
+      "Policy.Read.AuthenticationMethod",
+      "policyMigrationState"
+    ]
+  },
+  "graph-apps": {
+    "title": "Microsoft: List applications",
+    "url": "https://learn.microsoft.com/en-us/graph/api/application-list?view=graph-rest-1.0",
+    "verify_terms": [
+      "Application.Read.All"
+    ]
+  },
+  "app-schema": {
+    "title": "Microsoft: Application properties",
+    "url": "https://learn.microsoft.com/en-us/graph/api/resources/application?view=graph-rest-1.0",
+    "verify_terms": [
+      "passwordCredentials",
+      "keyCredentials"
+    ]
+  },
+  "graph-devices": {
+    "title": "Microsoft: List Intune managed devices",
+    "url": "https://learn.microsoft.com/en-us/graph/api/intune-devices-manageddevice-list?view=graph-rest-1.0",
+    "verify_terms": [
+      "DeviceManagementManagedDevices.Read.All",
+      "lastSyncDateTime"
+    ]
+  },
+  "graph-mobile": {
+    "title": "Microsoft: List app protection policies",
+    "url": "https://learn.microsoft.com/en-us/graph/api/intune-mam-managedapppolicy-list?view=graph-rest-1.0",
+    "verify_terms": [
+      "DeviceManagementApps.Read.All"
+    ]
+  },
+  "graph-mobile-status": {
+    "title": "Microsoft: List managed app registrations",
+    "url": "https://learn.microsoft.com/en-us/graph/api/intune-mam-managedappregistration-list?view=graph-rest-1.0",
+    "verify_terms": [
+      "DeviceManagementApps.Read.All"
+    ]
+  },
+  "graph-incidents": {
+    "title": "Microsoft: List security incidents",
+    "url": "https://learn.microsoft.com/en-us/graph/api/security-list-incidents?view=graph-rest-1.0",
+    "verify_terms": [
+      "SecurityIncident.Read.All",
+      "createdDateTime"
+    ]
+  },
+  "graph-connect": {
+    "title": "Microsoft: Connect to Microsoft Graph PowerShell",
+    "url": "https://learn.microsoft.com/en-us/powershell/microsoftgraph/authentication-commands",
+    "verify_terms": [
+      "Connect-MgGraph",
+      "Scopes"
+    ]
+  },
+  "graph-request": {
+    "title": "Microsoft: Invoke-MgGraphRequest",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.graph.authentication/invoke-mggraphrequest",
+    "verify_terms": [
+      "Invoke-MgGraphRequest",
+      "OutputType",
+      "Uri"
+    ]
+  },
+  "transport": {
+    "title": "Microsoft: Get-TransportConfig",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-transportconfig",
+    "verify_terms": [
+      "Get-TransportConfig"
+    ]
+  },
+  "smtp-auth": {
+    "title": "Microsoft: SMTP AUTH configuration",
+    "url": "https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/authenticated-client-smtp-submission",
+    "verify_terms": [
+      "SmtpClientAuthenticationDisabled"
+    ]
+  },
+  "cas-mailbox": {
+    "title": "Microsoft: Get-CASMailbox",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-casmailbox",
+    "verify_terms": [
+      "Get-CASMailbox",
+      "ResultSize"
+    ]
+  },
+  "mailbox": {
+    "title": "Microsoft: Get-Mailbox",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-mailbox",
+    "verify_terms": [
+      "Get-Mailbox",
+      "ResultSize"
+    ]
+  },
+  "dkim": {
+    "title": "Microsoft: Get-DkimSigningConfig",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-dkimsigningconfig",
+    "verify_terms": [
+      "Get-DkimSigningConfig"
+    ]
+  },
+  "dns": {
+    "title": "Microsoft: Resolve-DnsName",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/dnsclient/resolve-dnsname",
+    "verify_terms": [
+      "Resolve-DnsName",
+      "Type",
+      "Name"
+    ]
+  },
+  "safeattachments": {
+    "title": "Microsoft: Get-SafeAttachmentPolicy",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-safeattachmentpolicy",
+    "verify_terms": [
+      "Get-SafeAttachmentPolicy"
+    ]
+  },
+  "safeattachmentrules": {
+    "title": "Microsoft: Get-SafeAttachmentRule",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-safeattachmentrule",
+    "verify_terms": [
+      "Get-SafeAttachmentRule"
+    ]
+  },
+  "safelinks": {
+    "title": "Microsoft: Get-SafeLinksPolicy",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-safelinkspolicy",
+    "verify_terms": [
+      "Get-SafeLinksPolicy"
+    ]
+  },
+  "safelinkrules": {
+    "title": "Microsoft: Get-SafeLinksRule",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-safelinksrule",
+    "verify_terms": [
+      "Get-SafeLinksRule"
+    ]
+  },
+  "phish": {
+    "title": "Microsoft: Get-AntiPhishPolicy",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-antiphishpolicy",
+    "verify_terms": [
+      "Get-AntiPhishPolicy"
+    ]
+  },
+  "phishrules": {
+    "title": "Microsoft: Get-AntiPhishRule",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-antiphishrule",
+    "verify_terms": [
+      "Get-AntiPhishRule"
+    ]
+  },
+  "preset": {
+    "title": "Microsoft: Get-ATPProtectionPolicyRule",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-atpprotectionpolicyrule",
+    "verify_terms": [
+      "Get-ATPProtectionPolicyRule"
+    ]
+  },
+  "eop-preset": {
+    "title": "Microsoft: Get-EOPProtectionPolicyRule",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-eopprotectionpolicyrule",
+    "verify_terms": [
+      "Get-EOPProtectionPolicyRule"
+    ]
+  },
+  "outboundspam": {
+    "title": "Microsoft: Get-HostedOutboundSpamFilterPolicy",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-hostedoutboundspamfilterpolicy",
+    "verify_terms": [
+      "Get-HostedOutboundSpamFilterPolicy"
+    ]
+  },
+  "outboundspamrules": {
+    "title": "Microsoft: Get-HostedOutboundSpamFilterRule",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-hostedoutboundspamfilterrule",
+    "verify_terms": [
+      "Get-HostedOutboundSpamFilterRule"
+    ]
+  },
+  "spo": {
+    "title": "Microsoft: Get-SPOSite",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.online.sharepoint.powershell/get-sposite",
+    "verify_terms": [
+      "Get-SPOSite",
+      "Identity",
+      "Limit"
+    ]
+  },
+  "spotenant": {
+    "title": "Microsoft: Get-SPOTenant",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.online.sharepoint.powershell/get-spotenant",
+    "verify_terms": [
+      "Get-SPOTenant"
+    ]
+  },
+  "dlppolicy": {
+    "title": "Microsoft: Get-DlpCompliancePolicy",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-dlpcompliancepolicy",
+    "verify_terms": [
+      "Get-DlpCompliancePolicy",
+      "DistributionDetail"
+    ]
+  },
+  "dlprule": {
+    "title": "Microsoft: Get-DlpComplianceRule",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-dlpcompliancerule",
+    "verify_terms": [
+      "Get-DlpComplianceRule"
+    ]
+  },
+  "retention": {
+    "title": "Microsoft: Get-UnifiedAuditLogRetentionPolicy",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-unifiedauditlogretentionpolicy",
+    "verify_terms": [
+      "Get-UnifiedAuditLogRetentionPolicy"
+    ]
+  },
+  "auditsearch": {
+    "title": "Microsoft: Search-UnifiedAuditLog",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/search-unifiedauditlog",
+    "verify_terms": [
+      "Search-UnifiedAuditLog",
+      "SessionId",
+      "ReturnLargeSet"
+    ]
+  },
+  "teams-federation": {
+    "title": "Microsoft: Get-CsTenantFederationConfiguration",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/microsoftteams/get-cstenantfederationconfiguration",
+    "verify_terms": [
+      "Get-CsTenantFederationConfiguration"
+    ]
+  },
+  "teams-meeting": {
+    "title": "Microsoft: Get-CsTeamsMeetingPolicy",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/microsoftteams/get-csteamsmeetingpolicy",
+    "verify_terms": [
+      "Get-CsTeamsMeetingPolicy"
+    ]
+  },
+  "teams-user": {
+    "title": "Microsoft: Get-CsOnlineUser",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/microsoftteams/get-csonlineuser",
+    "verify_terms": [
+      "Get-CsOnlineUser",
+      "Identity"
+    ]
+  },
+  "teams-assignment": {
+    "title": "Microsoft: Get-CsUserPolicyAssignment",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/microsoftteams/get-csuserpolicyassignment",
+    "verify_terms": [
+      "Get-CsUserPolicyAssignment",
+      "PolicyType"
+    ]
+  },
+  "power-powershell": {
+    "title": "Microsoft: Power Platform administration PowerShell",
+    "url": "https://learn.microsoft.com/en-us/power-platform/admin/powerapps-powershell",
+    "verify_terms": [
+      "Get-AdminPowerAppEnvironment"
+    ]
+  },
+  "power-dlp": {
+    "title": "Microsoft: Get-AdminDlpPolicy",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powerapps.administration.powershell/get-admindlppolicy",
+    "verify_terms": [
+      "Get-AdminDlpPolicy"
+    ]
+  },
+  "mpstatus": {
+    "title": "Microsoft: Get-MpComputerStatus",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/defender/get-mpcomputerstatus",
+    "verify_terms": [
+      "Get-MpComputerStatus"
+    ]
+  },
+  "mpprefs": {
+    "title": "Microsoft: Get-MpPreference",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/defender/get-mppreference",
+    "verify_terms": [
+      "Get-MpPreference"
+    ]
+  },
+  "hotfix": {
+    "title": "Microsoft: Get-HotFix",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-hotfix",
+    "verify_terms": [
+      "Get-HotFix"
+    ]
+  },
+  "cim": {
+    "title": "Microsoft: Get-CimInstance",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/cimcmdlets/get-ciminstance",
+    "verify_terms": [
+      "Get-CimInstance",
+      "ClassName",
+      "Namespace"
+    ]
+  },
+  "laps-access": {
+    "title": "Microsoft: Find-LapsADExtendedRights",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/laps/find-lapsadextendedrights",
+    "verify_terms": [
+      "Find-LapsADExtendedRights",
+      "Identity"
+    ]
+  },
+  "adcomputer": {
+    "title": "Microsoft: Get-ADComputer",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-adcomputer",
+    "verify_terms": [
+      "Get-ADComputer",
+      "Properties"
+    ]
+  },
+  "adobject": {
+    "title": "Microsoft: Get-ADObject",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-adobject",
+    "verify_terms": [
+      "Get-ADObject",
+      "LDAPFilter",
+      "SearchBase",
+      "Properties"
+    ]
+  },
+  "adroot": {
+    "title": "Microsoft: Get-ADRootDSE",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-adrootdse",
+    "verify_terms": [
+      "Get-ADRootDSE",
+      "configurationNamingContext"
+    ]
+  },
+  "aduser": {
+    "title": "Microsoft: Get-ADUser",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-aduser",
+    "verify_terms": [
+      "Get-ADUser",
+      "Properties"
+    ]
+  },
+  "acl": {
+    "title": "Microsoft: Get-Acl",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/get-acl",
+    "verify_terms": [
+      "Get-Acl",
+      "Path"
+    ]
+  },
+  "adtrust": {
+    "title": "Microsoft: Get-ADTrust",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-adtrust",
+    "verify_terms": [
+      "Get-ADTrust"
+    ]
+  },
+  "adpolicy": {
+    "title": "Microsoft: Get-ADDefaultDomainPasswordPolicy",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-addefaultdomainpasswordpolicy",
+    "verify_terms": [
+      "Get-ADDefaultDomainPasswordPolicy"
+    ]
+  },
+  "adpso": {
+    "title": "Microsoft: Get-ADUserResultantPasswordPolicy",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-aduserresultantpasswordpolicy",
+    "verify_terms": [
+      "Get-ADUserResultantPasswordPolicy",
+      "Identity"
+    ]
+  },
+  "adreplication": {
+    "title": "Microsoft: Get-ADReplicationAttributeMetadata",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-adreplicationattributemetadata",
+    "verify_terms": [
+      "Get-ADReplicationAttributeMetadata",
+      "Object",
+      "Server"
+    ]
+  },
+  "smbconfig": {
+    "title": "Microsoft: Get-SmbServerConfiguration",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/smbshare/get-smbserverconfiguration",
+    "verify_terms": [
+      "Get-SmbServerConfiguration"
+    ]
+  },
+  "winevent": {
+    "title": "Microsoft: Get-WinEvent",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/get-winevent",
+    "verify_terms": [
+      "Get-WinEvent",
+      "FilterHashtable"
+    ]
+  },
+  "bitlocker": {
+    "title": "Microsoft: Get-BitLockerVolume",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/bitlocker/get-bitlockervolume",
+    "verify_terms": [
+      "Get-BitLockerVolume"
+    ]
+  },
+  "vault": {
+    "title": "Microsoft: Get-AzKeyVault",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/az.keyvault/get-azkeyvault",
+    "verify_terms": [
+      "Get-AzKeyVault",
+      "VaultName"
+    ]
+  },
+  "vaultkey": {
+    "title": "Microsoft: Get-AzKeyVaultKey",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/az.keyvault/get-azkeyvaultkey",
+    "verify_terms": [
+      "Get-AzKeyVaultKey",
+      "IncludeVersions"
+    ]
+  },
+  "nettest": {
+    "title": "Microsoft: Test-NetConnection",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/nettcpip/test-netconnection",
+    "verify_terms": [
+      "Test-NetConnection",
+      "Port"
+    ]
+  },
+  "firewall": {
+    "title": "Microsoft: Get-NetFirewallProfile",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/netsecurity/get-netfirewallprofile",
+    "verify_terms": [
+      "Get-NetFirewallProfile",
+      "PolicyStore"
+    ]
+  },
+  "azresource": {
+    "title": "Microsoft: Get-AzResource",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/az.resources/get-azresource",
+    "verify_terms": [
+      "Get-AzResource"
+    ]
+  },
+  "azpolicy": {
+    "title": "Microsoft: Get-AzPolicyState",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/az.policyinsights/get-azpolicystate",
+    "verify_terms": [
+      "Get-AzPolicyState",
+      "All"
+    ]
+  },
+  "azbackup": {
+    "title": "Microsoft: Get-AzRecoveryServicesBackupJob",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/az.recoveryservices/get-azrecoveryservicesbackupjob",
+    "verify_terms": [
+      "Get-AzRecoveryServicesBackupJob",
+      "VaultId",
+      "From",
+      "To"
+    ]
+  },
+  "azvault": {
+    "title": "Microsoft: Get-AzRecoveryServicesVault",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/az.recoveryservices/get-azrecoveryservicesvault",
+    "verify_terms": [
+      "Get-AzRecoveryServicesVault"
+    ]
+  },
+  "importcsv": {
+    "title": "Microsoft: Import-Csv",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/import-csv",
+    "verify_terms": [
+      "Import-Csv",
+      "LiteralPath"
+    ]
+  },
+  "compare": {
+    "title": "Microsoft: Compare-Object",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/compare-object",
+    "verify_terms": [
+      "Compare-Object",
+      "ReferenceObject",
+      "DifferenceObject"
+    ]
+  },
+  "wlan": {
+    "title": "Microsoft: netsh wlan reference",
+    "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/netsh-wlan",
+    "verify_terms": [
+      "show interfaces",
+      "show profiles"
+    ]
+  },
+  "certutil": {
+    "title": "Microsoft: certutil reference",
+    "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certutil",
+    "verify_terms": [
+      "CATemplates"
+    ]
+  },
+  "macro-policy": {
+    "title": "Microsoft: Block internet macros in Office",
+    "url": "https://learn.microsoft.com/en-us/microsoft-365-apps/security/internet-macros-blocked",
+    "verify_terms": [
+      "VBA",
+      "Zone.Identifier"
+    ]
+  },
+  "gpresult": {
+    "title": "Microsoft: Group Policy results",
+    "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/gpresult",
+    "verify_terms": [
+      "/z"
+    ]
+  },
+  "getcontent": {
+    "title": "Microsoft: Get-Content",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-content",
+    "verify_terms": [
+      "Get-Content",
+      "Stream"
+    ]
+  },
+  "asr-demo": {
+    "title": "Microsoft: ASR evaluation",
+    "url": "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-deployment-test",
+    "verify_terms": [
+      "test"
+    ]
+  },
+  "devops-policies": {
+    "title": "Microsoft: Azure DevOps branch policy REST API",
+    "url": "https://learn.microsoft.com/en-us/rest/api/azure/devops/policy/configurations/list?view=azure-devops-rest-7.1",
+    "verify_terms": [
+      "isEnabled",
+      "isBlocking",
+      "7.1"
+    ]
+  },
+  "devops-build": {
+    "title": "Microsoft: Azure DevOps build REST API",
+    "url": "https://learn.microsoft.com/en-us/rest/api/azure/devops/build/builds/list?view=azure-devops-rest-7.1",
+    "verify_terms": [
+      "result",
+      "7.1"
+    ]
+  },
+  "orgconfig": {
+    "title": "Microsoft: Get-OrganizationConfig",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-organizationconfig",
+    "verify_terms": [
+      "Get-OrganizationConfig"
+    ]
+  },
+  "bypass": {
+    "title": "Microsoft: Get-MailboxAuditBypassAssociation",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-mailboxauditbypassassociation",
+    "verify_terms": [
+      "Get-MailboxAuditBypassAssociation",
+      "ResultSize"
+    ]
+  },
+  "uac-flags": {
+    "title": "Microsoft: UserAccountControl flag definitions",
+    "url": "https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/useraccountcontrol-manipulate-account-properties",
+    "verify_terms": [
+      "4194304",
+      "524288",
+      "128"
+    ]
+  },
+  "ldap-security": {
+    "title": "Microsoft: LDAP signing and channel binding",
+    "url": "https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/ldap-session-security-settings-requirements-adv190023",
+    "verify_terms": [
+      "LDAPServerIntegrity",
+      "LdapEnforceChannelBinding"
+    ]
+  },
+  "adcs-review": {
+    "title": "Microsoft: Certificate template security assessments",
+    "url": "https://learn.microsoft.com/en-us/defender-for-identity/security-posture-assessments/certificates",
+    "verify_terms": [
+      "ESC1"
+    ]
+  },
+  "protected-accounts": {
+    "title": "Microsoft: Protected accounts and AdminSDHolder",
+    "url": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/appendix-c--protected-accounts-and-groups-in-active-directory",
+    "verify_terms": [
+      "AdminSDHolder"
+    ]
+  },
+  "key-credential": {
+    "title": "Microsoft: Key credential attribute constraints",
+    "url": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/f70afbcc-780e-4d91-850c-cfadce5bb15c",
+    "verify_terms": [
+      "msDS-KeyCredentialLink"
+    ]
+  },
+  "krbtgt": {
+    "title": "Microsoft: Forest recovery: reset the KRBTGT password",
+    "url": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/forest-recovery-guide/ad-forest-recovery-reset-the-krbtgt-password",
+    "verify_terms": [
+      "twice"
+    ]
+  },
+  "guard-status": {
+    "title": "Microsoft: Credential Guard verification",
+    "url": "https://learn.microsoft.com/en-us/windows/security/identity-protection/credential-guard/configure",
+    "verify_terms": [
+      "SecurityServicesRunning"
+    ]
+  },
+  "asr-actions": {
+    "title": "Microsoft: ASR rule modes",
+    "url": "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-deployment-implement",
+    "verify_terms": [
+      "audit",
+      "warn"
+    ]
+  },
+  "optionalfeatures": {
+    "title": "Microsoft: Get-WindowsOptionalFeature",
+    "url": "https://learn.microsoft.com/en-us/powershell/module/dism/get-windowsoptionalfeature",
+    "verify_terms": [
+      "Get-WindowsOptionalFeature",
+      "Online",
+      "FeatureName"
+    ]
+  },
+  "adcs-flags": {
+    "title": "Microsoft: Certificate name flags",
+    "url": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-crtd/1192823c-d839-4bc3-9b6b-fa8c53507ae1",
+    "verify_terms": [
+      "CT_FLAG_ENROLLEE_SUPPLIES_SUBJECT"
+    ]
+  }
+}

@@ -12,7 +12,7 @@ def render(corpus):
     esc=html.escape
     review=json.loads((Path(__file__).resolve().parents[1]/'data/framework-review.json').read_text(encoding='utf-8'))
     rows=[]
-    for key in ('essential-eight','mcsb','scuba','scf'):
+    for key in ('asd-strategies','essential-eight','mcsb','scuba','scf'):
         fw=corpus.frameworks[key]
         count=len(corpus.controls_for(key))
         rows.append('<li><a href="%s">%s</a> · %s · %s<p>%s</p></li>'%(esc(fw.source_url),esc(fw.name),esc(fw.revision),('%d records loaded'%count if count else 'Source not loaded — run python -m wacc sources'),esc(' '.join(fw.notes))))

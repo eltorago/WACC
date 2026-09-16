@@ -18,7 +18,7 @@ topics**. Each control has:
 - reviewed links to relevant publisher requirements; and
 - links to other controls that address the same problem.
 
-The wider source browser contains **7,358 records from 22 frameworks** when the reviewed sources are loaded. These include SCF, the Essential Eight, Microsoft Cloud Security Benchmark v1 and CISA's Microsoft 365 baselines. You can search by
+The wider source browser contains **7,395 records from 23 frameworks** when the reviewed sources are loaded. These include the ACSC's 37 Strategies to Mitigate Cyber Security Incidents, SCF, the Essential Eight, Microsoft Cloud Security Benchmark v1 and CISA's Microsoft 365 baselines. You can search by
 subject or identifier, inspect the source wording and published assessment material, move
 between linked controls, limit results to selected frameworks and export mappings to CSV.
 
@@ -28,6 +28,19 @@ Entra ID and Windows checks include configuration evidence and practical test st
 WACC does not run these checks or reproduce vendor scanners and scores. Thirteen dated
 WA Auditor General reports provide local context without treating historical findings as
 current findings about an organisation.
+
+Every technical check includes PowerShell collection examples, access requirements,
+execution steps and interpretation. The examples were checked against official Microsoft
+documentation and parsed in PowerShell 5.1 and 7, with selected offline fixtures and local
+Windows reads. Each check states what still needs validation in the target environment;
+WACC does not claim a live AD or Microsoft 365 test has run. Every GRC assessment also
+names specific documents from the corpus and explains what to verify in them. For example,
+SC-02 links supplier risk-register documentation to NIST SP 800-53A's SR-3 assessment.
+See [the assessment review](docs/assessment-method-review.md) for scope and validation.
+
+The ACSC strategies retain their **February 2017** edition and companion implementation
+guidance. Historical products and thresholds are labelled; current ISM and Essential Eight
+requirements remain separate.
 
 Topics and controls are listed alphabetically. Open **Framework coverage & checks** in
 the workspace to review new frameworks and navigate directly to a technical check.
@@ -59,6 +72,9 @@ recognises reviewed copies by their contents and imports them under the expected
 | `data/library/` | The 84 locally written workspace controls, grouped into one JSON file per topic. |
 | `data/workspace-attack.json` | Local ATT&CK assessments for every workspace control, including explanations and MITRE mitigation references. |
 | `data/workspace-technical*.json` | Individual technical assessments and their publisher references. |
+| `data/assessment-procedures.json` | How to run all 58 technical checks, including commands, prerequisites and validation limits. |
+| `data/assessment-sources.json` and `data/assessment-source-review.json` | Official command documentation and the recorded source review. |
+| `data/workspace-grc-evidence.json` | Specific publisher-listed documents and practical review questions for all 84 controls. |
 | `data/workspace-frameworks.json` | Reviewed links from workspace controls to additional source requirements. |
 | `data/wa-audit-context.json` | Dated WA audit findings and their relevance to assessments. |
 | `data/framework-review.json` | SCF mapping inventory and cloud framework priorities. |

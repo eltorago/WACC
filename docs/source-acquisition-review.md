@@ -29,3 +29,7 @@ All other documents require the reviewed whole-file SHA-256. Acquisition never a
 ## Workflow
 
 Use Sources in the app to download and reload, `python -m wacc sources --status` for an offline inventory, or `python -m wacc sources --import-from "C:\path\to\downloads"` to recognise manually downloaded files. Downloads have bounded discovery and timeouts, retry transient errors, report progress as each file completes, and preserve existing files when verification fails.
+
+## ACSC mitigation strategies addition
+
+The subsequent assessment review added two automatic source routes: the official February 2017 strategy table and its companion mitigation details. Both downloads succeeded and their original bytes were pinned in the permissions manifest. The current catalogue therefore has 76 documents: 66 automatic routes (61 verified across the two reviews) and 10 manual acquisitions. Publisher files remain in the ignored local cache.

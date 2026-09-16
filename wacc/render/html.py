@@ -462,6 +462,8 @@ def _card(
     parts.append('<div class="states">%s</div>' % _states(control))
     body = " ".join((control.text or control.title or "").split())
     parts.append('<div class="body">%s</div>' % mark(body, typed, widened))
+    from ..publisher_guidance import render as publisher_context
+    parts.append(publisher_context(control))
     parts.append(_risk_block(risk))
     parts.append(
         '<details class="panel" data-panel="%s"><summary>Assessment and linked controls</summary>'

@@ -1,0 +1,1877 @@
+{
+  "profiles": {
+    "windows": "Use an elevated Windows PowerShell 5.1 console on each sampled Windows device. Record OS build, collection time and device ID. Confirm the named built-in cmdlets exist with Get-Command. Do not change a policy to make a test succeed.",
+    "graph": "Use PowerShell 7 and the Microsoft.Graph.Authentication module (Install-Module Microsoft.Graph.Authentication -Scope CurrentUser, if your administrator permits it). Run Connect-MgGraph -TenantId <your-tenant-GUID> -Scopes <the delegated permissions below> -NoWelcome. Confirm Get-MgContext shows the intended tenant, account and scopes. A permitted reader role and admin consent may also be needed; consent is not a control change. Disconnect-MgGraph afterwards. The examples use the commercial-cloud v1.0 endpoint; choose the matching endpoint/profile for sovereign clouds.",
+    "exchange": "Use PowerShell 7 and the ExchangeOnlineManagement module. Run Connect-ExchangeOnline -UserPrincipalName <your-auditor-UPN>. Use the least-privileged Exchange role that can read these settings (View-Only Configuration/View-Only Recipients as applicable). Defender for Office 365 cmdlets require the relevant service/licence and role. Confirm Get-ConnectionInformation reports the intended tenant; disconnect with Disconnect-ExchangeOnline.",
+    "purview": "Use the ExchangeOnlineManagement module and Connect-IPPSSession -UserPrincipalName <your-auditor-UPN>. DLP readers need a role that exposes the DLP Get cmdlets; audit search uses Audit Reader/View-Only Audit Logs, and retention-policy access may need additional audit roles and licensing. Get-Command must find each required cmdlet before collecting. Keep exports in the approved assessment folder.",
+    "sharepoint": "Use Windows PowerShell 5.1 with Microsoft.Online.SharePoint.PowerShell. Run Connect-SPOService -Url https://<tenant>-admin.sharepoint.com using an authorised SharePoint Administrator. SharePoint configuration reading commonly needs that role; do not claim a generic reader role is sufficient. Record the tenant and collection time.",
+    "teams": "Use a supported PowerShell version and the MicrosoftTeams module. Run Connect-MicrosoftTeams -TenantId <tenant-GUID> with an authorised role able to read tenant and user policies. Resolve group-assigned and global policies as well as direct assignments.",
+    "azure": "Use PowerShell 7 with Az.Accounts and the Az modules named by the commands. Run Connect-AzAccount -Tenant <tenant-GUID>, then Set-AzContext -Subscription <subscription-GUID>. Use Reader on the full assessment scope plus any named data-plane/backup roles. Repeat per subscription; a successful query in one subscription is not tenant coverage.",
+    "ad": "Use Windows PowerShell 5.1 with the ActiveDirectory RSAT module from a domain-connected assessment host. Import-Module ActiveDirectory. Query the intended domain/DC with a permitted account. Run registry, SMB and service checks locally on every domain controller using an authorised elevated session. A standard domain read cannot prove protected ACL visibility or remote/DC coverage.",
+    "csv": "Export the named records from the systems of record into an access-controlled assessment folder. Save UTF-8 CSV with the exact column names listed below, one row per scoped item. Record export time, scope, timezone and total population separately. These local PowerShell 5.1/7 checks inspect the supplied evidence only; the assessor must independently reconcile its completeness and validate its contents.",
+    "power": "Use Windows PowerShell 5.1 with Microsoft.PowerApps.Administration.PowerShell and its documented dependencies. Run Add-PowerAppsAccount as a permitted Power Platform administrator. Confirm the tenant/environment inventory before exporting; Power Platform admin cmdlet support differs from PowerShell 7.",
+    "devops": "Use PowerShell 7 or Windows PowerShell 5.1. Obtain a short-lived Azure DevOps PAT with Code (read) and Build (read) for the intended organisation/project, under its access policy. At Get-Credential enter any nonempty username and the PAT as password; do not paste a token into the script or transcript. This example reads policy/build metadata only. Revoke the test PAT afterwards.",
+    "dns": "Run the DNS collection in Windows PowerShell 5.1 or a Windows PowerShell session with the DnsClient module. Reading DNS records does not require local administrator rights."
+  },
+  "checks": {
+    "TECH-APP-CONTROL": {
+      "profile": "windows",
+      "sources": [
+        "citool",
+        "ci-rules",
+        "ci-events",
+        "get-applocker",
+        "test-applocker",
+        "applocker-events",
+        "applocker-csp",
+        "winevent"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\n$mode = Read-Host 'Enter WDAC or AppLocker (GPO/local policy)'\n$since = (Get-Date).AddHours(-2)\nGet-CimInstance Win32_OperatingSystem | Select-Object Caption,Version,BuildNumber\nif ($mode -eq 'WDAC') {\n    $ci = Join-Path $env:windir 'System32\\CiTool.exe'\n    if (-not (Test-Path -LiteralPath $ci)) { throw 'CiTool unavailable. Use the documented older-OS verification path; result unknown.' }\n    $raw = & $ci -lp -json\n    if ($LASTEXITCODE -ne 0) { throw 'CiTool failed; result unknown.' }\n    $policyList = $raw | ConvertFrom-Json\n    $policyList.Policies | Select-Object PolicyID,BasePolicyID,FriendlyName,Version,IsSystemPolicy,IsEnforced,IsAuthorized\n    $log = 'Microsoft-Windows-CodeIntegrity/Operational'\n    $ids = 3076,3077,3099\n} elseif ($mode -eq 'AppLocker') {\n    Get-Command Get-AppLockerPolicy,Test-AppLockerPolicy -ErrorAction Stop | Select-Object Name,Version\n    Get-Service AppIDSvc | Select-Object Name,Status,StartType\n    $xmlPath = Join-Path (Get-Location) ('effective-applocker-'+(Get-Date -Format 'yyyyMMdd-HHmmss')+'.xml')\n    Get-AppLockerPolicy -Effective -Xml | Set-Content -LiteralPath $xmlPath -Encoding UTF8\n    [xml]$policy = Get-Content -LiteralPath $xmlPath -Raw\n    $policy.AppLockerPolicy.RuleCollection | Select-Object Type,EnforcementMode\n    $user = Read-Host 'Standard test user: DOMAIN\\name or SID (not administrator)'\n    $allowed = Read-Host 'Full path to the approved benign executable'\n    $denied = Read-Host 'Full path to a known-safe executable NOT authorised by this policy'\n    foreach ($file in @($allowed,$denied)) {\n        if (-not (Test-Path -LiteralPath $file -PathType Leaf)) { throw \"Missing fixture: $file\" }\n        Get-FileHash -LiteralPath $file -Algorithm SHA256\n        Test-AppLockerPolicy -XmlPolicy $xmlPath -Path $file -User $user\n    }\n    $log = 'Microsoft-Windows-AppLocker/EXE and DLL'\n    $ids = 8002,8003,8004\n} else { throw 'Choose WDAC or AppLocker; no test performed.' }\ntry {\n    Get-WinEvent -FilterHashtable @{LogName=$log;Id=$ids;StartTime=$since} -ErrorAction Stop |\n        Select-Object TimeCreated,Id,MachineName,Message\n} catch {\n    if ($_.FullyQualifiedErrorId -like 'NoMatchingEventsFound*') {\n        Write-Output 'No matching events in this window. This is not a pass; run the approved test and check collection/retention.'\n    } else { throw }\n}\n",
+      "run_steps": [
+        "Choose representative managed workstations and servers, including exception groups. In Intune open Endpoint security > App Control for Business and the policy device status; for Group Policy obtain the deployed policy and resultant GPO. Record target group, device, last sync, policy ID/version, rule collections and approved exceptions. A portal assignment or file on disk does not establish enforcement.",
+        "WDAC/App Control: run the WDAC branch on Windows 11 22H2 or later, or Server 2025 where CiTool is included. Match the organisation policy ID and base/supplemental IDs to the deployment record. IsEnforced means the policy is active; it alone does not prove deny enforcement. Inspect the matching source policy XML for option 3 (Enabled:Audit Mode), UMCI and script options, and corroborate the loaded policy with event 3099. Do not count only the built-in Microsoft driver blocklist as the organisation application policy. On earlier supported Windows, use deployed policy XML/version, the CodeIntegrity Operational log and the same behaviour tests; do not assume CiTool is present.",
+        "AppLocker: on a GPO/local-policy deployment run the AppLocker branch from the sampled endpoint, exporting effective XML. Inspect Exe, Dll, Msi, Script and Appx collections applicable to the scope; check enforced/audit-only modes, default/admin bypass rules, writable-path allow rules and AppIDSvc state. Test-AppLockerPolicy predicts the rule decision for the named user and file. It does not execute the file or establish runtime blocking.",
+        "AppLocker CSP/MDM deployment: Get-AppLockerPolicy only understands local/GPO policy and cannot retrieve CSP policy. Export the assigned ApplicationLaunchRestrictions policy XML and its device assignment/status from the MDM service, retain the policy identifier, and corroborate application with AppLocker device events and a runtime test. Do not label an empty GPO export as an absent CSP policy or as compliant.",
+        "Prepare two reviewed benign fixtures: one approved application and one unapproved application that performs no harmful action. Record their hashes and expected decisions. Confirm the negative fixture is not also trusted through a publisher rule, managed installer, reputation or supplemental policy; a renamed trusted executable is not necessarily unapproved. In a representative test environment sign in as the named standard user and launch each normally. Do not switch production enforcement off. Repeat for scripts, installers and a benign application loading a test DLL where those file types are in scope; use the relevant host and the same deployment path.",
+        "After the launches, rerun collection with a window covering the test. For WDAC match the negative fixture to CodeIntegrity event 3077 (blocked), not 3076 (audit/would block). For AppLocker match EXE/DLL events 8002 allowed, 8003 audit-only, 8004 blocked; MSI/Script events 8005/8006/8007 use the MSI and Script channel. WDAC script events in that channel use 8028 audit and 8029 enforcement; PowerShell may constrain a script rather than deny startup, so record language mode/actual restricted operation. Correlate file, hash when present, user, policy and timestamp with central logging.",
+        "Repeat the same approved and unapproved tests on each sampled policy/device/user combination. Record scope gaps and exemptions. Retain effective policy/MDM export, file hashes, static decisions, observed runtime outcome and matching local/central events."
+      ],
+      "decision": "Pass only for the sampled file types and users when the approved fixture works, an actually unauthorised benign fixture is denied or constrained as required, the intended policy is active in enforcement mode, and matching events reach the central collector. Audit-only, a policy ID alone, or static Allowed/Denied output is insufficient.",
+      "limits": "No application was launched or policy enforced by WACC. CiTool fields vary by OS. AppLocker CSP requires MDM evidence. Driver-only policy, DLL collection gaps, cached reputation and differing PowerShell hosts can change conclusions. Validate each applicable code type; an EXE test cannot prove script/DLL coverage.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "97797b111e337f824d9eb13bea64b39d8b6a4661cb447d82f864eb6d5a411c9f",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "OS query ran. CiTool and AppLocker cmdlets are not available on this host; App Control policy/behaviour was not tested.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. OS query ran. CiTool and AppLocker cmdlets are not available on this host; App Control policy/behaviour was not tested. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-CA": {
+      "profile": "graph",
+      "sources": [
+        "graph-ca",
+        "graph-signins",
+        "graph-connect",
+        "graph-request"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nfunction Read-GraphCollection {\n    param([Parameter(Mandatory=$true)][string]$Uri)\n    $seen = @{}\n    do {\n        if ($Uri -notmatch '^https://graph\\.microsoft\\.com/v1\\.0/' -or $seen.ContainsKey($Uri)) {\n            throw 'Unexpected Graph nextLink or repeated page. Assessment is unknown.'\n        }\n        $seen[$Uri] = $true\n        $page = Invoke-MgGraphRequest -Method GET -Uri $Uri -OutputType Hashtable -ErrorAction Stop\n        if (-not $page.ContainsKey('value')) { throw 'Expected a Graph collection; assessment is unknown.' }\n        foreach ($item in $page['value']) { $item }\n        $Uri = $page['@odata.nextLink']\n    } while ($Uri)\n}\n$policies = @(Read-GraphCollection 'https://graph.microsoft.com/v1.0/identity/conditionalAccess/policies')\n$policies | ConvertTo-Json -Depth 100\n$since = (Get-Date).ToUniversalTime().AddDays(-1).ToString('yyyy-MM-ddTHH:mm:ssZ')\n$filter = [uri]::EscapeDataString(\"createdDateTime ge $since\")\nRead-GraphCollection ('https://graph.microsoft.com/v1.0/auditLogs/signIns?$filter='+$filter) | ConvertTo-Json -Depth 100\n",
+      "run_steps": [
+        "Export all policies, including disabled/report-only ones and exclusions. Identify the policies intended to protect each sampled role, application, device state and network location. Resolve nested/excluded group membership and authentication strengths.",
+        "In Entra Conditional Access > What If, evaluate a standard user, privileged user, excluded account, unmanaged device and legacy client against the selected resource. Save applied/not-applied policy reasons. What If predicts policy applicability; it does not issue a token or prove MFA happened.",
+        "With permitted test accounts perform one allowed and one expected-denied sign-in for each critical path. Revoke no production sessions for this test; use a fresh private browser or isolated test session and record UTC time/correlation ID.",
+        "Match the fresh sign-in in the returned audit records. Inspect conditionalAccessStatus, appliedConditionalAccessPolicies, authenticationDetails and status/error. Distinguish previously satisfied MFA/session claims from a newly performed factor."
+      ],
+      "decision": "Expected-denied cases must be denied by the intended enabled policy; allowed cases must satisfy the required strength/device conditions. Report-only policies do not pass enforcement.",
+      "limits": "Log retention, role, licence and API permissions can hide fields. Repeated successful MFA does not prove every excluded population is protected. A zero-row or redacted log is unknown.",
+      "scopes": "Policy.Read.All, AuditLog.Read.All",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "a1899d89512d6ffba2745e50f4eac6c2656e3bece11c3322ccb4e8adbdfd04f8",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [
+          "Graph paging helper: multiple pages, empty response, denied access, wrong schema and unsafe/repeated nextLink"
+        ],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. Selected offline fixtures passed; No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-PIM": {
+      "profile": "graph",
+      "sources": [
+        "graph-pim",
+        "graph-eligible",
+        "graph-rolepolicies",
+        "graph-rolepolicy",
+        "graph-assignments",
+        "graph-connect",
+        "graph-request"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nfunction Read-GraphCollection {\n    param([Parameter(Mandatory=$true)][string]$Uri)\n    $seen = @{}\n    do {\n        if ($Uri -notmatch '^https://graph\\.microsoft\\.com/v1\\.0/' -or $seen.ContainsKey($Uri)) {\n            throw 'Unexpected Graph nextLink or repeated page. Assessment is unknown.'\n        }\n        $seen[$Uri] = $true\n        $page = Invoke-MgGraphRequest -Method GET -Uri $Uri -OutputType Hashtable -ErrorAction Stop\n        if (-not $page.ContainsKey('value')) { throw 'Expected a Graph collection; assessment is unknown.' }\n        foreach ($item in $page['value']) { $item }\n        $Uri = $page['@odata.nextLink']\n    } while ($Uri)\n}\nRead-GraphCollection 'https://graph.microsoft.com/v1.0/roleManagement/directory/roleAssignmentScheduleInstances' | ConvertTo-Json -Depth 100\nRead-GraphCollection 'https://graph.microsoft.com/v1.0/roleManagement/directory/roleEligibilityScheduleInstances' | ConvertTo-Json -Depth 100\n$filter = [uri]::EscapeDataString(\"scopeId eq '/' and scopeType eq 'DirectoryRole'\")\n$assignments = @(Read-GraphCollection ('https://graph.microsoft.com/v1.0/policies/roleManagementPolicyAssignments?$filter='+$filter))\nforeach ($policyId in @($assignments | ForEach-Object { $_['policyId'] } | Sort-Object -Unique)) {\n    Write-Output \"Role policy $policyId\"\n    Read-GraphCollection (\"https://graph.microsoft.com/v1.0/policies/roleManagementPolicies/$policyId/rules\") | ConvertTo-Json -Depth 100\n}\nRead-GraphCollection 'https://graph.microsoft.com/v1.0/roleManagement/directory/roleAssignments' | ConvertTo-Json -Depth 100\n",
+      "run_steps": [
+        "Reconcile eligible and active assignments with approved privileged roles. Resolve principalId to user/group/service principal and roleDefinitionId to a role; expand role-assignable group membership separately.",
+        "Inspect each applicable PIM role policy rule for activation duration, expiration, approval, approvers, MFA/authentication context, justification and permanent-assignment exceptions. Compare these with the approved role standard.",
+        "In a test role submit an activation needing approval. Verify an unapproved request cannot activate; have the nominated approver approve a permitted request, then record its start/end timestamps.",
+        "After expiry, open a fresh test session and retry the specific privileged operation. Correlate activation/audit records and assignment removal; do not judge expiry using a pre-existing access token alone."
+      ],
+      "decision": "Every sampled privilege has an owner/approval and allowed lifetime; activation and expiry enforce the approved limits and non-approved requests stay inactive.",
+      "limits": "Entra PIM licensing applies. Directory-role APIs do not cover Azure resource PIM or PIM for Groups. An endDateTime alone does not prove token revocation or workload-session expiry.",
+      "scopes": "RoleAssignmentSchedule.Read.Directory, RoleEligibilitySchedule.Read.Directory, RoleManagementPolicy.Read.Directory, RoleManagement.Read.Directory",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "9e01f29f36ad993f854a9c6ed40d48bd21a640d6e43275e25a99c8e6883ef44d",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [
+          "Graph paging helper: multiple pages, empty response, denied access, wrong schema and unsafe/repeated nextLink"
+        ],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. Selected offline fixtures passed; No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-ADMIN": {
+      "profile": "graph",
+      "sources": [
+        "graph-assignments",
+        "graph-user",
+        "graph-connect",
+        "graph-request"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nfunction Read-GraphCollection {\n    param([Parameter(Mandatory=$true)][string]$Uri)\n    $seen = @{}\n    do {\n        if ($Uri -notmatch '^https://graph\\.microsoft\\.com/v1\\.0/' -or $seen.ContainsKey($Uri)) {\n            throw 'Unexpected Graph nextLink or repeated page. Assessment is unknown.'\n        }\n        $seen[$Uri] = $true\n        $page = Invoke-MgGraphRequest -Method GET -Uri $Uri -OutputType Hashtable -ErrorAction Stop\n        if (-not $page.ContainsKey('value')) { throw 'Expected a Graph collection; assessment is unknown.' }\n        foreach ($item in $page['value']) { $item }\n        $Uri = $page['@odata.nextLink']\n    } while ($Uri)\n}\n$roles = @(Read-GraphCollection 'https://graph.microsoft.com/v1.0/roleManagement/directory/roleAssignments')\n$roles | ConvertTo-Json -Depth 100\n$adminId = Read-Host 'Object GUID of one resolved human administrative account'\nif ($adminId -notmatch '^[0-9a-fA-F-]{36}$') { throw 'Enter a user object GUID.' }\nInvoke-MgGraphRequest -Method GET -Uri ('https://graph.microsoft.com/v1.0/users/'+$adminId+'?$select=id,userPrincipalName,accountEnabled,assignedLicenses,mail') -OutputType Hashtable | ConvertTo-Json -Depth 100\n",
+      "run_steps": [
+        "Resolve direct assignments, role-assignable groups and eligible PIM roles to human administrators using the PIM check. Choose a representative administrator and obtain both everyday and administrative account IDs.",
+        "Compare the administrative identity with its owner record, mail/workload licences, allowed applications and sign-in logs. A populated mail attribute alone does not establish an enabled mailbox.",
+        "From the administrative identity in an isolated test session, try an everyday activity that policy explicitly forbids (for example Exchange/Teams access) and record the expected denial. Confirm an approved administration task still succeeds.",
+        "Inspect the corresponding sign-in decision and access policy; reconcile shared/service/emergency exceptions with named owners and approvals."
+      ],
+      "decision": "Administrative and everyday identities are distinct and the approved restrictions operate for the tested workload.",
+      "limits": "Licence/mail fields provide leads, not proof of use. Azure RBAC, on-prem AD and workload-specific roles need their own inventories; absence from directory roles is not absence of privilege.",
+      "scopes": "RoleManagement.Read.Directory, User.Read.All",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "338e7d341277153d389d43a97532f260178803062705fc046af41b764a3f4041",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [
+          "Graph paging helper: multiple pages, empty response, denied access, wrong schema and unsafe/repeated nextLink"
+        ],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. Selected offline fixtures passed; No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-EMERGENCY": {
+      "profile": "graph",
+      "sources": [
+        "graph-signins",
+        "graph-user",
+        "graph-connect",
+        "graph-request"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nfunction Read-GraphCollection {\n    param([Parameter(Mandatory=$true)][string]$Uri)\n    $seen = @{}\n    do {\n        if ($Uri -notmatch '^https://graph\\.microsoft\\.com/v1\\.0/' -or $seen.ContainsKey($Uri)) {\n            throw 'Unexpected Graph nextLink or repeated page. Assessment is unknown.'\n        }\n        $seen[$Uri] = $true\n        $page = Invoke-MgGraphRequest -Method GET -Uri $Uri -OutputType Hashtable -ErrorAction Stop\n        if (-not $page.ContainsKey('value')) { throw 'Expected a Graph collection; assessment is unknown.' }\n        foreach ($item in $page['value']) { $item }\n        $Uri = $page['@odata.nextLink']\n    } while ($Uri)\n}\n$userId = Read-Host 'Approved emergency account object GUID'\nif ($userId -notmatch '^[0-9a-fA-F-]{36}$') { throw 'Enter a user object GUID.' }\nInvoke-MgGraphRequest -Method GET -Uri ('https://graph.microsoft.com/v1.0/users/'+$userId+'?$select=id,userPrincipalName,accountEnabled') -OutputType Hashtable | ConvertTo-Json -Depth 20\n$since = (Get-Date).ToUniversalTime().AddDays(-1).ToString('yyyy-MM-ddTHH:mm:ssZ')\n$filter = [uri]::EscapeDataString(\"userId eq '$userId' and createdDateTime ge $since\")\nRead-GraphCollection ('https://graph.microsoft.com/v1.0/auditLogs/signIns?$filter='+$filter) | ConvertTo-Json -Depth 100\n",
+      "run_steps": [
+        "Agree a supervised emergency-access exercise, custodians and test window. Identify the intended accounts, authentication method, recovery dependencies and alert routing. Never collect passwords or authentication keys into the assessment.",
+        "Use the documented emergency method from the approved recovery device/location to sign in and perform a harmless directory read. Do not simulate an outage by disabling production identity services or MFA.",
+        "Run the query and match the exact UTC sign-in/correlation ID; verify the account is enabled and the activity generated the required alert and escalation to the nominated on-call person.",
+        "Record elapsed time to access and alert receipt, close the test, and check credential custody/resealing per the procedure. Test each independent emergency path separately."
+      ],
+      "decision": "The approved emergency path works within the organisation recovery target and every use is detected and escalated.",
+      "limits": "An enabled account is not a usability test; a successful normal sign-in does not demonstrate independence from failed federation or a lost MFA dependency.",
+      "scopes": "User.Read.All, AuditLog.Read.All",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "57113417bd8fd2195ee12ba38de857dcea158c9bf2ac54328b44bc5ee0ca802e",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [
+          "Graph paging helper: multiple pages, empty response, denied access, wrong schema and unsafe/repeated nextLink"
+        ],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. Selected offline fixtures passed; No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-LIFECYCLE": {
+      "profile": "graph",
+      "sources": [
+        "graph-users",
+        "graph-connect",
+        "graph-request"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nfunction Read-GraphCollection {\n    param([Parameter(Mandatory=$true)][string]$Uri)\n    $seen = @{}\n    do {\n        if ($Uri -notmatch '^https://graph\\.microsoft\\.com/v1\\.0/' -or $seen.ContainsKey($Uri)) {\n            throw 'Unexpected Graph nextLink or repeated page. Assessment is unknown.'\n        }\n        $seen[$Uri] = $true\n        $page = Invoke-MgGraphRequest -Method GET -Uri $Uri -OutputType Hashtable -ErrorAction Stop\n        if (-not $page.ContainsKey('value')) { throw 'Expected a Graph collection; assessment is unknown.' }\n        foreach ($item in $page['value']) { $item }\n        $Uri = $page['@odata.nextLink']\n    } while ($Uri)\n}\n$path = Read-Host 'Path to approved leavers CSV (UserPrincipalName,LeaveUtc)'\n$leavers = @(Import-Csv -LiteralPath $path)\nif ($leavers.Count -eq 0) { throw 'Empty leavers population; cannot assess.' }\n$users = @(Read-GraphCollection 'https://graph.microsoft.com/v1.0/users?$select=id,userPrincipalName,accountEnabled')\nif ($users.Count -eq 0) { throw 'No directory population; cannot assess.' }\nforeach ($leaver in $leavers) {\n    if (-not $leaver.UserPrincipalName -or -not $leaver.LeaveUtc) { throw 'Missing leaver identifier or timestamp.' }\n    $due = [datetimeoffset]::Parse($leaver.LeaveUtc).UtcDateTime\n    if ($due -gt [datetime]::UtcNow) { continue }\n    $matches = @($users | Where-Object { $_['userPrincipalName'] -eq $leaver.UserPrincipalName })\n    [pscustomobject]@{User=$leaver.UserPrincipalName;Matches=$matches.Count;Enabled=($matches | ForEach-Object { $_['accountEnabled'] });Finding=if($matches.Count -eq 0){'Missing: reconcile deletion/renaming'}elseif($matches.Count -ne 1){'Ambiguous'}elseif($matches[0]['accountEnabled']){'Review: departed user enabled'}else{'Disabled: verify sessions and downstream services'}}\n}\n",
+      "run_steps": [
+        "Obtain the independent HR/vendor departure list and approved access-removal deadlines. Enter effective UTC departure times into the CSV; include renamed and synchronised identities in the reconciliation.",
+        "Run the query and resolve every unmatched/ambiguous/enabled account. Review access-review decisions against completed removal tickets, not only a completed review status.",
+        "For an approved test leaver, follow the normal offboarding workflow. In a fresh session confirm denied interactive access and inspect refresh/session revocation evidence; separately verify application/service sessions, VPN, AD, guest accounts and delegated ownership.",
+        "Compare disable/removal/audit timestamps with the approved deadline, and inspect retained mailbox/data ownership and exceptions."
+      ],
+      "decision": "Every due departure has timely removal across the scoped services, with fresh access denied and exceptions authorised.",
+      "limits": "This command identifies directory-account exceptions; it cannot prove all downstream sessions ended. A missing user is a reconciliation item, not automatic compliance.",
+      "scopes": "User.Read.All",
+      "inputs": "CSV: UserPrincipalName,LeaveUtc (ISO 8601 UTC, e.g. 2026-09-01T00:00:00Z)",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "e5db42fe65100a0897b8251a1640241a7dcb65f737f464197dff5d9158309bf8",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [
+          "Graph paging helper: multiple pages, empty response, denied access, wrong schema and unsafe/repeated nextLink"
+        ],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. Selected offline fixtures passed; No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-CONSENT": {
+      "profile": "graph",
+      "sources": [
+        "graph-consent",
+        "graph-grants",
+        "graph-sp",
+        "graph-approles",
+        "sp-schema",
+        "graph-connect",
+        "graph-request"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nfunction Read-GraphCollection {\n    param([Parameter(Mandatory=$true)][string]$Uri)\n    $seen = @{}\n    do {\n        if ($Uri -notmatch '^https://graph\\.microsoft\\.com/v1\\.0/' -or $seen.ContainsKey($Uri)) {\n            throw 'Unexpected Graph nextLink or repeated page. Assessment is unknown.'\n        }\n        $seen[$Uri] = $true\n        $page = Invoke-MgGraphRequest -Method GET -Uri $Uri -OutputType Hashtable -ErrorAction Stop\n        if (-not $page.ContainsKey('value')) { throw 'Expected a Graph collection; assessment is unknown.' }\n        foreach ($item in $page['value']) { $item }\n        $Uri = $page['@odata.nextLink']\n    } while ($Uri)\n}\nInvoke-MgGraphRequest -Method GET -Uri 'https://graph.microsoft.com/v1.0/policies/authorizationPolicy' -OutputType Hashtable | ConvertTo-Json -Depth 100\nRead-GraphCollection 'https://graph.microsoft.com/v1.0/oauth2PermissionGrants' | ConvertTo-Json -Depth 100\n$principals = @(Read-GraphCollection 'https://graph.microsoft.com/v1.0/servicePrincipals?$select=id,appId,displayName,appRoleAssignmentRequired,servicePrincipalType')\nforeach ($sp in $principals) {\n    Write-Output (\"Service principal: \"+$sp['id']+' '+$sp['displayName'])\n    Read-GraphCollection ('https://graph.microsoft.com/v1.0/servicePrincipals/'+$sp['id']+'/appRoleAssignments') | ConvertTo-Json -Depth 100\n}\n",
+      "run_steps": [
+        "Collect authorisation policy, delegated grants and application-role grants. Map service principal and resource IDs to applications and permission names. Separate per-user delegated grants from tenant-wide and application permissions.",
+        "Reconcile high-impact permissions, credential owners and grant dates with approval/change records; investigate unused apps, orphaned owners and unexpectedly broad tenant consent.",
+        "Using a tenant-owned benign test app, request a permission outside the standard-user consent policy. Confirm it cannot obtain that access without the documented approval path. Do not approve extra permissions merely to finish the test.",
+        "Review the resulting consent/audit entry and, where removal has been approved through change control, confirm a retired test grant no longer issues access in a new session."
+      ],
+      "decision": "Restricted permissions require approval and every scoped broad grant is justified, owned and reviewed.",
+      "limits": "The script reads grants; it does not revoke consent. New tokens, resource-side grants, managed identities and existing sessions need separate evaluation. Large tenants may need staged collection to handle throttling.",
+      "scopes": "Policy.Read.All, Directory.Read.All, Application.Read.All",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "86d3c9250864da151f40559c29f78c7dd8ab00e8e0a9896a525d409438b11857",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [
+          "Graph paging helper: multiple pages, empty response, denied access, wrong schema and unsafe/repeated nextLink"
+        ],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. Selected offline fixtures passed; No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-GUEST": {
+      "profile": "graph",
+      "sources": [
+        "graph-consent",
+        "graph-cross",
+        "graph-cross-partners",
+        "graph-users",
+        "graph-connect",
+        "graph-request"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nfunction Read-GraphCollection {\n    param([Parameter(Mandatory=$true)][string]$Uri)\n    $seen = @{}\n    do {\n        if ($Uri -notmatch '^https://graph\\.microsoft\\.com/v1\\.0/' -or $seen.ContainsKey($Uri)) {\n            throw 'Unexpected Graph nextLink or repeated page. Assessment is unknown.'\n        }\n        $seen[$Uri] = $true\n        $page = Invoke-MgGraphRequest -Method GET -Uri $Uri -OutputType Hashtable -ErrorAction Stop\n        if (-not $page.ContainsKey('value')) { throw 'Expected a Graph collection; assessment is unknown.' }\n        foreach ($item in $page['value']) { $item }\n        $Uri = $page['@odata.nextLink']\n    } while ($Uri)\n}\nInvoke-MgGraphRequest -Method GET -Uri 'https://graph.microsoft.com/v1.0/policies/authorizationPolicy' -OutputType Hashtable | ConvertTo-Json -Depth 100\nInvoke-MgGraphRequest -Method GET -Uri 'https://graph.microsoft.com/v1.0/policies/crossTenantAccessPolicy/default' -OutputType Hashtable | ConvertTo-Json -Depth 100\nRead-GraphCollection 'https://graph.microsoft.com/v1.0/policies/crossTenantAccessPolicy/partners' | ConvertTo-Json -Depth 100\n$filter = [uri]::EscapeDataString(\"userType eq 'Guest'\")\nRead-GraphCollection ('https://graph.microsoft.com/v1.0/users?$filter='+$filter+'&$select=id,userPrincipalName,accountEnabled,externalUserState,createdDateTime') | ConvertTo-Json -Depth 100\n",
+      "run_steps": [
+        "Reconcile guest identities with sponsors, purpose, partner tenant and expiry. Review invitation permissions and default versus partner-specific cross-tenant settings, including inbound MFA/device trust.",
+        "Prepare approved test partners: one allowed and one outside the permitted boundary. Test invitation/access through each scoped workload and record the effective policy outcome.",
+        "Review redemption and sign-in evidence, including who invited the guest. Check partner trust does not exempt the session from required assurance unintentionally.",
+        "For an expired approved test guest, verify removal/review decisions and fresh workload access denial; check anonymous links separately."
+      ],
+      "decision": "Only the approved partners and guest paths work, with an accountable sponsor and timely access review/removal.",
+      "limits": "Directory settings do not fully cover SharePoint anonymous links, Teams federation or workload-specific sharing. An existing guest object does not prove current entitlement.",
+      "scopes": "Policy.Read.All, User.Read.All",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "4773591b6d427adb6608a8c160572ce3932422c6b543331f4608c541030f42ea",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [
+          "Graph paging helper: multiple pages, empty response, denied access, wrong schema and unsafe/repeated nextLink"
+        ],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. Selected offline fixtures passed; No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "CLOUD-CHECK-01": {
+      "profile": "graph",
+      "sources": [
+        "graph-ca",
+        "graph-signins",
+        "graph-connect",
+        "graph-request"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nfunction Read-GraphCollection {\n    param([Parameter(Mandatory=$true)][string]$Uri)\n    $seen = @{}\n    do {\n        if ($Uri -notmatch '^https://graph\\.microsoft\\.com/v1\\.0/' -or $seen.ContainsKey($Uri)) {\n            throw 'Unexpected Graph nextLink or repeated page. Assessment is unknown.'\n        }\n        $seen[$Uri] = $true\n        $page = Invoke-MgGraphRequest -Method GET -Uri $Uri -OutputType Hashtable -ErrorAction Stop\n        if (-not $page.ContainsKey('value')) { throw 'Expected a Graph collection; assessment is unknown.' }\n        foreach ($item in $page['value']) { $item }\n        $Uri = $page['@odata.nextLink']\n    } while ($Uri)\n}\nRead-GraphCollection 'https://graph.microsoft.com/v1.0/identity/conditionalAccess/policies' | ConvertTo-Json -Depth 100\n$since = (Get-Date).ToUniversalTime().AddDays(-7).ToString('yyyy-MM-ddTHH:mm:ssZ')\n$filter = [uri]::EscapeDataString(\"createdDateTime ge $since\")\nRead-GraphCollection ('https://graph.microsoft.com/v1.0/auditLogs/signIns?$filter='+$filter) | ConvertTo-Json -Depth 100\n",
+      "run_steps": [
+        "Identify enabled policies using userRiskLevels/signInRiskLevels and their selected block or remediation controls. Review exclusions, authentication strengths and secure password-change prerequisites.",
+        "Use What If for the documented risk conditions and preserve applicable/not-applicable reasons. Confirm that the tenant licence and reader role expose risk detail; hidden/none is not necessarily low risk.",
+        "Use an existing authorised risk event or Microsoft-supported test-tenant risk simulation. Do not generate malicious traffic or compromise credentials to manufacture a signal. Exercise the approved remediation workflow and record event/correlation IDs.",
+        "Match the resulting policy action and sign-in status, verify alert routing and risk closure, and confirm the user cannot bypass the selected response."
+      ],
+      "decision": "Configured risk conditions result in the approved blocking/remediation action and tracked investigation for the observed case.",
+      "limits": "Without an observable permitted risk event, mark runtime validation not performed. What If and risk-policy JSON alone cannot prove Identity Protection detection. P2/licence and log permissions affect visibility.",
+      "scopes": "Policy.Read.All, AuditLog.Read.All",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "c07077001adc71b4a51116c36a432a44b7c0b742f2ab842094d2599fcc5899a4",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [
+          "Graph paging helper: multiple pages, empty response, denied access, wrong schema and unsafe/repeated nextLink"
+        ],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. Selected offline fixtures passed; No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "CLOUD-CHECK-02": {
+      "profile": "graph",
+      "sources": [
+        "graph-ca",
+        "graph-signins",
+        "graph-connect",
+        "graph-request"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nfunction Read-GraphCollection {\n    param([Parameter(Mandatory=$true)][string]$Uri)\n    $seen = @{}\n    do {\n        if ($Uri -notmatch '^https://graph\\.microsoft\\.com/v1\\.0/' -or $seen.ContainsKey($Uri)) {\n            throw 'Unexpected Graph nextLink or repeated page. Assessment is unknown.'\n        }\n        $seen[$Uri] = $true\n        $page = Invoke-MgGraphRequest -Method GET -Uri $Uri -OutputType Hashtable -ErrorAction Stop\n        if (-not $page.ContainsKey('value')) { throw 'Expected a Graph collection; assessment is unknown.' }\n        foreach ($item in $page['value']) { $item }\n        $Uri = $page['@odata.nextLink']\n    } while ($Uri)\n}\nRead-GraphCollection 'https://graph.microsoft.com/v1.0/identity/conditionalAccess/policies' | ConvertTo-Json -Depth 100\n",
+      "run_steps": [
+        "Find policies targeting the register security information user action. Resolve who and which locations/devices are included or excluded, bootstrap methods and emergency exceptions.",
+        "Use a test identity with approved registration access. From an allowed device/location, visit the security-information registration page and verify the approved bootstrap method works.",
+        "From the deliberately disallowed condition in the agreed test plan, repeat registration and verify the action is denied or requires the prescribed strength. Do not alter a real administrator factor.",
+        "Inspect the matching Entra sign-in/audit event and policy reasons, then remove only the test registration through the approved test cleanup process."
+      ],
+      "decision": "Registration works from approved conditions and fails or requires the prescribed stronger authentication outside them.",
+      "limits": "A normal application sign-in is not a registration-action test. Bootstrap/TAP and recovery paths must be assessed separately; What If support varies by user action.",
+      "scopes": "Policy.Read.All",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "5c471d1f1581700d927b517d2c7e8be24d2f4de6cd2fc95c23cd4a545da9618b",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [
+          "Graph paging helper: multiple pages, empty response, denied access, wrong schema and unsafe/repeated nextLink"
+        ],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. Selected offline fixtures passed; No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "CLOUD-CHECK-03": {
+      "profile": "graph",
+      "sources": [
+        "graph-methods",
+        "graph-connect",
+        "graph-request"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nInvoke-MgGraphRequest -Method GET -Uri 'https://graph.microsoft.com/v1.0/policies/authenticationMethodsPolicy' -OutputType Hashtable | ConvertTo-Json -Depth 100\n",
+      "run_steps": [
+        "Inspect policyMigrationState and every authentication method configuration, enabled state and include/exclude target. Resolve groups and compare with the approved authentication-method standard.",
+        "Review legacy MFA/SSPR policy settings in the Entra portal where still applicable, and retain migration/retirement evidence. A migration state alone does not establish effective strength.",
+        "Using a test user in each affected group, attempt registration and sign-in with an approved method and a prohibited method. Verify CA authentication strength separately from whether a method can be registered.",
+        "Check recovery/helpdesk bootstrap paths and review sign-in/authentication method audit records for the selected users."
+      ],
+      "decision": "Effective methods match the approved population/strength and retired legacy settings do not leave an unintended permitted method.",
+      "limits": "The authentication-method policy controls method availability, not every workload authentication decision. Legacy settings and CA must be considered together.",
+      "scopes": "Policy.Read.AuthenticationMethod",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "617a6661d624377ac471ec7df667533e957e8ef475c7df524fd3e279acea67ee",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "CLOUD-CHECK-04": {
+      "profile": "graph",
+      "sources": [
+        "graph-apps",
+        "graph-sp",
+        "app-schema",
+        "sp-schema",
+        "graph-connect",
+        "graph-request"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nfunction Read-GraphCollection {\n    param([Parameter(Mandatory=$true)][string]$Uri)\n    $seen = @{}\n    do {\n        if ($Uri -notmatch '^https://graph\\.microsoft\\.com/v1\\.0/' -or $seen.ContainsKey($Uri)) {\n            throw 'Unexpected Graph nextLink or repeated page. Assessment is unknown.'\n        }\n        $seen[$Uri] = $true\n        $page = Invoke-MgGraphRequest -Method GET -Uri $Uri -OutputType Hashtable -ErrorAction Stop\n        if (-not $page.ContainsKey('value')) { throw 'Expected a Graph collection; assessment is unknown.' }\n        foreach ($item in $page['value']) { $item }\n        $Uri = $page['@odata.nextLink']\n    } while ($Uri)\n}\n$maxDays = [int](Read-Host 'Maximum credential lifetime in days from your approved standard')\nif ($maxDays -lt 1) { throw 'Enter a positive approved maximum.' }\nforeach ($kind in @('applications','servicePrincipals')) {\n    $uri = 'https://graph.microsoft.com/v1.0/'+$kind+'?$select=id,appId,displayName,passwordCredentials,keyCredentials'\n    foreach ($app in @(Read-GraphCollection $uri)) {\n        foreach ($type in @('passwordCredentials','keyCredentials')) {\n            foreach ($credential in @($app[$type])) {\n                if ($null -eq $credential) { continue }\n                if (-not $credential['startDateTime'] -or -not $credential['endDateTime']) { throw 'Missing credential lifetime; assessment is unknown.' }\n                $start = [datetimeoffset]::Parse($credential['startDateTime'])\n                $end = [datetimeoffset]::Parse($credential['endDateTime'])\n                [pscustomobject]@{ObjectType=$kind;ObjectId=$app['id'];App=$app['displayName'];Type=$type;KeyId=$credential['keyId'];ExpiresUtc=$end.UtcDateTime;LifetimeDays=($end-$start).TotalDays;Expired=$end -le [datetimeoffset]::UtcNow;ExceedsStandard=($end-$start).TotalDays -gt $maxDays}\n            }\n        }\n    }\n}\n",
+      "run_steps": [
+        "Read the approved secret/certificate maximum lifetime, renewal lead time and workload-identity standard. Use the actual policy maximum at the prompt, not a universal arbitrary number.",
+        "Collect both application objects and service principals. Join object IDs to accountable owners and purpose; inspect federated credentials/managed identities separately, because no password credential is not automatically an unprotected app.",
+        "Review expired, long-lived and soon-expiring credentials against permitted exceptions, vault custody and rotation records. The API exposes metadata, not recoverable secret values.",
+        "In a test application follow an approved rotation: prove the new credential works, revoke the old one via change control, and confirm it no longer obtains a new token. Retain redacted status/audit evidence, never secrets."
+      ],
+      "decision": "Scoped credentials comply with the approved lifetime, owner/custody and rotation rules; the sampled retired credential cannot get new tokens.",
+      "limits": "Metadata checks do not prove where secret copies exist or revoke previously issued tokens. This script does not retrieve secret values or perform rotation.",
+      "scopes": "Application.Read.All",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "d14f658826dbda573820c555b37df48d6d9f06e315772b15fa52ef5582cb07f6",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [
+          "Graph paging helper: multiple pages, empty response, denied access, wrong schema and unsafe/repeated nextLink",
+          "Credential expiry/lifetime threshold and invalid threshold"
+        ],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. Selected offline fixtures passed; No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-LEGACY": {
+      "profile": "exchange",
+      "sources": [
+        "transport",
+        "cas-mailbox",
+        "smtp-auth"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\n$orgDisabled = (Get-TransportConfig).SmtpClientAuthenticationDisabled\nif ($null -eq $orgDisabled) { throw 'Organisation SMTP AUTH state unavailable.' }\nGet-CASMailbox -ResultSize Unlimited | ForEach-Object {\n    $effective = if ($null -eq $_.SmtpClientAuthenticationDisabled) { $orgDisabled } else { $_.SmtpClientAuthenticationDisabled }\n    [pscustomobject]@{Mailbox=$_.PrimarySmtpAddress;MailboxOverride=$_.SmtpClientAuthenticationDisabled;OrganisationDisabled=$orgDisabled;EffectiveSmtpAuthDisabled=$effective;PopEnabled=$_.PopEnabled;ImapEnabled=$_.ImapEnabled}\n}\n",
+      "run_steps": [
+        "Record approved mail submission and legacy-client use cases. Read organisation settings and each mailbox override; null means inherit, not false. POP/IMAP enabled flags describe protocol availability, not whether Basic authentication succeeds.",
+        "Review Entra legacy-client Conditional Access, Exchange authentication policy and current service restrictions alongside these settings. Inspect service-principal/noninteractive sign-ins where relevant.",
+        "Use only a nominated test mailbox/application to try the disallowed legacy authentication path and an approved modern-authentication path. Confirm denial/success in the sign-in and workload logs, without collecting passwords into transcripts.",
+        "For every SMTP AUTH exception verify the approved OAuth/modern method, owner and ongoing requirement. Validate that disabled SMTP submission is refused for a fresh connection."
+      ],
+      "decision": "Unapproved legacy authentication is refused and unneeded SMTP AUTH is effectively disabled, with scoped, approved exceptions.",
+      "limits": "SMTP AUTH may use OAuth; disabling Basic authentication and disabling the SMTP AUTH protocol are different controls. A mailbox flag cannot alone prove tenant-wide legacy-authentication blocking.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "61682726afc6d940fc42327e2af6ad607aefc3d114e5f3cf0b825678a7a2217a",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [
+          "SMTP null inheritance and explicit overrides"
+        ],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. Selected offline fixtures passed; No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-MAIL-AUTH": {
+      "profile": "exchange+dns",
+      "sources": [
+        "dkim",
+        "dns"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\n$domain = Read-Host 'An organisation-owned mail domain (no @)'\nif ($domain -notmatch '^[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$') { throw 'Enter a DNS domain.' }\nResolve-DnsName -Name $domain -Type TXT\nResolve-DnsName -Name ('_dmarc.'+$domain) -Type TXT\n$dkim = Get-DkimSigningConfig -Identity $domain\n$dkim | Select-Object Domain,Enabled,Status,Selector1CNAME,Selector2CNAME\nResolve-DnsName -Name ('selector1._domainkey.'+$domain) -Type CNAME\nResolve-DnsName -Name ('selector2._domainkey.'+$domain) -Type CNAME\n",
+      "run_steps": [
+        "Inventory every sending domain and approved sender, including third-party services. Run DNS queries and compare answers from the organisation resolver and an approved independent resolver if DNS split views are possible.",
+        "Inspect one effective SPF record and authorised include chains, each published DKIM selector and active signing, and DMARC policy/report destinations. Resolve missing DNS responses; do not treat a lookup failure as enforcement.",
+        "Send a harmless uniquely tagged message through each approved sender to a controlled external mailbox. Inspect complete received headers: SPF/DKIM result, authentication alignment with From, and DMARC result.",
+        "In an agreed mail-testing environment exercise an unauthorised sender path using an organisation-controlled test domain/subdomain. Inspect quarantine/rejection, aggregate reports and recipient policy; do not spoof unrelated domains or send to real users."
+      ],
+      "decision": "Approved senders authenticate and align; the unauthorised test path receives the intended DMARC action and is visible in reports.",
+      "limits": "DNS configuration does not prove message delivery enforcement. Forwarding/ARC and recipient local policy affect results. DKIM selectors and policy choices must reflect the actual sending service.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "eeed5eebf2a3290aac857d836150b25d6cf82886d3778107248d3e6509ba8aae",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-MAIL-PROTECT": {
+      "profile": "exchange",
+      "sources": [
+        "safeattachments",
+        "safeattachmentrules",
+        "safelinks",
+        "safelinkrules",
+        "phish",
+        "phishrules",
+        "preset",
+        "eop-preset",
+        "outboundspam",
+        "outboundspamrules",
+        "mailbox"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nGet-ATPProtectionPolicyRule | Format-List *\nGet-EOPProtectionPolicyRule | Format-List *\nGet-SafeAttachmentPolicy | Format-List *\nGet-SafeAttachmentRule | Format-List *\nGet-SafeLinksPolicy | Format-List *\nGet-SafeLinksRule | Format-List *\nGet-AntiPhishPolicy | Format-List *\nGet-AntiPhishRule | Format-List *\nGet-HostedOutboundSpamFilterPolicy | Format-List *\nGet-HostedOutboundSpamFilterRule | Format-List *\nGet-Mailbox -ResultSize Unlimited | Select-Object UserPrincipalName,ForwardingAddress,ForwardingSmtpAddress,DeliverToMailboxAndForward\n",
+      "run_steps": [
+        "Export preset policies, custom policies and rules. For a sampled mailbox resolve recipient inclusions/exclusions and priority; preset Strict/Standard and custom/default policies have different precedence. A policy object without an applicable rule does not protect the user.",
+        "Inspect attachment/link/impersonation actions and the effective automatic-forwarding policy. Resolve mailbox-level forwarding and separately inspect inbox rules/transport rules under the applicable reader permissions.",
+        "Send approved harmless simulations to a controlled test recipient through the scoped path. Use the tenant-supported attack simulation or test messages; record expected quarantine, warning or link action without transmitting live malware.",
+        "Attempt the explicitly prohibited automatic forwarding of a tagged synthetic message to a controlled external test mailbox; inspect message trace, rejection and alert. Verify a permitted mail flow still works and remove test rules through normal change control."
+      ],
+      "decision": "The sampled user gets the intended effective protections and prohibited forwarding is refused with traceable evidence.",
+      "limits": "Get commands do not simulate policy evaluation. Licensing and Built-in protection affect coverage. Mailbox forwarding fields do not reveal every inbox-rule, connector or transport-rule route.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "c328e5ab7ab17465910426987d25b21c8e34cb71869ea4c095c272a7431f2f5f",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-SHARING": {
+      "profile": "sharepoint",
+      "sources": [
+        "spo",
+        "spotenant"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nGet-SPOTenant | Format-List *\n$sites = @(Get-SPOSite -Limit All -IncludePersonalSite $true)\nif ($sites.Count -eq 0) { throw 'No sites returned; confirm scope before assessing.' }\nforeach ($site in $sites) {\n    Get-SPOSite -Identity $site.Url | Select-Object Url,SharingCapability,DefaultSharingLinkType,DefaultLinkPermission,ConditionalAccessPolicy,LimitedAccessFileType,DisableSharingForNonOwners\n}\n",
+      "run_steps": [
+        "Reconcile SharePoint sites and personal OneDrive sites with the service inventory. Query individual site identities because bulk Get-SPOSite can leave some relevant properties unpopulated/defaulted.",
+        "Compare tenant limits with each site policy and data classification. Review the actual library/file link permissions and guest membership; a restrictive default link type does not invalidate an existing anonymous link.",
+        "Create harmless labelled test content in an approved test site. Try the approved collaborator path and the prohibited anonymous/external path, including an existing-link scenario, from a separate session.",
+        "Verify the actual recipient can or cannot access/download as required and correlate sharing audit events. Review expiring guest/link access and remove only test links afterwards."
+      ],
+      "decision": "Both newly created and existing sharing paths respect the approved boundary and remain attributable to authorised recipients.",
+      "limits": "Tenant and site fields do not enumerate every item permission or link. SharePoint Admin access and complete OneDrive/site inventory are needed; missing/blank fields are unknown.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "47118da929ca7b5e9ba9d667a8780227f54c79e55dcf033a8825556c9e1b3379",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-UNMANAGED": {
+      "profile": "sharepoint",
+      "sources": [
+        "spo",
+        "spotenant"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nGet-SPOTenant | Select-Object ConditionalAccessPolicy,AllowDownloadingNonWebViewableFiles\n$siteUrl = Read-Host 'Exact approved test SharePoint site URL'\nGet-SPOSite -Identity $siteUrl | Select-Object Url,ConditionalAccessPolicy,LimitedAccessFileType,AllowDownloadingNonWebViewableFiles\n",
+      "run_steps": [
+        "Identify the site/data class and the approved policy for unmanaged devices: blocked access, web-only preview or another defined session control. Inspect corresponding Entra Conditional Access and site exceptions.",
+        "Using an authorised test user, access a synthetic document from a managed compliant device and confirm permitted activity.",
+        "Repeat from a separate unmanaged test device/browser session with no existing token. Try browser download, print, sync and a relevant desktop/mobile client; record which routes must be blocked and the actual result.",
+        "Match sign-in device state and policy evaluation to the timestamp and verify the site policy shown by the command. Include anonymous links separately if allowed by scope."
+      ],
+      "decision": "Managed access remains usable while every prohibited unmanaged access/download path is blocked or restricted as specified.",
+      "limits": "A browser-only test cannot prove desktop-client restrictions. Missing device claims, stale sessions and anonymous links may produce a different policy path.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "3ba0306a8f07335ae8b25419ead1b0e4f363478718c6241c9f33b2a25d000ad3",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-DLP": {
+      "profile": "purview",
+      "sources": [
+        "dlppolicy",
+        "dlprule"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nGet-DlpCompliancePolicy -DistributionDetail | Format-List *\nGet-DlpComplianceRule | Format-List *\n",
+      "run_steps": [
+        "Export DLP policy mode, distribution status, locations, included/excluded users/sites and rules. Match each sensitive information type, confidence/count threshold, label and allowed override to the approved data-handling requirement.",
+        "Generate synthetic data that matches the selected detector, plus a benign non-matching control sample. Never use real personal information or secrets to create the test.",
+        "In approved test locations attempt the covered transfer (email, SharePoint/OneDrive, Teams or endpoint). Run one case below and one at/above the relevant match threshold and exercise authorised override only if in scope.",
+        "Inspect policy tip, block/allow outcome, audit/alert and incident routing. Wait for published propagation/processing periods, then retest. Verify enforced mode separately from simulation/TestWithNotifications."
+      ],
+      "decision": "Matching synthetic data gets the required block/override workflow and alert; non-sensitive approved data remains usable.",
+      "limits": "Simulation demonstrates detection, not blocking. Different workload licences, supported file types and encrypted content affect inspection; configuration output alone is insufficient.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "86324578427fe24d57bcee15a97a77897c335be86421795bfd4943c589abd665",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-AUDIT": {
+      "profile": "purview",
+      "sources": [
+        "retention",
+        "auditsearch"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nGet-UnifiedAuditLogRetentionPolicy | Sort-Object Priority | Format-List *\n$start = [datetime]::Parse((Read-Host 'Start UTC time, e.g. 2026-09-16T00:00:00Z')).ToUniversalTime()\n$end = [datetime]::Parse((Read-Host 'End UTC time, e.g. 2026-09-16T01:00:00Z')).ToUniversalTime()\nif ($end -le $start) { throw 'End must be later than start.' }\n$session = [guid]::NewGuid().ToString()\n$rows = @()\ndo {\n    $page = @(Search-UnifiedAuditLog -StartDate $start -EndDate $end -SessionId $session -SessionCommand ReturnLargeSet -ResultSize 5000)\n    $rows += $page\n    if ($rows.Count -ge 50000) { throw 'Search hit the 50,000-result ceiling. Split the time window; evidence is incomplete.' }\n} while ($page.Count -gt 0)\n$rows | Select-Object Identity,CreationDate,UserIds,Operations,AuditData\nif ($rows.Count -eq 0) { Write-Output 'No events retrieved: check ingestion delay, query window, role and coverage; not a pass.' }\n",
+      "run_steps": [
+        "Identify required events and retention periods per workload/classification. Read retention policies in priority order and compare selected record types/users with user licensing and default retention.",
+        "Perform an approved benign event in each scoped workload (for example a test file access/share or approved test-user change). Record actor, object and UTC timestamp.",
+        "After the ingestion delay, search a bounded UTC window. Retain all pages; split windows that hit limits, and deduplicate by identity for analysis. Match the expected event fields with the generated activity and central collector.",
+        "Retrieve a known historical event close to the required retention boundary and inspect log access/tamper permissions and export retention. A newly created policy cannot retroactively prove older events survived."
+      ],
+      "decision": "Required sample events are complete, attributable and retrievable over the required period, with access and retention protected.",
+      "limits": "Retention policy read can require premium licensing/roles. A current event or configured retention duration is not proof of historical retention; capped/empty searches remain incomplete.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "c3a8055b4c8d3aa3d39a0e56b69696106f682ce510a447774d54f5a8eda91e43",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-TEAMS": {
+      "profile": "teams",
+      "sources": [
+        "teams-federation",
+        "teams-meeting",
+        "teams-user",
+        "teams-assignment"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nGet-CsTenantFederationConfiguration | Format-List *\nGet-CsTeamsMeetingPolicy | Format-List *\n$upn = Read-Host 'Test user UPN'\nGet-CsOnlineUser -Identity $upn | Select-Object UserPrincipalName,TeamsMeetingPolicy,ExternalAccessPolicy\nGet-CsUserPolicyAssignment -Identity $upn -PolicyType TeamsMeetingPolicy | Format-List *\n",
+      "run_steps": [
+        "Review external/federated access separately from guest access and anonymous meeting join. Resolve the selected user effective meeting policy, including group assignment priority/global policy.",
+        "Host a harmless test meeting with an approved partner account. Confirm intended chat, lobby, presenter, recording and file-sharing behaviour under that policy.",
+        "Try an unapproved external tenant and an anonymous browser participant through agreed test accounts. Verify the exact required deny/lobby behaviour; being held in a lobby is not a deny if admission is allowed.",
+        "Record meeting options, participant identity and policy/audit evidence. Check files via SharePoint/OneDrive policies separately and remove test meeting artefacts as approved."
+      ],
+      "decision": "Effective user and meeting controls enforce the approved boundary for each tested participant type.",
+      "limits": "Tenant federation output does not prove guest/anonymous meeting behaviour. Organiser options and policy propagation affect the result.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "5f7512324887639c59498450023e3ca82ed483487210cf7fd856f5b39d7ea7fa",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-POWER": {
+      "profile": "power",
+      "sources": [
+        "power-powershell",
+        "power-dlp"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nGet-AdminPowerAppEnvironment | ConvertTo-Json -Depth 100\nGet-AdminDlpPolicy | ConvertTo-Json -Depth 100\n",
+      "run_steps": [
+        "Reconcile all environments, including the default environment, with owners and approved data classes. Export tenant/environment DLP policies and inspect their environment scope.",
+        "Resolve overlapping policies and classify connectors as business, non-business or blocked. Review custom connectors, endpoint/action restrictions and approved exemptions separately.",
+        "In an approved test environment build a benign flow connecting the selected business connector to a prohibited destination using synthetic data. Verify save/enable/run is prevented as required, and that an approved connector combination runs.",
+        "Inspect policy violation/admin evidence and separately review public Power Pages/Power BI sharing where in scope; environment DLP does not prove those publication controls."
+      ],
+      "decision": "Prohibited connector combinations cannot transfer the synthetic data and every scoped environment has the intended effective policy.",
+      "limits": "These commands return data policies, not a universal cloud data-exfiltration verdict. Exceptions, custom connectors and public site access require separate tests.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "045210e70077b108ae6f381bbf7596eb8d876cb4c5dad23c68c667a23bb6097c",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "CLOUD-CHECK-05": {
+      "profile": "exchange",
+      "sources": [
+        "orgconfig",
+        "mailbox",
+        "bypass"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nGet-OrganizationConfig | Select-Object AuditDisabled\nGet-Mailbox -ResultSize Unlimited | Select-Object UserPrincipalName,AuditEnabled,DefaultAuditSet,AuditAdmin,AuditDelegate,AuditOwner\nGet-MailboxAuditBypassAssociation -ResultSize Unlimited | Select-Object Identity,AuditBypassEnabled\n",
+      "run_steps": [
+        "Read organisation auditing and mailbox action sets, distinguishing auditing-on-by-default from per-mailbox legacy flags. Inventory bypass identities and verify every approved exception has an owner and expiry.",
+        "Using approved test mailboxes exercise a harmless owner, delegate and administrative action from the action sets relevant to the requirement. Record mailbox, actor and UTC time without collecting message contents.",
+        "Use the audit retrieval check to locate those actions after ingestion. Confirm actor, target and operation, then verify they reach the required monitoring destination.",
+        "Compare the effective action sets and licensing/retention with the approved standard; repeat for shared/resource mailboxes and exceptional identities within scope."
+      ],
+      "decision": "Required mailbox activities are recorded and attributable, with no unexplained bypass or missing action set.",
+      "limits": "AuditEnabled is not a standalone verdict when organisation auditing-on-by-default applies. Activity availability and retention vary with service/licence. Zero events cannot establish compliance.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "e192aea22275b71e0ba4695445cb0441d02866d60503caa07e5697bd3b0090f2",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-BASELINE": {
+      "profile": "graph",
+      "sources": [
+        "graph-ca",
+        "compare",
+        "graph-connect",
+        "graph-request"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nfunction Read-GraphCollection {\n    param([Parameter(Mandatory=$true)][string]$Uri)\n    $seen = @{}\n    do {\n        if ($Uri -notmatch '^https://graph\\.microsoft\\.com/v1\\.0/' -or $seen.ContainsKey($Uri)) {\n            throw 'Unexpected Graph nextLink or repeated page. Assessment is unknown.'\n        }\n        $seen[$Uri] = $true\n        $page = Invoke-MgGraphRequest -Method GET -Uri $Uri -OutputType Hashtable -ErrorAction Stop\n        if (-not $page.ContainsKey('value')) { throw 'Expected a Graph collection; assessment is unknown.' }\n        foreach ($item in $page['value']) { $item }\n        $Uri = $page['@odata.nextLink']\n    } while ($Uri)\n}\n$baselinePath = Read-Host 'Path to approved full Conditional Access policy array JSON'\n$baseline = @(Get-Content -LiteralPath $baselinePath -Raw | ConvertFrom-Json)\n$current = @(Read-GraphCollection 'https://graph.microsoft.com/v1.0/identity/conditionalAccess/policies')\nif ($baseline.Count -eq 0 -or $current.Count -eq 0) { throw 'Empty baseline/current population; cannot assess.' }\nforeach ($id in @(@($baseline | ForEach-Object { $_.id }) + @($current | ForEach-Object { $_['id'] }) | Sort-Object -Unique)) {\n    $before = @($baseline | Where-Object { $_.id -eq $id })\n    $after = @($current | Where-Object { $_['id'] -eq $id })\n    if ($before.Count -ne 1 -or $after.Count -ne 1) { Write-Output \"Review added, removed or duplicated policy: $id\"; continue }\n    $a = $after[0] | ConvertTo-Json -Depth 100 | ConvertFrom-Json\n    foreach ($field in @('displayName','state','conditions','grantControls','sessionControls')) {\n        $old = $before[0].$field | ConvertTo-Json -Depth 100 -Compress\n        $new = $a.$field | ConvertTo-Json -Depth 100 -Compress\n        if ($old -cne $new) { [pscustomobject]@{PolicyId=$id;Field=$field;Approved=$old;Current=$new} }\n    }\n}\n",
+      "run_steps": [
+        "Obtain an independently approved configuration baseline and change register. This example compares the five security-relevant CA fields listed in the script; export the full approved policy array, not just names/states.",
+        "Run against the intended tenant and account for every added/removed policy and changed nested condition, grant or session setting. JSON property/array ordering can produce harmless differences; review semantics rather than automatically accepting differences.",
+        "In an isolated test tenant make an authorised, reversible change to a non-production test policy, confirm the comparison detects it, then restore using the normal approved configuration/deployment process.",
+        "Recollect after restore and perform the same positive/negative sign-in test. Extend baseline comparisons to Exchange, SharePoint, Intune, Azure and on-prem settings actually in scope."
+      ],
+      "decision": "Unapproved changes in the selected fields are detected and an approved restore returns both configuration and tested behaviour to the known state.",
+      "limits": "The comparison intentionally does not modify policies. It covers the listed CA fields only, does not reconstruct absent applications/groups, and cannot certify a whole-tenant restore.",
+      "scopes": "Policy.Read.All",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "78322cdb84a8df5d648ee0d83c4e668197d0a5883b8b008ce6bb9e2e5ca30c1a",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [
+          "Graph paging helper: multiple pages, empty response, denied access, wrong schema and unsafe/repeated nextLink"
+        ],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. Selected offline fixtures passed; No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-INVENTORY": {
+      "profile": "graph+azure",
+      "sources": [
+        "graph-devices",
+        "azresource",
+        "graph-connect",
+        "graph-request"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nfunction Read-GraphCollection {\n    param([Parameter(Mandatory=$true)][string]$Uri)\n    $seen = @{}\n    do {\n        if ($Uri -notmatch '^https://graph\\.microsoft\\.com/v1\\.0/' -or $seen.ContainsKey($Uri)) {\n            throw 'Unexpected Graph nextLink or repeated page. Assessment is unknown.'\n        }\n        $seen[$Uri] = $true\n        $page = Invoke-MgGraphRequest -Method GET -Uri $Uri -OutputType Hashtable -ErrorAction Stop\n        if (-not $page.ContainsKey('value')) { throw 'Expected a Graph collection; assessment is unknown.' }\n        foreach ($item in $page['value']) { $item }\n        $Uri = $page['@odata.nextLink']\n    } while ($Uri)\n}\nRead-GraphCollection 'https://graph.microsoft.com/v1.0/deviceManagement/managedDevices?$select=id,deviceName,azureADDeviceId,operatingSystem,osVersion,lastSyncDateTime,complianceState,managedDeviceOwnerType' | ConvertTo-Json -Depth 100\nGet-AzResource | Select-Object ResourceId,ResourceType,Location,Tags | ConvertTo-Json -Depth 100\n",
+      "run_steps": [
+        "Export the independent CMDB/procurement and network/OT inventories with stable device/resource identifiers. Record subscription, tenant, sync horizon and the expected population.",
+        "Collect Intune and Azure results for every approved scope. Reconcile by stable Entra device ID/resource ID, not display name alone; investigate unmanaged, duplicate and stale entries and missing owners.",
+        "For sampled Windows devices verify actual endpoint protection onboarding/health and last scan locally or in the Defender device inventory. Compare installed software and vulnerability scan coverage with the authorised software list.",
+        "Check on-premises, disconnected and operational-technology assets through their approved passive inventory process. Do not run discovery probes on operational networks merely to close a count gap."
+      ],
+      "decision": "All sampled assets reconcile to an accountable inventory entry and the required management/protection/scanning coverage, with stale and unmatched items resolved.",
+      "limits": "Intune/Azure inventory is not the entire asset estate. ComplianceState does not prove an EDR sensor is healthy; lastSyncDateTime must be evaluated against the approved freshness threshold.",
+      "scopes": "DeviceManagementManagedDevices.Read.All",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "cf306471bc087d8a0967a019e6f92f82e0e5ddece034ac5ab9a5c66643ca9d90",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [
+          "Graph paging helper: multiple pages, empty response, denied access, wrong schema and unsafe/repeated nextLink"
+        ],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. Selected offline fixtures passed; No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-MACROS": {
+      "profile": "windows",
+      "sources": [
+        "macro-policy",
+        "gpresult",
+        "getcontent"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\n# Run in the standard test user's session, so HKCU and resultant policy are theirs.\n& gpresult.exe /Scope User /Z\nif ($LASTEXITCODE -ne 0) { throw 'User resultant policy could not be read.' }\n$officePolicy = 'HKCU:\\Software\\Policies\\Microsoft\\Office\\16.0'\nif (Test-Path -LiteralPath $officePolicy) {\n    Get-ChildItem -LiteralPath $officePolicy -Recurse | Get-ItemProperty | Format-List *\n} else { Write-Output 'No Office 16.0 user policy key. Check Cloud Policy/MDM and product version; unknown.' }\n$file = Read-Host 'Full path to the reviewed harmless macro-enabled test document'\nGet-FileHash -LiteralPath $file -Algorithm SHA256\nGet-Item -LiteralPath $file -Stream *\n# Read this only when Zone.Identifier is listed; do not remove the stream.\nif (Get-Item -LiteralPath $file -Stream Zone.Identifier -ErrorAction Ignore) {\n    Get-Content -LiteralPath $file -Stream Zone.Identifier\n} else { Write-Output 'No Mark of the Web present; this file cannot prove internet-macro blocking.' }\n",
+      "run_steps": [
+        "Use a standard test user on each scoped Office application/build. Record effective Group Policy, Intune/Cloud Policy and Trust Center configuration. The Office 16.0 registry path applies to that policy family; absence is not proof of a default. Review trusted publishers/locations, writable directories and exceptions.",
+        "Prepare an internally reviewed macro document whose only action is displaying a test message. Deliver a copy through an approved external test download/email path and verify its Zone.Identifier/Mark of the Web. Keep a separately authorised signed/trusted macro as the positive case; do not use Unblock-File.",
+        "Open the internet-origin document normally and confirm the macro cannot perform the test action. Open the approved macro through its permitted route and verify it works only for the intended users. Record Office notification and effective settings.",
+        "For OM-02 test the selected macro/child-process/API restriction in a lab using benign actions, and inspect Defender/ASR events with TECH-ASR. Check Office applications separately; a Word-only result does not establish Excel coverage."
+      ],
+      "decision": "Internet-origin and otherwise unauthorised macros are blocked, authorised exceptions work within their limits, and required scanning/behaviour restrictions remain enabled.",
+      "limits": "File provenance and trusted locations materially affect behaviour. Gpresult does not include every cloud/MDM setting. Reading registry or MOTW alone does not test macro enforcement.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "33906e0bf36554b727dc8afa95e03aac9f44df22836cb49346b9758217cb3777",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-ASR": {
+      "profile": "windows",
+      "sources": [
+        "mpstatus",
+        "mpprefs",
+        "asr-demo",
+        "winevent",
+        "asr-actions"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nGet-MpComputerStatus | Select-Object AMRunningMode,AntivirusEnabled,RealTimeProtectionEnabled,BehaviorMonitorEnabled,AntivirusSignatureLastUpdated,IsTamperProtected\n$prefs = Get-MpPreference\n$ids = @($prefs.AttackSurfaceReductionRules_Ids)\n$actions = @($prefs.AttackSurfaceReductionRules_Actions)\nif ($ids.Count -ne $actions.Count) { throw 'ASR IDs/actions mismatch; cannot assess.' }\nfor ($i=0; $i -lt $ids.Count; $i++) { [pscustomobject]@{RuleId=$ids[$i];Action=$actions[$i]} }\n$prefs | Select-Object AttackSurfaceReductionOnlyExclusions,AttackSurfaceReductionRules_RuleSpecificExclusions\ntry {\n    Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Windows Defender/Operational';Id=1121,1122;StartTime=(Get-Date).AddHours(-2)} -ErrorAction Stop | Select-Object TimeCreated,Id,Message\n} catch {\n    if ($_.FullyQualifiedErrorId -like 'NoMatchingEventsFound*') { Write-Output 'No ASR events: run the benign test and verify logging; not a pass.' } else { throw }\n}\n",
+      "run_steps": [
+        "Compare the effective rule GUID/action pairs with the approved baseline; interpret action values with the Microsoft reference (0 disabled, 1 block, 2 audit, 6 warn). Review rule-specific and global exclusions.",
+        "Confirm Defender mode, real-time protection and required rule prerequisites. Passive-mode or unsupported rules may not enforce as expected; inspect device/Intune policy status too.",
+        "Use the Microsoft-published ASR demonstration for the selected rule, after reviewing its actions and running it only in the permitted test environment. Record the benign action and expected block, plus an approved normal operation as the positive control.",
+        "Match event 1121 (block) or 1122 (audit) to the tested rule and process and confirm central telemetry. Warn/audit are not equivalent to block; review bypass/exception routes."
+      ],
+      "decision": "Each sampled required rule is active at its approved action and the corresponding test behaviour and event agree.",
+      "limits": "WACC does not download or run demonstration code. Rule coverage/licensing and warn-mode support vary. No event cannot be scored as passing.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "50f3255fae2e04f47a02bbfbe3c4b87eccef8a2c700874182c2be745bc51312d",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "Get-MpPreference ASR arrays read successfully on this Windows host; behaviour not exercised.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. Get-MpPreference ASR arrays read successfully on this Windows host; behaviour not exercised. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-PATCH": {
+      "profile": "windows",
+      "sources": [
+        "hotfix",
+        "cim"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nGet-CimInstance Win32_OperatingSystem | Select-Object Caption,Version,BuildNumber,LastBootUpTime\nGet-ItemProperty -LiteralPath 'HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion' | Select-Object ProductName,DisplayVersion,CurrentBuild,UBR\nGet-HotFix | Select-Object HotFixID,Description,InstalledOn\n$path = Read-Host 'Full path to the sampled application executable'\nGet-Item -LiteralPath $path | Select-Object FullName,@{Name='ProductVersion';Expression={$_.VersionInfo.ProductVersion}},@{Name='FileVersion';Expression={$_.VersionInfo.FileVersion}}\n",
+      "run_steps": [
+        "Select a real scoped vulnerability/CVE and obtain the official vendor advisory fixed build, affected product/version and any restart requirement. Record the asset risk, applicable remediation deadline and exception.",
+        "Collect OS build plus UBR and the actual affected application binary version on the sampled endpoint. Compare with the vendor fixed-version logic for that servicing branch; do not compare version strings lexically or rely solely on a KB name.",
+        "Check restart completion and rescan with the authorised vulnerability tool after normal patch deployment. Reconcile the endpoint report with the patch console and investigate mismatches/stale scans.",
+        "Exercise a normal function of the affected service and record fixed-version/rescan evidence, completion date and any remaining exposure. No exploit execution is required to establish patch installation."
+      ],
+      "decision": "Affected assets run the appropriate fixed/supported build within the applicable deadline and the validated rescan agrees.",
+      "limits": "Get-HotFix is incomplete for MSI/application and some update types. Presence of a KB alone does not establish the affected binary is fixed or that a required restart occurred.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "a3590bab6cbfd8c78fe49cdc0b60cedea184eecff905c25b21187a1b6f5cf101",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "OS version/build collection read successfully; no patch was installed or rescanned.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. OS version/build collection read successfully; no patch was installed or rescanned. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-LAPS": {
+      "profile": "ad",
+      "sources": [
+        "laps-access",
+        "adcomputer"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\n$ou = Read-Host 'Distinguished name of an approved computer OU'\nFind-LapsADExtendedRights -Identity $ou\nGet-ADComputer -SearchBase $ou -Filter * -Properties 'msLAPS-PasswordExpirationTime','ms-Mcs-AdmPwdExpirationTime' |\n    Select-Object Name,DistinguishedName,'msLAPS-PasswordExpirationTime','ms-Mcs-AdmPwdExpirationTime'\n",
+      "run_steps": [
+        "Determine Windows LAPS versus legacy LAPS, AD versus Entra backup, managed local account and password/rotation settings. Read policy and client LAPS event log; do not export password attributes.",
+        "For AD-backed Windows LAPS, run the OU access query and resolve inherited rights/group membership plus encrypted-password decryption authorisation. Enumerate all applicable computer OUs; expiration metadata alone is not proof of a completed rotation.",
+        "In a lab, have an authorised retriever and an unauthorised test account attempt the documented password retrieval operation separately. Retain only success/denial status and audit event, never the returned password in assessment files.",
+        "Verify an approved rotation/post-authentication reset on a test device and confirm the previous password no longer authenticates after the normal propagation period. For Entra-backed LAPS use the device recovery permissions/audit path and equivalent test instead of the AD command."
+      ],
+      "decision": "Only the intended role can retrieve/decrypt the managed password; rotation works and old credentials cease to authenticate.",
+      "limits": "Find-LapsADExtendedRights is AD-specific and does not alone prove decryption authority or all effective permissions. WACC deliberately does not provide secret-export commands.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "9838361dbafeb6964f4b7c7a6f78bf454459dc483a3b77b4d91a9b50a15b4636",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-CREDENTIAL-GUARD": {
+      "profile": "windows",
+      "sources": [
+        "cim",
+        "guard-status"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nGet-CimInstance -ClassName Win32_DeviceGuard -Namespace root\\Microsoft\\Windows\\DeviceGuard |\n    Select-Object VirtualizationBasedSecurityStatus,SecurityServicesConfigured,SecurityServicesRunning,RequiredSecurityProperties,AvailableSecurityProperties\n",
+      "run_steps": [
+        "Identify the required workstation/server population and supported hardware/OS. Record whether the baseline requires Credential Guard and how exceptions are approved.",
+        "Run locally on representative devices after their normal restart. Inspect SecurityServicesRunning for value 1 (Credential Guard), not only SecurityServicesConfigured; VBS status 2 means VBS is running but does not alone identify the service.",
+        "Compare with System Information and DeviceGuard/WinInit diagnostic events and the deployment status; investigate configured-but-not-running devices, unsupported hardware and policy conflicts.",
+        "Confirm normal approved authentication still works. Do not attempt credential extraction on production systems as a test; use a purpose-built authorised lab if evaluating residual credential attack paths."
+      ],
+      "decision": "Credential Guard is actually running on each required sampled device and deviations are explained and approved.",
+      "limits": "Credential Guard does not protect every credential or replace AD tiering, LAPS and application controls. Unsupported/absent CIM class means unknown/not applicable with documented reason, not pass.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "f7e143629053289f93150b561e8d7b9d145823af8ce325acd79751b3b392865b",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "Win32_DeviceGuard query read successfully on this Windows host; protection not behaviour-tested.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. Win32_DeviceGuard query read successfully on this Windows host; protection not behaviour-tested. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-CRYPTO": {
+      "profile": "windows",
+      "sources": [
+        "bitlocker",
+        "vault",
+        "vaultkey"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nGet-BitLockerVolume | Select-Object MountPoint,VolumeType,VolumeStatus,ProtectionStatus,EncryptionMethod,EncryptionPercentage,LockStatus\n$vaultName = Read-Host 'Approved Azure Key Vault name'\nGet-AzKeyVault -VaultName $vaultName | Format-List *\n$keyName = Read-Host 'Approved key name (metadata only)'\nGet-AzKeyVaultKey -VaultName $vaultName -Name $keyName -IncludeVersions | Select-Object Name,Version,Enabled,Created,Updated,Expires,NotBefore\n",
+      "run_steps": [
+        "Collect BitLocker locally in Windows PowerShell 5.1. For Key Vault, use the same console with the supported Az.Accounts/Az.KeyVault modules, or run the Key Vault portion separately in PowerShell 7. Connect-AzAccount -Tenant <tenant-GUID>; Set-AzContext -Subscription <subscription-GUID>. Reader plus the applicable Key Vault metadata/data-plane reader role is required. Do not export key material.",
+        "Define which data paths, disks and keys need protection and the current approved algorithms/cryptoperiods. Use the source requirement applicable to the data; do not substitute the historical 2017 strategy text for current cryptographic standards.",
+        "Inspect encryption completion and protection status on sampled volumes; a fully encrypted but suspended BitLocker protector does not provide the intended assurance. Inspect Key Vault deletion protection/access mode and key version metadata without exporting key or recovery secret material.",
+        "Validate key access using an authorised and unauthorised test principal against a non-production key operation. Verify audit events and approved recovery/rotation procedure; Azure Reader alone is not a Key Vault data-plane reader.",
+        "For data in transit inspect the actual endpoint certificate chain, protocol and cipher negotiation using the approved browser/client or TLS test tool. Test the prohibited legacy protocol separately in an agreed environment and retain the negotiated-session evidence."
+      ],
+      "decision": "Required data is protected with the approved algorithms/protectors; key access, lifetime and recovery controls work for the sampled paths.",
+      "limits": "This read-only example covers BitLocker and Key Vault metadata; it does not establish every TLS endpoint or application encryption choice. Azure Key Vault Reader/data-plane rights may be required; missing fields are unknown.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "cc7ae181228c59ec63efe8da5da7139401465eace654bb91fafb0979b41db9c6",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-NETWORK": {
+      "profile": "windows",
+      "sources": [
+        "nettest",
+        "firewall"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nGet-NetFirewallProfile -PolicyStore ActiveStore | Select-Object Name,Enabled,DefaultInboundAction,DefaultOutboundAction,LogAllowed,LogBlocked,LogFileName\n$target = Read-Host 'Approved test destination hostname or IP'\n$port = [int](Read-Host 'Approved test TCP port')\nif ($port -lt 1 -or $port -gt 65535) { throw 'Invalid TCP port.' }\nTest-NetConnection -ComputerName $target -Port $port -InformationLevel Detailed\n",
+      "run_steps": [
+        "Obtain the approved flow matrix with source zone/device identity, destination, protocol/port and expected allow/deny. Select a small authorised sample across user/server/admin/OT boundaries; coordinate any OT connectivity test with operations.",
+        "Inspect effective host firewall profiles, applicable NSGs/firewall routes/proxy rules and the intended path. Execute the TCP probe from the actual sampled source segment; a test from the administrator laptop proves only that laptop path.",
+        "Test one allowed and one prohibited flow, then corroborate using destination listener status and network enforcement logs. A failed connection can be caused by DNS, routing or a stopped service and is not by itself proof of a firewall block.",
+        "For allowed TCP paths perform the approved harmless application request to verify identity/application restrictions. Repeat UDP/ICMP/application-specific requirements with the appropriate supported tools; this TCP command does not test them."
+      ],
+      "decision": "Allowed flows work and prohibited flows are demonstrably denied at the intended boundary, with matching source/destination and enforcement evidence.",
+      "limits": "Test-NetConnection reports reachability, not security by itself. Host firewall defaults do not reveal every rule/NSG/application path; verify both configuration and observed traffic.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "a1e9a6c092f3b42ffc1e8b4899ca29fc326669b0e8c7f20ebec637cbbe011db4",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-BACKUP": {
+      "profile": "azure",
+      "sources": [
+        "azvault",
+        "azbackup"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\n$start = (Get-Date).ToUniversalTime().AddDays(-7)\n$end = (Get-Date).ToUniversalTime()\n$vaults = @(Get-AzRecoveryServicesVault)\nif ($vaults.Count -eq 0) { throw 'No Recovery Services vaults in this subscription; reconcile service scope.' }\nforeach ($vault in $vaults) {\n    Write-Output ('Vault: '+$vault.ID)\n    Get-AzRecoveryServicesBackupJob -VaultId $vault.ID -From $start -To $end | Select-Object WorkloadName,Operation,Status,StartTime,EndTime,JobId\n}\n",
+      "run_steps": [
+        "Choose a critical service and a recovery point within its approved RPO. Reconcile all dependencies, data/configuration/identity components and backup scope with the BIA and recovery design.",
+        "Inspect job completion and failures, retention, immutability/soft-delete and administrative separation. Include Azure Backup vaults/Data Protection and third-party/M365 products separately if used; the example queries Recovery Services vaults only.",
+        "Through the approved recovery runbook restore the selected point into an isolated test environment. Measure elapsed time and recovered point-in-time, perform data integrity checks and a representative end-to-end transaction.",
+        "Verify recovered access controls, keys/certificates and dependency availability. Compare measured RTO/RPO with requirements, capture failed steps and remedial actions, and clean up the approved test environment. AD forest recovery needs its own isolated forest exercise."
+      ],
+      "decision": "The service and required dependencies are usable and consistent within approved recovery objectives, with protected recovery copies and a reproducible runbook.",
+      "limits": "A successful backup job is not a restore test. Collection does not perform restore/delete operations and cannot demonstrate recovery of workloads outside these vaults.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "71b82f48aa88c288717923255df71c9e7123e1b903704929f3439480a19828d0",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-INCIDENT": {
+      "profile": "graph",
+      "sources": [
+        "graph-incidents",
+        "graph-connect",
+        "graph-request"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nfunction Read-GraphCollection {\n    param([Parameter(Mandatory=$true)][string]$Uri)\n    $seen = @{}\n    do {\n        if ($Uri -notmatch '^https://graph\\.microsoft\\.com/v1\\.0/' -or $seen.ContainsKey($Uri)) {\n            throw 'Unexpected Graph nextLink or repeated page. Assessment is unknown.'\n        }\n        $seen[$Uri] = $true\n        $page = Invoke-MgGraphRequest -Method GET -Uri $Uri -OutputType Hashtable -ErrorAction Stop\n        if (-not $page.ContainsKey('value')) { throw 'Expected a Graph collection; assessment is unknown.' }\n        foreach ($item in $page['value']) { $item }\n        $Uri = $page['@odata.nextLink']\n    } while ($Uri)\n}\nRead-GraphCollection 'https://graph.microsoft.com/v1.0/security/incidents' | ConvertTo-Json -Depth 100\n",
+      "run_steps": [
+        "Select a permitted tabletop or harmless detection exercise with a tagged test event, incident owner, expected severity and escalation clocks. Specify jurisdiction/reporting applicability before measuring any deadline.",
+        "Generate the approved test signal via the supported product test method; confirm the alert becomes a triaged incident and enters the normal queue. Match the API incident ID and timestamps with the source alert and ticket.",
+        "Walk the investigation, containment approval, evidence preservation and recovery decisions. In a lab verify the chosen containment actually stops the tested access path; do not isolate a live production system merely for assessment.",
+        "Trace required internal/external notification decisions to recorded awareness times, approval and delivery evidence. Keep legally required deadlines distinct from internal service targets and document any missing time evidence."
+      ],
+      "decision": "The exercise is detected, assigned, investigated, contained and escalated within applicable objectives with a consistent evidence trail.",
+      "limits": "Microsoft incident APIs require supported Defender licensing/roles and may not contain external notification records. A closed incident status is not proof of successful containment or legal reporting.",
+      "scopes": "SecurityIncident.Read.All",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "762d496cceb53fe6a052b046cd0b9e7f2a223976637e9d8fa1f74e57b6f22b37",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [
+          "Graph paging helper: multiple pages, empty response, denied access, wrong schema and unsafe/repeated nextLink"
+        ],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. Selected offline fixtures passed; No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-MOBILE": {
+      "profile": "graph",
+      "sources": [
+        "graph-devices",
+        "graph-mobile",
+        "graph-mobile-status",
+        "graph-connect",
+        "graph-request"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nfunction Read-GraphCollection {\n    param([Parameter(Mandatory=$true)][string]$Uri)\n    $seen = @{}\n    do {\n        if ($Uri -notmatch '^https://graph\\.microsoft\\.com/v1\\.0/' -or $seen.ContainsKey($Uri)) {\n            throw 'Unexpected Graph nextLink or repeated page. Assessment is unknown.'\n        }\n        $seen[$Uri] = $true\n        $page = Invoke-MgGraphRequest -Method GET -Uri $Uri -OutputType Hashtable -ErrorAction Stop\n        if (-not $page.ContainsKey('value')) { throw 'Expected a Graph collection; assessment is unknown.' }\n        foreach ($item in $page['value']) { $item }\n        $Uri = $page['@odata.nextLink']\n    } while ($Uri)\n}\nRead-GraphCollection 'https://graph.microsoft.com/v1.0/deviceManagement/managedDevices' | ConvertTo-Json -Depth 100\nRead-GraphCollection 'https://graph.microsoft.com/v1.0/deviceAppManagement/managedAppPolicies' | ConvertTo-Json -Depth 100\nRead-GraphCollection 'https://graph.microsoft.com/v1.0/deviceAppManagement/managedAppRegistrations' | ConvertTo-Json -Depth 100\n",
+      "run_steps": [
+        "Choose managed and BYOD test devices and identify effective compliance, app-protection, app-configuration and CA assignments. Resolve group filters/exclusions and platform/licence support.",
+        "On each device test permitted work access and prohibited copy/paste, save-as, backup, screenshot or unmanaged-app sharing actions required by the approved policy using synthetic content.",
+        "Confirm PIN/encryption/session requirements and inspect Intune app-protection status for the actual user/app/device, correlating policy version and last sync. A policy object alone does not prove application.",
+        "Using an expendable test device/account and approved change process, test selective retirement/wipe as applicable, verifying corporate data removal and personal-data preservation where required. Do not issue wipe commands to production devices."
+      ],
+      "decision": "Effective restrictions work on the sampled user/app/device combinations and approved retirement removes the intended corporate access/data.",
+      "limits": "ManagedAppPolicies base objects can omit derived policy details; inspect the relevant platform policy and assignments in Intune. Registration presence does not prove every protection setting is enforced.",
+      "scopes": "DeviceManagementManagedDevices.Read.All, DeviceManagementApps.Read.All",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "74d5d34d23db223649ac5e77090b46776adb866886ea87890bad1d149bf54f25",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [
+          "Graph paging helper: multiple pages, empty response, denied access, wrong schema and unsafe/repeated nextLink"
+        ],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. Selected offline fixtures passed; No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-WIRELESS": {
+      "profile": "windows",
+      "sources": [
+        "wlan",
+        "nettest"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\n& netsh.exe wlan show interfaces\nif ($LASTEXITCODE -ne 0) { throw 'Wireless interface query failed.' }\n& netsh.exe wlan show profiles\nif ($LASTEXITCODE -ne 0) { throw 'Wireless profile query failed.' }\n$profile = Read-Host 'Approved wireless profile name'\n& netsh.exe wlan show profile \"name=$profile\"\nif ($LASTEXITCODE -ne 0) { throw 'Wireless profile query failed.' }\n$target = Read-Host 'Approved internal test server for guest-isolation test'\n$port = [int](Read-Host 'Approved test TCP port')\nif ($port -lt 1 -or $port -gt 65535) { throw 'Invalid port.' }\nTest-NetConnection -ComputerName $target -Port $port -InformationLevel Detailed\n",
+      "run_steps": [
+        "Compare approved SSIDs/AP inventory with controller configuration and permitted passive survey results. Inspect WPA/enterprise EAP/certificate-validation settings and administrative access separately; never request key=clear.",
+        "Connect an authorised test device/user and verify intended network placement and RADIUS/authentication evidence. Attempt an unauthorised test identity/device and confirm refusal under the defined policy.",
+        "From the guest SSID run the agreed TCP boundary probe toward an internal listener and verify a deny in controller/firewall logs. Repeat an approved Internet flow as a positive control.",
+        "Inspect managed wireless profile server-certificate validation/trusted CA settings and reauthentication/revocation behaviour in a lab; do not deploy an evil-twin access point on an operational network."
+      ],
+      "decision": "Only approved identities join protected wireless, trust is correctly constrained, and guests cannot reach prohibited internal destinations.",
+      "limits": "Local profile output does not prove the AP/controller configuration or all radio coverage. Windows may require location permission to expose current WLAN details; denial is unknown.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "28c837cea90df055b1419540214b461fe09d5c1f59298b3f4b8c92c0fe1cabda",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-GOVERNANCE": {
+      "profile": "azure",
+      "sources": [
+        "azresource",
+        "azpolicy"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nGet-AzResource | Select-Object ResourceId,ResourceType,@{Name='Owner';Expression={$_.Tags['Owner']}},@{Name='Service';Expression={$_.Tags['Service']}},@{Name='RiskReference';Expression={$_.Tags['RiskReference']}}\nGet-AzPolicyState -All | Select-Object ResourceId,PolicyAssignmentId,PolicyDefinitionId,ComplianceState,Timestamp\n",
+      "run_steps": [
+        "Identify the accountable service/risk owners and approved policy assignments from governance records. If the entity uses different tag names, replace the three example tag names with its approved schema; tags are WACC examples, not a Microsoft mandatory standard.",
+        "Export every scoped subscription and reconcile resource IDs with the service/owner and risk-treatment registers. Investigate unowned assets and noncompliant/unknown policy states rather than scoring a missing tag as the whole governance control.",
+        "Select a noncompliant resource and trace it to a risk decision, accountable owner, action/deadline or approved exemption. Validate the approver has the delegated authority and the review date has not expired.",
+        "For a completed treatment, rerun the applicable technical check and inspect the subsequent policy evaluation; compare the observed change with the decision recorded in governance minutes."
+      ],
+      "decision": "A sampled technical gap can be traced to a current authorised risk decision and an owner who verifies the treatment outcome.",
+      "limits": "Resource tags and policy states are supporting evidence. They cannot prove risk appetite, governance authority or adequate investment; those decisions remain document/interview assessments.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "b27d195811d1a41a77ecff04e25b864e5bf584f3a5cd0453ee1eff179e77728a",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-SUPPLIER": {
+      "profile": "graph+csv",
+      "sources": [
+        "graph-users",
+        "importcsv",
+        "graph-connect",
+        "graph-request"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nfunction Read-GraphCollection {\n    param([Parameter(Mandatory=$true)][string]$Uri)\n    $seen = @{}\n    do {\n        if ($Uri -notmatch '^https://graph\\.microsoft\\.com/v1\\.0/' -or $seen.ContainsKey($Uri)) {\n            throw 'Unexpected Graph nextLink or repeated page. Assessment is unknown.'\n        }\n        $seen[$Uri] = $true\n        $page = Invoke-MgGraphRequest -Method GET -Uri $Uri -OutputType Hashtable -ErrorAction Stop\n        if (-not $page.ContainsKey('value')) { throw 'Expected a Graph collection; assessment is unknown.' }\n        foreach ($item in $page['value']) { $item }\n        $Uri = $page['@odata.nextLink']\n    } while ($Uri)\n}\n$path = Read-Host 'Supplier access register CSV path'\n$approved = @(Import-Csv -LiteralPath $path)\nif ($approved.Count -eq 0) { throw 'Empty approved access register; confirm scope.' }\n$filter = [uri]::EscapeDataString(\"userType eq 'Guest'\")\n$guests = @(Read-GraphCollection ('https://graph.microsoft.com/v1.0/users?$filter='+$filter+'&$select=id,userPrincipalName,accountEnabled'))\nforeach ($guest in $guests) {\n    $rows = @($approved | Where-Object { $_.ObjectId -eq $guest['id'] })\n    $issues = @()\n    if ($rows.Count -ne 1) { $issues += 'No unique approved supplier access record' }\n    else {\n        if (-not $rows[0].Supplier -or -not $rows[0].Owner -or -not $rows[0].RiskId) { $issues += 'Missing supplier, owner or risk reference' }\n        if (-not $rows[0].AccessUntilUtc) { $issues += 'Missing access expiry' }\n        elseif ([datetimeoffset]::Parse($rows[0].AccessUntilUtc) -le [datetimeoffset]::UtcNow -and $guest['accountEnabled']) { $issues += 'Expired approval with enabled guest' }\n    }\n    if ($issues.Count) { [pscustomobject]@{ObjectId=$guest['id'];User=$guest['userPrincipalName'];Review=($issues -join '; ')} }\n}\n",
+      "run_steps": [
+        "Obtain the approved supplier/service inventory, shared-responsibility matrix, contract and supplier risk register. Export expected guest account IDs, accountable owners, risk references and access expiry from those records.",
+        "Reconcile returned guests to the register. Review service principals, Azure delegated management/Lighthouse and shared accounts separately; they are not included in a guest-user query.",
+        "For a sampled supplier use a nominated test identity to demonstrate approved least-privilege access and refusal of an out-of-scope operation. Correlate logs with the supplier identity and contract boundary.",
+        "For a completed supplier exit, confirm fresh access denial, revoked connected applications and data-return/destruction evidence. Trace findings back to the supplier risk item and residual-risk approval."
+      ],
+      "decision": "Supplier access matches current responsibilities and approvals; sampled boundary and exit tests agree with the contract/risk treatment.",
+      "limits": "The CSV checks supporting records, not the quality of supplier due diligence or the truth of a provider attestation. Guests are only one type of supplier access.",
+      "scopes": "User.Read.All",
+      "inputs": "CSV: ObjectId,Supplier,Owner,RiskId,AccessUntilUtc (ISO 8601 UTC)",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "05fa752ff437751418aa2d4fa6349cde81450ab829d5c716cdc2957f0eb08f2f",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [
+          "Graph paging helper: multiple pages, empty response, denied access, wrong schema and unsafe/repeated nextLink",
+          "Expired and duplicate supplier approval"
+        ],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. Selected offline fixtures passed; No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-PRIVACY": {
+      "profile": "csv",
+      "sources": [
+        "importcsv"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\n$path = Read-Host 'Approved processing and retention register CSV path'\n$rows = @(Import-Csv -LiteralPath $path)\nif ($rows.Count -eq 0) { throw 'Empty processing register; cannot assess.' }\nforeach ($row in $rows) {\n    $issues = @()\n    foreach ($field in @('DatasetId','Purpose','Owner','RetentionRule','ReviewUtc')) { if (-not $row.$field) { $issues += \"Missing $field\" } }\n    if ($row.ReviewUtc -and [datetimeoffset]::Parse($row.ReviewUtc) -le [datetimeoffset]::UtcNow) { $issues += 'Review overdue' }\n    if ($row.ContainsPersonalData -notin @('Yes','No')) { $issues += 'Unknown personal-data classification' }\n    if ($row.Environment -eq 'NonProduction' -and $row.ContainsPersonalData -eq 'Yes' -and -not $row.ExceptionId) { $issues += 'Non-production personal data without exception reference' }\n    if ($issues.Count) { [pscustomobject]@{Dataset=$row.DatasetId;Review=($issues -join '; ')} }\n}\n",
+      "run_steps": [
+        "Reconcile datasets/processes with the approved personal-information inventory and retention rules. Export metadata only; do not create assessment copies of personal records.",
+        "Run the exception check and verify flagged entries against accountable owner approval and applicable privacy requirements. The example ReviewUtc is a scheduled governance review, not an automatic legal deletion date.",
+        "Use synthetic data to exercise an authorised access path and an unauthorised role, minimised/masked non-production output, and a permitted retention/deletion workflow. Inspect permissions, query results and logs without real subject data.",
+        "Trace a sampled privacy request or breach exercise through identification, approval, response deadline and completion evidence. Validate any retention hold or exception with the relevant record, not just a CSV flag."
+      ],
+      "decision": "The documented purpose, minimisation, retention and access decisions agree with observed behaviour for the sample.",
+      "limits": "This metadata check finds inconsistencies; it cannot prove lawful purpose, actual deletion, masking of every field or completeness of the processing inventory.",
+      "scopes": "",
+      "inputs": "CSV: DatasetId,Purpose,Owner,RetentionRule,ReviewUtc,ContainsPersonalData (Yes/No),Environment (Production/NonProduction),ExceptionId",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "f57f6e2d47891b4b2e3a0ba9d4b54ce1407992f5939ad1fc1bd6bf24cf54fcf0",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-DEVSECOPS": {
+      "profile": "devops",
+      "sources": [
+        "devops-policies",
+        "devops-build"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\n$org = Read-Host 'Azure DevOps organisation name'\n$project = Read-Host 'Azure DevOps project name'\nif ($org -notmatch '^[a-zA-Z0-9-]+$') { throw 'Invalid organisation name.' }\n$credential = Get-Credential -Message 'Enter a short-lived read-only PAT as the password'\n$basic = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes('audit:'+$credential.GetNetworkCredential().Password))\n$headers = @{Authorization='Basic '+$basic}\n$base = 'https://dev.azure.com/'+$org+'/'+[uri]::EscapeDataString($project)+'/_apis/'\ntry {\n    (Invoke-RestMethod -Method Get -Uri ($base+'policy/configurations?api-version=7.1') -Headers $headers).value | ConvertTo-Json -Depth 100\n    # Recent sample only, not an exhaustive build population.\n    (Invoke-RestMethod -Method Get -Uri ($base+'build/builds?api-version=7.1&$top=100') -Headers $headers).value | ConvertTo-Json -Depth 100\n} finally { $headers.Clear(); $basic=$null; $credential=$null }\n",
+      "run_steps": [
+        "Scope the repository, protected branch and production pipeline. Resolve policy settings.scope repositoryId/refName, isEnabled/isBlocking, reviewers, build validation and service identity permissions; examine who can bypass or modify them.",
+        "In a test repository/pipeline with the same controls submit a harmless change that deliberately fails a unit/security test. Confirm the required gate fails and prevents merge/deployment; inspect the actual build task logs, not only a successful pipeline summary.",
+        "Submit a corrected change and verify normal review/gate/deployment succeeds. Test that a developer cannot approve their own restricted deployment or directly push through the protected branch without approved bypass authority.",
+        "Review dependency/secret-scanning artefacts, threat-model actions and production service-connection/environment approvals. Azure DevOps branch policies do not alone cover environment checks; retain those settings and actual denied run evidence separately."
+      ],
+      "decision": "The required tests execute and fail closed; the disallowed change cannot reach the protected branch/environment while the approved path works.",
+      "limits": "A recent 100-build sample is not a complete population. Branch policy APIs do not enumerate every environment approval or bypass permission. The script does not create commits, change gates or trigger deployment.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "baed157337f469d0701723da0dc9aaf43212ebce1891ae19dec0490199a411e3",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-ASSURANCE": {
+      "profile": "csv",
+      "sources": [
+        "importcsv"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\n$path = Read-Host 'Finding retest register CSV path'\n$rows = @(Import-Csv -LiteralPath $path)\nif ($rows.Count -eq 0) { throw 'Empty finding register; confirm assessment scope.' }\nforeach ($row in $rows) {\n    $issues = @()\n    foreach ($field in @('FindingId','ControlId','Owner','DueUtc','TestCaseId')) { if (-not $row.$field) { $issues += \"Missing $field\" } }\n    if ($row.Status -eq 'Closed') {\n        if (-not $row.RetestUtc -or -not $row.EvidenceRef -or $row.RetestResult -ne 'Pass') { $issues += 'Closed without traceable passing retest' }\n    } elseif ($row.DueUtc -and [datetimeoffset]::Parse($row.DueUtc) -lt [datetimeoffset]::UtcNow) { $issues += 'Open and overdue' }\n    if ($issues.Count) { [pscustomobject]@{Finding=$row.FindingId;Review=($issues -join '; ')} }\n}\n",
+      "run_steps": [
+        "Select a completed assessment and reconcile its finding population to the remediation register. Export the finding, affected control, test case, due date and actual retest evidence reference.",
+        "Investigate missing links, overdue items and closure based only on an implementer statement. Check independence/competence against the approved assessment plan.",
+        "Reperform the original negative test safely in the approved environment, including the prior failure condition, and run a normal positive control. Use the relevant specific workspace command, not the CSV check, to assess technical effectiveness.",
+        "Compare raw output with the claimed passing retest and affected version/environment. Reopen or escalate discrepancies through the normal finding workflow."
+      ],
+      "decision": "Closed findings have a reproducible passing retest for the actual weakness and scope; the normal service remains usable.",
+      "limits": "The local CSV check validates evidence links and dates, not remediation effectiveness. No exception rows does not make an assurance finding technically resolved.",
+      "scopes": "",
+      "inputs": "CSV: FindingId,ControlId,Owner,DueUtc,TestCaseId,Status,RetestUtc,RetestResult,EvidenceRef",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "e70a136b836b964cfdbb1298be672d72cffcb2170c20046f12656fe59bff9548",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [
+          "Closed finding with failed versus passing retest"
+        ],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. Selected offline fixtures passed; No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-PERSONNEL": {
+      "profile": "graph+csv",
+      "sources": [
+        "graph-users",
+        "importcsv",
+        "graph-connect",
+        "graph-request"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nfunction Read-GraphCollection {\n    param([Parameter(Mandatory=$true)][string]$Uri)\n    $seen = @{}\n    do {\n        if ($Uri -notmatch '^https://graph\\.microsoft\\.com/v1\\.0/' -or $seen.ContainsKey($Uri)) {\n            throw 'Unexpected Graph nextLink or repeated page. Assessment is unknown.'\n        }\n        $seen[$Uri] = $true\n        $page = Invoke-MgGraphRequest -Method GET -Uri $Uri -OutputType Hashtable -ErrorAction Stop\n        if (-not $page.ContainsKey('value')) { throw 'Expected a Graph collection; assessment is unknown.' }\n        foreach ($item in $page['value']) { $item }\n        $Uri = $page['@odata.nextLink']\n    } while ($Uri)\n}\n$path = Read-Host 'Approved personnel assurance export CSV path'\n$people = @(Import-Csv -LiteralPath $path)\nif ($people.Count -eq 0) { throw 'Empty personnel population.' }\n$enabled = @(Read-GraphCollection 'https://graph.microsoft.com/v1.0/users?$select=id,userPrincipalName,accountEnabled,userType') | Where-Object { $_['accountEnabled'] -and $_['userType'] -eq 'Member' }\nforeach ($user in $enabled) {\n    $match = @($people | Where-Object { $_.ObjectId -eq $user['id'] })\n    $issues = @()\n    if ($match.Count -ne 1) { $issues += 'No unique personnel record: classify service/admin exception' }\n    else {\n        $r=$match[0]\n        if ($r.ScreeningStatus -ne 'Approved' -and -not $r.ExceptionId) { $issues += 'No approved screening or exception' }\n        if (-not $r.TrainingDueUtc) { $issues += 'Training due date missing' }\n        elseif ([datetimeoffset]::Parse($r.TrainingDueUtc) -lt [datetimeoffset]::UtcNow) { $issues += 'Training overdue' }\n        if (-not $r.RoleTrainingRef) { $issues += 'Role-specific training evidence missing' }\n    }\n    if ($issues.Count) { [pscustomobject]@{ObjectId=$user['id'];User=$user['userPrincipalName'];Review=($issues -join '; ')} }\n}\n",
+      "run_steps": [
+        "Obtain restricted-access HR screening approval metadata and awareness/role-training completion data. Do not copy background-check contents into the assessment. Define service/admin/guest exceptions and applicable due dates.",
+        "Reconcile enabled human member accounts against the approved personnel population by object ID, then inspect unmatched or overdue entries and any conditional-access/training enforcement workflow.",
+        "For an approved onboarding test, verify access cannot be granted before required approvals and that role-specific training is assigned. Trace grant timestamps to approval/completion evidence.",
+        "Assess awareness effectiveness with an approved benign scenario and the reporting/helpdesk path; completion status alone does not demonstrate the person can recognise or handle an incident."
+      ],
+      "decision": "Required screening/training precede or condition access as approved, and the sampled person/role can perform the expected security action.",
+      "limits": "A directory/member query is not an HR inventory or proof of screening quality. The test does not send simulations to real staff or expose screening details.",
+      "scopes": "User.Read.All",
+      "inputs": "CSV: ObjectId,ScreeningStatus,TrainingDueUtc,RoleTrainingRef,ExceptionId",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "c74494a58852ff3d70761d4e93d35de7f09f743808e9845892b0c664f3e61cc0",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [
+          "Graph paging helper: multiple pages, empty response, denied access, wrong schema and unsafe/repeated nextLink"
+        ],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. Selected offline fixtures passed; No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-SANITISE": {
+      "profile": "csv",
+      "sources": [
+        "importcsv",
+        "compare"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\n$assetPath = Read-Host 'Scoped disposal asset register CSV path'\n$recordPath = Read-Host 'Sanitisation/destruction records CSV path'\n$assets = @(Import-Csv -LiteralPath $assetPath)\n$records = @(Import-Csv -LiteralPath $recordPath)\nif ($assets.Count -eq 0 -or $records.Count -eq 0) { throw 'Missing asset/record population; cannot assess.' }\nforeach ($asset in $assets) {\n    if (-not $asset.Serial) { throw 'Asset without serial/unique media identifier.' }\n    $matches = @($records | Where-Object { $_.Serial -eq $asset.Serial })\n    $issues = @()\n    if ($matches.Count -ne 1) { $issues += 'No unique disposal record' }\n    else {\n        foreach ($field in @('Method','CompletedUtc','Operator','VerificationRef','Destination','CustodyRef')) { if (-not $matches[0].$field) { $issues += \"Missing $field\" } }\n    }\n    if ($issues.Count) { [pscustomobject]@{Serial=$asset.Serial;Review=($issues -join '; ')} }\n}\n",
+      "run_steps": [
+        "Reconcile each retired media/device serial with classification, reuse/disposal decision and approved method for that media technology. Distinguish clear, purge and destruction requirements under the applicable current standard.",
+        "Run the record reconciliation and inspect custody, operator, tool/method/version, verification and destination. A certificate without matching serials does not establish the scoped media was processed.",
+        "Witness the approved method on expendable test media and inspect the vendor/tool verification output. For cryptographic erase verify all key copies and prerequisites, not just a deleted partition or lost file listing.",
+        "Where sanitisation is unsuitable, inspect authorised physical destruction and chain of custody. Reconcile destroyed/test media back to the asset register and authorise final disposal."
+      ],
+      "decision": "Every scoped media item has an appropriate completed method, traceable verification and custody through approved reuse/destruction.",
+      "limits": "This example does not erase disks or validate a hardware sanitisation primitive. Formatting, Reset this PC and a missing file listing are not universal evidence of secure sanitisation.",
+      "scopes": "",
+      "inputs": "Asset CSV: Serial. Record CSV: Serial,Method,CompletedUtc,Operator,VerificationRef,Destination,CustodyRef",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "862fa76cf6c00609c7baaa776c2e94168ea7236e635d061fb32c60efeaabb17b",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-PHYSICAL": {
+      "profile": "csv",
+      "sources": [
+        "importcsv"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\n$approvalPath = Read-Host 'Physical-access approvals CSV path'\n$accessPath = Read-Host 'Sampled badge events CSV path'\n$approvals = @(Import-Csv -LiteralPath $approvalPath)\n$events = @(Import-Csv -LiteralPath $accessPath)\nif ($approvals.Count -eq 0 -or $events.Count -eq 0) { throw 'Missing approvals/events; cannot assess.' }\nforeach ($event in $events) {\n    if (-not $event.BadgeId -or -not $event.Zone -or -not $event.EventUtc) { throw 'Incomplete badge event.' }\n    if ($event.Result -ne 'Granted') { continue }\n    $time = [datetimeoffset]::Parse($event.EventUtc)\n    $valid = @($approvals | Where-Object {\n        $_.BadgeId -eq $event.BadgeId -and $_.Zone -eq $event.Zone -and\n        $_.StartUtc -and $_.EndUtc -and [datetimeoffset]::Parse($_.StartUtc) -le $time -and [datetimeoffset]::Parse($_.EndUtc) -gt $time\n    })\n    if ($valid.Count -eq 0) { [pscustomobject]@{Badge=$event.BadgeId;Zone=$event.Zone;Time=$event.EventUtc;Review='Granted event without matching valid approval'} }\n}\n",
+      "run_steps": [
+        "Obtain restricted-access exports from the badge system and approved access register, with stable badge IDs, zones and validity windows. Use minimal personal data and reconcile readers/timezones to the facility layout.",
+        "Run the sample reconciliation and investigate granted events outside approval, lost/shared badges and access remaining after departure. Reconcile visitor/escort and maintenance exceptions.",
+        "With the facilities owner, test an authorised and an unauthorised test badge at the selected door, confirming normal access, refusal and corresponding event/alert. Do not tailgate, defeat locks or interrupt a life-safety exit.",
+        "Inspect server-room environmental monitoring, UPS/plant maintenance and approved alarm test records for PH-01. Physical condition, emergency egress and equipment protection require observation, not a PowerShell verdict."
+      ],
+      "decision": "Sampled physical entry respects current authorisation and is logged/monitored; environmental protection evidence matches observed facilities.",
+      "limits": "The command checks supplied badge records only. It cannot inspect locks, tailgating, sensors, UPS capacity or logs not exported from the physical system.",
+      "scopes": "",
+      "inputs": "Approvals CSV: BadgeId,Zone,StartUtc,EndUtc. Events CSV: BadgeId,Zone,EventUtc,Result (Granted/Denied). Times in ISO 8601 UTC.",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "52ef2474cbb420b9b0c42d63f54577a47b274edc603047bf21e703127cf2eae8",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [
+          "Approval time boundaries, denied events and empty input"
+        ],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. Selected offline fixtures passed; No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "TECH-PASSWORD": {
+      "profile": "ad",
+      "sources": [
+        "adpolicy",
+        "adpso"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nGet-ADDefaultDomainPasswordPolicy | Format-List *\n$user = Read-Host 'Identity of the approved standard test user'\n$pso = Get-ADUserResultantPasswordPolicy -Identity $user\nif ($null -eq $pso) { Write-Output 'No fine-grained policy returned: assess the domain default shown above.' } else { $pso | Format-List * }\n",
+      "run_steps": [
+        "Read the approved password/lockout standard for each identity store. Compare AD domain defaults and the resultant fine-grained policy for representative normal, privileged and service users; different users may receive different PSOs.",
+        "In a lab with a disposable test user, attempt an explicitly disallowed value and an approved long passphrase through the normal password-change UI. Record accepted/rejected status without recording the secret. Verify the ban/length rule with the actual password filter, not just the AD complexity flag.",
+        "Within a strictly bounded agreed test, exercise the configured failed-sign-in throttle/lockout and recovery. Avoid privileged/service or shared production accounts and stop before affecting availability.",
+        "Check Entra Password Protection agents/cloud banned-password settings, smart lockout and application-specific policy separately where used; correlate failure/lockout events and validate approved user recovery."
+      ],
+      "decision": "The effective store-specific password and guessing controls reject prohibited choices/attempts and allow the approved recovery/normal path.",
+      "limits": "AD default/PSO output does not prove cloud banned-password or every application policy. Null resultant PSO normally means the domain default, not no password policy.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "dde4d979cbc1759d3c274e791c4e754f24bec4bb4bd6d8ff9697876259413acc",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "AD-CHECK-01": {
+      "profile": "ad",
+      "sources": [
+        "adobject",
+        "adroot",
+        "uac-flags"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\n$dc = Read-Host 'FQDN of the intended domain controller'\n$root = Get-ADRootDSE -Server $dc\n\nGet-ADObject -Server $dc -SearchBase $root.defaultNamingContext -LDAPFilter '(&(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=4194304))' -Properties sAMAccountName,userAccountControl |\n    Select-Object DistinguishedName,sAMAccountName,userAccountControl\n",
+      "run_steps": [
+        "Query each domain and reconcile the domain/DC and visible account population. Include service accounts and disabled retained accounts in review; exclusions need an explicit reason.",
+        "The LDAP matching rule selects the DONT_REQUIRE_PREAUTH flag. Review every returned account against the approved exception record, account owner and current use.",
+        "On an approved test account use AD Users and Computers > Account > Account options to verify the flag is absent and perform a normal Kerberos sign-in; correlate with DC authentication events.",
+        "After an approved remediation, rerun the same query against the authoritative DC and a replication partner, then verify the service still authenticates. Do not request crackable tickets or attempt password cracking."
+      ],
+      "decision": "No unexplained scoped account has Kerberos pre-authentication disabled; reviewed exceptions have compensating controls and expiry.",
+      "limits": "An empty successful query is meaningful only for the confirmed visible domain scope. It does not assess password strength or all Kerberos attack paths.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "588af74fb2c9e43114b5dd286361fc6f16cacdde134eef50ef57fdb5a34a5b6b",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "AD-CHECK-02": {
+      "profile": "ad",
+      "sources": [
+        "adobject",
+        "adroot",
+        "uac-flags",
+        "adpolicy",
+        "adpso"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\n$dc = Read-Host 'FQDN of the intended domain controller'\n$root = Get-ADRootDSE -Server $dc\n\nGet-ADObject -Server $dc -SearchBase $root.defaultNamingContext -LDAPFilter '(&(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=128))' -Properties sAMAccountName,userAccountControl |\n    Select-Object DistinguishedName,sAMAccountName,userAccountControl\nGet-ADDefaultDomainPasswordPolicy -Server $dc | Select-Object ReversibleEncryptionEnabled\n$testUser = Read-Host 'Approved test-user identity for resultant policy'\nGet-ADUserResultantPasswordPolicy -Identity $testUser -Server $dc | Select-Object Name,ReversibleEncryptionEnabled\n",
+      "run_steps": [
+        "Review both per-account ENCRYPTED_TEXT_PWD_ALLOWED and the default/resultant password policies. Confirm a null fine-grained result means the domain default applies.",
+        "Investigate every enabled reversible-storage setting and its application dependency. Check documented remediation and password-reset completion after disabling the setting; flipping the flag does not remove already stored reversible material.",
+        "On an approved test account/service verify authentication still works with reversible storage disabled under the normal change process.",
+        "Retest the account/policy query and review reset/audit timestamps without requesting or dumping password material."
+      ],
+      "decision": "Reversible storage is disabled for the scoped accounts/policies and required post-change password replacement is evidenced.",
+      "limits": "Configuration reads cannot prove historical password material was removed. Do not export password hashes or reversible secrets.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "6607c5edc30126602302b5b35897b965efe40d93b53ad97119b265f3cecf279f",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "AD-CHECK-03": {
+      "profile": "ad",
+      "sources": [
+        "adobject",
+        "adroot",
+        "uac-flags"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\n$dc = Read-Host 'FQDN of the intended domain controller'\n$root = Get-ADRootDSE -Server $dc\n\nGet-ADObject -Server $dc -SearchBase $root.defaultNamingContext -LDAPFilter '(&(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=524288)(!(userAccountControl:1.2.840.113556.1.4.803:=8192)))' -Properties sAMAccountName,userAccountControl,servicePrincipalName |\n    Select-Object DistinguishedName,sAMAccountName,userAccountControl,servicePrincipalName\n",
+      "run_steps": [
+        "Enumerate each domain and select non-DC principals with TRUSTED_FOR_DELEGATION. The filter excludes SERVER_TRUST_ACCOUNT/DC objects; inspect domain controllers separately under the directory infrastructure controls.",
+        "Resolve each returned computer/service identity to workload, owner and intended delegation path. Review disabled/orphaned accounts and temporary exceptions as well as active services.",
+        "In an approved lab verify the replacement constrained/RBCD design permits the documented front-end to back-end flow and refuses an out-of-scope service/identity.",
+        "After normal remediation rerun enumeration across replication partners and retain configuration and benign service-test evidence."
+      ],
+      "decision": "No non-DC principal retains unapproved unconstrained delegation, and replacement service behaviour respects the approved target boundary.",
+      "limits": "Removing unconstrained delegation does not prove constrained/RBCD targets and write permissions are safe. This check does not extract tickets or attempt coercion.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "8289780cfceb440876592899789f33c78afc6d11f1686d8c95d8f5827e11566f",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "AD-CHECK-04": {
+      "profile": "ad",
+      "sources": [
+        "adobject",
+        "adroot",
+        "acl"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\n$dc = Read-Host 'FQDN of the intended domain controller'\n$root = Get-ADRootDSE -Server $dc\n\n$objects = @(Get-ADObject -Server $dc -SearchBase $root.defaultNamingContext -LDAPFilter '(|(msDS-AllowedToDelegateTo=*)(msDS-AllowedToActOnBehalfOfOtherIdentity=*))' -Properties sAMAccountName,userAccountControl,'msDS-AllowedToDelegateTo','msDS-AllowedToActOnBehalfOfOtherIdentity')\nforeach ($obj in $objects) {\n    $obj | Select-Object DistinguishedName,sAMAccountName,userAccountControl,'msDS-AllowedToDelegateTo'\n    $bytes = $obj.'msDS-AllowedToActOnBehalfOfOtherIdentity'\n    if ($bytes) {\n        $descriptor = [System.Security.AccessControl.RawSecurityDescriptor]::new([byte[]]$bytes,0)\n        $descriptor.DiscretionaryAcl | Select-Object SecurityIdentifier,AceType,AccessMask,AceFlags\n    }\n}\n",
+      "run_steps": [
+        "Inventory both constrained delegation target SPNs and RBCD security descriptors on each domain. Resolve SIDs/SPNs to actual principals/resources; inspect protocol-transition flags alongside them.",
+        "Inspect effective write/owner permissions on the target objects and attributes, inherited group membership and AdminSDHolder effects where relevant. The RBCD allow-list is distinct from who can edit that allow-list.",
+        "In an isolated test service verify the approved front-end can access only its intended back-end as the permitted identity. Confirm a different service/resource path is denied using normal supported application requests.",
+        "Reconcile each target/trustee and editor with an approved design/change record and retest after changes/replication."
+      ],
+      "decision": "Delegation targets, acting principals and editors are all restricted to the approved service design.",
+      "limits": "An attribute listing or decoded ACE is not a complete effective-access calculation. Group nesting, denies, ownership and other attack paths still need evaluation; no ticket-forging test is included.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "51b1b83397cb989b1fb052d3fbaaf1da1b86ea3479afa5dbf0ab678b1ec5f295",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "AD-CHECK-05": {
+      "profile": "ad",
+      "sources": [
+        "ldap-security",
+        "cim",
+        "gpresult"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nGet-CimInstance Win32_OperatingSystem | Select-Object Caption,Version,BuildNumber\n$path = 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\NTDS\\Parameters'\n$values = Get-ItemProperty -LiteralPath $path\n$property = $values.PSObject.Properties['LDAPServerIntegrity']\n[pscustomobject]@{Setting='LDAPServerIntegrity';ExplicitlyConfigured=($null -ne $property);Value=if($property){$property.Value}else{$null}}\n& gpresult.exe /Scope Computer /Z\nif ($LASTEXITCODE -ne 0) { throw 'Computer resultant policy unavailable.' }\n",
+      "run_steps": [
+        "Run locally with authorised read access on every domain controller, recording OS version/build and effective policy. Query failure or an absent registry value is unknown until the documented OS default and effective policy are checked.",
+        "For signing, explicit LDAPServerIntegrity=2 requires signing. Review Directory Service 2886-2889 diagnostics and normal client LDAP usage; do not infer unsigned-client absence from an unconfigured diagnostic log.",
+        "Using ldp.exe in an agreed test environment, compare an approved signed/SASL bind with a deliberately unsigned non-TLS bind using a disposable test identity. Do not send real credentials in cleartext. Match client result and DC event.",
+        "Record the specific DC, client/library version, bind mode, timestamp, expected and observed result. After authorised changes verify compatibility and repeat on every in-scope DC/replication site."
+      ],
+      "decision": "LDAP signing meets the approved requirement on each sampled DC and a client test demonstrates both the permitted and prohibited bind cases.",
+      "limits": "Registry values describe configuration, not all effective client behaviour. Current Windows defaults may differ by edition and deployment; no automatic pass is assigned to a missing value. Runtime bind tests require an AD lab/client, not this app.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "c4803c9ac9ec64e34cf5ef0ae7f53f9cde89106e636c30888eb3fa3059c52979",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "AD-CHECK-06": {
+      "profile": "ad",
+      "sources": [
+        "ldap-security",
+        "cim",
+        "gpresult"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nGet-CimInstance Win32_OperatingSystem | Select-Object Caption,Version,BuildNumber\n$path = 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\NTDS\\Parameters'\n$values = Get-ItemProperty -LiteralPath $path\n$property = $values.PSObject.Properties['LdapEnforceChannelBinding']\n[pscustomobject]@{Setting='LdapEnforceChannelBinding';ExplicitlyConfigured=($null -ne $property);Value=if($property){$property.Value}else{$null}}\n& gpresult.exe /Scope Computer /Z\nif ($LASTEXITCODE -ne 0) { throw 'Computer resultant policy unavailable.' }\n",
+      "run_steps": [
+        "Run locally with authorised read access on every domain controller, recording OS version/build and effective policy. Query failure or an absent registry value is unknown until the documented OS default and effective policy are checked.",
+        "For channel binding, value 0 disables, 1 validates when supported and 2 requires validation. Compare with the approved standard and OS-specific defaults. Review Directory Service 3039-3041 diagnostics and TLS/client compatibility; value 1 is not equivalent to always requiring binding.",
+        "Using a supported LDAP client/test harness in a lab, verify a correct TLS channel-binding connection succeeds and an absent/incorrect binding is refused when required. A port-636 connection or simple TCP probe does not test channel binding. Do not disable production client safeguards to construct the case.",
+        "Record the specific DC, client/library version, bind mode, timestamp, expected and observed result. After authorised changes verify compatibility and repeat on every in-scope DC/replication site."
+      ],
+      "decision": "LDAP channel binding meets the approved requirement on each sampled DC and a client test demonstrates both the permitted and prohibited bind cases.",
+      "limits": "Registry values describe configuration, not all effective client behaviour. Current Windows defaults may differ by edition and deployment; no automatic pass is assigned to a missing value. Runtime bind tests require an AD lab/client, not this app.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "6787cd03c170fedda36551ec995a561ebfaa2efac16fb6932bae8cb59938d78e",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "AD-CHECK-07": {
+      "profile": "ad",
+      "sources": [
+        "smbconfig"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nGet-SmbServerConfiguration | Select-Object RequireSecuritySignature,EnableSecuritySignature,EncryptData\n",
+      "run_steps": [
+        "Run locally on each domain controller and compare RequireSecuritySignature with the approved baseline. EnableSecuritySignature alone is not the required-signing setting for modern SMB.",
+        "From an authorised test client access an approved harmless share and inspect the negotiated SMB connection/session signing and encryption properties with the appropriate client/server tooling.",
+        "In an isolated compatibility test, attempt an explicitly unsigned SMB session using a supported client configuration and verify refusal where signing is required. Do not weaken a production client or disable signing for the test.",
+        "Retain source/destination, dialect, signing/encryption negotiation and event evidence; repeat for the relevant file/service paths."
+      ],
+      "decision": "The DC requires signing and observed permitted sessions negotiate protection; the deliberately prohibited unsigned case is refused.",
+      "limits": "Server configuration does not assess outbound SMB client policy. Encryption can change how signing is reported; interpret negotiated protection for the actual SMB dialect.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "45cc1d324ff89bb69337166bd62234c1386bf22008120b29436b6e6a405f9dd0",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "Get-SmbServerConfiguration read successfully on a workstation, not a DC or unsigned client.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. Get-SmbServerConfiguration read successfully on a workstation, not a DC or unsigned client. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "AD-CHECK-08": {
+      "profile": "ad",
+      "sources": [
+        "smbconfig",
+        "optionalfeatures"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nGet-SmbServerConfiguration | Select-Object EnableSMB1Protocol,EnableSMB2Protocol\nGet-WindowsOptionalFeature -Online -FeatureName SMB1Protocol | Select-Object FeatureName,State\n",
+      "run_steps": [
+        "Run on each DC and record the server SMB1Protocol state and installed optional-feature state. Distinguish the client component from the server protocol setting.",
+        "Compare with the approved requirement to disable/remove SMBv1. Investigate feature-query failures or a pending restart separately instead of assuming absent/disabled.",
+        "Use a permitted isolated SMBv1 compatibility client to attempt a harmless connection and confirm the DC refuses that dialect; confirm the supported SMB2/3 application path still works.",
+        "Record negotiated protocol/logs and check legacy dependencies and approved exceptions before any normal change."
+      ],
+      "decision": "SMBv1 is disabled/removed as required and cannot negotiate with the sampled DC, while approved SMB2/3 services work.",
+      "limits": "Get-SmbServerConfiguration covers server behaviour only. Optional-feature availability differs by Windows edition; query errors remain unknown.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "67a05d4838e78997e9933d914e7b32ed94d7e66e28a9715bc4ae43e0530e4877",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "SMB protocol settings read successfully on a workstation; optional feature/dialect test not run.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. SMB protocol settings read successfully on a workstation; optional feature/dialect test not run. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "AD-CHECK-09": {
+      "profile": "ad",
+      "sources": [
+        "cim"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nGet-CimInstance -ClassName Win32_Service -Filter \"Name='Spooler'\" | Select-Object Name,State,StartMode,StartName\n",
+      "run_steps": [
+        "Run locally on every DC and verify the Spooler service exists/is visible. An empty query needs explanation rather than a passing status.",
+        "Compare State and StartMode with the approved DC standard; Stopped alone is insufficient if the service remains automatically startable.",
+        "Inspect resultant service policy, approved exceptions and service-change monitoring. Use an authorised planned restart/test DC to verify the service remains disabled; do not restart a production DC just for this check.",
+        "Confirm required directory services remain healthy and retain the service configuration and observed post-maintenance state."
+      ],
+      "decision": "The DC Spooler is stopped and disabled, or a specifically approved, time-bound exception is documented.",
+      "limits": "This command only reads service state and does not stop services or test exploitation. Service status at one instant is not durable policy enforcement.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "2d9ca10575107ac89fe0d72f38d4faf337a3a06523008317966cf7660551dfa8",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "Spooler service CIM query read successfully on a workstation, not a DC.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. Spooler service CIM query read successfully on a workstation, not a DC. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "AD-CHECK-10": {
+      "profile": "ad",
+      "sources": [
+        "adroot",
+        "acl",
+        "protected-accounts"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\n$dc = Read-Host 'FQDN of the intended domain controller'\n$root = Get-ADRootDSE -Server $dc\n\n$dn = 'CN=AdminSDHolder,CN=System,'+$root.defaultNamingContext\n# AD: uses the current ActiveDirectory provider connection. Confirm it matches $dc/domain.\n$acl = Get-Acl -Path ('AD:\\'+$dn)\n$acl | Select-Object Owner,AreAccessRulesProtected\n$acl.Access | Select-Object IdentityReference,ActiveDirectoryRights,AccessControlType,ObjectType,InheritedObjectType,IsInherited\n",
+      "run_steps": [
+        "Confirm the AD provider points to the intended domain; create/select an approved domain-specific AD PSDrive if required. Read AdminSDHolder owner/ACL and compare with an approved baseline for that domain.",
+        "Resolve trustees, nested groups, inherited/explicit rights, object-specific GUIDs and deny entries. Review unexpected GenericAll/WriteDacl/WriteOwner and attribute rights; an unfamiliar ACE needs investigation, not automatic classification.",
+        "Review representative protected users/groups and SDProp propagation. Separate formerly protected adminCount=1 objects from currently protected accounts before deciding whether an ACL should match.",
+        "In an isolated test domain use an authorised and unauthorised principal to verify the specific permitted/denied administration action. Retain baseline, effective-rights review and replication/SDProp timing evidence."
+      ],
+      "decision": "Only approved trustees can modify the protected-account template and sampled protected objects; changes are attributable and reviewed.",
+      "limits": "Get-Acl does not calculate every effective permission. Do not modify AdminSDHolder in production to demonstrate a test. Provider/domain mismatch invalidates the evidence.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "b0f18c588260b68aad4fa8b8871afaab363500ff9e8d5533f4fe96c0bcae48eb",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "AD-CHECK-11": {
+      "profile": "ad",
+      "sources": [
+        "adobject",
+        "adroot",
+        "certutil",
+        "adcs-review",
+        "adcs-flags"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\n$dc = Read-Host 'FQDN of the intended domain controller'\n$root = Get-ADRootDSE -Server $dc\n\n$base = 'CN=Certificate Templates,CN=Public Key Services,CN=Services,'+$root.configurationNamingContext\nGet-ADObject -Server $dc -SearchBase $base -LDAPFilter '(objectClass=pKICertificateTemplate)' -Properties displayName,'msPKI-Certificate-Name-Flag','msPKI-Enrollment-Flag','msPKI-RA-Signature',pKIExtendedKeyUsage |\n    Select-Object Name,displayName,DistinguishedName,'msPKI-Certificate-Name-Flag','msPKI-Enrollment-Flag','msPKI-RA-Signature',pKIExtendedKeyUsage\n$ca = Read-Host 'Approved CA configuration (server\\CA name)'\n& certutil.exe -config $ca -CATemplates\nif ($LASTEXITCODE -ne 0) { throw 'Could not enumerate published CA templates; scope unknown.' }\n",
+      "run_steps": [
+        "Inventory enterprise CAs and templates in the forest configuration partition. The LDAP query lists defined templates; certutil -CATemplates identifies templates published on the selected CA. Repeat per CA.",
+        "For each published template review requester-supplied subject (name flag bit 0x1), authentication-capable EKUs/any-purpose or absent EKUs, manager approval (enrolment flag bit 0x2) and authorised-signature count. These properties are leads, not a complete ESC1 verdict.",
+        "Inspect template and CA effective enrolment ACLs, ownership/write rights and CA issuance policy. Resolve nested groups and whether an unprivileged requester can actually enrol; assess issuance constraints and strong certificate mapping separately.",
+        "Use the Microsoft Defender for Identity certificate assessment and, only in an isolated authorised PKI lab, an approved benign enrolment test for a nominated test identity. Confirm an unapproved subject/requester cannot obtain an authentication certificate; do not request an impersonation certificate for a real administrator."
+      ],
+      "decision": "No effective published template/CA path combines unapproved enrolment, requester-controlled authentication identity and missing issuance safeguards.",
+      "limits": "This is a selected public ESC1-oriented review, not all AD CS vulnerabilities or a vendor scanner equivalent. Attribute bits alone can produce false positives/negatives without CA publication and effective rights.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "fc0d366de2f07f4a6d27f4e09f89699becc10dbcc533fc731aaeb105f2839736",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "AD-CHECK-12": {
+      "profile": "ad",
+      "sources": [
+        "adobject",
+        "adroot",
+        "acl",
+        "key-credential"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\n$dc = Read-Host 'FQDN of the intended domain controller'\n$root = Get-ADRootDSE -Server $dc\n\nGet-ADObject -Server $dc -SearchBase $root.defaultNamingContext -LDAPFilter '(msDS-KeyCredentialLink=*)' -Properties sAMAccountName,'msDS-KeyCredentialLink' |\n    Select-Object DistinguishedName,sAMAccountName,@{Name='KeyCredentialCount';Expression={@($_.'msDS-KeyCredentialLink').Count}}\n$dn = Read-Host 'Distinguished name of an approved sampled account'\n(Get-Acl -Path ('AD:\\'+$dn)).Access | Select-Object IdentityReference,ActiveDirectoryRights,ObjectType,AccessControlType,IsInherited\n",
+      "run_steps": [
+        "Reconcile key-credential presence with approved Windows Hello for Business/FIDO/passwordless services and registration records. Presence is not inherently malicious; do not export raw key blobs unnecessarily.",
+        "Confirm the AD provider domain and inspect attribute-specific/effective write rights, object ownership, group nesting and broad WriteProperty/GenericAll paths for the sampled privileged/account objects.",
+        "Review DC event 5136 for msDS-KeyCredentialLink changes where directory-service-change auditing and SACLs are configured. Match legitimate registration and an approved test-object change to the expected alert/owner; no events alone cannot establish safety.",
+        "Use a disposable account in a lab to verify an unauthorised test principal cannot add a key credential while the approved registration workflow succeeds. Do not plant a shadow credential on a production account."
+      ],
+      "decision": "Key registrations and editors are authorised, changes are attributable, and the unauthorised write path is denied for the sample.",
+      "limits": "The query does not classify key material as trusted or prove all edit paths are closed. AD provider scope and audit prerequisites must be validated separately.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "7317a9a7be5d9255df18b0896408fe99dc6155d3e0d8603d4b06a3c91f41c95f",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "AD-CHECK-13": {
+      "profile": "ad",
+      "sources": [
+        "aduser",
+        "adreplication",
+        "krbtgt"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\n$dc = Read-Host 'FQDN of the intended domain controller'\n$root = Get-ADRootDSE -Server $dc\n\n$krbtgt = Get-ADUser -Identity krbtgt -Server $dc -Properties PasswordLastSet,Enabled\n$krbtgt | Select-Object DistinguishedName,Enabled,PasswordLastSet\nGet-ADReplicationAttributeMetadata -Object $krbtgt.DistinguishedName -Server $dc |\n    Where-Object { $_.AttributeName -eq 'pwdLastSet' } |\n    Select-Object AttributeName,Version,LastOriginatingChangeTime,LastOriginatingChangeDirectoryServerIdentity\n",
+      "run_steps": [
+        "Read KRBTGT metadata from each domain and compare with the approved credential-rotation/recovery schedule and current ASD guidance. Include RODC-specific krbtgt_* accounts in a separately scoped review where applicable.",
+        "Obtain change/incident records showing both required password resets, authorised custodians and replication/health checks between them. The latest PasswordLastSet value does not demonstrate two resets.",
+        "Review the Microsoft forest-recovery procedure, ticket lifetime and replication convergence requirements. Do not use a universal short delay or reset KRBTGT automatically from an assessment.",
+        "Rehearse the authorised two-reset/recovery sequence in an isolated forest recovery exercise, verifying replication and new authentication before declaring readiness. Retain approvals/timestamps and recovery results without password/hash export."
+      ],
+      "decision": "Required rotation/recovery steps, including two resets and convergence where applicable, are evidenced and the isolated recovery procedure restores trusted authentication.",
+      "limits": "The command does not reset credentials or prove that all previously issued tickets are invalid. Attribute version/latest timestamp alone cannot prove two correctly spaced resets.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "de353351e0b4cd0837ca5e917b832f29da75d9a751989472fef435939b336ca0",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    },
+    "AD-CHECK-14": {
+      "profile": "ad",
+      "sources": [
+        "adtrust"
+      ],
+      "command": "$ErrorActionPreference = 'Stop'\nGet-ADTrust -Filter * | Select-Object Name,Direction,TrustType,IntraForest,ForestTransitive,SelectiveAuthentication,SIDFilteringForestAware,SIDFilteringQuarantined,TGTDelegation\n",
+      "run_steps": [
+        "Inventory trusts in each forest/domain and reconcile direction, type and purpose to the approved inter-forest/service design. Identify who owns the partner forest and the sensitivity of reachable resources.",
+        "Interpret SIDFilteringForestAware/SIDFilteringQuarantined for the actual trust type/direction and migration exceptions; do not apply one Boolean rule to every intra-forest and external trust.",
+        "Review selective authentication, Allowed to Authenticate permissions, TGT delegation and group/resource ACLs. Validate partner security assumptions and exception expiry.",
+        "Using authorised test accounts and a harmless resource on each intended side, verify approved cross-boundary access succeeds and an unapproved account/resource path is denied; corroborate trust/Kerberos/resource logs."
+      ],
+      "decision": "Each trust and effective authentication boundary matches its approved design; no unexplained SID-filtering/delegation exception widens access.",
+      "limits": "Trust flags alone do not prove SIDHistory exposure or effective resource access. This check does not forge SIDs/tickets or reproduce the complete PingCastle/Purple Knight trust rules.",
+      "scopes": "",
+      "inputs": "",
+      "validation": {
+        "reviewed_on": "2026-09-16",
+        "command_sha256": "e86a28888d1fbf9f5815165eb5fd4b89ded5379d1b2f4a8fe83fc995f0006049",
+        "powershell_syntax": [
+          "5.1.19041.6456",
+          "7.6.5"
+        ],
+        "offline_fixtures": [],
+        "local_collection": "No live collection in the required environment.",
+        "environment_execution": "Not performed in an AD/M365/Azure test environment",
+        "summary": "Official Microsoft command/API documentation checked; PowerShell 5.1 and 7 syntax passed. No live collection in the required environment. Complete the positive/negative tests in the intended environment before accepting the control."
+      }
+    }
+  }
+}
