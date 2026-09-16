@@ -128,13 +128,14 @@ def check(root: str) -> List[Violation]:
     approved = approved_sources(root)
 
     # A missing source is valid in a clean checkout: ``python -m wacc sources`` obtains
-    # it. When a reviewed file is present, changed bytes still fail loudly.
+    # it. Present files must match their reviewed file or OAG report-content hash.
     for path, entry in approved.items():
         full = os.path.join(root, path)
         if os.path.isfile(full):
+            from .sources import matches_review
             with open(full, "rb") as handle:
-                digest = hashlib.sha256(handle.read()).hexdigest()
-            if digest != entry["sha256"]:
+                reviewed = matches_review(entry, handle.read())
+            if not reviewed:
                 out.append(Violation(path, "unreviewed source bytes", "file differs from permission review"))
 
     for path in would_ship(root):

@@ -86,7 +86,7 @@ class ExtendedTests(unittest.TestCase):
         params={'control':['PA-03'],'assessment':['technical'],'q':['authentication'],'topic':['Privileged access'],'scope':['1'],'fw':['ism','scuba']}
         page=workspace.render(self.corpus,params)
         self.assertIn('TECH-CA',page)
-        self.assertIn('GRC Focused',page)
+        self.assertIn('GRC',page)
         self.assertNotIn('<dt>Interview</dt>',page)
         toggle=[a for a in Links(page).links if a.get('aria-current')=='false'][0]
         query=parse_qs(urlsplit(toggle['href']).query)

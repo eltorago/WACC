@@ -1,6 +1,6 @@
 """Serve the Control workspace and source browser on the local computer.
 
-The server reads data already on disk and does not download anything. It binds to
+The Sources page can acquire reviewed public files on request. The server binds to
 127.0.0.1 by default because some corpus material is approved only for this private,
 non-commercial project.
 
@@ -102,7 +102,16 @@ def _limit(params) -> int:
     return wanted if wanted in html.LIMIT_CHOICES else DISPLAY
 
 
-def _handler(state: State):
+def _handler(initial_state: State):
+    from .source_workspace import AcquisitionJob, render as render_sources
+    states = [initial_state]
+
+    def reload_corpus():
+        replacement = State()
+        states[0] = replacement
+
+    acquisition = AcquisitionJob(reload_corpus)
+
     class Handler(BaseHTTPRequestHandler):
         def log_message(self, fmt, *args):  # quiet by default
             pass
@@ -124,7 +133,10 @@ def _handler(state: State):
             self.wfile.write(data)
 
         def do_GET(self):  # noqa: N802 - http.server's interface
+            state = states[0]
             parsed = urllib.parse.urlparse(self.path)
+            if parsed.path == '/sources':
+                return self._send(render_sources(acquisition), 'text/html')
             params = urllib.parse.parse_qs(parsed.query)
             query = (params.get("q") or [""])[0]
             limit = _limit(params)
@@ -178,7 +190,25 @@ def _handler(state: State):
                 )
             self.send_error(404, "no such page")
 
+        def do_POST(self):
+            if self.path != '/sources/acquire':
+                return self.send_error(404, 'no such action')
+            try:
+                size = int(self.headers.get('Content-Length', '0'))
+            except ValueError:
+                return self.send_error(400, 'invalid request length')
+            if not 0 < size <= 4096:
+                return self.send_error(400, 'invalid request length')
+            params = urllib.parse.parse_qs(self.rfile.read(size).decode('utf-8', errors='replace'))
+            if not acquisition.start((params.get('token') or [''])[0]):
+                return self.send_error(403, 'reload the Sources page and try again')
+            self.send_response(303)
+            self.send_header('Location', '/sources')
+            self.send_header('Content-Length', '0')
+            self.end_headers()
+
         def _panel(self, uid: str):
+            state = states[0]
             control = state.corpus.control(uid)
             if control is None:
                 return self._send(

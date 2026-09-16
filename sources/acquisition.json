@@ -3,8 +3,11 @@
   "files": [
     {
       "filename": "aescsf-framework-core.xlsx",
-      "method": "manual",
-      "instructions": "Open https://www.aemo.com.au/initiatives/major-programs/cyber-security/aescsf-framework-and-resources, download the AESCSF Core workbook, save it under this exact filename and keep it local. AEMO blocks unattended downloads."
+      "method": "automatic",
+      "instructions": "If automatic acquisition is blocked or the edition differs: Open https://www.aemo.com.au/initiatives/major-programs/cyber-security/aescsf-framework-and-resources, download the AESCSF Core workbook, save it under this exact filename and keep it local. AEMO blocks unattended downloads. You can use --import-from to recognise the downloaded file without renaming it.",
+      "urls": [
+        "https://www.aemo.com.au/initiatives/major-programs/cyber-security/aescsf-framework-and-resources"
+      ]
     },
     {
       "filename": "C2M2 Version 2.1 June 2022.pdf",
@@ -22,63 +25,99 @@
     },
     {
       "filename": "cirmp-rules-latest.docx",
-      "method": "manual",
-      "instructions": "Open https://www.legislation.gov.au/F2023L00112/latest/text, download the Word version of the reviewed compilation and save it under this exact filename."
+      "method": "automatic",
+      "instructions": "If automatic acquisition is blocked or the edition differs: Open https://www.legislation.gov.au/F2023L00112/latest/text, download the Word version of the reviewed compilation and save it under this exact filename. You can use --import-from to recognise the downloaded file without renaming it.",
+      "urls": [
+        "https://www.legislation.gov.au/F2023L00112/2026-06-10/2026-06-10/text/original/word"
+      ]
     },
     {
       "filename": "CIS_Benchmarks__Active_Directory_Guide__2024_11.pdf",
       "method": "manual",
-      "instructions": "Sign in to CIS WorkBench, obtain the November 2024 Active Directory guide, save it under this exact filename and keep it local. This document is not approved for redistribution."
+      "instructions": "Sign in to CIS WorkBench, obtain the November 2024 Active Directory guide, save it under this exact filename and keep it local. This document is not approved for redistribution.",
+      "urls": [
+        "https://workbench.cisecurity.org/"
+      ]
     },
     {
       "filename": "CIS_Controls_v8.1_Mapping_to_ASD_Essential_Eight_2_2025.xlsx",
       "method": "manual",
-      "instructions": "Download the CIS Controls v8.1 mapping to ASD Essential Eight from CIS, save it under this exact filename and keep it local."
+      "instructions": "Download the CIS Controls v8.1 mapping to ASD Essential Eight from CIS, save it under this exact filename and keep it local.",
+      "urls": [
+        "https://www.cisecurity.org/controls/v8"
+      ]
     },
     {
       "filename": "CIS_Controls_Version_8.xlsx",
       "method": "manual",
-      "instructions": "Download the CIS Controls Version 8 workbook from https://www.cisecurity.org/controls/v8, save it under this exact filename and keep it local."
+      "instructions": "Download the CIS Controls Version 8 workbook from https://www.cisecurity.org/controls/v8, save it under this exact filename and keep it local.",
+      "urls": [
+        "https://www.cisecurity.org/controls/v8"
+      ]
     },
     {
       "filename": "CIS_Google_Chrome_Benchmark_v3.0.0.pdf",
       "method": "manual",
-      "instructions": "Sign in to CIS WorkBench, download version 3.0.0 of the Google Chrome Benchmark, save it under this exact filename and keep it local."
+      "instructions": "Sign in to CIS WorkBench, download version 3.0.0 of the Google Chrome Benchmark, save it under this exact filename and keep it local.",
+      "urls": [
+        "https://workbench.cisecurity.org/"
+      ]
     },
     {
       "filename": "CIS_Microsoft_365_Foundations_Benchmark_v7.0.0.pdf",
       "method": "manual",
-      "instructions": "Sign in to CIS WorkBench, download version 7.0.0 of the Microsoft 365 Foundations Benchmark and save it under this exact filename. It is not approved for redistribution."
+      "instructions": "Sign in to CIS WorkBench, download version 7.0.0 of the Microsoft 365 Foundations Benchmark and save it under this exact filename. It is not approved for redistribution.",
+      "urls": [
+        "https://workbench.cisecurity.org/"
+      ]
     },
     {
       "filename": "CIS_Microsoft_Azure_Foundations_Benchmark_v6.0.0.pdf",
       "method": "manual",
-      "instructions": "Sign in to CIS WorkBench, download version 6.0.0 of the Microsoft Azure Foundations Benchmark and save it under this exact filename. It is not approved for redistribution."
+      "instructions": "Sign in to CIS WorkBench, download version 6.0.0 of the Microsoft Azure Foundations Benchmark and save it under this exact filename. It is not approved for redistribution.",
+      "urls": [
+        "https://workbench.cisecurity.org/"
+      ]
     },
     {
       "filename": "CIS_Microsoft_Edge_Benchmark_v4.0.0.pdf",
       "method": "manual",
-      "instructions": "Sign in to CIS WorkBench, download version 4.0.0 of the Microsoft Edge Benchmark and save it under this exact filename. It is not approved for redistribution."
+      "instructions": "Sign in to CIS WorkBench, download version 4.0.0 of the Microsoft Edge Benchmark and save it under this exact filename. It is not approved for redistribution.",
+      "urls": [
+        "https://workbench.cisecurity.org/"
+      ]
     },
     {
       "filename": "CIS_Microsoft_Office_Enterprise_Benchmark_v1.2.0.pdf",
       "method": "manual",
-      "instructions": "Sign in to CIS WorkBench, download version 1.2.0 of the Microsoft Office Enterprise Benchmark, save it under this exact filename and keep it local."
+      "instructions": "Sign in to CIS WorkBench, download version 1.2.0 of the Microsoft Office Enterprise Benchmark, save it under this exact filename and keep it local.",
+      "urls": [
+        "https://workbench.cisecurity.org/"
+      ]
     },
     {
       "filename": "CIS_Microsoft_Windows_11_Stand-alone_Benchmark_v5.0.0.pdf",
       "method": "manual",
-      "instructions": "Sign in to CIS WorkBench, download version 5.0.0 of the Windows 11 Stand-alone Benchmark and save it under this exact filename. It is not approved for redistribution."
+      "instructions": "Sign in to CIS WorkBench, download version 5.0.0 of the Windows 11 Stand-alone Benchmark and save it under this exact filename. It is not approved for redistribution.",
+      "urls": [
+        "https://workbench.cisecurity.org/"
+      ]
     },
     {
       "filename": "cisa-vulnerability-review-fy-2024-2025-508.pdf",
-      "method": "manual",
-      "instructions": "Obtain the FY 2024-2025 vulnerability review from CISA, save the reviewed edition under this exact filename and keep it local."
+      "method": "automatic",
+      "instructions": "If automatic acquisition is blocked or the edition differs: Obtain the FY 2024-2025 vulnerability review from CISA, save the reviewed edition under this exact filename and keep it local. You can use --import-from to recognise the downloaded file without renaming it.",
+      "urls": [
+        "https://www.cisa.gov/resources-tools/resources/cisa-vulnerability-review"
+      ]
     },
     {
       "filename": "cisc-cirmp-guidance.pdf",
-      "method": "manual",
-      "instructions": "Download the CIRMP guidance from the Australian Cyber and Infrastructure Security Centre and save the reviewed edition under this exact filename."
+      "method": "automatic",
+      "instructions": "If automatic acquisition is blocked or the edition differs: Download the CIRMP guidance from the Australian Cyber and Infrastructure Security Centre and save the reviewed edition under this exact filename. You can use --import-from to recognise the downloaded file without renaming it.",
+      "urls": [
+        "https://www.cisc.gov.au/resources-subsite/Documents/guidance-for-the-critical-infrastructure-risk-management-program.pdf"
+      ]
     },
     {
       "filename": "Detecting and mitigating Active Directory compromises (September 2026).pdf",
@@ -103,8 +142,11 @@
     },
     {
       "filename": "foundations-for-modern-defensible-architecture.pdf",
-      "method": "manual",
-      "instructions": "Obtain Foundations for Modern Defensible Architecture from the Australian Signals Directorate publication page and save the reviewed edition under this exact filename."
+      "method": "automatic",
+      "instructions": "If automatic acquisition is blocked or the edition differs: Obtain Foundations for Modern Defensible Architecture from the Australian Signals Directorate publication page and save the reviewed edition under this exact filename. You can use --import-from to recognise the downloaded file without renaming it.",
+      "urls": [
+        "https://www.cyber.gov.au/sites/default/files/2025-10/foundations-for-modern-defensible-architecture.pdf"
+      ]
     },
     {
       "filename": "Implementing network segmentation and segregation (October 2021).pdf",
@@ -147,18 +189,27 @@
     },
     {
       "filename": "Joint-Guidance-Identifying-and-Mitigating-LOTL508.pdf",
-      "method": "manual",
-      "instructions": "Open https://www.cisa.gov/resources-tools/resources/identifying-and-mitigating-living-land-techniques, download the full PDF and save it under this exact filename. The file remains local because redistribution permission is unresolved."
+      "method": "automatic",
+      "instructions": "If automatic acquisition is blocked or the edition differs: Open https://www.cisa.gov/resources-tools/resources/identifying-and-mitigating-living-land-techniques, download the full PDF and save it under this exact filename. The file remains local because redistribution permission is unresolved. You can use --import-from to recognise the downloaded file without renaming it.",
+      "urls": [
+        "https://www.cisa.gov/sites/default/files/2025-03/Joint-Guidance-Identifying-and-Mitigating-LOTL508.pdf"
+      ]
     },
     {
       "filename": "NCSC-Secure-Connectivity-for-Operational-Technology.pdf",
-      "method": "manual",
-      "instructions": "Open https://www.ncsc.gov.uk/collection/operational-technology/secure-connectivity, download the full PDF and save the reviewed edition under this exact filename. The intact PDF remains local because its images are excluded from the text licence."
+      "method": "automatic",
+      "instructions": "If automatic acquisition is blocked or the edition differs: Open https://www.ncsc.gov.uk/collection/operational-technology/secure-connectivity, download the full PDF and save the reviewed edition under this exact filename. The intact PDF remains local because its images are excluded from the text licence. You can use --import-from to recognise the downloaded file without renaming it.",
+      "urls": [
+        "https://www.ncsc.gov.uk/files/ncsc-secure-connectivity-for-operational-technology.pdf"
+      ]
     },
     {
       "filename": "nist-csf-2.0-cprt-all-olir.xlsx",
       "method": "manual",
-      "instructions": "Use the NIST Cybersecurity and Privacy Reference Tool at https://csrc.nist.gov/Projects/cybersecurity-framework/Filters#/csf/filters to export the CSF 2.0 OLIR workbook and save it under this exact filename."
+      "instructions": "Use the NIST Cybersecurity and Privacy Reference Tool at https://csrc.nist.gov/Projects/cybersecurity-framework/Filters#/csf/filters to export the CSF 2.0 OLIR workbook and save it under this exact filename.",
+      "urls": [
+        "https://csrc.nist.gov/Projects/cybersecurity-framework/Filters#/csf/filters"
+      ]
     },
     {
       "filename": "nist-cswp-29-csf-2.0.pdf",
@@ -274,13 +325,19 @@
     },
     {
       "filename": "pspf-list-of-requirements.pdf",
-      "method": "manual",
-      "instructions": "Open https://www.protectivesecurity.gov.au/publications-library, obtain the reviewed PSPF list of requirements and save it under this exact filename."
+      "method": "automatic",
+      "instructions": "If automatic acquisition is blocked or the edition differs: Open https://www.protectivesecurity.gov.au/publications-library, obtain the reviewed PSPF list of requirements and save it under this exact filename. You can use --import-from to recognise the downloaded file without renaming it.",
+      "urls": [
+        "https://www.protectivesecurity.gov.au/system/files/2026-07/pspf-release-2026-list-requirements_0.pdf"
+      ]
     },
     {
       "filename": "pspf-release-2026-guidelines.pdf",
-      "method": "manual",
-      "instructions": "Open https://www.protectivesecurity.gov.au/publications-library, obtain the PSPF Release 2026 guidelines and save the reviewed edition under this exact filename."
+      "method": "automatic",
+      "instructions": "If automatic acquisition is blocked or the edition differs: Open https://www.protectivesecurity.gov.au/publications-library, obtain the PSPF Release 2026 guidelines and save the reviewed edition under this exact filename. You can use --import-from to recognise the downloaded file without renaming it.",
+      "urls": [
+        "https://www.protectivesecurity.gov.au/system/files/2026-07/pspf-release-2026-guidelines.pdf"
+      ]
     },
     {
       "filename": "Report-12_Digital-Identity-and-Access-Management-Better-Practice-Guide.pdf",
@@ -305,28 +362,43 @@
     },
     {
       "filename": "soci-act-latest.docx",
-      "method": "manual",
-      "instructions": "Open https://www.legislation.gov.au/C2018A00029/latest/text, download the Word version of the reviewed compilation and save it under this exact filename."
+      "method": "automatic",
+      "instructions": "If automatic acquisition is blocked or the edition differs: Open https://www.legislation.gov.au/C2018A00029/latest/text, download the Word version of the reviewed compilation and save it under this exact filename. You can use --import-from to recognise the downloaded file without renaming it.",
+      "urls": [
+        "https://www.legislation.gov.au/C2018A00029/2026-06-04/2026-06-04/text/1/word"
+      ]
     },
     {
       "filename": "sp800-63.html",
-      "method": "manual",
-      "instructions": "Open https://pages.nist.gov/800-63-4/sp800-63/, save the complete HTML page under this exact filename and retain its accompanying source context locally."
+      "method": "automatic",
+      "instructions": "Download the pinned official NIST HTML automatically. If blocked, save the linked raw HTML and use --import-from; do not substitute a print/save-page wrapper.",
+      "urls": [
+        "https://raw.githubusercontent.com/usnistgov/800-63-4/4f2487bb81adecdc84ccaac6920bf0b500b379ae/sp800-63.html"
+      ]
     },
     {
       "filename": "sp800-63a.html",
-      "method": "manual",
-      "instructions": "Open https://pages.nist.gov/800-63-4/sp800-63a/, save the complete HTML page under this exact filename and retain its accompanying source context locally."
+      "method": "automatic",
+      "instructions": "Download the pinned official NIST HTML automatically. If blocked, save the linked raw HTML and use --import-from; do not substitute a print/save-page wrapper.",
+      "urls": [
+        "https://raw.githubusercontent.com/usnistgov/800-63-4/4f2487bb81adecdc84ccaac6920bf0b500b379ae/sp800-63a.html"
+      ]
     },
     {
       "filename": "sp800-63b.html",
-      "method": "manual",
-      "instructions": "Open https://pages.nist.gov/800-63-4/sp800-63b/, save the complete HTML page under this exact filename and retain its accompanying source context locally."
+      "method": "automatic",
+      "instructions": "Download the pinned official NIST HTML automatically. If blocked, save the linked raw HTML and use --import-from; do not substitute a print/save-page wrapper.",
+      "urls": [
+        "https://raw.githubusercontent.com/usnistgov/800-63-4/4f2487bb81adecdc84ccaac6920bf0b500b379ae/sp800-63b.html"
+      ]
     },
     {
       "filename": "sp800-63c.html",
-      "method": "manual",
-      "instructions": "Open https://pages.nist.gov/800-63-4/sp800-63c/, save the complete HTML page under this exact filename and retain its accompanying source context locally."
+      "method": "automatic",
+      "instructions": "Download the pinned official NIST HTML automatically. If blocked, save the linked raw HTML and use --import-from; do not substitute a print/save-page wrapper.",
+      "urls": [
+        "https://raw.githubusercontent.com/usnistgov/800-63-4/4f2487bb81adecdc84ccaac6920bf0b500b379ae/sp800-63c.html"
+      ]
     },
     {
       "filename": "wa-cyber-security-policy.pdf",
@@ -351,8 +423,11 @@
     },
     {
       "filename": "zero_trust_maturity_model_v2_508.pdf",
-      "method": "manual",
-      "instructions": "Open https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model, download version 2.0 and save it under this exact filename. CISA blocks unattended downloads from this environment."
+      "method": "automatic",
+      "instructions": "If automatic acquisition is blocked or the edition differs: Open https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model, download version 2.0 and save it under this exact filename. CISA blocks unattended downloads from this environment. You can use --import-from to recognise the downloaded file without renaming it.",
+      "urls": [
+        "https://www.cisa.gov/sites/default/files/2023-04/zero_trust_maturity_model_v2_508.pdf"
+      ]
     },
     {
       "filename": "secure-controls-framework-scf-2026-2.xlsx",

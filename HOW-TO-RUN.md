@@ -11,10 +11,26 @@ From the repository folder, run:
 python -m wacc sources
 ```
 
-WACC downloads files available from publisher websites, verifies their reviewed hashes
+WACC downloads files available from publisher websites, verifies their reviewed content
 and stores them in the ignored `sources/files/` cache. It prints instructions for sources
 that require a sign-in, an interactive export or a user-supplied edition. Use
 `python -m wacc sources --list` to review every acquisition method without downloading.
+
+You can also start the app first and open **Sources**. Select **Download missing public
+sources and reload** to acquire available documents and rebuild the live corpus without
+restarting the server. The page reports progress and any remaining manual steps.
+
+If you already downloaded documents, WACC can recognise and copy them automatically:
+
+```powershell
+python -m wacc sources --import-from "C:\path\to\downloads"
+python -m wacc sources --status
+```
+
+Replace the example folder with your download folder. Files must match the reviewed
+edition, but their filenames can differ. Originals and unmatched files are left alone.
+The status command checks local files without downloading. It returns a non-zero exit
+code when files are missing or changed, so setup scripts can detect incomplete acquisition.
 
 ## Start the web application
 
@@ -30,7 +46,7 @@ use the application. Press `Ctrl+C` in that window to stop it.
 
 The server binds to `127.0.0.1`, so it is visible only on the computer where it is running.
 
-In the Control workspace, select **GRC Focused** or **Technical** beneath **Assess this
+In the Control workspace, select **GRC** or **Technical** beneath **Assess this
 control**. The Technical view contains individual checks, artefacts, collection examples
 and expected results. WACC displays the assessment instructions; it does not run commands
 against your systems. **Framework coverage & checks** lists the new frameworks and offers
