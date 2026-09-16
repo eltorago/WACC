@@ -3,6 +3,9 @@
 // Sentinel schemas use TimeGenerated; do not substitute a raw XDR Timestamp export.
 // First run each block with its final project replaced by: | count
 // Record those counts in manifest.expected_rows. Do not use take/top/sample.
+// Choose the relevant tables; all twelve are included in the fictional examples.
+// AuditLogs and AddonAzureBackupJobs do not expose TenantId in the referenced schemas.
+// Record the selected workspace_id in their manifest FILE DESCRIPTORS instead.
 
 DeviceEvents
 | where TimeGenerated >= datetime(2025-12-01T00:00:00Z) and TimeGenerated < datetime(2026-01-01T00:00:00Z)
@@ -46,3 +49,48 @@ SigninLogs
 DeviceEvents
 | where TimeGenerated >= datetime(2025-12-01T00:00:00Z) and TimeGenerated < datetime(2026-01-01T00:00:00Z)
 | count
+
+// Save as DeviceTvmSoftwareInventory.csv
+DeviceTvmSoftwareInventory
+| where TimeGenerated >= datetime(2025-12-01T00:00:00Z) and TimeGenerated < datetime(2026-01-01T00:00:00Z)
+| project TimeGenerated = format_datetime(TimeGenerated, 'yyyy-MM-ddTHH:mm:ss.fffffffZ'), TenantId, Type,
+          DeviceId, DeviceName, SoftwareVendor, SoftwareName, SoftwareVersion, OSPlatform, EndOfSupportStatus
+
+// Save as DeviceTvmSoftwareVulnerabilities.csv
+DeviceTvmSoftwareVulnerabilities
+| where TimeGenerated >= datetime(2025-12-01T00:00:00Z) and TimeGenerated < datetime(2026-01-01T00:00:00Z)
+| project TimeGenerated = format_datetime(TimeGenerated, 'yyyy-MM-ddTHH:mm:ss.fffffffZ'), TenantId, Type,
+          DeviceId, DeviceName, SoftwareVendor, SoftwareName, SoftwareVersion, CveId, CveTags,
+          VulnerabilitySeverityLevel, RecommendedSecurityUpdate, RecommendedSecurityUpdateId
+
+// Save as AuditLogs.csv. Retain dynamic JSON fields inside the quoted CSV cells.
+AuditLogs
+| where TimeGenerated >= datetime(2025-12-01T00:00:00Z) and TimeGenerated < datetime(2026-01-01T00:00:00Z)
+| project TimeGenerated = format_datetime(TimeGenerated, 'yyyy-MM-ddTHH:mm:ss.fffffffZ'), AADTenantId, Type,
+          Id, ActivityDisplayName, ActivityDateTime = format_datetime(ActivityDateTime, 'yyyy-MM-ddTHH:mm:ss.fffffffZ'),
+          OperationName, Category, Result, InitiatedBy, TargetResources
+
+// Save as AZFWNetworkRule.csv
+AZFWNetworkRule
+| where TimeGenerated >= datetime(2025-12-01T00:00:00Z) and TimeGenerated < datetime(2026-01-01T00:00:00Z)
+| project TimeGenerated = format_datetime(TimeGenerated, 'yyyy-MM-ddTHH:mm:ss.fffffffZ'), TenantId, Type,
+          _ResourceId, SourceIp, SourcePort, DestinationIp, DestinationPort, Protocol, Action,
+          Policy, RuleCollectionGroup, RuleCollection, Rule
+
+// Save as SecurityIncident.csv. Keep state history; WACC chooses the latest record per incident.
+SecurityIncident
+| where TimeGenerated >= datetime(2025-12-01T00:00:00Z) and TimeGenerated < datetime(2026-01-01T00:00:00Z)
+| project TimeGenerated = format_datetime(TimeGenerated, 'yyyy-MM-ddTHH:mm:ss.fffffffZ'), TenantId, Type,
+          IncidentName, IncidentNumber, Title, Status, Severity,
+          CreatedTime = format_datetime(CreatedTime, 'yyyy-MM-ddTHH:mm:ss.fffffffZ'),
+          FirstModifiedTime = format_datetime(FirstModifiedTime, 'yyyy-MM-ddTHH:mm:ss.fffffffZ'),
+          LastModifiedTime = format_datetime(LastModifiedTime, 'yyyy-MM-ddTHH:mm:ss.fffffffZ'),
+          Owner, ModifiedBy, ProviderName, Classification, ClassificationComment
+
+// Save as AddonAzureBackupJobs.csv. Query in Log Analytics if this table is not in your lake.
+AddonAzureBackupJobs
+| where TimeGenerated >= datetime(2025-12-01T00:00:00Z) and TimeGenerated < datetime(2026-01-01T00:00:00Z)
+| project TimeGenerated = format_datetime(TimeGenerated, 'yyyy-MM-ddTHH:mm:ss.fffffffZ'), Type,
+          JobUniqueId, BackupItemUniqueId, BackupItemFriendlyName, JobOperation, JobStatus,
+          JobStartDateTime = format_datetime(JobStartDateTime, 'yyyy-MM-ddTHH:mm:ss.fffffffZ'),
+          JobDurationInSecs, JobFailureCode, VaultName

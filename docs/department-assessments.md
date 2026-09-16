@@ -68,7 +68,7 @@ department imports and publisher source workbooks remain excluded.
 ## Validate annual assessments with logs
 
 Annual assessments can now be checked against imported Sentinel and Defender event
-exports. Open **Validate against security logs** to compare six telemetry checks,
+exports. Open **Validate against security logs** to compare fourteen telemetry checks,
 inspect event references and save reviewer decisions. The annual page keeps the
 reported maturity trend and shows evidence findings separately for each year.
 See [the collection and validation guide](telemetry-validation.md) for the fictional

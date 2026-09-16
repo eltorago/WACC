@@ -1,9 +1,15 @@
 # Validate an annual assessment with security logs
 
-WACC compares six checks with the selected department/year workbook. Each finding
+WACC compares fourteen checks with the selected department/year workbook. Each finding
 links to the control workspace, WA policy requirement, Microsoft reference and
 underlying events. A reviewer can accept evidence, confirm a gap, explain an
 exception or request more evidence. The submitted workbook ratings stay intact.
+
+Start with the offline examples. All storage names, tenant IDs and events are
+fictional; an Azure account or connection is not required. The examples demonstrate
+how plausible Sentinel and Defender evidence can support or challenge a rating
+against the 2024 WA policy. Storage is an optional collection method, not the basis
+for selecting the checks.
 
 ## Try the fictional example
 
@@ -18,16 +24,21 @@ exception or request more evidence. The submitted workbook ratings stay intact.
 6. Record a review decision and its evidence reference. Download the JSON report
    to retain the findings, hashes and review history.
 7. Select 2023 and 2024 and validate their example logs. Return to **Assessments**
-   to see the six-check evidence bars alongside the reported maturity trend.
+   to see the fourteen-check evidence bars alongside the reported maturity trend.
+8. Open **WA policy coverage** to see all 86 criteria, their contributing log checks
+   and the documents needed for assessment. Twelve criteria have implemented log
+   comparisons; other criteria require document review or separate tests.
 
 The sample covers December of each year, three devices, three users and one app.
-It deliberately leaves two possible overstatements in 2025 despite a higher
+It adds a firewall, an incident and a protected backup item to the endpoint and
+identity sample. It deliberately leaves two possible overstatements in 2025 despite a higher
 self-reported maturity rating. Every identity, address, hash and event is fictional.
 No executable or attack payload is included.
 
 Native event files are in `examples/telemetry/2023`, `2024` and `2025`. They use
-Microsoft Sentinel table columns: five Defender for Endpoint tables and Entra
-`SigninLogs`. The 2025 sign-in file demonstrates CSV with quoted JSON fields;
+Microsoft Sentinel table columns: seven Defender endpoint/inventory tables, Entra
+`SigninLogs` and `AuditLogs`, `AZFWNetworkRule`, `SecurityIncident` and
+`AddonAzureBackupJobs`. The 2025 sign-in file demonstrates CSV with quoted JSON fields;
 the other files demonstrate newline-delimited JSON. Browser example downloads
 wrap these files in a WACC transport bundle. The wrapper and `manifest.json`
 are WACC metadata, not Microsoft log formats.
@@ -43,8 +54,8 @@ then replace its fictional values. Do not put real exports in the examples folde
 | `department`, `year` | Match an imported annual workbook. |
 | `source_kind` | `adls-gen2`, `sentinel-lake-csv` or `sentinel-export`. |
 | `start`, `end` | UTC evidence window within that year. Start is included; end is excluded. |
-| `workspace_id` | Log Analytics workspace UUID. This is `TenantId` in the supported Sentinel tables. |
-| `entra_tenant_id` | Entra directory UUID. This is `AADTenantId` in `SigninLogs`. |
+| `workspace_id` | Log Analytics workspace UUID. Match the row's `TenantId`, or the file descriptor for the two tables described below. |
+| `entra_tenant_id` | Entra directory UUID. This is `AADTenantId` in `SigninLogs` and `AuditLogs`. |
 | `scope_reference` | Inventory, MFA policy, approved exceptions and export/query references used to choose the sample. |
 | `device_ids` | MDE device IDs expected in this assessment sample. Reconcile them with the asset inventory. |
 | `mfa_user_ids`, `mfa_app_ids` | Entra object IDs of users and app IDs where MFA is required. All combinations are in scope. |
@@ -52,7 +63,17 @@ then replace its fictional values. Do not put real exports in the examples folde
 | `sensor_freshness_days` | Maximum age of endpoint status at the window end, between 1 and 30; default 7. |
 | `expected_rows` | Source query row counts per table for exactly this window and workspace, before WACC scope filtering and deduplication. |
 | `expected_block_tests` | Approved negative application-control tests: device ID, SHA-1, start/end and approval reference. Use `[]` if no test was performed. |
+| `identity_user_ids` | Users whose account and role changes are included in the identity review. |
+| `firewall_resource_ids`, `incident_names`, `backup_item_ids` | Explicit scope for the corresponding cloud/resource tables. |
+| `patch_deadlines` | Device, CVE and software name, due date and source reference from an approved patch schedule. No deadline is inferred from severity alone. |
+| `restore_targets` | Backup item, maximum restore-job duration in hours and the recovery-plan reference. This measures the job, not end-to-end service recovery. |
 | `files` | Unique local filename, table and format (`jsonl` or `csv`) for every export. Optional `sha256` checks a known source-file hash. |
+
+For `AuditLogs` and `AddonAzureBackupJobs`, record `workspace_id` in each file
+descriptor: the referenced schemas do not contain the `TenantId` workspace column.
+Do not insert invented Microsoft columns into those rows. This descriptor is an
+operator's statement of where the export came from; it is not independent proof.
+`AuditLogs.AADTenantId` is checked against the declared Entra tenant.
 
 Use independently checked inventories and source counts. A hash detects changed
 bytes; it does not prove an export is genuine or that its scope is complete.
@@ -65,7 +86,7 @@ and window for larger tenants. Separate runs remain separate evidence sets;
 WACC does not combine them into a claim of full-year coverage. Missing events
 are an evidence gap, not proof that a protection is working.
 
-## Recommended: read exports from Azure Data Lake Storage Gen2
+## Optional: read real exports from Azure Data Lake Storage Gen2
 
 Start here for logs held in an Azure storage account and container/filesystem.
 Before configuring the import, identify the storage account, container/filesystem,
@@ -133,7 +154,7 @@ and hashes, and does not persist or print the token. This connector supports Azu
 public cloud and a user/service-principal CLI login in the same directory as the
 manifest. It does not discover containers or log in on the user's behalf.
 
-## Path B: export from Sentinel's managed data lake
+## Optional: export from Sentinel or Log Analytics
 
 Sentinel's managed data lake in the Defender portal is a different service from a
 customer ADLS Gen2 account. Use its **KQL query editor → Export CSV** workflow;
@@ -145,6 +166,8 @@ Microsoft documents [interactive and asynchronous CSV exports](https://learn.mic
    date in UTC for import. Check the schema browser before running; these queries
    target the Sentinel table schemas, not a raw Defender advanced-hunting response
    using only `Timestamp`.
+   Use Log Analytics for tables unavailable in the managed lake, including
+   `AddonAzureBackupJobs`. Table availability depends on the enabled connectors.
 3. Run the separate count query for each table, with the same window and workspace.
    Put the results in `expected_rows`. Check the export completed without row limits
    or truncation. Do not use `take` or a filtered security-event subset for coverage.
@@ -171,6 +194,14 @@ REST query response envelopes, compressed files and Parquet are not accepted.
 | ASR | Office child-process and LSASS credential-theft rule events distinguish block from audit. | UH-02 / 3.1.1a |
 | Central logging | Process, network and logon records demonstrate delivery for observed devices. Review connector and retention evidence for missing records. | SM-01, SM-03 / 4.2a |
 | Antivirus follow-up | Detection plus recorded remediation supports follow-up. Missing or incomplete remediation requires the alert/case record. | SM-03, IR-02 / 4.1a |
+| Software inventory | Recent software/version records are reconciled with the declared device sample and asset register. | AM-01 / 2.1a, 2.1b |
+| Vulnerability remediation | A recent vulnerability with an available update is compared with its specific documented patch deadline. Missing observations do not prove compliance. | VM-01 / 3.1.1a |
+| Account lifecycle | Successful creation, change and removal events support observed operation; compare their timing with personnel records. | IA-01 / 3.6a |
+| Privileged access changes | Role assignment/removal events identify requests and access reviews to inspect. The event itself cannot establish business approval. | IA-02, PA-01, PA-04 / 3.6b |
+| Network boundaries | Deny events support observed firewall enforcement. Allowed traffic requires comparison with the approved design rather than an automatic failure. | NA-01, NA-02 / 3.6f |
+| Incident review and triage | Case creation and first modification times identify cases to review. Automated changes and status fields cannot establish analyst triage or daily review. | SM-03, IN-01, IR-02 / 4.1a, 4.1b, 5.1b |
+| Backup jobs | Latest status per job distinguishes completed, failed and outstanding work; reconcile it with the protected-item list and backup schedule. | BR-01, BR-02 / 3.1.1a |
+| Restore duration | Completed restore-job duration is compared with an explicit recovery-plan job target. Review application availability and data integrity separately. | BR-03 / 6.1 |
 
 These are contributing tests for broad WA policy requirements. They do not cover
 the other Essential Eight strategies, administrative approvals or every requirement
@@ -220,7 +251,7 @@ documented columns and operators and must be exercised against the target worksp
 
 ## Schema and rule references
 
-Reviewed 16 September 2026:
+Reviewed 16–17 September 2026:
 
 - [DeviceEvents](https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/deviceevents),
   [DeviceInfo](https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/deviceinfo),
@@ -228,6 +259,14 @@ Reviewed 16 September 2026:
   [DeviceNetworkEvents](https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/devicenetworkevents),
   [DeviceLogonEvents](https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/devicelogonevents),
   [SigninLogs](https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs).
+- [Software inventory](https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/devicetvmsoftwareinventory),
+  [software vulnerabilities](https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/devicetvmsoftwarevulnerabilities),
+  [Entra audit events](https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs),
+  [Entra activity names](https://learn.microsoft.com/en-us/entra/identity/monitoring-health/reference-audit-activities),
+  [firewall network rules](https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/azfwnetworkrule),
+  [incident records](https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/securityincident),
+  [backup jobs](https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/addonazurebackupjobs) and
+  [Microsoft's job-status queries](https://learn.microsoft.com/en-us/azure/azure-monitor/reference/queries/addonazurebackupjobs).
 - [Application-control event meanings](https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/operations/querying-application-control-events-centrally-using-advanced-hunting).
 - [MFA sign-in interpretation and delayed authentication details](https://learn.microsoft.com/en-us/entra/identity/authentication/howto-mfa-reporting).
 - [ASR rule reference](https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference).

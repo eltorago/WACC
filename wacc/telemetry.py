@@ -17,13 +17,16 @@ from collections import Counter
 from datetime import datetime, timedelta, timezone
 
 from .department_assessments import AssessmentError, ROOT
+from .telemetry_policy import (TABLE_SCHEMAS, WORKSPACE_IN_DESCRIPTOR, validate_context,
+                               row_scope_and_identity, extend_findings)
 
 SCHEMA = 'wacc-sentinel-evidence-v1'
-RULE_VERSION = '2026-09-16.1'
+RULE_VERSION = '2026-09-17.1'
 MAX_BYTES = 20 * 1024 * 1024
 MAX_ROWS = 50000
-TABLES = ('DeviceEvents', 'DeviceInfo', 'DeviceProcessEvents', 'DeviceNetworkEvents',
-          'DeviceLogonEvents', 'SigninLogs')
+CORE_TABLES = ('DeviceEvents', 'DeviceInfo', 'DeviceProcessEvents', 'DeviceNetworkEvents',
+               'DeviceLogonEvents', 'SigninLogs')
+TABLES = CORE_TABLES + tuple(TABLE_SCHEMAS)
 SOURCES = {
     'application': 'https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/operations/querying-application-control-events-centrally-using-advanced-hunting',
     'mfa': 'https://learn.microsoft.com/en-us/entra/identity/authentication/howto-mfa-reporting',
@@ -119,6 +122,8 @@ def validate_manifest(m, assessment):
             raise AssessmentError('Use a supported Sentinel table with jsonl or csv format.')
         if f.get('sha256') and not re.fullmatch('[0-9a-f]{64}', str(f['sha256'])):
             raise AssessmentError('File SHA-256 values must contain 64 lower-case hex characters.')
+        if f['table'] in WORKSPACE_IN_DESCRIPTOR and str(f.get('workspace_id','')).lower()!=m['workspace_id'].lower():
+            raise AssessmentError(f'{f["table"]}: record the export workspace_id in its file descriptor.')
     if len(names) != len(set(names)) or 'manifest.json' in names:
         raise AssessmentError('Each event file needs a unique name other than manifest.json.')
     counts = m.get('expected_rows', {})
@@ -133,6 +138,7 @@ def validate_manifest(m, assessment):
         if not start <= stamp(test.get('start')) < stamp(test.get('end')) <= end:
             raise AssessmentError('Block test times must fall within the evidence window.')
         _text(test.get('reference'), 'Block test approval reference')
+    validate_context(m)
     return m
 
 
@@ -204,20 +210,21 @@ def _parse(files, assessment):
             if not isinstance(row, dict) or not row.get('TimeGenerated'):
                 raise AssessmentError(f'{name}, record {line}: expected a Sentinel row with TimeGenerated.')
             when = stamp(row['TimeGenerated'])
-            if str(row.get('TenantId', '')).lower() != manifest['workspace_id'].lower():
+            workspace = descriptor.get('workspace_id') if table in WORKSPACE_IN_DESCRIPTOR else row.get('TenantId')
+            if str(workspace).lower() != manifest['workspace_id'].lower():
                 raise AssessmentError(f'{name}, record {line}: TenantId must match the Log Analytics workspace ID.')
             if row.get('Type') and row['Type'] != table:
                 raise AssessmentError(f'{name}, record {line}: Type does not match the manifest table.')
-            required = ('Id', 'UserId', 'AppId', 'ResultType', 'AADTenantId') if table == 'SigninLogs' else ('DeviceId', 'ReportId')
+            required = TABLE_SCHEMAS.get(table, ('Id', 'UserId', 'AppId', 'ResultType', 'AADTenantId') if table == 'SigninLogs' else ('DeviceId', 'ReportId'))
             if any(row.get(k) is None or str(row.get(k)) == '' for k in required):
                 raise AssessmentError(f'{name}, record {line}: missing required columns: {", ".join(required)}.')
             if any(not isinstance(row[k], (str, int)) or isinstance(row[k], bool) for k in required):
                 raise AssessmentError(f'{name}, record {line}: identifiers and result codes must be strings or numbers.')
-            if table != 'SigninLogs' and not re.fullmatch(r'\d+', str(row['ReportId'])):
+            if table in CORE_TABLES and table != 'SigninLogs' and not re.fullmatch(r'\d+', str(row['ReportId'])):
                 raise AssessmentError(f'{name}, record {line}: ReportId must be a non-negative integer.')
-            if table == 'SigninLogs' and str(row['AADTenantId']).lower() != manifest['entra_tenant_id'].lower():
+            if table in ('SigninLogs','AuditLogs') and str(row['AADTenantId']).lower() != manifest['entra_tenant_id'].lower():
                 raise AssessmentError(f'{name}, record {line}: AADTenantId does not match the Entra tenant.')
-            if table not in ('DeviceInfo', 'SigninLogs') and not isinstance(row.get('ActionType'), str):
+            if table in CORE_TABLES and table not in ('DeviceInfo', 'SigninLogs') and not isinstance(row.get('ActionType'), str):
                 raise AssessmentError(f'{name}, record {line}: missing ActionType.')
             if not start <= when < end:
                 quality['outside_window'] += 1
@@ -229,11 +236,14 @@ def _parse(files, assessment):
                 quality['duplicates'] += 1
                 continue
             seen.add(fingerprint)
-            scoped = (row['UserId'] in manifest['mfa_user_ids'] and row['AppId'] in manifest['mfa_app_ids']) if table == 'SigninLogs' else row['DeviceId'] in manifest['device_ids']
+            if table in TABLE_SCHEMAS:
+                scoped, identity = row_scope_and_identity(table,row,manifest,when)
+            else:
+                scoped = (row['UserId'] in manifest['mfa_user_ids'] and row['AppId'] in manifest['mfa_app_ids']) if table == 'SigninLogs' else row['DeviceId'] in manifest['device_ids']
+                identity = (table, str(row['Id'])) if table == 'SigninLogs' else (table, row['DeviceId'], when.isoformat(), str(row['ReportId']))
             if not scoped:
                 quality['outside_scope'] += 1
                 continue
-            identity = (table, str(row['Id'])) if table == 'SigninLogs' else (table, row['DeviceId'], when.isoformat(), str(row['ReportId']))
             identities.setdefault(identity, []).append(len(events))
             events.append(dict(table=table, row=row, time=when.isoformat(), file=name, line=line, sha256=fingerprint))
     conflicts = [indexes for indexes in identities.values() if len(indexes)>1]
@@ -243,7 +253,7 @@ def _parse(files, assessment):
     quality['table_rows'] = {t: counts[t] for t in TABLES}
     quality['scope_rows'] = dict(Counter(e['table'] for e in events))
     quality['count_mismatches'] = [t for t, n in manifest.get('expected_rows', {}).items() if counts[t] != n]
-    quality['unreconciled_tables'] = [t for t in TABLES if t not in manifest.get('expected_rows', {})]
+    quality['unreconciled_tables'] = sorted({f['table'] for f in manifest['files']} - set(manifest.get('expected_rows', {})))
     quality['first_event'] = min((e['time'] for e in events), default=None)
     quality['last_event'] = max((e['time'] for e in events), default=None)
     return manifest, events, quality, summaries, files
@@ -360,6 +370,7 @@ def evaluate(assessment, manifest, events, quality):
         f'Antivirus detections: {len(av)}. Events without recorded remediation: {len(pending)}.',
         'Open the related Defender alert and device timeline. Match remediation and case closure records; an initial detection can precede remediation.',
         pending + [e for e in av if e not in pending], 'antivirus')
+    extend_findings(manifest,events,add)
     # Store references once per finding; payloads are small but may contain sensitive evidence.
     for finding in findings:
         finding['evidence'] = list({(e['file'], e['line']): e for e in finding['evidence']}.values())

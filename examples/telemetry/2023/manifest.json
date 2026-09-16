@@ -22,6 +22,36 @@
     "77777777-7777-4777-8777-777777777777"
   ],
   "authentication_details_final": true,
+  "identity_user_ids": [
+    "66666666-6666-4666-8666-000000000001",
+    "66666666-6666-4666-8666-000000000002",
+    "66666666-6666-4666-8666-000000000003"
+  ],
+  "firewall_resource_ids": [
+    "/subscriptions/99999999-9999-4999-8999-999999999999/resourceGroups/silly-walks/providers/Microsoft.Network/azureFirewalls/demo-firewall"
+  ],
+  "incident_names": [
+    "bbbbbbbb-bbbb-4bbb-8bbb-000000002023"
+  ],
+  "backup_item_ids": [
+    "fictional-vault;silly-walks;records-server"
+  ],
+  "patch_deadlines": [
+    {
+      "device_id": "3333333333333333333333333333333333333333",
+      "cve_id": "CVE-2099-99999",
+      "software_name": "demo_records_client",
+      "due": "2023-12-20T00:00:00Z",
+      "reference": "Fictional patch schedule SW-PATCH-2023"
+    }
+  ],
+  "restore_targets": [
+    {
+      "backup_item_id": "fictional-vault;silly-walks;records-server",
+      "max_duration_hours": 4,
+      "reference": "Fictional recovery plan SW-DR-2023: restore job target four hours"
+    }
+  ],
   "sensor_freshness_days": 7,
   "expected_rows": {
     "DeviceEvents": 5,
@@ -29,7 +59,13 @@
     "DeviceProcessEvents": 4,
     "DeviceNetworkEvents": 3,
     "DeviceLogonEvents": 3,
-    "SigninLogs": 4
+    "SigninLogs": 4,
+    "DeviceTvmSoftwareInventory": 1,
+    "DeviceTvmSoftwareVulnerabilities": 1,
+    "AuditLogs": 3,
+    "AZFWNetworkRule": 1,
+    "SecurityIncident": 1,
+    "AddonAzureBackupJobs": 2
   },
   "expected_block_tests": [
     {
@@ -76,6 +112,44 @@
       "table": "SigninLogs",
       "format": "jsonl",
       "sha256": "3f3dece8b0d7577348b2fe3f5343162c3e4fa7d62a1a48e3fa9cdc94ea065115"
+    },
+    {
+      "name": "DeviceTvmSoftwareInventory.jsonl",
+      "table": "DeviceTvmSoftwareInventory",
+      "format": "jsonl",
+      "sha256": "eee0f3cead3b1c8c91a50ea2631d2fb6350a0cff6e06739b8627cddeab5bfff4"
+    },
+    {
+      "name": "DeviceTvmSoftwareVulnerabilities.jsonl",
+      "table": "DeviceTvmSoftwareVulnerabilities",
+      "format": "jsonl",
+      "sha256": "c822ba76e4979c5ee37f7983c195da691905b868059c5b5824d7b6de2e9f41a9"
+    },
+    {
+      "name": "AuditLogs.jsonl",
+      "table": "AuditLogs",
+      "format": "jsonl",
+      "sha256": "8ce1baca7ef6fb8baf5ef61135886ce5738ab76da8822d0cd688862fe4cf78ef",
+      "workspace_id": "11111111-1111-4111-8111-111111111111"
+    },
+    {
+      "name": "AZFWNetworkRule.jsonl",
+      "table": "AZFWNetworkRule",
+      "format": "jsonl",
+      "sha256": "bdd2621166f2b531874c7d4a94e44404c477148ea7c9db48e8417b58366dba98"
+    },
+    {
+      "name": "SecurityIncident.jsonl",
+      "table": "SecurityIncident",
+      "format": "jsonl",
+      "sha256": "d03fbf7bf794b98e05175669bf12510b0490bb2e1be9cf1a36856c4baee6f5dc"
+    },
+    {
+      "name": "AddonAzureBackupJobs.jsonl",
+      "table": "AddonAzureBackupJobs",
+      "format": "jsonl",
+      "sha256": "0731c0d7f1f94f677c09efe7da46b3ce5deaca381d78f4d1525cee9f1a377ff2",
+      "workspace_id": "11111111-1111-4111-8111-111111111111"
     }
   ]
 }

@@ -66,7 +66,7 @@ class TelemetryTests(unittest.TestCase):
             self.assertEqual(q['unreconciled_tables'], [])
             self.assertEqual(q['outside_scope'], 0)
             findings = t.evaluate(assessment(year), m, events, q)
-            self.assertEqual(len(findings), 6)
+            self.assertEqual(len(findings), 14)
             self.assertEqual(findings[0]['status'], 'Potential overstatement' if year==2025 else 'Gap observed')
             self.assertTrue(all(f['sources'][0].startswith('https://learn.microsoft.com/') for f in findings))
 
@@ -74,7 +74,7 @@ class TelemetryTests(unittest.TestCase):
         m, e, q, _, _ = t.parse(t.example_files(), assessment())
         f = {f['id']: f for f in t.evaluate(assessment(),m,e,q)}
         self.assertEqual({k for k,v in f.items() if v['status']=='Potential overstatement'}, {'TV-AC','TV-MFA'})
-        self.assertEqual(sum(v['status']=='Supports observed operation' for v in f.values()),4)
+        self.assertEqual(sum(v['status']=='Supports observed operation' for v in f.values()),9)
         self.assertIn('MFA or a strong/reused claim: 2', f['TV-MFA']['summary'])
         self.assertIn('Failed/non-interactive sign-ins excluded: 1', f['TV-MFA']['summary'])
 
@@ -223,7 +223,90 @@ class TelemetryTests(unittest.TestCase):
     def test_annual_view_separates_ratings_and_evidence(self):
         self.validation.import_files(t.example_files(),assessment()['key'])
         page=assessment_panel(self.store,self.store.all(),assessment())
-        self.assertIn('2 gaps',page);self.assertIn('4 supported',page);self.assertIn('2023',page)
+        self.assertIn('2 gaps',page);self.assertIn('9 supported',page);self.assertIn('2023',page)
+
+    def test_every_policy_requirement_has_an_evidence_route(self):
+        from wacc.telemetry_policy import policy_coverage
+        report=self.validation.import_files(t.example_files(),assessment()['key'])
+        coverage=policy_coverage(report)
+        self.assertEqual({r['id'] for r in coverage},set(a.REQUIREMENTS))
+        self.assertEqual(len([r for r in coverage if r['checks']]),12)
+        self.assertIn('risk register',next(r for r in coverage if r['id']=='2.2a')['evidence'])
+        self.assertFalse(next(r for r in coverage if r['id']=='3.2a')['checks'])
+        self.assertIn('WA policy coverage',render(self.store,'token',{'run':[report['id']]}))
+
+    def test_extra_native_schemas_do_not_require_invented_endpoint_columns(self):
+        m,events,q,_,_=t.parse(t.example_files(),assessment())
+        self.assertEqual(q['outside_scope'],0)
+        for e in events:
+            if e['table'] in ('AuditLogs','SecurityIncident','AddonAzureBackupJobs','AZFWNetworkRule'):
+                self.assertNotIn('DeviceId',e['row']);self.assertNotIn('ReportId',e['row'])
+            if e['table'] in ('AuditLogs','AddonAzureBackupJobs'):self.assertNotIn('TenantId',e['row'])
+
+    def test_descriptor_workspace_and_new_scope_are_checked(self):
+        def wrong(m):
+            next(f for f in m['files'] if f['table']=='AuditLogs')['workspace_id']='wrong'
+        with self.assertRaises(a.AssessmentError):t.parse(changed(manifest_change=wrong),assessment())
+        files=changed(manifest_change=lambda m:m.update(identity_user_ids=[],firewall_resource_ids=[],incident_names=[],backup_item_ids=[],restore_targets=[]))
+        _,events,q,_,_=t.parse(files,assessment())
+        self.assertEqual(q['outside_scope'],7)
+        self.assertFalse(any(e['table'] in ('AuditLogs','SecurityIncident','AddonAzureBackupJobs','AZFWNetworkRule') for e in events))
+
+    def test_vulnerability_requires_a_specific_documented_deadline(self):
+        self.assertEqual(finding(t.example_files(),'TV-PATCH')['status'],'Needs review')
+        def overdue(m):m['patch_deadlines'][0]['due']='2025-12-20T00:00:00Z'
+        self.assertEqual(finding(changed(manifest_change=overdue),'TV-PATCH')['status'],'Potential overstatement')
+        self.assertEqual(finding(changed(manifest_change=lambda m:m.update(patch_deadlines=[])),'TV-PATCH')['status'],'Needs review')
+        def no_update(rows):rows[0]['CveTags']=['NoSecurityUpdate'];return rows
+        self.assertEqual(finding(changed('DeviceTvmSoftwareVulnerabilities',no_update,overdue),'TV-PATCH')['status'],'Needs review')
+        self.assertEqual(finding(changed('DeviceTvmSoftwareVulnerabilities',lambda rows:[]),'TV-PATCH')['status'],'No evidence')
+
+    def test_restore_uses_plan_target_and_latest_job_status(self):
+        self.assertEqual(finding(t.example_files(),'TV-RESTORE')['status'],'Supports observed operation')
+        self.assertEqual(finding(changed(manifest_change=lambda m:m.update(restore_targets=[])),'TV-RESTORE')['status'],'Needs review')
+        def slow(rows):
+            rows[1]['JobDurationInSecs']=18000;return rows
+        self.assertEqual(finding(changed('AddonAzureBackupJobs',slow),'TV-RESTORE')['status'],'Potential overstatement')
+        for invalid in (True, None, -1, 'unknown'):
+            with self.subTest(duration=invalid):
+                def bad_duration(rows):rows[1]['JobDurationInSecs']=invalid;return rows
+                self.assertEqual(finding(changed('AddonAzureBackupJobs',bad_duration),'TV-RESTORE')['status'],'Needs review')
+        def revised(rows):
+            rows.append(dict(rows[1],JobStatus='InProgress',TimeGenerated='2025-12-27T07:00:00Z'));return rows
+        self.assertEqual(finding(changed('AddonAzureBackupJobs',revised),'TV-RESTORE')['status'],'Supports observed operation')
+        def latest_fail(rows):
+            rows.append(dict(rows[1],JobStatus='Failed',TimeGenerated='2025-12-27T19:00:00Z'));return rows
+        self.assertEqual(finding(changed('AddonAzureBackupJobs',latest_fail),'TV-RESTORE')['status'],'Needs review')
+
+    def test_incident_status_does_not_prove_human_triage(self):
+        def quick(rows):
+            rows[0]['FirstModifiedTime']='2025-12-23T08:01:00Z';rows[0]['ModifiedBy']='Automation';return rows
+        self.assertEqual(finding(changed('SecurityIncident',quick),'TV-TRIAGE')['status'],'Needs review')
+        def delayed(rows):rows[0]['FirstModifiedTime']='2025-12-23T20:00:00Z';return rows
+        result=finding(changed('SecurityIncident',delayed),'TV-TRIAGE')
+        self.assertEqual(result['status'],'Needs review');self.assertIn('after four hours: 1',result['summary'])
+
+    def test_failed_identity_changes_and_role_assignments_need_review(self):
+        def failed(rows):rows[0]['Result']='failure';return rows
+        self.assertEqual(finding(changed('AuditLogs',failed),'TV-IAM')['status'],'Needs review')
+        def invalid(rows):rows[0]['Result']=123;return rows
+        self.assertEqual(finding(changed('AuditLogs',invalid),'TV-IAM')['status'],'Needs review')
+        self.assertEqual(finding(t.example_files(),'TV-PRIV')['status'],'Needs review')
+
+    def test_firewall_allow_is_not_automatically_a_policy_breach(self):
+        def allowed(rows):rows[0]['Action']='Allow';return rows
+        self.assertEqual(finding(changed('AZFWNetworkRule',allowed),'TV-NET')['status'],'Needs review')
+        def invalid(rows):rows[0]['Action']=123;return rows
+        self.assertEqual(finding(changed('AZFWNetworkRule',invalid),'TV-NET')['status'],'Needs review')
+
+    def test_old_six_table_exports_still_import(self):
+        original=dict(t.example_files());m=json.loads(original['manifest.json'])
+        m['files']=[f for f in m['files'] if f['table'] in t.CORE_TABLES]
+        m['expected_rows']={k:v for k,v in m['expected_rows'].items() if k in t.CORE_TABLES}
+        files=[('manifest.json',json.dumps(m).encode())]+[(f['name'],original[f['name']]) for f in m['files']]
+        report=self.validation.import_files(files,assessment()['key'])
+        self.assertEqual(report['quality']['unreconciled_tables'],[])
+        self.assertEqual(next(f for f in report['findings'] if f['id']=='TV-RESTORE')['status'],'No evidence')
 
     def test_adls_only_accepts_public_azure_paths(self):
         good=azure.storage_url('waccdemo123','am-deviceevents','WorkspaceResourceId=/subscriptions/demo/y=2025/PT05M.json')

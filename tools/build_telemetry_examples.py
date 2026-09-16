@@ -12,10 +12,14 @@ DEVICES = [str(n)*40 for n in (3, 4, 5)]
 USERS = [f'66666666-6666-4666-8666-{n:012}' for n in (1, 2, 3)]
 APP = '77777777-7777-4777-8777-777777777777'
 TEST_HASH = 'a'*40
+FIREWALL = '/subscriptions/99999999-9999-4999-8999-999999999999/resourceGroups/silly-walks/providers/Microsoft.Network/azureFirewalls/demo-firewall'
+BACKUP_ITEM = 'fictional-vault;silly-walks;records-server'
 
 
 def build(year):
     tables = {t: [] for t in ('DeviceEvents', 'DeviceInfo', 'DeviceProcessEvents', 'DeviceNetworkEvents', 'DeviceLogonEvents', 'SigninLogs')}
+    for table in ('DeviceTvmSoftwareInventory','DeviceTvmSoftwareVulnerabilities','AuditLogs','AZFWNetworkRule','SecurityIncident','AddonAzureBackupJobs'):
+        tables[table] = []
     def device(table, n, action=None, when='29T12:00:00Z', **fields):
         row = dict(TimeGenerated=f'{year}-12-{when}', TenantId=WORKSPACE, Type=table,
                    DeviceId=DEVICES[n], DeviceName=f'sw-laptop-{n+1:02}.example.invalid',
@@ -66,12 +70,48 @@ def build(year):
     # Explicit regression example: single-factor label with a previously satisfied MFA claim.
     signin(2, 'Previously satisfied', 'singleFactorAuthentication', 'MFA requirement satisfied by claim in the token')
     signin(1, 'Mobile app notification', 'multiFactorAuthentication', 'User declined the authentication', 'failure', '500121', 1)
+    for n in range(1 if year==2023 else 3):
+        tables['DeviceTvmSoftwareInventory'].append(dict(TimeGenerated=f'{year}-12-29T12:00:00Z',TenantId=WORKSPACE,
+            Type='DeviceTvmSoftwareInventory',DeviceId=DEVICES[n],DeviceName=f'sw-laptop-{n+1:02}.example.invalid',
+            OSPlatform='Windows11',SoftwareVendor='fictional_vendor',SoftwareName='demo_records_client',SoftwareVersion='2.0'))
+    # Placeholder CVE and product are fictional. The columns and values' types are native.
+    tables['DeviceTvmSoftwareVulnerabilities'].append(dict(TimeGenerated=f'{year}-12-29T12:00:00Z',TenantId=WORKSPACE,
+        Type='DeviceTvmSoftwareVulnerabilities',DeviceId=DEVICES[0],DeviceName='sw-laptop-01.example.invalid',
+        SoftwareVendor='fictional_vendor',SoftwareName='demo_records_client',SoftwareVersion='2.0',CveId='CVE-2099-99999',
+        VulnerabilitySeverityLevel='High',CveTags=[],RecommendedSecurityUpdate='Fictional security update',RecommendedSecurityUpdateId='DEMO-UPDATE-01'))
+    for n,activity in enumerate(('Add user','Delete user','Add member to role')):
+        tables['AuditLogs'].append(dict(TimeGenerated=f'{year}-12-18T09:{n:02}:00Z',AADTenantId=TENANT,
+            Type='AuditLogs',ActivityDateTime=f'{year}-12-18T09:{n:02}:00Z',Id=f'aaaaaaaa-aaaa-4aaa-8aaa-{year*10+n:012}',
+            ActivityDisplayName=activity,OperationName=activity,Category='RoleManagement' if n==2 else 'UserManagement',
+            Result='failure' if year==2023 and n==1 else 'success',
+            InitiatedBy={'user':{'id':USERS[0],'userPrincipalName':'demo.admin@sillywalks.example.invalid'}},
+            TargetResources=[{'id':USERS[n],'type':'User','userPrincipalName':f'demo.user{n+1}@sillywalks.example.invalid',
+                              'modifiedProperties':[{'displayName':'Role.DisplayName','oldValue':'null','newValue':'"Global Reader"'}] if n==2 else []}]))
+    tables['AZFWNetworkRule'].append(dict(TimeGenerated=f'{year}-12-20T10:00:00Z',TenantId=WORKSPACE,
+        Type='AZFWNetworkRule',_ResourceId=FIREWALL,Action='Allow' if year==2023 else 'Deny',Protocol='TCP',
+        SourceIp='192.0.2.10',SourcePort=51000,DestinationIp='198.51.100.40',DestinationPort=3389,
+        Policy='demo-network-policy',RuleCollectionGroup='demo-boundary',RuleCollection='demo-segmentation',Rule='demo-admin-boundary'))
+    incident=f'bbbbbbbb-bbbb-4bbb-8bbb-{year:012}'
+    tables['SecurityIncident'].append(dict(TimeGenerated=f'{year}-12-23T18:00:00Z',TenantId=WORKSPACE,Type='SecurityIncident',
+        IncidentName=incident,IncidentNumber=year,Title='Fictional endpoint alert investigation',Status='Active',Severity='Medium',
+        CreatedTime=f'{year}-12-23T08:00:00Z',FirstModifiedTime=f'{year}-12-23T{14 if year==2023 else 9:02}:00:00Z',
+        LastModifiedTime=f'{year}-12-23T18:00:00Z',Owner={'assignedTo':'Demo analyst'},ProviderName='Microsoft Sentinel'))
+    for n,operation in enumerate(('Backup','Restore')):
+        tables['AddonAzureBackupJobs'].append(dict(TimeGenerated=f'{year}-12-27T18:00:00Z',Type='AddonAzureBackupJobs',
+            JobUniqueId=f'cccccccc-cccc-4ccc-8ccc-{year*10+n:012}',BackupItemUniqueId=BACKUP_ITEM,
+            BackupItemFriendlyName='Silly Walks records server',JobOperation=operation,JobStartDateTime=f'{year}-12-27T06:00:00Z',
+            JobStatus='Failed' if year==2023 and n==0 else 'Completed',JobDurationInSecs=(21600 if year==2023 else 7200) if n else 1800,
+            VaultName='fictional-vault',JobFailureCode='DemoFailure' if year==2023 and n==0 else ''))
     folder = ROOT/'examples/telemetry'/str(year); folder.mkdir(parents=True, exist_ok=True)
     manifest = dict(schema='wacc-sentinel-evidence-v1', department='Department of Silly Walks', year=year,
                     source_kind='fictional-example', start=f'{year}-12-01T00:00:00Z', end=f'{year+1}-01-01T00:00:00Z',
                     workspace_id=WORKSPACE, entra_tenant_id=TENANT,
                     scope_reference=f'Fictional December {year} sample: inventory SW-ASSET-{year}; all three devices and three users accessing the demo records app.',
                     device_ids=DEVICES, mfa_user_ids=USERS, mfa_app_ids=[APP], authentication_details_final=True,
+                    identity_user_ids=USERS,firewall_resource_ids=[FIREWALL],incident_names=[incident],backup_item_ids=[BACKUP_ITEM],
+                    patch_deadlines=[dict(device_id=DEVICES[0],cve_id='CVE-2099-99999',software_name='demo_records_client',
+                                         due=f'{year}-12-{30 if year==2025 else 20}T00:00:00Z',reference=f'Fictional patch schedule SW-PATCH-{year}')],
+                    restore_targets=[dict(backup_item_id=BACKUP_ITEM,max_duration_hours=4,reference=f'Fictional recovery plan SW-DR-{year}: restore job target four hours')],
                     sensor_freshness_days=7, expected_rows={t:len(rows) for t,rows in tables.items()},
                     expected_block_tests=[dict(device_id=DEVICES[1], sha1=TEST_HASH, start=f'{year}-12-15T09:59:00Z',
                                                end=f'{year}-12-15T10:02:00Z', reference=f'Fictional approved test SW-AC-{year}-01: demo executable must be blocked')], files=[])
@@ -84,6 +124,7 @@ def build(year):
             data=('\n'.join(json.dumps(r) for r in rows)+'\n').encode()
         name=table+'.'+format_; (folder/name).write_bytes(data)
         manifest['files'].append(dict(name=name, table=table, format=format_, sha256=hashlib.sha256(data).hexdigest()))
+        if table in ('AuditLogs','AddonAzureBackupJobs'): manifest['files'][-1]['workspace_id']=WORKSPACE
     (folder/'manifest.json').write_bytes((json.dumps(manifest, indent=2)+'\n').encode())
 
 
