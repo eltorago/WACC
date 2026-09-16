@@ -13,7 +13,7 @@ topics**. Each control has:
 
 - a plain-English control statement and business risk;
 - an ATT&CK assessment explaining relevant attack techniques and how the control helps;
-- a **GRC Focused** assessment covering documents, interviews, testing and expected results;
+- a **GRC** assessment covering documents, interviews, testing and expected results;
 - a **Technical** assessment with platform-specific checks, artefacts, collection examples and interpretation limits;
 - reviewed links to relevant publisher requirements; and
 - links to other controls that address the same problem.
@@ -45,6 +45,11 @@ python -m wacc serve
 Open [http://127.0.0.1:8765/](http://127.0.0.1:8765/) in a browser. The server is available
 only on the local computer. See [HOW-TO-RUN.md](HOW-TO-RUN.md) for other commands and
 troubleshooting.
+
+The **Sources** page can download missing public documents and reload the corpus in one
+step. It shows what is available, what has changed, and what needs a manual download.
+For files already downloaded, `python -m wacc sources --import-from "C:\path\to\downloads"`
+recognises reviewed copies by their contents and imports them under the expected names.
 
 ## How the repository is organised
 

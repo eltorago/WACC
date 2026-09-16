@@ -1,19 +1,20 @@
 """Acquire publisher source files without distributing them with WACC.
 
-The acquisition catalogue points at publisher-controlled locations. Downloads are only
-accepted when their SHA-256 matches the reviewed entry in ``sources/permissions.json``.
+The acquisition catalogue points at publisher-controlled locations. Downloads must match
+the reviewed file hash or an explicitly configured OAG report-content fingerprint.
 Files that require an account, an interactive export or a user-supplied historical copy
 are described as manual acquisitions instead.
 """
 
 import hashlib
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from io import BytesIO
 from html.parser import HTMLParser
 import json
 import os
 from pathlib import Path
 import tempfile
+import time
 from typing import Dict, Iterable, List, Optional, Tuple
 from urllib.error import HTTPError, URLError
 from urllib.parse import urljoin, urlparse
@@ -30,6 +31,18 @@ USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
     "(KHTML, like Gecko) Chrome/124.0 Safari/537.36 WACC-source-acquisition/1.0"
 )
+
+
+def source_directory(destination=None):
+    return Path(destination or os.environ.get('WACC_SOURCES') or DEFAULT_DESTINATION).expanduser().resolve()
+
+
+def local_path(directory, name):
+    direct = directory / name
+    if direct.exists():
+        return direct
+    matches = list(directory.rglob(name)) if directory.exists() else []
+    return matches[0] if len(matches) == 1 else direct
 
 
 class _Links(HTMLParser):
@@ -73,9 +86,68 @@ def digest(path: Path) -> str:
     return value.hexdigest()
 
 
-def _read(url: str) -> Tuple[bytes, str, str]:
+class _OAGReport(HTMLParser):
+    """Fingerprint the full report header/body, excluding dynamic site forms/scripts."""
+    VOID = {'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'}
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.depth = 0
+        self.sections = []
+        self.tokens = []
+
+    def handle_starttag(self, tag, attrs):
+        classes = (dict(attrs).get('class') or '').split()
+        if not self.depth and tag == 'div':
+            selected = [c for c in ('new-report-header', 'new-report__body') if c in classes]
+            if selected:
+                self.sections.extend(selected)
+                self.depth = 1
+        elif self.depth and tag not in self.VOID:
+            self.depth += 1
+        if self.depth:
+            self.tokens.append(('start', tag, sorted(attrs, key=lambda pair: (pair[0], pair[1] or ''))))
+
+    def handle_endtag(self, tag):
+        if self.depth and tag not in self.VOID:
+            self.tokens.append(('end', tag))
+            self.depth -= 1
+
+    def handle_startendtag(self, tag, attrs):
+        self.handle_starttag(tag, attrs)
+        if tag not in self.VOID:
+            self.handle_endtag(tag)
+
+    def handle_data(self, data):
+        if self.depth and data.strip():
+            self.tokens.append(('text', ' '.join(data.split())))
+
+
+def report_digest(body):
+    parser = _OAGReport()
+    parser.feed(body.decode('utf-8'))
+    if parser.depth or parser.sections != ['new-report-header', 'new-report__body'] or len(parser.tokens) < 20:
+        raise ValueError('OAG report header/body is missing, duplicated or incomplete')
+    return hashlib.sha256(json.dumps(parser.tokens, ensure_ascii=False).encode('utf-8')).hexdigest()
+
+
+def matches_review(entry, body):
+    if hashlib.sha256(body).hexdigest() == entry['sha256']:
+        return True
+    review = entry.get('content_verification', {})
+    if (review.get('method') == 'oag-report-v1'
+            and entry['filename'].startswith('oag-') and entry['filename'].endswith('.html')
+            and urlparse(entry.get('source_url', '')).hostname == 'audit.wa.gov.au'):
+        try:
+            return report_digest(body) == review['sha256']
+        except (UnicodeError, ValueError, KeyError):
+            return False
+    return False
+
+
+def _read_once(url: str) -> Tuple[bytes, str, str]:
     request = Request(url, headers={"User-Agent": USER_AGENT, "Accept": "*/*"})
-    with urlopen(request, timeout=120) as response:
+    with urlopen(request, timeout=20) as response:
         length = response.headers.get("Content-Length")
         if length and int(length) > MAX_BYTES:
             raise ValueError("remote file is larger than %d bytes" % MAX_BYTES)
@@ -83,6 +155,19 @@ def _read(url: str) -> Tuple[bytes, str, str]:
         if len(body) > MAX_BYTES:
             raise ValueError("remote file is larger than %d bytes" % MAX_BYTES)
         return body, response.headers.get_content_type(), response.geturl()
+
+
+def _read(url):
+    for attempt in range(2):
+        try:
+            return _read_once(url)
+        except HTTPError as error:
+            if attempt or error.code not in (429, 500, 502, 503, 504):
+                raise
+        except (URLError, TimeoutError):
+            if attempt:
+                raise
+        time.sleep(0.5)
 
 
 def _remote_digest(body: bytes) -> str:
@@ -95,7 +180,9 @@ def _archive_member(body: bytes, member: str) -> Optional[bytes]:
     try:
         with ZipFile(BytesIO(body)) as archive:
             matches = [name for name in archive.namelist() if Path(name).name == member]
-            return archive.read(matches[0]) if len(matches) == 1 else None
+            if len(matches) == 1 and archive.getinfo(matches[0]).file_size <= MAX_BYTES:
+                return archive.read(matches[0])
+            return None
     except (BadZipFile, KeyError):
         return None
 
@@ -126,11 +213,13 @@ def _candidate_links(body: bytes, base_url: str, filename: str) -> List[str]:
         parsed = urlparse(url)
         if parsed.scheme not in ("http", "https"):
             continue
+        if parsed.netloc != urlparse(base_url).netloc:
+            continue
         path = parsed.path.lower()
         if suffix and not (path.endswith(suffix) or "download" in path or "attachment" in path):
             continue
         links.append(url)
-    return sorted(dict.fromkeys(links), key=score, reverse=True)[:30]
+    return sorted(dict.fromkeys(links), key=score, reverse=True)[:6]
 
 
 def _write_verified(destination: Path, body: bytes) -> None:
@@ -156,21 +245,21 @@ def acquire_one(
     States are ``available``, ``downloaded``, ``manual`` and ``failed``.
     """
     name = _safe_filename(entry["filename"])
-    destination = destination_dir / name
+    destination = local_path(destination_dir, name)
     expected = entry["sha256"].lower()
-    if destination.is_file() and digest(destination) == expected and not force:
-        return "available", "reviewed bytes already present"
+    if destination.is_file() and matches_review(entry, destination.read_bytes()) and (not force or method['method'] == 'manual'):
+        return "available", "reviewed source already present"
     if method["method"] == "manual":
         return "manual", method["instructions"]
 
     seeds = method.get("urls", [])
     if isinstance(seeds, str):
         seeds = [seeds]
-    queue = list(seeds)
+    queue = [(url, 0) for url in seeds]
     visited = set()
     errors = []
-    while queue:
-        url = queue.pop(0)
+    while queue and len(visited) < 10:
+        url, depth = queue.pop(0)
         if url in visited:
             continue
         visited.add(url)
@@ -179,7 +268,7 @@ def acquire_one(
         except (HTTPError, URLError, OSError, ValueError) as error:
             errors.append("%s: %s" % (url, error))
             continue
-        if _remote_digest(body) == expected:
+        if matches_review(entry, body):
             _write_verified(destination, body)
             return "downloaded", final_url
         member = method.get("archive_member")
@@ -187,20 +276,24 @@ def acquire_one(
         if extracted is not None and _remote_digest(extracted) == expected:
             _write_verified(destination, extracted)
             return "downloaded", "%s (%s)" % (final_url, member)
-        if _looks_html(body, content_type):
-            queue.extend(link for link in _candidate_links(body, final_url, name) if link not in visited)
+        if _looks_html(body, content_type) and Path(name).suffix.lower() not in ('.html', '.htm') and depth == 0:
+            queue.extend((link, 1) for link in _candidate_links(body, final_url, name) if link not in visited)
+            errors.append('%s: landing page did not contain the reviewed document' % final_url)
         else:
             errors.append("%s: SHA-256 did not match the reviewed edition" % final_url)
     detail = errors[-1] if errors else "no downloadable publisher URL is configured"
+    detail += '. Existing files were kept. ' + method.get('instructions', 'Retry later or obtain the reviewed edition from the publisher; changed bytes require an edition review.')
     return "failed", detail
 
 
 def acquire(
     names: Optional[Iterable[str]] = None,
-    destination: Path = DEFAULT_DESTINATION,
+    destination: Optional[Path] = None,
     force: bool = False,
+    progress=None,
 ) -> List[Tuple[str, str, str]]:
     entries, methods = load_catalogue()
+    destination = source_directory(destination)
     # Acquisition and redistribution are separate decisions. Sources marked as local-only
     # may still be downloaded from their publisher; the packaging rules keep every file
     # in this cache out of Git and release archives.
@@ -209,10 +302,70 @@ def acquire(
     if unknown:
         raise ValueError("Unknown source file: %s" % ", ".join(unknown))
     def one(name: str) -> Tuple[str, str, str]:
-        return (name,) + acquire_one(entries[name], methods[name], destination, force=force)
+        try:
+            return (name,) + acquire_one(entries[name], methods[name], destination, force=force)
+        except (OSError, ValueError, BadZipFile) as error:
+            return name, 'failed', str(error)
 
     with ThreadPoolExecutor(max_workers=min(3, max(1, len(selected)))) as pool:
-        return list(pool.map(one, selected))
+        pending = {pool.submit(one, name): name for name in selected}
+        results = {}
+        for future in as_completed(pending):
+            row = future.result()
+            results[row[0]] = row
+            if progress:
+                progress(row)
+        return [results[name] for name in selected]
+
+
+def status(destination=None, names=None):
+    entries, methods = load_catalogue()
+    directory = source_directory(destination)
+    rows = []
+    for name in names or entries:
+        if name not in entries:
+            raise ValueError('Unknown source file: ' + name)
+        path = local_path(directory, name)
+        state = 'missing'
+        if path.is_file():
+            state = 'available' if matches_review(entries[name], path.read_bytes()) else 'changed'
+        rows.append(dict(filename=name, state=state, method=methods[name]['method'],
+                         instructions=methods[name].get('instructions', ''),
+                         urls=methods[name].get('urls', [])))
+    return rows
+
+
+def import_downloads(folder, destination=None, names=None):
+    """Copy matching reviewed files from a chosen folder; never move or alter originals."""
+    entries, _ = load_catalogue()
+    selected = list(names) if names else list(entries)
+    for name in selected:
+        if name not in entries:
+            raise ValueError('Unknown source file: ' + name)
+    folder = Path(folder).expanduser().resolve()
+    if not folder.is_dir():
+        raise ValueError('Import folder does not exist: ' + str(folder))
+    directory = source_directory(destination)
+    by_hash = {entries[n]['sha256']: n for n in selected}
+    content_entries = [entries[n] for n in selected if entries[n].get('content_verification')]
+    results = []
+    for path in sorted(folder.iterdir()):
+        if not path.is_file() or path.is_symlink() or path.stat().st_size > MAX_BYTES:
+            continue
+        name = by_hash.get(digest(path))
+        if not name and path.suffix.lower() in ('.html', '.htm'):
+            body = path.read_bytes()
+            name = next((entry['filename'] for entry in content_entries if matches_review(entry, body)), None)
+        if name:
+            target = local_path(directory, name)
+            body = path.read_bytes()
+            if not matches_review(entries[name], body):
+                results.append((name, 'failed', 'File changed during import; not copied.'))
+                continue
+            if not target.is_file() or not matches_review(entries[name], target.read_bytes()):
+                _write_verified(target, body)
+            results.append((name, 'imported', path.name))
+    return results
 
 
 def describe() -> List[Tuple[str, str, str]]:
@@ -220,6 +373,6 @@ def describe() -> List[Tuple[str, str, str]]:
     rows = []
     for name, entry in entries.items():
         method = methods[name]
-        detail = method.get("instructions") or ", ".join(method.get("urls", []))
+        detail = ' '.join(filter(None, [method.get("instructions"), ", ".join(method.get("urls", []))]))
         rows.append((name, method["method"], detail))
     return rows

@@ -714,12 +714,13 @@
       "license": "NIST worldwide reprint permission",
       "permission_url": "https://www.nist.gov/open/copyright-fair-use-and-licensing-statements-srd-data-software-and-technical-series-publications",
       "basis_and_conditions": "NIST Technical Series policy grants worldwide electronic republication. Retain authors, publication identifiers, citations and disclaimers. Republished courtesy of the National Institute of Standards and Technology.",
-      "source_url": "https://pages.nist.gov/800-63-4/sp800-63/",
-      "sha256": "d1184716cd2544d7a4def4ff19db0a118e72631119829b66fbcb70e305e3a23d",
-      "bytes": 231756,
-      "reviewed_on": "2026-09-13",
+      "source_url": "https://raw.githubusercontent.com/usnistgov/800-63-4/4f2487bb81adecdc84ccaac6920bf0b500b379ae/sp800-63.html",
+      "sha256": "69828bb1dba15fa906b651fb9ac46462bea2833972cc2f736d81d5de41bf567b",
+      "bytes": 231395,
+      "reviewed_on": "2026-09-16",
       "modified": false,
-      "provenance": "User-supplied local file; copied without modification. Source URL is a publisher landing/citation link where identified, not a claim to have freshly downloaded this edition."
+      "provenance": "Downloaded unchanged from the pinned official NIST repository; document content compared with the previous reviewed copy on 2026-09-16.",
+      "acquisition_review": "Pinned official NIST repository HTML. Compared with previous reviewed HTML: only the injected Cloudflare analytics script is absent; document content is unchanged."
     },
     {
       "filename": "sp800-63a.html",
@@ -728,12 +729,13 @@
       "license": "NIST worldwide reprint permission",
       "permission_url": "https://www.nist.gov/open/copyright-fair-use-and-licensing-statements-srd-data-software-and-technical-series-publications",
       "basis_and_conditions": "NIST Technical Series policy grants worldwide electronic republication. Retain authors, publication identifiers, citations and disclaimers. Republished courtesy of the National Institute of Standards and Technology.",
-      "source_url": "https://pages.nist.gov/800-63-4/sp800-63a/",
-      "sha256": "971397af4e43ef0495b1fb23b1ae0b1258672c53c53fb843f39eeaabb94bb780",
-      "bytes": 291342,
-      "reviewed_on": "2026-09-13",
+      "source_url": "https://raw.githubusercontent.com/usnistgov/800-63-4/4f2487bb81adecdc84ccaac6920bf0b500b379ae/sp800-63a.html",
+      "sha256": "08e3fd63853f74b92969d5b477bad0245c878ba98da3fdcac23b002c0fd61a7e",
+      "bytes": 290981,
+      "reviewed_on": "2026-09-16",
       "modified": false,
-      "provenance": "User-supplied local file; copied without modification. Source URL is a publisher landing/citation link where identified, not a claim to have freshly downloaded this edition."
+      "provenance": "Downloaded unchanged from the pinned official NIST repository; document content compared with the previous reviewed copy on 2026-09-16.",
+      "acquisition_review": "Pinned official NIST repository HTML. Compared with previous reviewed HTML: only the injected Cloudflare analytics script is absent; document content is unchanged."
     },
     {
       "filename": "sp800-63b.html",
@@ -742,12 +744,13 @@
       "license": "NIST worldwide reprint permission",
       "permission_url": "https://www.nist.gov/open/copyright-fair-use-and-licensing-statements-srd-data-software-and-technical-series-publications",
       "basis_and_conditions": "NIST Technical Series policy grants worldwide electronic republication. Retain authors, publication identifiers, citations and disclaimers. Republished courtesy of the National Institute of Standards and Technology.",
-      "source_url": "https://pages.nist.gov/800-63-4/sp800-63b/",
-      "sha256": "6894c1e5e15867fe2d84e27d92899715757943cc5bf2cea24324314745b7d8b6",
-      "bytes": 353180,
-      "reviewed_on": "2026-09-13",
+      "source_url": "https://raw.githubusercontent.com/usnistgov/800-63-4/4f2487bb81adecdc84ccaac6920bf0b500b379ae/sp800-63b.html",
+      "sha256": "ad866694f399930be8e37a0867ef556c121d1a788fa56fda033088e5bfcbd2d9",
+      "bytes": 352819,
+      "reviewed_on": "2026-09-16",
       "modified": false,
-      "provenance": "User-supplied local file; copied without modification. Source URL is a publisher landing/citation link where identified, not a claim to have freshly downloaded this edition."
+      "provenance": "Downloaded unchanged from the pinned official NIST repository; document content compared with the previous reviewed copy on 2026-09-16.",
+      "acquisition_review": "Pinned official NIST repository HTML. Compared with previous reviewed HTML: only the injected Cloudflare analytics script is absent; document content is unchanged."
     },
     {
       "filename": "sp800-63c.html",
@@ -756,12 +759,13 @@
       "license": "NIST worldwide reprint permission",
       "permission_url": "https://www.nist.gov/open/copyright-fair-use-and-licensing-statements-srd-data-software-and-technical-series-publications",
       "basis_and_conditions": "NIST Technical Series policy grants worldwide electronic republication. Retain authors, publication identifiers, citations and disclaimers. Republished courtesy of the National Institute of Standards and Technology.",
-      "source_url": "https://pages.nist.gov/800-63-4/sp800-63c/",
-      "sha256": "5de2aa4fbf72cecce031518a0f775441ae503d1fa3a7bb05c75007598272dbf8",
-      "bytes": 415563,
-      "reviewed_on": "2026-09-13",
+      "source_url": "https://raw.githubusercontent.com/usnistgov/800-63-4/4f2487bb81adecdc84ccaac6920bf0b500b379ae/sp800-63c.html",
+      "sha256": "00c7bf870563ce30396b0ad27f700d2ad5423fed37231cd27a6b569f4e7193f3",
+      "bytes": 415202,
+      "reviewed_on": "2026-09-16",
       "modified": false,
-      "provenance": "User-supplied local file; copied without modification. Source URL is a publisher landing/citation link where identified, not a claim to have freshly downloaded this edition."
+      "provenance": "Downloaded unchanged from the pinned official NIST repository; document content compared with the previous reviewed copy on 2026-09-16.",
+      "acquisition_review": "Pinned official NIST repository HTML. Compared with previous reviewed HTML: only the injected Cloudflare analytics script is absent; document content is unchanged."
     },
     {
       "filename": "wa-cyber-security-policy.pdf",
@@ -887,7 +891,13 @@
       "bytes": 152204,
       "reviewed_on": "2026-09-16",
       "modified": false,
-      "provenance": "Downloaded unchanged from the publisher URL; hash pins the reviewed bytes. Web pages may change and require a new review."
+      "provenance": "Downloaded unchanged from the publisher URL; hash pins the reviewed bytes. Web pages may change and require a new review.",
+      "content_verification": {
+        "method": "oag-report-v1",
+        "sha256": "f06bbbbcae1c2b87d69ce1caf5b6330d3bc761e5984356b9ff0a53f0ba4983ae",
+        "reviewed_on": "2026-09-16",
+        "scope": "Full report header and body including report text, date, links and images. Dynamic site forms, analytics, navigation and nonces outside these sections are excluded. Publisher HTML is saved unchanged and never served as executable HTML."
+      }
     },
     {
       "filename": "oag-essential-eight-2023.html",
@@ -901,7 +911,13 @@
       "bytes": 157502,
       "reviewed_on": "2026-09-16",
       "modified": false,
-      "provenance": "Downloaded unchanged from the publisher URL; hash pins the reviewed bytes. Web pages may change and require a new review."
+      "provenance": "Downloaded unchanged from the publisher URL; hash pins the reviewed bytes. Web pages may change and require a new review.",
+      "content_verification": {
+        "method": "oag-report-v1",
+        "sha256": "347d155c656a5b4e5565a4f12115adfc1b606def1b00a15cadf3826094505ce3",
+        "reviewed_on": "2026-09-16",
+        "scope": "Full report header and body including report text, date, links and images. Dynamic site forms, analytics, navigation and nonces outside these sections are excluded. Publisher HTML is saved unchanged and never served as executable HTML."
+      }
     },
     {
       "filename": "oag-universities-and-tafes-2025-information-systems-audit-results.html",
@@ -915,7 +931,13 @@
       "bytes": 143703,
       "reviewed_on": "2026-09-16",
       "modified": false,
-      "provenance": "Downloaded unchanged from the publisher URL; hash pins the reviewed bytes. Web pages may change and require a new review."
+      "provenance": "Downloaded unchanged from the publisher URL; hash pins the reviewed bytes. Web pages may change and require a new review.",
+      "content_verification": {
+        "method": "oag-report-v1",
+        "sha256": "69cbe39759afcff6c5f492f1b2b6d84892a9bf50c9f17dcb2fa62c103cd6c4b5",
+        "reviewed_on": "2026-09-16",
+        "scope": "Full report header and body including report text, date, links and images. Dynamic site forms, analytics, navigation and nonces outside these sections are excluded. Publisher HTML is saved unchanged and never served as executable HTML."
+      }
     },
     {
       "filename": "oag-local-government-2025-information-systems-audit-results.html",
@@ -929,7 +951,13 @@
       "bytes": 164182,
       "reviewed_on": "2026-09-16",
       "modified": false,
-      "provenance": "Downloaded unchanged from the publisher URL; hash pins the reviewed bytes. Web pages may change and require a new review."
+      "provenance": "Downloaded unchanged from the publisher URL; hash pins the reviewed bytes. Web pages may change and require a new review.",
+      "content_verification": {
+        "method": "oag-report-v1",
+        "sha256": "24fb299e35d7e293aeddce981d30ba10949a004899988a4ccdb6efb76b5854ca",
+        "reviewed_on": "2026-09-16",
+        "scope": "Full report header and body including report text, date, links and images. Dynamic site forms, analytics, navigation and nonces outside these sections are excluded. Publisher HTML is saved unchanged and never served as executable HTML."
+      }
     },
     {
       "filename": "oag-state-government-2025-information-systems-audit-results.html",
@@ -943,7 +971,13 @@
       "bytes": 174313,
       "reviewed_on": "2026-09-16",
       "modified": false,
-      "provenance": "Downloaded unchanged from the publisher URL; hash pins the reviewed bytes. Web pages may change and require a new review."
+      "provenance": "Downloaded unchanged from the publisher URL; hash pins the reviewed bytes. Web pages may change and require a new review.",
+      "content_verification": {
+        "method": "oag-report-v1",
+        "sha256": "b9948e692f9f6f20b805fb69ec5eaedb6437b0df39875ced7db6b5678498eee3",
+        "reviewed_on": "2026-09-16",
+        "scope": "Full report header and body including report text, date, links and images. Dynamic site forms, analytics, navigation and nonces outside these sections are excluded. Publisher HTML is saved unchanged and never served as executable HTML."
+      }
     },
     {
       "filename": "oag-pathwests-laboratory-information-system.html",
@@ -957,7 +991,13 @@
       "bytes": 138731,
       "reviewed_on": "2026-09-16",
       "modified": false,
-      "provenance": "Downloaded unchanged from the publisher URL; hash pins the reviewed bytes. Web pages may change and require a new review."
+      "provenance": "Downloaded unchanged from the publisher URL; hash pins the reviewed bytes. Web pages may change and require a new review.",
+      "content_verification": {
+        "method": "oag-report-v1",
+        "sha256": "8713b7e3341ae65af9b45bdb26f471bd64caedc26923a694e09a2f525e363cf9",
+        "reviewed_on": "2026-09-16",
+        "scope": "Full report header and body including report text, date, links and images. Dynamic site forms, analytics, navigation and nonces outside these sections are excluded. Publisher HTML is saved unchanged and never served as executable HTML."
+      }
     },
     {
       "filename": "oag-state-government-2023-24-information-systems-audit-results.html",
@@ -971,7 +1011,13 @@
       "bytes": 181246,
       "reviewed_on": "2026-09-16",
       "modified": false,
-      "provenance": "Downloaded unchanged from the publisher URL; hash pins the reviewed bytes. Web pages may change and require a new review."
+      "provenance": "Downloaded unchanged from the publisher URL; hash pins the reviewed bytes. Web pages may change and require a new review.",
+      "content_verification": {
+        "method": "oag-report-v1",
+        "sha256": "76a3d343c108d94e5e7d0d4360a85ccd7a41796a69c387569bf172539802fe60",
+        "reviewed_on": "2026-09-16",
+        "scope": "Full report header and body including report text, date, links and images. Dynamic site forms, analytics, navigation and nonces outside these sections are excluded. Publisher HTML is saved unchanged and never served as executable HTML."
+      }
     },
     {
       "filename": "oag-local-government-2023-24-information-systems-audit-results.html",
@@ -985,7 +1031,13 @@
       "bytes": 177106,
       "reviewed_on": "2026-09-16",
       "modified": false,
-      "provenance": "Downloaded unchanged from the publisher URL; hash pins the reviewed bytes. Web pages may change and require a new review."
+      "provenance": "Downloaded unchanged from the publisher URL; hash pins the reviewed bytes. Web pages may change and require a new review.",
+      "content_verification": {
+        "method": "oag-report-v1",
+        "sha256": "c91cb88fd62feb4be530014d5193dfd2ea3137bd27f51163e3b361a4ef9b1e3b",
+        "reviewed_on": "2026-09-16",
+        "scope": "Full report header and body including report text, date, links and images. Dynamic site forms, analytics, navigation and nonces outside these sections are excluded. Publisher HTML is saved unchanged and never served as executable HTML."
+      }
     },
     {
       "filename": "oag-child-protection-case-management-system-assist.html",
@@ -999,7 +1051,13 @@
       "bytes": 143618,
       "reviewed_on": "2026-09-16",
       "modified": false,
-      "provenance": "Downloaded unchanged from the publisher URL; hash pins the reviewed bytes. Web pages may change and require a new review."
+      "provenance": "Downloaded unchanged from the publisher URL; hash pins the reviewed bytes. Web pages may change and require a new review.",
+      "content_verification": {
+        "method": "oag-report-v1",
+        "sha256": "300423354a39ddd126169ff4b8c0f8a8c4652598857555c97624b26276075449",
+        "reviewed_on": "2026-09-16",
+        "scope": "Full report header and body including report text, date, links and images. Dynamic site forms, analytics, navigation and nonces outside these sections are excluded. Publisher HTML is saved unchanged and never served as executable HTML."
+      }
     },
     {
       "filename": "oag-local-government-2022-23-information-systems-audit-results.html",
@@ -1013,7 +1071,13 @@
       "bytes": 165391,
       "reviewed_on": "2026-09-16",
       "modified": false,
-      "provenance": "Downloaded unchanged from the publisher URL; hash pins the reviewed bytes. Web pages may change and require a new review."
+      "provenance": "Downloaded unchanged from the publisher URL; hash pins the reviewed bytes. Web pages may change and require a new review.",
+      "content_verification": {
+        "method": "oag-report-v1",
+        "sha256": "3ab4c8331e08fec2c319ec916bd858ec9aaeb7aee9b9cc33e4dd27810fa02277",
+        "reviewed_on": "2026-09-16",
+        "scope": "Full report header and body including report text, date, links and images. Dynamic site forms, analytics, navigation and nonces outside these sections are excluded. Publisher HTML is saved unchanged and never served as executable HTML."
+      }
     },
     {
       "filename": "oag-local-government-it-disaster-recovery-planning.html",
@@ -1027,7 +1091,13 @@
       "bytes": 130345,
       "reviewed_on": "2026-09-16",
       "modified": false,
-      "provenance": "Downloaded unchanged from the publisher URL; hash pins the reviewed bytes. Web pages may change and require a new review."
+      "provenance": "Downloaded unchanged from the publisher URL; hash pins the reviewed bytes. Web pages may change and require a new review.",
+      "content_verification": {
+        "method": "oag-report-v1",
+        "sha256": "d48e5559b2ddab08391e933e3262ea40c17952d7b736aa2d4d171f7f4b0624e9",
+        "reviewed_on": "2026-09-16",
+        "scope": "Full report header and body including report text, date, links and images. Dynamic site forms, analytics, navigation and nonces outside these sections are excluded. Publisher HTML is saved unchanged and never served as executable HTML."
+      }
     },
     {
       "filename": "oag-information-systems-audit-local-government-2021-22.html",
@@ -1041,7 +1111,13 @@
       "bytes": 184102,
       "reviewed_on": "2026-09-16",
       "modified": false,
-      "provenance": "Downloaded unchanged from the publisher URL; hash pins the reviewed bytes. Web pages may change and require a new review."
+      "provenance": "Downloaded unchanged from the publisher URL; hash pins the reviewed bytes. Web pages may change and require a new review.",
+      "content_verification": {
+        "method": "oag-report-v1",
+        "sha256": "501b0409d66cd9ef615f3effa730d17ebeba690d1e0f224addb387796a9b0909",
+        "reviewed_on": "2026-09-16",
+        "scope": "Full report header and body including report text, date, links and images. Dynamic site forms, analytics, navigation and nonces outside these sections are excluded. Publisher HTML is saved unchanged and never served as executable HTML."
+      }
     },
     {
       "filename": "oag-information-systems-audit-state-government-2021-22.html",
@@ -1055,7 +1131,13 @@
       "bytes": 190258,
       "reviewed_on": "2026-09-16",
       "modified": false,
-      "provenance": "Downloaded unchanged from the publisher URL; hash pins the reviewed bytes. Web pages may change and require a new review."
+      "provenance": "Downloaded unchanged from the publisher URL; hash pins the reviewed bytes. Web pages may change and require a new review.",
+      "content_verification": {
+        "method": "oag-report-v1",
+        "sha256": "6c0fc717090dfb18814ff838a75ca596f0d3c1f7bd59fe28458a502f158929a0",
+        "reviewed_on": "2026-09-16",
+        "scope": "Full report header and body including report text, date, links and images. Dynamic site forms, analytics, navigation and nonces outside these sections are excluded. Publisher HTML is saved unchanged and never served as executable HTML."
+      }
     }
   ]
 }

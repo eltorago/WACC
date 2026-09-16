@@ -11,8 +11,11 @@ python -m wacc sources
 ```
 
 The command downloads public files into `sources/files/`, follows download links on
-publisher landing pages where necessary, and accepts a file only when its SHA-256 matches
-the reviewed edition in `permissions.json`. Existing matching files are left alone. The
+publisher landing pages where necessary, and verifies the reviewed edition in
+`permissions.json`. Files normally require an exact SHA-256 match. For OAG HTML reports,
+WACC also accepts the reviewed fingerprint of the full report header and body, including
+text, dates, links and image references; rotating website forms and analytics outside the
+report are excluded. Changed report content is rejected. Existing matching files are left alone. The
 whole directory is ignored by Git and excluded from release packages.
 
 To see every source and acquisition method without downloading anything:
@@ -20,6 +23,21 @@ To see every source and acquisition method without downloading anything:
 ```powershell
 python -m wacc sources --list
 ```
+
+The app's **Sources** page shows available, missing and changed files. **Download missing
+public sources and reload** runs acquisition in the background and reloads the corpus
+afterwards. Progress and per-file errors remain visible, and repeat clicks do not start
+duplicate jobs. This action uses the configured publisher catalogue only.
+
+For an offline status check, run `python -m wacc sources --status`. To import downloads
+without renaming each file, run `python -m wacc sources --import-from "C:\path\to\downloads"`.
+WACC checks files directly in that folder, copies recognised reviewed files and then
+attempts the remaining automatic downloads. Originals and unmatched files are untouched.
+The destination respects `WACC_SOURCES`, or `--destination` when supplied.
+
+There are 64 configured automatic routes and 10 manual acquisitions. The live review
+verified 59 automatic downloads; four were blocked by their publishers and one requires
+an edition review. See [the acquisition review](../docs/source-acquisition-review.md).
 
 To retry or acquire one file:
 

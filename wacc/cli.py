@@ -135,8 +135,17 @@ def cmd_build(args) -> int:
 
 
 def cmd_sources(args) -> int:
+    try:
+        return _cmd_sources(args)
+    except (OSError, ValueError) as error:
+        print('Source acquisition: %s' % error, file=sys.stderr)
+        return 2
+
+
+def _cmd_sources(args) -> int:
     from pathlib import Path
-    from .sources import acquire, describe
+    from .sources import acquire, describe, status, import_downloads, source_directory
+    from collections import Counter
 
     if args.list:
         for filename, method, detail in describe():
@@ -144,21 +153,34 @@ def cmd_sources(args) -> int:
             print("          %s" % detail)
         return 0
 
-    destination = Path(args.destination).expanduser().resolve() if args.destination else None
-    kwargs = {"force": args.force}
-    if destination is not None:
-        kwargs["destination"] = destination
-    rows = acquire(args.only or None, **kwargs)
+    destination = source_directory(args.destination)
+    print('Source folder: %s' % destination, flush=True)
+    if args.status:
+        rows = status(destination, args.only)
+        for row in rows:
+            print('%-10s %-9s %s' % (row['state'].upper(), row['method'], row['filename']))
+        print(dict(Counter(row['state'] for row in rows)))
+        return 1 if any(row['state'] != 'available' for row in rows) else 0
+    if args.import_from:
+        imported = import_downloads(args.import_from, destination, args.only)
+        for name, state, detail in imported:
+            print('%-10s %s (from %s)' % (state.upper(), name, detail), flush=True)
+        print('%d reviewed files recognised; other files left untouched.' % len(imported), flush=True)
+    def progress(row):
+        name, state, detail = row
+        print('%-10s %s' % (state.upper(), name), flush=True)
+        if state in ('manual', 'failed'):
+            print('           %s' % detail, flush=True)
+    rows = acquire(args.only or None, destination=destination, force=args.force, progress=progress)
     failed = False
     manual = False
     for filename, state, detail in rows:
-        print("%-10s %s" % (state.upper(), filename))
-        if state in ("manual", "failed"):
-            print("           %s" % detail)
         failed = failed or state == "failed"
         manual = manual or state == "manual"
     if manual:
-        print("\nPlace manually acquired files in the source directory using the exact names above.")
+        print('\nDownload the remaining manual files, then run: python -m wacc sources --import-from "C:\\path\\to\\downloads"')
+    print('Summary: ' + ', '.join('%s=%d' % pair for pair in sorted(Counter(row[1] for row in rows).items())))
+    print('Restart a running WACC server to load newly acquired files, or use the Sources page to download and reload together.')
     return 1 if failed else 0
 
 
@@ -207,10 +229,14 @@ def main(argv: Optional[List[str]] = None) -> int:
     )
     sources.add_argument("--list", action="store_true",
                          help="show acquisition methods without downloading")
+    sources.add_argument("--status", action="store_true",
+                         help="check local files and hashes without downloading")
+    sources.add_argument("--import-from", metavar="FOLDER",
+                         help="copy recognised reviewed downloads into the cache, then acquire remaining files")
     sources.add_argument("--only", action="append", metavar="FILENAME",
                          help="acquire one named source; repeat to acquire several")
     sources.add_argument("--destination",
-                         help="source directory (defaults to sources/files)")
+                         help="source directory (defaults to WACC_SOURCES or sources/files)")
     sources.add_argument("--force", action="store_true",
                          help="download again even when reviewed bytes are already present")
     sources.set_defaults(func=cmd_sources)
