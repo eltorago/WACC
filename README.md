@@ -12,6 +12,7 @@ The application currently includes a workspace of **84 practical controls across
 topics**. Each control has:
 
 - a plain-English control statement and business risk;
+- an ATT&CK assessment explaining relevant attack techniques and how the control helps;
 - guidance on what to examine and who to interview;
 - a four-step testing method and expected result;
 - reviewed links to relevant publisher requirements; and
@@ -41,6 +42,7 @@ troubleshooting.
 |---|---|
 | `wacc/` | Loads the corpus, finds controls, builds relationships and serves the web and command-line interfaces. |
 | `data/library/` | The 84 locally written workspace controls, grouped into one JSON file per topic. |
+| `data/workspace-attack.json` | Local ATT&CK assessments for every workspace control, including explanations and MITRE mitigation references. |
 | `data/corpus/` | Curated extracts used when a publisher does not provide a suitable machine-readable source. |
 | `data/validation/` | Search expectations and the topic-frequency report used to check coverage and ranking. |
 | `sources/acquisition.json` | Publisher download locations and instructions for sources that need manual acquisition. |
@@ -55,6 +57,19 @@ The workspace controls and their assessment methods are locally authored. Their 
 links describe reviewed overlap with publisher requirements. A linked requirement may
 address all of a control, only part of it, or provide related context. Meeting a workspace
 control therefore does not automatically meet every linked framework requirement.
+
+Each workspace control also has a **MITRE ATT&CK** section. It names relevant Enterprise
+techniques, links to MITRE, and explains whether the control reduces the likelihood of an
+attack, helps detect or contain it, supports recovery, or enables another safeguard.
+You can search the workspace by technique ID (for example, `T1110.004`), technique name,
+or mitigation ID. Search by name requires the ATT&CK source to be loaded.
+
+These control mappings are WACC's assessments. Where a MITRE mitigation is cited, its
+relationship to the technique is checked against the downloaded ATT&CK data. Controls
+without a defensible direct mapping, such as external incident notification, explain
+that limit. The mapping uses Enterprise ATT&CK 19.2; it does not claim Mobile or ICS
+technique coverage. ATT&CK is a trademark of The MITRE Corporation. See
+[MITRE ATT&CK](https://attack.mitre.org/) for the publisher's technique descriptions.
 
 The source browser preserves provenance, framework identity and hierarchy so readers can
 return to the relevant publisher record. Source documents retain their own licences and

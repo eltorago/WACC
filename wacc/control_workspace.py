@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 import re
 from urllib.parse import urlencode
+from . import workspace_attack
 
 LIBRARY_DIR = Path(__file__).resolve().parents[1] / 'data/library'
 CONTROLS = []
@@ -35,10 +36,21 @@ def mappings(control, selected):
     return [m for m in control['mappings'] if mapping_source_key(m) in selected]
 
 
-def matching(query, selected, topic=""):
-    tokens = re.findall(r'\w+', query.lower())
-    return [c for c in CONTROLS if (not topic or c["topic"] == topic) and mappings(c, selected) and all(t in
-            (json.dumps({**c, 'mappings': mappings(c, selected)}, ensure_ascii=False)).lower() for t in tokens)]
+def matching(query, selected, topic="", corpus=None):
+    identifiers = re.findall(r'\b[tm]\d{4}(?:\.\d{3})?\b', query, re.I)
+    tokens = re.findall(r'\w+', re.sub(r'\b[tm]\d{4}(?:\.\d{3})?\b', '', query, flags=re.I).lower())
+    found = []
+    for c in CONTROLS:
+        refs = mappings(c, selected)
+        if (topic and c['topic'] != topic) or not refs:
+            continue
+        if not workspace_attack.matches_identifiers(c['id'], identifiers):
+            continue
+        text = (json.dumps({**c, 'mappings': refs}, ensure_ascii=False) + ' ' +
+                workspace_attack.search_text(c['id'], corpus)).lower()
+        if all(token in text for token in tokens):
+            found.append(c)
+    return found
 
 
 def url(selected, control=None, query='', topic=''):
@@ -52,12 +64,12 @@ def url(selected, control=None, query='', topic=''):
     return '/library?' + urlencode(pairs)
 
 
-def export_csv(params):
+def export_csv(params, corpus=None):
     selected = scope(params)
     out = io.StringIO(newline='')
     writer = csv.writer(out)
     writer.writerow(['Control','Title','Source UID','Relationship','Mapping provenance','Scope conditions'])
-    for c in matching((params.get('q') or [''])[0], selected, (params.get('topic') or [''])[0]):
+    for c in matching((params.get('q') or [''])[0], selected, (params.get('topic') or [''])[0], corpus):
         for m in mappings(c, selected):
             source_uid = m['uid'] if 'uid' in m else 'guidance:'+m['guidance']
             writer.writerow([c['id'],c['title'],source_uid,m['relationship'],m['provenance'],m['basis']])
@@ -65,6 +77,7 @@ def export_csv(params):
 
 
 STYLE = '''
+.attack-connection{border-top:1px solid var(--line);padding:16px 0 4px}.attack-connection h4{font-size:16px;margin:0 0 8px}
 :root{color-scheme:light dark;--bg:#f4f6f8;--paper:#fff;--ink:#172b40;--quiet:#586879;--line:#d9e1e8;--accent:#146d70;--soft:#e8f3f2}
 @media(prefers-color-scheme:dark){:root{--bg:#101820;--paper:#17232e;--ink:#e3edf4;--quiet:#a9bbc9;--line:#324552;--accent:#7ccbc3;--soft:#203d3d}}
 [hidden]{display:none!important}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 'Segoe UI',sans-serif}a{color:var(--accent)}header{padding:24px 32px;background:var(--paper);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:20px}h1{font-size:25px;margin:0}h2{font-size:23px;margin:0 0 10px}h3{font-size:17px;margin:0 0 12px}p{margin:8px 0 16px}.muted,small{color:var(--quiet)}.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700}.workspace{display:grid;grid-template-columns:320px minmax(0,1fr);max-width:1500px;margin:auto;gap:24px;padding:24px}.sidebar,.box{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:18px}.sidebar{align-self:start;position:sticky;top:16px}.control-link{display:block;text-decoration:none;color:var(--ink);border-top:1px solid var(--line);padding:14px 10px;border-radius:6px}.control-link[aria-current=page]{background:var(--soft);border-left:3px solid var(--accent)}.control-link small{display:block}.controls{margin-top:18px;max-height:45vh;overflow-y:auto}input,select,textarea,button{font:inherit;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:6px;padding:9px}input:not([type=checkbox]),textarea,select{width:100%}textarea{min-height:100px;resize:vertical}button,.button{cursor:pointer;background:var(--accent);color:var(--paper);padding:9px 14px;border:0;text-decoration:none;border-radius:6px;display:inline-block}.filters label{display:block;margin:7px 0}.filters input{margin-right:8px}.filters fieldset{border:0;padding:10px 0;margin:0}.filters legend{font-weight:600}.risk{border-left:4px solid var(--accent);background:var(--soft);padding:14px 18px;border-radius:6px}.steps{display:grid;grid-template-columns:110px 1fr;gap:12px}.steps dt{font-weight:700}.steps dd{margin:0 0 8px}.test-summary{margin:0 0 10px}.test-method{margin:0;padding-left:22px}.test-method li{margin:0 0 8px;padding-left:4px}details{border-top:1px solid var(--line);padding:14px 0}summary{cursor:pointer}.badge{font-size:12px;background:var(--soft);padding:3px 7px;border-radius:4px;display:inline-block}.source-text{white-space:pre-wrap;font-size:14px}nav{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0}.empty{padding:28px}.workspace-summary{max-width:1450px;margin:16px auto 0;padding:0 24px;font-size:13px;color:var(--quiet)}@media(max-width:850px){.workspace{grid-template-columns:1fr;padding:14px}.sidebar{position:static}.steps{grid-template-columns:1fr}header{padding:18px;align-items:start;flex-direction:column}}
@@ -78,7 +91,7 @@ def render(corpus, params):
     selected = scope(params)
     query = (params.get('q') or [''])[0]
     topic = (params.get('topic') or [''])[0]
-    found = matching(query, selected, topic)
+    found = matching(query, selected, topic, corpus)
     requested = (params.get('control') or [''])[0]
     chosen = next((c for c in CONTROLS if c['id'] == requested), None) if requested else (found[0] if found else None)
     source_url = '/?' + urlencode({'q': query or (chosen['topic'] if chosen else topic)})
@@ -109,8 +122,9 @@ def render(corpus, params):
                     body+='<details><summary>Published assessment material (%d)</summary>%s</details>' % (len(statements),''.join('<p><strong>%s</strong></p><p class="source-text">%s</p>'%(esc(s.published_by),esc(s.text)) for s in statements))
             rows.append('<details><summary><strong>%s</strong> <span class="badge">%s</span></summary><p>%s</p><small>%s</small>%s</details>'%(esc(label),esc(m['relationship']),esc(m['basis']),esc(m['provenance']),body))
         related=' · '.join('<a href="%s">%s — %s</a>'%(esc(url(selected,uid)),uid,esc(next(x['title'] for x in CONTROLS if x['id']==uid))) for uid in c['related'])
-        main='''<article><section class="box"><div class="eyebrow">%s · %s</div><h2>%s</h2><p>%s</p><p class="muted"><strong>Scope:</strong> %s</p>%s<div class="risk"><strong>Business risk</strong><br>%s</div><nav><a href="#assessment">Assessment</a><a href="#sources">Source requirements</a></nav></section>
+        main='''<article><section class="box"><div class="eyebrow">%s · %s</div><h2>%s</h2><p>%s</p><p class="muted"><strong>Scope:</strong> %s</p>%s<div class="risk"><strong>Business risk</strong><br>%s</div><nav><a href="#attack">ATT&amp;CK techniques</a><a href="#assessment">Assessment</a><a href="#sources">Source requirements</a></nav></section>
+%s
 <section class="box" id="assessment"><h3>Assess this control</h3><dl class="steps"><dt>Examine</dt><dd>%s</dd><dt>Interview</dt><dd>%s</dd><dt>Test</dt><dd>%s</dd><dt>Expected result</dt><dd>%s</dd></dl><small>Suggested assessment for this control. Check the source-specific conditions below.</small></section>
 <section class="box" id="sources"><h3>Source requirements · %d references in scope</h3><p class="muted">These locally reviewed connections describe overlap, not compliance. An effective control does not automatically satisfy every linked requirement.</p>%s</section><section class="box"><h3>Related controls</h3><p>%s</p></section></article>''' % (
-            c['id'],esc(c['topic']),esc(c['title']),esc(c['statement']),esc(c['scope']),'<p class="muted">This control has no references in the selected framework scope.</p>' if not refs else '',esc(c['risk']),esc(c['examine']),esc(c['interview']),test_method,esc(c['expected']),len(refs),''.join(rows) or '<p>No source references selected.</p>',related)
+            c['id'],esc(c['topic']),esc(c['title']),esc(c['statement']),esc(c['scope']),'<p class="muted">This control has no references in the selected framework scope.</p>' if not refs else '',esc(c['risk']),workspace_attack.render(c['id'],corpus),esc(c['examine']),esc(c['interview']),test_method,esc(c['expected']),len(refs),''.join(rows) or '<p>No source references selected.</p>',related)
     return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>WACC · Control workspace</title><style>%s</style></head><body><header><div><div class="eyebrow">WA Control Crosswalk</div><h1>Control workspace</h1></div><a href="%s">Browse source corpus →</a></header><p class="workspace-summary">Control library · %d controls across %d topics, with reviewed source connections. The full corpus remains available in the source browser.</p><div class="workspace">%s<main>%s</main></div></body></html>' % (STYLE,esc(source_url),len(CONTROLS),len(TOPICS),sidebar,main)
