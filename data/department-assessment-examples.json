@@ -1,0 +1,2369 @@
+[
+  {
+    "department": "Department of Silly Walks",
+    "year": 2023,
+    "date": "2023-12-31",
+    "assessor": "Fictional Security Assurance Team",
+    "scope": "All departmental ICT, cloud services and suppliers. Fictional demonstration data.",
+    "retrospective": "Yes",
+    "rows": [
+      {
+        "id": "1.1a",
+        "rating": "0",
+        "evidence": "DSW-2023-1.1a: Executive risk minutes. Risk ownership was informal.",
+        "owner": "Accountable authority",
+        "action": "Define the process, scope and delivery milestones.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.1b",
+        "rating": "1",
+        "evidence": "DSW-2023-1.1b: Executive risk minutes. Risk ownership was informal.",
+        "owner": "Accountable authority",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.1c",
+        "rating": "1",
+        "evidence": "DSW-2023-1.1c: Executive risk minutes. Risk ownership was informal.",
+        "owner": "Accountable authority",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.1d",
+        "rating": "2",
+        "evidence": "DSW-2023-1.1d: Executive risk minutes. Risk ownership was informal.",
+        "owner": "Accountable authority",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.2a",
+        "rating": "0",
+        "evidence": "DSW-2023-1.2a: Cyber executive delegation and reports. Executive delegation and reporting were being drafted.",
+        "owner": "Cyber security executive",
+        "action": "Define the process, scope and delivery milestones.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.2b",
+        "rating": "1",
+        "evidence": "DSW-2023-1.2b: Cyber executive delegation and reports. Executive delegation and reporting were being drafted.",
+        "owner": "Cyber security executive",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.2c",
+        "rating": "1",
+        "evidence": "DSW-2023-1.2c: Cyber executive delegation and reports. Executive delegation and reporting were being drafted.",
+        "owner": "Cyber security executive",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.2d",
+        "rating": "2",
+        "evidence": "DSW-2023-1.2d: Cyber executive delegation and reports. Executive delegation and reporting were being drafted.",
+        "owner": "Cyber security executive",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.3",
+        "rating": "0",
+        "evidence": "DSW-2023-1.3: Security workforce plan. Coverage depended on one administrator.",
+        "owner": "ICT director",
+        "action": "Define the process, scope and delivery milestones.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.4a",
+        "rating": "1",
+        "evidence": "DSW-2023-1.4a: Security governance pack. Governance documents existed in draft only.",
+        "owner": "Cyber security executive",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.4b",
+        "rating": "1",
+        "evidence": "DSW-2023-1.4b: Security governance pack. Governance documents existed in draft only.",
+        "owner": "Cyber security executive",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.4c",
+        "rating": "2",
+        "evidence": "DSW-2023-1.4c: Security governance pack. Governance documents existed in draft only.",
+        "owner": "Cyber security executive",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.4d",
+        "rating": "0",
+        "evidence": "DSW-2023-1.4d: Security governance pack. Governance documents existed in draft only.",
+        "owner": "Cyber security executive",
+        "action": "Define the process, scope and delivery milestones.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.4e",
+        "rating": "1",
+        "evidence": "DSW-2023-1.4e: Security governance pack. Governance documents existed in draft only.",
+        "owner": "Cyber security executive",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.4f",
+        "rating": "1",
+        "evidence": "DSW-2023-1.4f: Security governance pack. Governance documents existed in draft only.",
+        "owner": "Cyber security executive",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.4g",
+        "rating": "2",
+        "evidence": "DSW-2023-1.4g: Security governance pack. Governance documents existed in draft only.",
+        "owner": "Cyber security executive",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.5a",
+        "rating": "0",
+        "evidence": "DSW-2023-1.5a: Cloud offshoring risk assessment. Cloud locations and classifications were not consistently recorded.",
+        "owner": "Information owner",
+        "action": "Define the process, scope and delivery milestones.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.5b",
+        "rating": "1",
+        "evidence": "DSW-2023-1.5b: Cloud offshoring risk assessment. Cloud locations and classifications were not consistently recorded.",
+        "owner": "Information owner",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.5c",
+        "rating": "1",
+        "evidence": "DSW-2023-1.5c: Cloud offshoring risk assessment. Cloud locations and classifications were not consistently recorded.",
+        "owner": "Information owner",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.6",
+        "rating": "2",
+        "evidence": "DSW-2023-1.6: Device disposal certificates. Disposal records were incomplete.",
+        "owner": "ICT operations manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.7",
+        "rating": "0",
+        "evidence": "DSW-2023-1.7: Vulnerability register and remediation tickets. Scans were irregular and fixes had no agreed deadlines.",
+        "owner": "ICT operations manager",
+        "action": "Define the process, scope and delivery milestones.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.8",
+        "rating": "1",
+        "evidence": "DSW-2023-1.8: Vulnerability disclosure register. No public disclosure route existed.",
+        "owner": "Security lead",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.9a",
+        "rating": "1",
+        "evidence": "DSW-2023-1.9a: DGov direction and intelligence register. Advice was stored in individual mailboxes.",
+        "owner": "Security lead",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.9b",
+        "rating": "2",
+        "evidence": "DSW-2023-1.9b: DGov direction and intelligence register. Advice was stored in individual mailboxes.",
+        "owner": "Security lead",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.1a",
+        "rating": "0",
+        "evidence": "DSW-2023-2.1a: ICT and information asset register. Spreadsheets covered only core servers and devices.",
+        "owner": "Enterprise architect",
+        "action": "Define the process, scope and delivery milestones.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.1b",
+        "rating": "1",
+        "evidence": "DSW-2023-2.1b: ICT and information asset register. Spreadsheets covered only core servers and devices.",
+        "owner": "Enterprise architect",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.1c",
+        "rating": "1",
+        "evidence": "DSW-2023-2.1c: ICT and information asset register. Spreadsheets covered only core servers and devices.",
+        "owner": "Enterprise architect",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.1d",
+        "rating": "2",
+        "evidence": "DSW-2023-2.1d: ICT and information asset register. Spreadsheets covered only core servers and devices.",
+        "owner": "Enterprise architect",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.1e",
+        "rating": "0",
+        "evidence": "DSW-2023-2.1e: ICT and information asset register. Spreadsheets covered only core servers and devices.",
+        "owner": "Enterprise architect",
+        "action": "Define the process, scope and delivery milestones.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.1f",
+        "rating": "1",
+        "evidence": "DSW-2023-2.1f: ICT and information asset register. Spreadsheets covered only core servers and devices.",
+        "owner": "Enterprise architect",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.1g",
+        "rating": "1",
+        "evidence": "DSW-2023-2.1g: ICT and information asset register. Spreadsheets covered only core servers and devices.",
+        "owner": "Enterprise architect",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.1h",
+        "rating": "2",
+        "evidence": "DSW-2023-2.1h: ICT and information asset register. Spreadsheets covered only core servers and devices.",
+        "owner": "Enterprise architect",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.2a",
+        "rating": "0",
+        "evidence": "DSW-2023-2.2a: Cyber risk register. Cyber risks were recorded without consistent business context.",
+        "owner": "Risk manager",
+        "action": "Define the process, scope and delivery milestones.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.2b",
+        "rating": "1",
+        "evidence": "DSW-2023-2.2b: Cyber risk register. Cyber risks were recorded without consistent business context.",
+        "owner": "Risk manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.2c",
+        "rating": "1",
+        "evidence": "DSW-2023-2.2c: Cyber risk register. Cyber risks were recorded without consistent business context.",
+        "owner": "Risk manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.2d",
+        "rating": "2",
+        "evidence": "DSW-2023-2.2d: Cyber risk register. Cyber risks were recorded without consistent business context.",
+        "owner": "Risk manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.2e",
+        "rating": "0",
+        "evidence": "DSW-2023-2.2e: Cyber risk register. Cyber risks were recorded without consistent business context.",
+        "owner": "Risk manager",
+        "action": "Define the process, scope and delivery milestones.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.2f",
+        "rating": "1",
+        "evidence": "DSW-2023-2.2f: Cyber risk register. Cyber risks were recorded without consistent business context.",
+        "owner": "Risk manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.1.1a",
+        "rating": "1",
+        "evidence": "DSW-2023-3.1.1a: Essential Eight assessment workbook. The baseline assessment identified gaps across all eight strategies.",
+        "owner": "Security lead",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.1.1b",
+        "rating": "1",
+        "evidence": "DSW-2023-3.1.1b: Essential Eight assessment workbook. The baseline assessment identified gaps across all eight strategies.",
+        "owner": "Security lead",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.1.2",
+        "rating": "1",
+        "evidence": "DSW-2023-3.1.2: Further Five assessment. Email protection and personnel checks existed but other controls were incomplete.",
+        "owner": "Security lead",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.1.3a",
+        "rating": "1",
+        "evidence": "DSW-2023-3.1.3a: Additional control selection register. Additional controls had not been selected consistently.",
+        "owner": "Risk manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.1.3b",
+        "rating": "1",
+        "evidence": "DSW-2023-3.1.3b: Additional control selection register. Additional controls had not been selected consistently.",
+        "owner": "Risk manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.2a",
+        "rating": "2",
+        "evidence": "DSW-2023-3.2a: Training completion and role matrix. General awareness reached 42% of staff; tailored training was planned.",
+        "owner": "People services manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.2b",
+        "rating": "0",
+        "evidence": "DSW-2023-3.2b: Training completion and role matrix. General awareness reached 42% of staff; tailored training was planned.",
+        "owner": "People services manager",
+        "action": "Define the process, scope and delivery milestones.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.3",
+        "rating": "1",
+        "evidence": "DSW-2023-3.3: Mobile compliance and travel register. Only a portion of corporate mobiles were managed.",
+        "owner": "Endpoint manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4",
+        "rating": "1",
+        "evidence": "DSW-2023-3.4: Procurement security screening register. Security review was requested late and inconsistently.",
+        "owner": "Procurement manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.1a",
+        "rating": "2",
+        "evidence": "DSW-2023-3.4.1a: Supplier due diligence files. Supplier checks covered price and availability more than security.",
+        "owner": "Procurement manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.1b",
+        "rating": "0",
+        "evidence": "DSW-2023-3.4.1b: Supplier due diligence files. Supplier checks covered price and availability more than security.",
+        "owner": "Procurement manager",
+        "action": "Define the process, scope and delivery milestones.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.1c",
+        "rating": "1",
+        "evidence": "DSW-2023-3.4.1c: Supplier due diligence files. Supplier checks covered price and availability more than security.",
+        "owner": "Procurement manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.1d",
+        "rating": "1",
+        "evidence": "DSW-2023-3.4.1d: Supplier due diligence files. Supplier checks covered price and availability more than security.",
+        "owner": "Procurement manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.1e",
+        "rating": "2",
+        "evidence": "DSW-2023-3.4.1e: Supplier due diligence files. Supplier checks covered price and availability more than security.",
+        "owner": "Procurement manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.1f",
+        "rating": "0",
+        "evidence": "DSW-2023-3.4.1f: Supplier due diligence files. Supplier checks covered price and availability more than security.",
+        "owner": "Procurement manager",
+        "action": "Define the process, scope and delivery milestones.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.1g",
+        "rating": "1",
+        "evidence": "DSW-2023-3.4.1g: Supplier due diligence files. Supplier checks covered price and availability more than security.",
+        "owner": "Procurement manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.1h",
+        "rating": "1",
+        "evidence": "DSW-2023-3.4.1h: Supplier due diligence files. Supplier checks covered price and availability more than security.",
+        "owner": "Procurement manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.2a",
+        "rating": "2",
+        "evidence": "DSW-2023-3.4.2a: Contract security clause review. Legacy contracts lacked consistent security clauses.",
+        "owner": "Contract manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.2b",
+        "rating": "0",
+        "evidence": "DSW-2023-3.4.2b: Contract security clause review. Legacy contracts lacked consistent security clauses.",
+        "owner": "Contract manager",
+        "action": "Define the process, scope and delivery milestones.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.2c",
+        "rating": "1",
+        "evidence": "DSW-2023-3.4.2c: Contract security clause review. Legacy contracts lacked consistent security clauses.",
+        "owner": "Contract manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.2d",
+        "rating": "1",
+        "evidence": "DSW-2023-3.4.2d: Contract security clause review. Legacy contracts lacked consistent security clauses.",
+        "owner": "Contract manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.2e",
+        "rating": "2",
+        "evidence": "DSW-2023-3.4.2e: Contract security clause review. Legacy contracts lacked consistent security clauses.",
+        "owner": "Contract manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.2f",
+        "rating": "0",
+        "evidence": "DSW-2023-3.4.2f: Contract security clause review. Legacy contracts lacked consistent security clauses.",
+        "owner": "Contract manager",
+        "action": "Define the process, scope and delivery milestones.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.5",
+        "rating": "1",
+        "evidence": "DSW-2023-3.5: Site access review and visitor log. Key and visitor records were not routinely reconciled.",
+        "owner": "Facilities manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.6a",
+        "rating": "1",
+        "evidence": "DSW-2023-3.6a: Identity, DNS and network review. Leaver, privileged access and password filtering gaps were known.",
+        "owner": "Identity manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.6b",
+        "rating": "2",
+        "evidence": "DSW-2023-3.6b: Identity, DNS and network review. Leaver, privileged access and password filtering gaps were known.",
+        "owner": "Identity manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.6c",
+        "rating": "0",
+        "evidence": "DSW-2023-3.6c: Identity, DNS and network review. Leaver, privileged access and password filtering gaps were known.",
+        "owner": "Identity manager",
+        "action": "Define the process, scope and delivery milestones.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.6d",
+        "rating": "1",
+        "evidence": "DSW-2023-3.6d: Identity, DNS and network review. Leaver, privileged access and password filtering gaps were known.",
+        "owner": "Identity manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.6e",
+        "rating": "1",
+        "evidence": "DSW-2023-3.6e: Identity, DNS and network review. Leaver, privileged access and password filtering gaps were known.",
+        "owner": "Identity manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.6f",
+        "rating": "2",
+        "evidence": "DSW-2023-3.6f: Identity, DNS and network review. Leaver, privileged access and password filtering gaps were known.",
+        "owner": "Identity manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.7a",
+        "rating": "0",
+        "evidence": "DSW-2023-3.7a: Cyber insurance decision paper. The department had not assessed cyber insurance needs.",
+        "owner": "Chief finance officer",
+        "action": "Define the process, scope and delivery milestones.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.7b",
+        "rating": "1",
+        "evidence": "DSW-2023-3.7b: Cyber insurance decision paper. The department had not assessed cyber insurance needs.",
+        "owner": "Chief finance officer",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "4.1a",
+        "rating": "1",
+        "evidence": "DSW-2023-4.1a: SOC event review and escalation log. Alerts were reviewed intermittently without impact triage.",
+        "owner": "SOC manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "4.1b",
+        "rating": "2",
+        "evidence": "DSW-2023-4.1b: SOC event review and escalation log. Alerts were reviewed intermittently without impact triage.",
+        "owner": "SOC manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "4.1c",
+        "rating": "0",
+        "evidence": "DSW-2023-4.1c: SOC event review and escalation log. Alerts were reviewed intermittently without impact triage.",
+        "owner": "SOC manager",
+        "action": "Define the process, scope and delivery milestones.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "4.1d",
+        "rating": "1",
+        "evidence": "DSW-2023-4.1d: SOC event review and escalation log. Alerts were reviewed intermittently without impact triage.",
+        "owner": "SOC manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "4.2a",
+        "rating": "1",
+        "evidence": "DSW-2023-4.2a: SIEM coverage and DGov integration review. Logs from critical systems were fragmented.",
+        "owner": "SOC manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "4.2b",
+        "rating": "1",
+        "evidence": "DSW-2023-4.2b: SIEM coverage and DGov integration review. Logs from critical systems were fragmented.",
+        "owner": "SOC manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "4.2c",
+        "rating": "1",
+        "evidence": "DSW-2023-4.2c: SIEM coverage and DGov integration review. Logs from critical systems were fragmented.",
+        "owner": "SOC manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "5.1a",
+        "rating": "1",
+        "evidence": "DSW-2023-5.1a: Incident response plan and exercise log. An old plan omitted notification deadlines and offline access.",
+        "owner": "Incident manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "5.1b",
+        "rating": "1",
+        "evidence": "DSW-2023-5.1b: Incident response plan and exercise log. An old plan omitted notification deadlines and offline access.",
+        "owner": "Incident manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "5.1c",
+        "rating": "2",
+        "evidence": "DSW-2023-5.1c: Incident response plan and exercise log. An old plan omitted notification deadlines and offline access.",
+        "owner": "Incident manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "5.1d",
+        "rating": "0",
+        "evidence": "DSW-2023-5.1d: Incident response plan and exercise log. An old plan omitted notification deadlines and offline access.",
+        "owner": "Incident manager",
+        "action": "Define the process, scope and delivery milestones.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "5.1e",
+        "rating": "1",
+        "evidence": "DSW-2023-5.1e: Incident response plan and exercise log. An old plan omitted notification deadlines and offline access.",
+        "owner": "Incident manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "5.2",
+        "rating": "1",
+        "evidence": "DSW-2023-5.2: Annual incident exercise report. No annual exercise had been completed.",
+        "owner": "Incident manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "5.3",
+        "rating": "2",
+        "evidence": "DSW-2023-5.3: Ransomware response decision record. Escalation and ransom authority were unclear in the plan.",
+        "owner": "Incident manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "6.1",
+        "rating": "1",
+        "evidence": "DSW-2023-6.1: Restore exercise and recovery time report. Backups existed but business recovery times were untested.",
+        "owner": "Service continuity manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "6.2",
+        "rating": "1",
+        "evidence": "DSW-2023-6.2: Post-incident review and action log. There was no agreed lessons-learned process.",
+        "owner": "Incident manager",
+        "action": "Assign an owner and complete the implementation plan.",
+        "due": "2024-06-30",
+        "exclusion": ""
+      }
+    ],
+    "authority": "Director General (fictional)",
+    "approval_date": "",
+    "air_status": "Retrospective example",
+    "air_reference": "",
+    "exemptions": "No approved exemptions recorded."
+  },
+  {
+    "department": "Department of Silly Walks",
+    "year": 2024,
+    "date": "2024-12-31",
+    "assessor": "Fictional Security Assurance Team",
+    "scope": "All departmental ICT, cloud services and suppliers. Fictional demonstration data.",
+    "retrospective": "No",
+    "rows": [
+      {
+        "id": "1.1a",
+        "rating": "2",
+        "evidence": "DSW-2024-1.1a: Executive risk minutes. Quarterly risk reporting and funding were approved.",
+        "owner": "Accountable authority",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.1b",
+        "rating": "2",
+        "evidence": "DSW-2024-1.1b: Executive risk minutes. Quarterly risk reporting and funding were approved.",
+        "owner": "Accountable authority",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.1c",
+        "rating": "3",
+        "evidence": "DSW-2024-1.1c: Executive risk minutes. Quarterly risk reporting and funding were approved.",
+        "owner": "Accountable authority",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.1d",
+        "rating": "3",
+        "evidence": "DSW-2024-1.1d: Executive risk minutes. Quarterly risk reporting and funding were approved.",
+        "owner": "Accountable authority",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.2a",
+        "rating": "2",
+        "evidence": "DSW-2024-1.2a: Cyber executive delegation and reports. Delegation was signed; reporting and change notification were in use.",
+        "owner": "Cyber security executive",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.2b",
+        "rating": "2",
+        "evidence": "DSW-2024-1.2b: Cyber executive delegation and reports. Delegation was signed; reporting and change notification were in use.",
+        "owner": "Cyber security executive",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.2c",
+        "rating": "3",
+        "evidence": "DSW-2024-1.2c: Cyber executive delegation and reports. Delegation was signed; reporting and change notification were in use.",
+        "owner": "Cyber security executive",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.2d",
+        "rating": "3",
+        "evidence": "DSW-2024-1.2d: Cyber executive delegation and reports. Delegation was signed; reporting and change notification were in use.",
+        "owner": "Cyber security executive",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.3",
+        "rating": "2",
+        "evidence": "DSW-2024-1.3: Security workforce plan. A security lead and managed service covered daily operations.",
+        "owner": "ICT director",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.4a",
+        "rating": "2",
+        "evidence": "DSW-2024-1.4a: Security governance pack. Approved governance and implementation plans covered most services.",
+        "owner": "Cyber security executive",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.4b",
+        "rating": "3",
+        "evidence": "DSW-2024-1.4b: Security governance pack. Approved governance and implementation plans covered most services.",
+        "owner": "Cyber security executive",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.4c",
+        "rating": "3",
+        "evidence": "DSW-2024-1.4c: Security governance pack. Approved governance and implementation plans covered most services.",
+        "owner": "Cyber security executive",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.4d",
+        "rating": "2",
+        "evidence": "DSW-2024-1.4d: Security governance pack. Approved governance and implementation plans covered most services.",
+        "owner": "Cyber security executive",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.4e",
+        "rating": "2",
+        "evidence": "DSW-2024-1.4e: Security governance pack. Approved governance and implementation plans covered most services.",
+        "owner": "Cyber security executive",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.4f",
+        "rating": "3",
+        "evidence": "DSW-2024-1.4f: Security governance pack. Approved governance and implementation plans covered most services.",
+        "owner": "Cyber security executive",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.4g",
+        "rating": "3",
+        "evidence": "DSW-2024-1.4g: Security governance pack. Approved governance and implementation plans covered most services.",
+        "owner": "Cyber security executive",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.5a",
+        "rating": "2",
+        "evidence": "DSW-2024-1.5a: Cloud offshoring risk assessment. Major cloud services had classification and offshoring assessments.",
+        "owner": "Information owner",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.5b",
+        "rating": "2",
+        "evidence": "DSW-2024-1.5b: Cloud offshoring risk assessment. Major cloud services had classification and offshoring assessments.",
+        "owner": "Information owner",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.5c",
+        "rating": "3",
+        "evidence": "DSW-2024-1.5c: Cloud offshoring risk assessment. Major cloud services had classification and offshoring assessments.",
+        "owner": "Information owner",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.6",
+        "rating": "3",
+        "evidence": "DSW-2024-1.6: Device disposal certificates. An approved disposal process captured certificates for new disposals.",
+        "owner": "ICT operations manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.7",
+        "rating": "2",
+        "evidence": "DSW-2024-1.7: Vulnerability register and remediation tickets. Monthly scans and remediation targets covered most devices.",
+        "owner": "ICT operations manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.8",
+        "rating": "2",
+        "evidence": "DSW-2024-1.8: Vulnerability disclosure register. A disclosure mailbox and handling procedure were operating.",
+        "owner": "Security lead",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.9a",
+        "rating": "3",
+        "evidence": "DSW-2024-1.9a: DGov direction and intelligence register. Directions and advice were logged with responsible owners.",
+        "owner": "Security lead",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.9b",
+        "rating": "3",
+        "evidence": "DSW-2024-1.9b: DGov direction and intelligence register. Directions and advice were logged with responsible owners.",
+        "owner": "Security lead",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.1a",
+        "rating": "2",
+        "evidence": "DSW-2024-2.1a: ICT and information asset register. The inventory covered major systems, owners and obligations.",
+        "owner": "Enterprise architect",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.1b",
+        "rating": "2",
+        "evidence": "DSW-2024-2.1b: ICT and information asset register. The inventory covered major systems, owners and obligations.",
+        "owner": "Enterprise architect",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.1c",
+        "rating": "3",
+        "evidence": "DSW-2024-2.1c: ICT and information asset register. The inventory covered major systems, owners and obligations.",
+        "owner": "Enterprise architect",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.1d",
+        "rating": "3",
+        "evidence": "DSW-2024-2.1d: ICT and information asset register. The inventory covered major systems, owners and obligations.",
+        "owner": "Enterprise architect",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.1e",
+        "rating": "2",
+        "evidence": "DSW-2024-2.1e: ICT and information asset register. The inventory covered major systems, owners and obligations.",
+        "owner": "Enterprise architect",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.1f",
+        "rating": "2",
+        "evidence": "DSW-2024-2.1f: ICT and information asset register. The inventory covered major systems, owners and obligations.",
+        "owner": "Enterprise architect",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.1g",
+        "rating": "3",
+        "evidence": "DSW-2024-2.1g: ICT and information asset register. The inventory covered major systems, owners and obligations.",
+        "owner": "Enterprise architect",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.1h",
+        "rating": "3",
+        "evidence": "DSW-2024-2.1h: ICT and information asset register. The inventory covered major systems, owners and obligations.",
+        "owner": "Enterprise architect",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.2a",
+        "rating": "2",
+        "evidence": "DSW-2024-2.2a: Cyber risk register. The risk register covered key assets, suppliers and treatment owners.",
+        "owner": "Risk manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.2b",
+        "rating": "2",
+        "evidence": "DSW-2024-2.2b: Cyber risk register. The risk register covered key assets, suppliers and treatment owners.",
+        "owner": "Risk manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.2c",
+        "rating": "3",
+        "evidence": "DSW-2024-2.2c: Cyber risk register. The risk register covered key assets, suppliers and treatment owners.",
+        "owner": "Risk manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.2d",
+        "rating": "3",
+        "evidence": "DSW-2024-2.2d: Cyber risk register. The risk register covered key assets, suppliers and treatment owners.",
+        "owner": "Risk manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.2e",
+        "rating": "2",
+        "evidence": "DSW-2024-2.2e: Cyber risk register. The risk register covered key assets, suppliers and treatment owners.",
+        "owner": "Risk manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.2f",
+        "rating": "2",
+        "evidence": "DSW-2024-2.2f: Cyber risk register. The risk register covered key assets, suppliers and treatment owners.",
+        "owner": "Risk manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.1.1a",
+        "rating": "2",
+        "evidence": "DSW-2024-3.1.1a: Essential Eight assessment workbook. Most Level One requirements were deployed; legacy app exceptions remained.",
+        "owner": "Security lead",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.1.1b",
+        "rating": "2",
+        "evidence": "DSW-2024-3.1.1b: Essential Eight assessment workbook. Most Level One requirements were deployed; legacy app exceptions remained.",
+        "owner": "Security lead",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.1.2",
+        "rating": "2",
+        "evidence": "DSW-2024-3.1.2: Further Five assessment. The five strategies were deployed across most services.",
+        "owner": "Security lead",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.1.3a",
+        "rating": "2",
+        "evidence": "DSW-2024-3.1.3a: Additional control selection register. Risk reviews selected extra controls for critical and supplier services.",
+        "owner": "Risk manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.1.3b",
+        "rating": "3",
+        "evidence": "DSW-2024-3.1.3b: Additional control selection register. Risk reviews selected extra controls for critical and supplier services.",
+        "owner": "Risk manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.2a",
+        "rating": "3",
+        "evidence": "DSW-2024-3.2a: Training completion and role matrix. Annual training reached 88%; specialist role sessions were introduced.",
+        "owner": "People services manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.2b",
+        "rating": "2",
+        "evidence": "DSW-2024-3.2b: Training completion and role matrix. Annual training reached 88%; specialist role sessions were introduced.",
+        "owner": "People services manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.3",
+        "rating": "2",
+        "evidence": "DSW-2024-3.3: Mobile compliance and travel register. Corporate mobiles were enrolled; BYO and travel coverage was incomplete.",
+        "owner": "Endpoint manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4",
+        "rating": "3",
+        "evidence": "DSW-2024-3.4: Procurement security screening register. New purchases and renewable contracts used security screening.",
+        "owner": "Procurement manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.1a",
+        "rating": "3",
+        "evidence": "DSW-2024-3.4.1a: Supplier due diligence files. High-risk suppliers had risk, certification and shared-responsibility reviews.",
+        "owner": "Procurement manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.1b",
+        "rating": "2",
+        "evidence": "DSW-2024-3.4.1b: Supplier due diligence files. High-risk suppliers had risk, certification and shared-responsibility reviews.",
+        "owner": "Procurement manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.1c",
+        "rating": "2",
+        "evidence": "DSW-2024-3.4.1c: Supplier due diligence files. High-risk suppliers had risk, certification and shared-responsibility reviews.",
+        "owner": "Procurement manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.1d",
+        "rating": "3",
+        "evidence": "DSW-2024-3.4.1d: Supplier due diligence files. High-risk suppliers had risk, certification and shared-responsibility reviews.",
+        "owner": "Procurement manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.1e",
+        "rating": "3",
+        "evidence": "DSW-2024-3.4.1e: Supplier due diligence files. High-risk suppliers had risk, certification and shared-responsibility reviews.",
+        "owner": "Procurement manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.1f",
+        "rating": "2",
+        "evidence": "DSW-2024-3.4.1f: Supplier due diligence files. High-risk suppliers had risk, certification and shared-responsibility reviews.",
+        "owner": "Procurement manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.1g",
+        "rating": "2",
+        "evidence": "DSW-2024-3.4.1g: Supplier due diligence files. High-risk suppliers had risk, certification and shared-responsibility reviews.",
+        "owner": "Procurement manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.1h",
+        "rating": "3",
+        "evidence": "DSW-2024-3.4.1h: Supplier due diligence files. High-risk suppliers had risk, certification and shared-responsibility reviews.",
+        "owner": "Procurement manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.2a",
+        "rating": "3",
+        "evidence": "DSW-2024-3.4.2a: Contract security clause review. New contracts contained clauses; legacy renewals remained in progress.",
+        "owner": "Contract manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.2b",
+        "rating": "2",
+        "evidence": "DSW-2024-3.4.2b: Contract security clause review. New contracts contained clauses; legacy renewals remained in progress.",
+        "owner": "Contract manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.2c",
+        "rating": "2",
+        "evidence": "DSW-2024-3.4.2c: Contract security clause review. New contracts contained clauses; legacy renewals remained in progress.",
+        "owner": "Contract manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.2d",
+        "rating": "3",
+        "evidence": "DSW-2024-3.4.2d: Contract security clause review. New contracts contained clauses; legacy renewals remained in progress.",
+        "owner": "Contract manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.2e",
+        "rating": "3",
+        "evidence": "DSW-2024-3.4.2e: Contract security clause review. New contracts contained clauses; legacy renewals remained in progress.",
+        "owner": "Contract manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.2f",
+        "rating": "2",
+        "evidence": "DSW-2024-3.4.2f: Contract security clause review. New contracts contained clauses; legacy renewals remained in progress.",
+        "owner": "Contract manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.5",
+        "rating": "2",
+        "evidence": "DSW-2024-3.5: Site access review and visitor log. Access lists and visitor sign-in were operating for critical rooms.",
+        "owner": "Facilities manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.6a",
+        "rating": "3",
+        "evidence": "DSW-2024-3.6a: Identity, DNS and network review. Most accounts and networks used the approved baseline; exceptions remained.",
+        "owner": "Identity manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.6b",
+        "rating": "3",
+        "evidence": "DSW-2024-3.6b: Identity, DNS and network review. Most accounts and networks used the approved baseline; exceptions remained.",
+        "owner": "Identity manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.6c",
+        "rating": "2",
+        "evidence": "DSW-2024-3.6c: Identity, DNS and network review. Most accounts and networks used the approved baseline; exceptions remained.",
+        "owner": "Identity manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.6d",
+        "rating": "2",
+        "evidence": "DSW-2024-3.6d: Identity, DNS and network review. Most accounts and networks used the approved baseline; exceptions remained.",
+        "owner": "Identity manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.6e",
+        "rating": "3",
+        "evidence": "DSW-2024-3.6e: Identity, DNS and network review. Most accounts and networks used the approved baseline; exceptions remained.",
+        "owner": "Identity manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.6f",
+        "rating": "3",
+        "evidence": "DSW-2024-3.6f: Identity, DNS and network review. Most accounts and networks used the approved baseline; exceptions remained.",
+        "owner": "Identity manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.7a",
+        "rating": "2",
+        "evidence": "DSW-2024-3.7a: Cyber insurance decision paper. Risk and coverage reviews informed the insurance decision.",
+        "owner": "Chief finance officer",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.7b",
+        "rating": "2",
+        "evidence": "DSW-2024-3.7b: Cyber insurance decision paper. Risk and coverage reviews informed the insurance decision.",
+        "owner": "Chief finance officer",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "4.1a",
+        "rating": "3",
+        "evidence": "DSW-2024-4.1a: SOC event review and escalation log. Daily reviews and escalation operated during business hours.",
+        "owner": "SOC manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "4.1b",
+        "rating": "3",
+        "evidence": "DSW-2024-4.1b: SOC event review and escalation log. Daily reviews and escalation operated during business hours.",
+        "owner": "SOC manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "4.1c",
+        "rating": "2",
+        "evidence": "DSW-2024-4.1c: SOC event review and escalation log. Daily reviews and escalation operated during business hours.",
+        "owner": "SOC manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "4.1d",
+        "rating": "2",
+        "evidence": "DSW-2024-4.1d: SOC event review and escalation log. Daily reviews and escalation operated during business hours.",
+        "owner": "SOC manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "4.2a",
+        "rating": "2",
+        "evidence": "DSW-2024-4.2a: SIEM coverage and DGov integration review. Core logs and detection rules were in place; DGov integration was being completed.",
+        "owner": "SOC manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "4.2b",
+        "rating": "2",
+        "evidence": "DSW-2024-4.2b: SIEM coverage and DGov integration review. Core logs and detection rules were in place; DGov integration was being completed.",
+        "owner": "SOC manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "4.2c",
+        "rating": "2",
+        "evidence": "DSW-2024-4.2c: SIEM coverage and DGov integration review. Core logs and detection rules were in place; DGov integration was being completed.",
+        "owner": "SOC manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "5.1a",
+        "rating": "2",
+        "evidence": "DSW-2024-5.1a: Incident response plan and exercise log. The plan included triage and reporting deadlines and had an initial exercise.",
+        "owner": "Incident manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "5.1b",
+        "rating": "3",
+        "evidence": "DSW-2024-5.1b: Incident response plan and exercise log. The plan included triage and reporting deadlines and had an initial exercise.",
+        "owner": "Incident manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "5.1c",
+        "rating": "3",
+        "evidence": "DSW-2024-5.1c: Incident response plan and exercise log. The plan included triage and reporting deadlines and had an initial exercise.",
+        "owner": "Incident manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "5.1d",
+        "rating": "2",
+        "evidence": "DSW-2024-5.1d: Incident response plan and exercise log. The plan included triage and reporting deadlines and had an initial exercise.",
+        "owner": "Incident manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "5.1e",
+        "rating": "2",
+        "evidence": "DSW-2024-5.1e: Incident response plan and exercise log. The plan included triage and reporting deadlines and had an initial exercise.",
+        "owner": "Incident manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "5.2",
+        "rating": "3",
+        "evidence": "DSW-2024-5.2: Annual incident exercise report. A tabletop exercise identified coordination gaps.",
+        "owner": "Incident manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "5.3",
+        "rating": "3",
+        "evidence": "DSW-2024-5.3: Ransomware response decision record. The playbook named DGov, WA Police and SECC authority.",
+        "owner": "Incident manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "6.1",
+        "rating": "2",
+        "evidence": "DSW-2024-6.1: Restore exercise and recovery time report. A partial restore succeeded; critical service recovery targets were not all met.",
+        "owner": "Service continuity manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "6.2",
+        "rating": "2",
+        "evidence": "DSW-2024-6.2: Post-incident review and action log. A PIR template and DGov reporting workflow had been introduced.",
+        "owner": "Incident manager",
+        "action": "Complete coverage, obtain approval and test implementation.",
+        "due": "2025-06-30",
+        "exclusion": ""
+      }
+    ],
+    "authority": "Director General (fictional)",
+    "approval_date": "",
+    "air_status": "Prepared",
+    "air_reference": "DSW-AIR-2024 (fictional)",
+    "exemptions": "No approved exemptions recorded."
+  },
+  {
+    "department": "Department of Silly Walks",
+    "year": 2025,
+    "date": "2025-12-31",
+    "assessor": "Fictional Security Assurance Team",
+    "scope": "All departmental ICT, cloud services and suppliers. Fictional demonstration data.",
+    "retrospective": "No",
+    "rows": [
+      {
+        "id": "1.1a",
+        "rating": "3",
+        "evidence": "DSW-2025-1.1a: Executive risk minutes. Four quarterly reviews tracked decisions and overdue actions.",
+        "owner": "Accountable authority",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.1b",
+        "rating": "4",
+        "evidence": "DSW-2025-1.1b: Executive risk minutes. Four quarterly reviews tracked decisions and overdue actions.",
+        "owner": "Accountable authority",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.1c",
+        "rating": "4",
+        "evidence": "DSW-2025-1.1c: Executive risk minutes. Four quarterly reviews tracked decisions and overdue actions.",
+        "owner": "Accountable authority",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.1d",
+        "rating": "4",
+        "evidence": "DSW-2025-1.1d: Executive risk minutes. Four quarterly reviews tracked decisions and overdue actions.",
+        "owner": "Accountable authority",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.2a",
+        "rating": "3",
+        "evidence": "DSW-2025-1.2a: Cyber executive delegation and reports. Delegation, reporting and notification records were sampled and reviewed.",
+        "owner": "Cyber security executive",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.2b",
+        "rating": "4",
+        "evidence": "DSW-2025-1.2b: Cyber executive delegation and reports. Delegation, reporting and notification records were sampled and reviewed.",
+        "owner": "Cyber security executive",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.2c",
+        "rating": "4",
+        "evidence": "DSW-2025-1.2c: Cyber executive delegation and reports. Delegation, reporting and notification records were sampled and reviewed.",
+        "owner": "Cyber security executive",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.2d",
+        "rating": "4",
+        "evidence": "DSW-2025-1.2d: Cyber executive delegation and reports. Delegation, reporting and notification records were sampled and reviewed.",
+        "owner": "Cyber security executive",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.3",
+        "rating": "3",
+        "evidence": "DSW-2025-1.3: Security workforce plan. Leave cover and incident surge capacity were tested.",
+        "owner": "ICT director",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.4a",
+        "rating": "4",
+        "evidence": "DSW-2025-1.4a: Security governance pack. Committee reviews and assurance samples tracked exceptions to closure.",
+        "owner": "Cyber security executive",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.4b",
+        "rating": "4",
+        "evidence": "DSW-2025-1.4b: Security governance pack. Committee reviews and assurance samples tracked exceptions to closure.",
+        "owner": "Cyber security executive",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.4c",
+        "rating": "4",
+        "evidence": "DSW-2025-1.4c: Security governance pack. Committee reviews and assurance samples tracked exceptions to closure.",
+        "owner": "Cyber security executive",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.4d",
+        "rating": "3",
+        "evidence": "DSW-2025-1.4d: Security governance pack. Committee reviews and assurance samples tracked exceptions to closure.",
+        "owner": "Cyber security executive",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.4e",
+        "rating": "4",
+        "evidence": "DSW-2025-1.4e: Security governance pack. Committee reviews and assurance samples tracked exceptions to closure.",
+        "owner": "Cyber security executive",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.4f",
+        "rating": "4",
+        "evidence": "DSW-2025-1.4f: Security governance pack. Committee reviews and assurance samples tracked exceptions to closure.",
+        "owner": "Cyber security executive",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.4g",
+        "rating": "4",
+        "evidence": "DSW-2025-1.4g: Security governance pack. Committee reviews and assurance samples tracked exceptions to closure.",
+        "owner": "Cyber security executive",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.5a",
+        "rating": "3",
+        "evidence": "DSW-2025-1.5a: Cloud offshoring risk assessment. All cloud services were reviewed; contract and location changes were checked.",
+        "owner": "Information owner",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.5b",
+        "rating": "4",
+        "evidence": "DSW-2025-1.5b: Cloud offshoring risk assessment. All cloud services were reviewed; contract and location changes were checked.",
+        "owner": "Information owner",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.5c",
+        "rating": "4",
+        "evidence": "DSW-2025-1.5c: Cloud offshoring risk assessment. All cloud services were reviewed; contract and location changes were checked.",
+        "owner": "Information owner",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.6",
+        "rating": "4",
+        "evidence": "DSW-2025-1.6: Device disposal certificates. A sample of retired devices reconciled to sanitisation certificates.",
+        "owner": "ICT operations manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.7",
+        "rating": "3",
+        "evidence": "DSW-2025-1.7: Vulnerability register and remediation tickets. Exceptions were reviewed and a sample of fixes was rescanned.",
+        "owner": "ICT operations manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.8",
+        "rating": "4",
+        "evidence": "DSW-2025-1.8: Vulnerability disclosure register. A test report reached the responder and met the response target.",
+        "owner": "Security lead",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.9a",
+        "rating": "4",
+        "evidence": "DSW-2025-1.9a: DGov direction and intelligence register. Monthly reviews checked action completion and exemption expiry.",
+        "owner": "Security lead",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "1.9b",
+        "rating": "4",
+        "evidence": "DSW-2025-1.9b: DGov direction and intelligence register. Monthly reviews checked action completion and exemption expiry.",
+        "owner": "Security lead",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.1a",
+        "rating": "3",
+        "evidence": "DSW-2025-2.1a: ICT and information asset register. Quarterly reconciliation checked discovery, ownership and dependencies.",
+        "owner": "Enterprise architect",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.1b",
+        "rating": "4",
+        "evidence": "DSW-2025-2.1b: ICT and information asset register. Quarterly reconciliation checked discovery, ownership and dependencies.",
+        "owner": "Enterprise architect",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.1c",
+        "rating": "4",
+        "evidence": "DSW-2025-2.1c: ICT and information asset register. Quarterly reconciliation checked discovery, ownership and dependencies.",
+        "owner": "Enterprise architect",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.1d",
+        "rating": "4",
+        "evidence": "DSW-2025-2.1d: ICT and information asset register. Quarterly reconciliation checked discovery, ownership and dependencies.",
+        "owner": "Enterprise architect",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.1e",
+        "rating": "3",
+        "evidence": "DSW-2025-2.1e: ICT and information asset register. Quarterly reconciliation checked discovery, ownership and dependencies.",
+        "owner": "Enterprise architect",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.1f",
+        "rating": "4",
+        "evidence": "DSW-2025-2.1f: ICT and information asset register. Quarterly reconciliation checked discovery, ownership and dependencies.",
+        "owner": "Enterprise architect",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.1g",
+        "rating": "4",
+        "evidence": "DSW-2025-2.1g: ICT and information asset register. Quarterly reconciliation checked discovery, ownership and dependencies.",
+        "owner": "Enterprise architect",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.1h",
+        "rating": "4",
+        "evidence": "DSW-2025-2.1h: ICT and information asset register. Quarterly reconciliation checked discovery, ownership and dependencies.",
+        "owner": "Enterprise architect",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.2a",
+        "rating": "3",
+        "evidence": "DSW-2025-2.2a: Cyber risk register. Reviews after service changes checked threats, shared duties and treatments.",
+        "owner": "Risk manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.2b",
+        "rating": "4",
+        "evidence": "DSW-2025-2.2b: Cyber risk register. Reviews after service changes checked threats, shared duties and treatments.",
+        "owner": "Risk manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.2c",
+        "rating": "4",
+        "evidence": "DSW-2025-2.2c: Cyber risk register. Reviews after service changes checked threats, shared duties and treatments.",
+        "owner": "Risk manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.2d",
+        "rating": "4",
+        "evidence": "DSW-2025-2.2d: Cyber risk register. Reviews after service changes checked threats, shared duties and treatments.",
+        "owner": "Risk manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.2e",
+        "rating": "3",
+        "evidence": "DSW-2025-2.2e: Cyber risk register. Reviews after service changes checked threats, shared duties and treatments.",
+        "owner": "Risk manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "2.2f",
+        "rating": "4",
+        "evidence": "DSW-2025-2.2f: Cyber risk register. Reviews after service changes checked threats, shared duties and treatments.",
+        "owner": "Risk manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.1.1a",
+        "rating": "3",
+        "evidence": "DSW-2025-3.1.1a: Essential Eight assessment workbook. Testing confirmed Level One across all eight; higher-risk services had a Level Two plan.",
+        "owner": "Security lead",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.1.1b",
+        "rating": "3",
+        "evidence": "DSW-2025-3.1.1b: Essential Eight assessment workbook. Testing confirmed Level One across all eight; higher-risk services had a Level Two plan.",
+        "owner": "Security lead",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.1.2",
+        "rating": "3",
+        "evidence": "DSW-2025-3.1.2: Further Five assessment. Samples tested all five strategies; remaining segmentation work was tracked.",
+        "owner": "Security lead",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.1.3a",
+        "rating": "4",
+        "evidence": "DSW-2025-3.1.3a: Additional control selection register. Annual review verified control choices against current threats and service changes.",
+        "owner": "Risk manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.1.3b",
+        "rating": "4",
+        "evidence": "DSW-2025-3.1.3b: Additional control selection register. Annual review verified control choices against current threats and service changes.",
+        "owner": "Risk manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.2a",
+        "rating": "4",
+        "evidence": "DSW-2025-3.2a: Training completion and role matrix. Completion reached 98%; missed sessions and role changes were followed up.",
+        "owner": "People services manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.2b",
+        "rating": "3",
+        "evidence": "DSW-2025-3.2b: Training completion and role matrix. Completion reached 98%; missed sessions and role changes were followed up.",
+        "owner": "People services manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.3",
+        "rating": "4",
+        "evidence": "DSW-2025-3.3: Mobile compliance and travel register. Compliance sampling included BYO, application settings and travel returns.",
+        "owner": "Endpoint manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4",
+        "rating": "4",
+        "evidence": "DSW-2025-3.4: Procurement security screening register. Procurement samples confirmed screening before approvals.",
+        "owner": "Procurement manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.1a",
+        "rating": "4",
+        "evidence": "DSW-2025-3.4.1a: Supplier due diligence files. A supplier sample verified assessment scope, insurance and data location checks.",
+        "owner": "Procurement manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.1b",
+        "rating": "3",
+        "evidence": "DSW-2025-3.4.1b: Supplier due diligence files. A supplier sample verified assessment scope, insurance and data location checks.",
+        "owner": "Procurement manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.1c",
+        "rating": "4",
+        "evidence": "DSW-2025-3.4.1c: Supplier due diligence files. A supplier sample verified assessment scope, insurance and data location checks.",
+        "owner": "Procurement manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.1d",
+        "rating": "4",
+        "evidence": "DSW-2025-3.4.1d: Supplier due diligence files. A supplier sample verified assessment scope, insurance and data location checks.",
+        "owner": "Procurement manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.1e",
+        "rating": "4",
+        "evidence": "DSW-2025-3.4.1e: Supplier due diligence files. A supplier sample verified assessment scope, insurance and data location checks.",
+        "owner": "Procurement manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.1f",
+        "rating": "3",
+        "evidence": "DSW-2025-3.4.1f: Supplier due diligence files. A supplier sample verified assessment scope, insurance and data location checks.",
+        "owner": "Procurement manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.1g",
+        "rating": "4",
+        "evidence": "DSW-2025-3.4.1g: Supplier due diligence files. A supplier sample verified assessment scope, insurance and data location checks.",
+        "owner": "Procurement manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.1h",
+        "rating": "4",
+        "evidence": "DSW-2025-3.4.1h: Supplier due diligence files. A supplier sample verified assessment scope, insurance and data location checks.",
+        "owner": "Procurement manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.2a",
+        "rating": "4",
+        "evidence": "DSW-2025-3.4.2a: Contract security clause review. Contract sampling confirmed required clauses and recorded remaining legacy gaps.",
+        "owner": "Contract manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.2b",
+        "rating": "3",
+        "evidence": "DSW-2025-3.4.2b: Contract security clause review. Contract sampling confirmed required clauses and recorded remaining legacy gaps.",
+        "owner": "Contract manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.2c",
+        "rating": "4",
+        "evidence": "DSW-2025-3.4.2c: Contract security clause review. Contract sampling confirmed required clauses and recorded remaining legacy gaps.",
+        "owner": "Contract manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.2d",
+        "rating": "4",
+        "evidence": "DSW-2025-3.4.2d: Contract security clause review. Contract sampling confirmed required clauses and recorded remaining legacy gaps.",
+        "owner": "Contract manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.2e",
+        "rating": "4",
+        "evidence": "DSW-2025-3.4.2e: Contract security clause review. Contract sampling confirmed required clauses and recorded remaining legacy gaps.",
+        "owner": "Contract manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.4.2f",
+        "rating": "3",
+        "evidence": "DSW-2025-3.4.2f: Contract security clause review. Contract sampling confirmed required clauses and recorded remaining legacy gaps.",
+        "owner": "Contract manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.5",
+        "rating": "4",
+        "evidence": "DSW-2025-3.5: Site access review and visitor log. Access samples and a site inspection verified physical safeguards.",
+        "owner": "Facilities manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.6a",
+        "rating": "4",
+        "evidence": "DSW-2025-3.6a: Identity, DNS and network review. Account, password filter, DNS and network tests verified implementation.",
+        "owner": "Identity manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.6b",
+        "rating": "4",
+        "evidence": "DSW-2025-3.6b: Identity, DNS and network review. Account, password filter, DNS and network tests verified implementation.",
+        "owner": "Identity manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.6c",
+        "rating": "3",
+        "evidence": "DSW-2025-3.6c: Identity, DNS and network review. Account, password filter, DNS and network tests verified implementation.",
+        "owner": "Identity manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.6d",
+        "rating": "4",
+        "evidence": "DSW-2025-3.6d: Identity, DNS and network review. Account, password filter, DNS and network tests verified implementation.",
+        "owner": "Identity manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.6e",
+        "rating": "4",
+        "evidence": "DSW-2025-3.6e: Identity, DNS and network review. Account, password filter, DNS and network tests verified implementation.",
+        "owner": "Identity manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.6f",
+        "rating": "4",
+        "evidence": "DSW-2025-3.6f: Identity, DNS and network review. Account, password filter, DNS and network tests verified implementation.",
+        "owner": "Identity manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.7a",
+        "rating": "3",
+        "evidence": "DSW-2025-3.7a: Cyber insurance decision paper. Renewal review tested loss scenarios against first- and third-party cover.",
+        "owner": "Chief finance officer",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "3.7b",
+        "rating": "4",
+        "evidence": "DSW-2025-3.7b: Cyber insurance decision paper. Renewal review tested loss scenarios against first- and third-party cover.",
+        "owner": "Chief finance officer",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "4.1a",
+        "rating": "4",
+        "evidence": "DSW-2025-4.1a: SOC event review and escalation log. Timestamp samples confirmed event review and intelligence-sharing deadlines.",
+        "owner": "SOC manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "4.1b",
+        "rating": "4",
+        "evidence": "DSW-2025-4.1b: SOC event review and escalation log. Timestamp samples confirmed event review and intelligence-sharing deadlines.",
+        "owner": "SOC manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "4.1c",
+        "rating": "3",
+        "evidence": "DSW-2025-4.1c: SOC event review and escalation log. Timestamp samples confirmed event review and intelligence-sharing deadlines.",
+        "owner": "SOC manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "4.1d",
+        "rating": "4",
+        "evidence": "DSW-2025-4.1d: SOC event review and escalation log. Timestamp samples confirmed event review and intelligence-sharing deadlines.",
+        "owner": "SOC manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "4.2a",
+        "rating": "3",
+        "evidence": "DSW-2025-4.2a: SIEM coverage and DGov integration review. Detection exercises verified coverage and incident transfer; legacy logs remained an action.",
+        "owner": "SOC manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "4.2b",
+        "rating": "3",
+        "evidence": "DSW-2025-4.2b: SIEM coverage and DGov integration review. Detection exercises verified coverage and incident transfer; legacy logs remained an action.",
+        "owner": "SOC manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "4.2c",
+        "rating": "3",
+        "evidence": "DSW-2025-4.2c: SIEM coverage and DGov integration review. Detection exercises verified coverage and incident transfer; legacy logs remained an action.",
+        "owner": "SOC manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "5.1a",
+        "rating": "4",
+        "evidence": "DSW-2025-5.1a: Incident response plan and exercise log. An exercise verified offline access, four-hour triage and 24-hour reporting.",
+        "owner": "Incident manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "5.1b",
+        "rating": "4",
+        "evidence": "DSW-2025-5.1b: Incident response plan and exercise log. An exercise verified offline access, four-hour triage and 24-hour reporting.",
+        "owner": "Incident manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "5.1c",
+        "rating": "4",
+        "evidence": "DSW-2025-5.1c: Incident response plan and exercise log. An exercise verified offline access, four-hour triage and 24-hour reporting.",
+        "owner": "Incident manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "5.1d",
+        "rating": "3",
+        "evidence": "DSW-2025-5.1d: Incident response plan and exercise log. An exercise verified offline access, four-hour triage and 24-hour reporting.",
+        "owner": "Incident manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "5.1e",
+        "rating": "4",
+        "evidence": "DSW-2025-5.1e: Incident response plan and exercise log. An exercise verified offline access, four-hour triage and 24-hour reporting.",
+        "owner": "Incident manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "5.2",
+        "rating": "4",
+        "evidence": "DSW-2025-5.2: Annual incident exercise report. The annual exercise retested actions and recorded accountable owners.",
+        "owner": "Incident manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "5.3",
+        "rating": "4",
+        "evidence": "DSW-2025-5.3: Ransomware response decision record. The exercise checked demand referral and the approval escalation route.",
+        "owner": "Incident manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "6.1",
+        "rating": "3",
+        "evidence": "DSW-2025-6.1: Restore exercise and recovery time report. A timed restoration met approved recovery targets and included business verification.",
+        "owner": "Service continuity manager",
+        "action": "Test remaining coverage and close exceptions.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      },
+      {
+        "id": "6.2",
+        "rating": "4",
+        "evidence": "DSW-2025-6.2: Post-incident review and action log. A simulated incident tested the 20-working-day report and recovery-plan updates.",
+        "owner": "Incident manager",
+        "action": "Maintain scheduled review and repeat the evidence sample.",
+        "due": "2026-06-30",
+        "exclusion": ""
+      }
+    ],
+    "authority": "Director General (fictional)",
+    "approval_date": "2025-12-20",
+    "air_status": "Submitted",
+    "air_reference": "DSW-AIR-2025 (fictional)",
+    "exemptions": "No approved exemptions recorded."
+  }
+]

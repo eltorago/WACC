@@ -17,6 +17,15 @@ from .registry import DETAIL_SOURCES, FRAMEWORKS
 
 # Excluded unless the exact path is in the reviewed source manifest.
 SOURCE_SUFFIXES = (".pdf", ".xlsx", ".xlsm", ".xls", ".docx", ".doc", ".zip", ".epub")
+# Authored templates and fictional examples, not publisher source workbooks.
+AUTHORED_WORKBOOKS = {
+    os.path.normpath('examples/assessments/' + name) for name in (
+        'wa-csp-2024-template.xlsx',
+        'department-of-silly-walks-2023.xlsx',
+        'department-of-silly-walks-2024.xlsx',
+        'department-of-silly-walks-2025.xlsx',
+    )
+}
 
 
 def approved_sources(root: str) -> Dict[str, Dict]:
@@ -36,6 +45,7 @@ def approved_sources(root: str) -> Dict[str, Dict]:
 
 # Never shipped whatever is in them.
 EXCLUDED_DIRECTORIES = (
+    os.path.join("data", "local"),  # Imported department assessments stay on this computer.
     os.path.join("data", "raw"),
     # CIS benchmark recommendations, audit steps and remediation text.
     os.path.join("data", "corpus", "detail"),
@@ -111,7 +121,7 @@ def would_ship(root: str) -> List[str]:
                 continue
             if name.endswith(NOISE_SUFFIXES) or name in TRANSPORT:
                 continue
-            if name.lower().endswith(SOURCE_SUFFIXES):
+            if name.lower().endswith(SOURCE_SUFFIXES) and path not in AUTHORED_WORKBOOKS:
                 continue
             if name in forbidden_names:
                 continue
@@ -141,7 +151,7 @@ def check(root: str) -> List[Violation]:
     for path in would_ship(root):
         name = os.path.basename(path)
         parent = os.path.dirname(path)
-        if name.lower().endswith(SOURCE_SUFFIXES):
+        if name.lower().endswith(SOURCE_SUFFIXES) and path not in AUTHORED_WORKBOOKS:
             out.append(
                 Violation(path, "publisher source document",
                           "publisher files are local inputs and never distributed")
@@ -184,7 +194,7 @@ def excluded_but_present(root: str) -> List[Tuple[str, str]]:
                 continue
             if in_excluded_dir:
                 caught.append((path, "excluded directory"))
-            elif name.lower().endswith(SOURCE_SUFFIXES):
+            elif name.lower().endswith(SOURCE_SUFFIXES) and path not in AUTHORED_WORKBOOKS:
                 caught.append((path, "publisher source document"))
             elif name in forbidden_names:
                 caught.append((path, "import-only publisher text"))
@@ -226,6 +236,8 @@ def gitignore() -> str:
     for suffix in sorted(SOURCE_SUFFIXES):
         lines.append("*%s" % suffix)
         lines.append("*%s" % suffix.upper())
+    lines.append("# Authored assessment templates and fictional examples")
+    lines.extend('!/' + path.replace(os.sep, '/') for path in sorted(AUTHORED_WORKBOOKS))
 
     lines.append("")
     lines.append("# Extracts of publisher text that has not been licensed for reuse")
