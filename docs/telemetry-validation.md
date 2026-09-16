@@ -65,7 +65,11 @@ and window for larger tenants. Separate runs remain separate evidence sets;
 WACC does not combine them into a claim of full-year coverage. Missing events
 are an evidence gap, not proof that a protection is working.
 
-## Path A: read exports from Azure Data Lake Storage Gen2
+## Recommended: read exports from Azure Data Lake Storage Gen2
+
+Start here for logs held in an Azure storage account and container/filesystem.
+Before configuring the import, identify the storage account, container/filesystem,
+one example log-file path, Entra tenant ID and Sentinel workspace ID.
 
 This path reads existing files from a customer-owned ADLS Gen2 account. It does
 not create a storage account, change Sentinel connectors or configure export rules.
