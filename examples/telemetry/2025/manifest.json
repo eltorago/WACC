@@ -1,0 +1,81 @@
+{
+  "schema": "wacc-sentinel-evidence-v1",
+  "department": "Department of Silly Walks",
+  "year": 2025,
+  "source_kind": "fictional-example",
+  "start": "2025-12-01T00:00:00Z",
+  "end": "2026-01-01T00:00:00Z",
+  "workspace_id": "11111111-1111-4111-8111-111111111111",
+  "entra_tenant_id": "22222222-2222-4222-8222-222222222222",
+  "scope_reference": "Fictional December 2025 sample: inventory SW-ASSET-2025; all three devices and three users accessing the demo records app.",
+  "device_ids": [
+    "3333333333333333333333333333333333333333",
+    "4444444444444444444444444444444444444444",
+    "5555555555555555555555555555555555555555"
+  ],
+  "mfa_user_ids": [
+    "66666666-6666-4666-8666-000000000001",
+    "66666666-6666-4666-8666-000000000002",
+    "66666666-6666-4666-8666-000000000003"
+  ],
+  "mfa_app_ids": [
+    "77777777-7777-4777-8777-777777777777"
+  ],
+  "authentication_details_final": true,
+  "sensor_freshness_days": 7,
+  "expected_rows": {
+    "DeviceEvents": 4,
+    "DeviceInfo": 3,
+    "DeviceProcessEvents": 4,
+    "DeviceNetworkEvents": 3,
+    "DeviceLogonEvents": 3,
+    "SigninLogs": 4
+  },
+  "expected_block_tests": [
+    {
+      "device_id": "4444444444444444444444444444444444444444",
+      "sha1": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "start": "2025-12-15T09:59:00Z",
+      "end": "2025-12-15T10:02:00Z",
+      "reference": "Fictional approved test SW-AC-2025-01: demo executable must be blocked"
+    }
+  ],
+  "files": [
+    {
+      "name": "DeviceEvents.jsonl",
+      "table": "DeviceEvents",
+      "format": "jsonl",
+      "sha256": "306c15800ab1ca39b3d702c3da650fdd2ddf2321c2aef3b3dca52e2049d97ade"
+    },
+    {
+      "name": "DeviceInfo.jsonl",
+      "table": "DeviceInfo",
+      "format": "jsonl",
+      "sha256": "b3c112c26853315e0d4159195f3bdfe854daa626c437718f170b8639606958aa"
+    },
+    {
+      "name": "DeviceProcessEvents.jsonl",
+      "table": "DeviceProcessEvents",
+      "format": "jsonl",
+      "sha256": "e8c0ae215f9efecdf257cc95e0d6f68c9dea3a6083cb10c0844082dc4bb72d0d"
+    },
+    {
+      "name": "DeviceNetworkEvents.jsonl",
+      "table": "DeviceNetworkEvents",
+      "format": "jsonl",
+      "sha256": "cd50688c96cd3e032bec6957596eafe4ab634fb7b0e9eb5f68899c7f32c0ea60"
+    },
+    {
+      "name": "DeviceLogonEvents.jsonl",
+      "table": "DeviceLogonEvents",
+      "format": "jsonl",
+      "sha256": "a8536b6af832fa435c3f4db7bcc701e3b9064763c7898cc4628ff891c879e9d8"
+    },
+    {
+      "name": "SigninLogs.csv",
+      "table": "SigninLogs",
+      "format": "csv",
+      "sha256": "45150ef360330e3f48898c18544c24cc0019f6fea74d6c9fd18660a9e7b3f595"
+    }
+  ]
+}

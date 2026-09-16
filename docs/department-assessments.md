@@ -65,7 +65,16 @@ department imports and publisher source workbooks remain excluded.
 - Excel desktop recalculation was not exercised. Formula evaluation and previews used
   the bundled spreadsheet runtime; the application has no new runtime dependencies.
 
-## Updating the example files
+## Validate annual assessments with logs
+
+Annual assessments can now be checked against imported Sentinel and Defender event
+exports. Open **Validate against security logs** to compare six telemetry checks,
+inspect event references and save reviewer decisions. The annual page keeps the
+reported maturity trend and shows evidence findings separately for each year.
+See [the collection and validation guide](telemetry-validation.md) for the fictional
+log examples, ADLS Gen2 connection and Sentinel data-lake CSV workflow.
+
+## Rebuilding the workbook examples
 
 `tools/prepare_assessment_examples.py` checks identifiers against the locally acquired
 WA policy extract and writes the authored prompts and fictional data. Change the prompt

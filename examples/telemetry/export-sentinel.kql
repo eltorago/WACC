@@ -1,0 +1,48 @@
+// Run ONE table block at a time in the selected Sentinel workspace.
+// Replace dates in every block. End is exclusive. Export the resulting CSV.
+// Sentinel schemas use TimeGenerated; do not substitute a raw XDR Timestamp export.
+// First run each block with its final project replaced by: | count
+// Record those counts in manifest.expected_rows. Do not use take/top/sample.
+
+DeviceEvents
+| where TimeGenerated >= datetime(2025-12-01T00:00:00Z) and TimeGenerated < datetime(2026-01-01T00:00:00Z)
+| project TimeGenerated = format_datetime(TimeGenerated, 'yyyy-MM-ddTHH:mm:ss.fffffffZ'), TenantId, Type,
+          DeviceId, DeviceName, ReportId, ActionType, FileName, FolderPath, SHA1, InitiatingProcessFileName, AdditionalFields
+
+// Save as DeviceInfo.csv
+DeviceInfo
+| where TimeGenerated >= datetime(2025-12-01T00:00:00Z) and TimeGenerated < datetime(2026-01-01T00:00:00Z)
+| project TimeGenerated = format_datetime(TimeGenerated, 'yyyy-MM-ddTHH:mm:ss.fffffffZ'), TenantId, Type,
+          DeviceId, DeviceName, ReportId, OSPlatform, OnboardingStatus, SensorHealthState
+
+// Save as DeviceProcessEvents.csv
+DeviceProcessEvents
+| where TimeGenerated >= datetime(2025-12-01T00:00:00Z) and TimeGenerated < datetime(2026-01-01T00:00:00Z)
+| project TimeGenerated = format_datetime(TimeGenerated, 'yyyy-MM-ddTHH:mm:ss.fffffffZ'), TenantId, Type,
+          DeviceId, DeviceName, ReportId, ActionType, FileName, FolderPath, SHA1, ProcessId, ProcessCommandLine,
+          AccountName, AccountDomain
+
+// Save as DeviceNetworkEvents.csv
+DeviceNetworkEvents
+| where TimeGenerated >= datetime(2025-12-01T00:00:00Z) and TimeGenerated < datetime(2026-01-01T00:00:00Z)
+| project TimeGenerated = format_datetime(TimeGenerated, 'yyyy-MM-ddTHH:mm:ss.fffffffZ'), TenantId, Type,
+          DeviceId, DeviceName, ReportId, ActionType, RemoteIP, RemotePort, LocalIP, LocalPort, Protocol,
+          RemoteUrl, InitiatingProcessFileName
+
+// Save as DeviceLogonEvents.csv
+DeviceLogonEvents
+| where TimeGenerated >= datetime(2025-12-01T00:00:00Z) and TimeGenerated < datetime(2026-01-01T00:00:00Z)
+| project TimeGenerated = format_datetime(TimeGenerated, 'yyyy-MM-ddTHH:mm:ss.fffffffZ'), TenantId, Type,
+          DeviceId, DeviceName, ReportId, ActionType, LogonType, AccountName, AccountDomain, IsLocalAdmin
+
+// Save as SigninLogs.csv. AuthenticationDetails is JSON inside a quoted CSV field.
+SigninLogs
+| where TimeGenerated >= datetime(2025-12-01T00:00:00Z) and TimeGenerated < datetime(2026-01-01T00:00:00Z)
+| project TimeGenerated = format_datetime(TimeGenerated, 'yyyy-MM-ddTHH:mm:ss.fffffffZ'), TenantId, AADTenantId, Type,
+          Id, UserId, UserPrincipalName, AppId, AppDisplayName, IPAddress, IsInteractive, ResultType,
+          ConditionalAccessStatus, AuthenticationRequirement, AuthenticationDetails
+
+// Example independent count query. Repeat with EACH table and the SAME window.
+DeviceEvents
+| where TimeGenerated >= datetime(2025-12-01T00:00:00Z) and TimeGenerated < datetime(2026-01-01T00:00:00Z)
+| count

@@ -21,6 +21,10 @@ __pycache__/
 *.swp
 *.tmp
 MANIFEST.json
+# Authored evidence scope manifests (Git ignores case on Windows)
+!/examples/telemetry/2023/manifest.json
+!/examples/telemetry/2024/manifest.json
+!/examples/telemetry/2025/manifest.json
 
 # Excluded in full, whatever they hold
 /data/local/

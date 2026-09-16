@@ -115,6 +115,32 @@ Only the fictional example files and blank template are included in the reposito
 The local server has no user accounts or department-level access restrictions; protect
 access to it and its storage before using real assessments in a shared deployment.
 
+## Validate assessments with Sentinel and Defender logs
+
+On an annual assessment, open **Validate against security logs**. Import a scope
+manifest and Sentinel JSON-line/CSV exports, then compare reported ratings with
+application control, MFA, endpoint sensor, ASR, logging and antivirus evidence.
+Each finding shows the original events, linked controls and policy requirements.
+Record a review decision and download the report; submitted ratings remain separate.
+
+The **2023–2025 Silly Walks log examples** use documented Microsoft table formats
+with fictional values. The 2025 example demonstrates four supported checks and two
+possible overstatements. Validate each year's example to add evidence bars to the
+annual assessment view.
+
+For existing files in Azure Data Lake Storage Gen2, the read-only connector uses
+your Azure CLI login:
+
+```powershell
+python -m wacc telemetry --manifest data/local/telemetry/manifest.json --adls
+```
+
+For Sentinel's managed data lake, export CSV from its KQL query editor and import
+the files in WACC. See the [complete setup, export and review workflow](docs/telemetry-validation.md)
+and [KQL export queries](examples/telemetry/export-sentinel.kql). Live Azure access
+requires your own storage configuration; the included demonstration runs offline.
+Raw evidence and review history stay under the ignored local assessment folder.
+
 ## How the repository is organised
 
 | Path | Purpose |
@@ -122,8 +148,11 @@ access to it and its storage before using real assessments in a shared deploymen
 | `wacc/` | Loads the corpus, finds controls, builds relationships and serves the web and command-line interfaces. |
 | `data/library/` | The 84 locally written workspace controls, grouped into one JSON file per topic. |
 | `examples/assessments/` | Blank WA policy assessment template and three fictional annual XLSX examples. |
+| `examples/telemetry/` | Fictional Sentinel/Defender log exports for three years, scope manifests and export queries. |
+| `wacc/telemetry.py`, `wacc/telemetry_azure.py`, `wacc/telemetry_workspace.py` | Parse security logs, read selected Azure files and compare evidence with annual assessment ratings. |
+| `docs/telemetry-validation.md` | End-to-end setup, evidence collection and review instructions. |
 | `data/department-assessment-policy.json` | Authored assessment prompts and references for 86 WA policy requirement records. |
-| `data/local/assessments/` | Private imported assessments, excluded from Git and distribution. |
+| `data/local/assessments/` | Private assessments, original log exports, validation runs and review history; excluded from Git and distribution. |
 | `data/workspace-attack.json` | Local ATT&CK assessments for every workspace control, including explanations and MITRE mitigation references. |
 | `data/workspace-technical*.json` | Check titles, access requirements, evidence, parent controls and publisher references. |
 | `data/assessment-procedures.json` | The authoritative steps, commands, expected results and validation record for each technical check. |

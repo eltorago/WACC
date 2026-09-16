@@ -26,6 +26,10 @@ AUTHORED_WORKBOOKS = {
         'department-of-silly-walks-2025.xlsx',
     )
 }
+AUTHORED_TELEMETRY_MANIFESTS = {
+    os.path.normpath('examples/telemetry/%s/manifest.json' % year)
+    for year in (2023, 2024, 2025)
+}
 
 
 def approved_sources(root: str) -> Dict[str, Dict]:
@@ -225,6 +229,8 @@ def gitignore() -> str:
     lines.extend(sorted("%s/" % name for name in NOISE if name != ".git"))
     lines.extend(sorted("*%s" % suffix for suffix in NOISE_SUFFIXES))
     lines.extend(sorted(TRANSPORT))
+    lines.append('# Authored evidence scope manifests (Git ignores case on Windows)')
+    lines.extend('!/' + path.replace(os.sep, '/') for path in sorted(AUTHORED_TELEMETRY_MANIFESTS))
 
     lines.append("")
     lines.append("# Excluded in full, whatever they hold")
