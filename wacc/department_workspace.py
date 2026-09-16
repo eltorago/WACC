@@ -89,6 +89,7 @@ def render(store,token,params=None,message='',error=False):
     if not record:
         main='<section class="box empty"><div class="eyebrow">WA Cyber Security Policy 2024</div><h2>See how security maturity changes</h2><p>Import a department’s annual assessments to compare its six policy areas and review the evidence behind each rating.</p><p>Start with the three Department of Silly Walks examples, or download a blank template.</p></section>'
     else:
+        from .telemetry_workspace import assessment_panel
         metric=scores(record); ids=comparable_ids(years)
         reporting=record.get('reporting',{})
         reporting_view='<details><summary>Approval and reporting</summary>'+''.join(
@@ -113,6 +114,7 @@ def render(store,token,params=None,message='',error=False):
 <div class="eyebrow">{record['year']} assessment</div><h2>{esc(selected)}</h2><p>{esc(record['scope'])}</p>
 <div class="metric-row"><div><strong>{_number(metric['score'])}<small>{' / 4' if metric['score'] is not None else ''}</small></strong><span>Average maturity rating</span></div><div><strong>{metric['rated']} / {metric['total']-metric['excluded']}</strong><span>Applicable requirements rated</span></div><div><strong>{metric['implemented']}</strong><span>Implemented or tested</span></div><div><strong>{change}</strong><span>Change since {years[0]['year']}</span></div></div>
 <p class="muted">Assessed {record['date']} · {esc(record['assessor'])}{' · Retrospective assessment' if record['retrospective']=='Yes' else ''}</p>{reporting_view}</section>
+{assessment_panel(store,years,record)}
 <section class="box"><h2>Maturity over time</h2><p class="muted">WACC self-assessment scale, 0–4. Comparing the same {len(ids)} applicable requirements across all years.</p>{_trend(years,ids)}
 {'<p class="notice">The declared scope changes between years. Review the scope for each assessment when comparing results.</p>' if scope_changed else ''}
 <div class="table-wrap"><table><caption>Policy areas</caption><thead><tr><th>Area</th>{''.join(f'<th>{r["year"]}</th>' for r in years)}</tr></thead><tbody>{''.join(rows)}</tbody></table></div>

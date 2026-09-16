@@ -1,0 +1,155 @@
+{
+  "schema": "wacc-sentinel-evidence-v1",
+  "department": "Department of Silly Walks",
+  "year": 2023,
+  "source_kind": "fictional-example",
+  "start": "2023-12-01T00:00:00Z",
+  "end": "2024-01-01T00:00:00Z",
+  "workspace_id": "11111111-1111-4111-8111-111111111111",
+  "entra_tenant_id": "22222222-2222-4222-8222-222222222222",
+  "scope_reference": "Fictional December 2023 sample: inventory SW-ASSET-2023; all three devices and three users accessing the demo records app.",
+  "device_ids": [
+    "3333333333333333333333333333333333333333",
+    "4444444444444444444444444444444444444444",
+    "5555555555555555555555555555555555555555"
+  ],
+  "mfa_user_ids": [
+    "66666666-6666-4666-8666-000000000001",
+    "66666666-6666-4666-8666-000000000002",
+    "66666666-6666-4666-8666-000000000003"
+  ],
+  "mfa_app_ids": [
+    "77777777-7777-4777-8777-777777777777"
+  ],
+  "authentication_details_final": true,
+  "identity_user_ids": [
+    "66666666-6666-4666-8666-000000000001",
+    "66666666-6666-4666-8666-000000000002",
+    "66666666-6666-4666-8666-000000000003"
+  ],
+  "firewall_resource_ids": [
+    "/subscriptions/99999999-9999-4999-8999-999999999999/resourceGroups/silly-walks/providers/Microsoft.Network/azureFirewalls/demo-firewall"
+  ],
+  "incident_names": [
+    "bbbbbbbb-bbbb-4bbb-8bbb-000000002023"
+  ],
+  "backup_item_ids": [
+    "fictional-vault;silly-walks;records-server"
+  ],
+  "patch_deadlines": [
+    {
+      "device_id": "3333333333333333333333333333333333333333",
+      "cve_id": "CVE-2099-99999",
+      "software_name": "demo_records_client",
+      "due": "2023-12-20T00:00:00Z",
+      "reference": "Fictional patch schedule SW-PATCH-2023"
+    }
+  ],
+  "restore_targets": [
+    {
+      "backup_item_id": "fictional-vault;silly-walks;records-server",
+      "max_duration_hours": 4,
+      "reference": "Fictional recovery plan SW-DR-2023: restore job target four hours"
+    }
+  ],
+  "sensor_freshness_days": 7,
+  "expected_rows": {
+    "DeviceEvents": 5,
+    "DeviceInfo": 3,
+    "DeviceProcessEvents": 4,
+    "DeviceNetworkEvents": 3,
+    "DeviceLogonEvents": 3,
+    "SigninLogs": 4,
+    "DeviceTvmSoftwareInventory": 1,
+    "DeviceTvmSoftwareVulnerabilities": 1,
+    "AuditLogs": 3,
+    "AZFWNetworkRule": 1,
+    "SecurityIncident": 1,
+    "AddonAzureBackupJobs": 2
+  },
+  "expected_block_tests": [
+    {
+      "device_id": "4444444444444444444444444444444444444444",
+      "sha1": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "start": "2023-12-15T09:59:00Z",
+      "end": "2023-12-15T10:02:00Z",
+      "reference": "Fictional approved test SW-AC-2023-01: demo executable must be blocked"
+    }
+  ],
+  "files": [
+    {
+      "name": "DeviceEvents.jsonl",
+      "table": "DeviceEvents",
+      "format": "jsonl",
+      "sha256": "75e4e6acb5c7439af2f8dfe300cd723e41cb51af654437dbce1f093dd9c6e252"
+    },
+    {
+      "name": "DeviceInfo.jsonl",
+      "table": "DeviceInfo",
+      "format": "jsonl",
+      "sha256": "0a4086498defb856c3441adb52eff9aa9ff94449cd7f3e3d9331d0531a357cfe"
+    },
+    {
+      "name": "DeviceProcessEvents.jsonl",
+      "table": "DeviceProcessEvents",
+      "format": "jsonl",
+      "sha256": "5fe84fd05a71a18582676df3d656aa9ce85eb0a2398c6ba8642b1d0bb04e5863"
+    },
+    {
+      "name": "DeviceNetworkEvents.jsonl",
+      "table": "DeviceNetworkEvents",
+      "format": "jsonl",
+      "sha256": "59b68533e93423da708708e2fb4bc96e409c0f9fba87f51ea37906b50f64497e"
+    },
+    {
+      "name": "DeviceLogonEvents.jsonl",
+      "table": "DeviceLogonEvents",
+      "format": "jsonl",
+      "sha256": "2898d9d9b5f9e8a195bee3209ebeeffe500fa1be04960ec83a472a69012a161e"
+    },
+    {
+      "name": "SigninLogs.jsonl",
+      "table": "SigninLogs",
+      "format": "jsonl",
+      "sha256": "3f3dece8b0d7577348b2fe3f5343162c3e4fa7d62a1a48e3fa9cdc94ea065115"
+    },
+    {
+      "name": "DeviceTvmSoftwareInventory.jsonl",
+      "table": "DeviceTvmSoftwareInventory",
+      "format": "jsonl",
+      "sha256": "eee0f3cead3b1c8c91a50ea2631d2fb6350a0cff6e06739b8627cddeab5bfff4"
+    },
+    {
+      "name": "DeviceTvmSoftwareVulnerabilities.jsonl",
+      "table": "DeviceTvmSoftwareVulnerabilities",
+      "format": "jsonl",
+      "sha256": "c822ba76e4979c5ee37f7983c195da691905b868059c5b5824d7b6de2e9f41a9"
+    },
+    {
+      "name": "AuditLogs.jsonl",
+      "table": "AuditLogs",
+      "format": "jsonl",
+      "sha256": "8ce1baca7ef6fb8baf5ef61135886ce5738ab76da8822d0cd688862fe4cf78ef",
+      "workspace_id": "11111111-1111-4111-8111-111111111111"
+    },
+    {
+      "name": "AZFWNetworkRule.jsonl",
+      "table": "AZFWNetworkRule",
+      "format": "jsonl",
+      "sha256": "bdd2621166f2b531874c7d4a94e44404c477148ea7c9db48e8417b58366dba98"
+    },
+    {
+      "name": "SecurityIncident.jsonl",
+      "table": "SecurityIncident",
+      "format": "jsonl",
+      "sha256": "d03fbf7bf794b98e05175669bf12510b0490bb2e1be9cf1a36856c4baee6f5dc"
+    },
+    {
+      "name": "AddonAzureBackupJobs.jsonl",
+      "table": "AddonAzureBackupJobs",
+      "format": "jsonl",
+      "sha256": "0731c0d7f1f94f677c09efe7da46b3ce5deaca381d78f4d1525cee9f1a377ff2",
+      "workspace_id": "11111111-1111-4111-8111-111111111111"
+    }
+  ]
+}
