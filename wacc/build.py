@@ -259,7 +259,7 @@ def build(verbose: bool = True) -> Tuple[Corpus, LoadReport]:
         else:
             report.skip("ztmm", "extract not present; run tools/extract_ztmm.py")
 
-    for key, loader in (('scf',extended.scf),('mcsb',extended.mcsb),
+    for key, loader in (('asd-strategies',extended.strategies),('scf',extended.scf),('mcsb',extended.mcsb),
                         ('essential-eight',extended.essential_eight),('scuba',extended.scuba)):
         framework = corpus.frameworks[key]
         path = _doc(framework.source_file)

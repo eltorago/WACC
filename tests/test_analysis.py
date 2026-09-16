@@ -288,12 +288,12 @@ def run() -> int:
     shallow_count = sum(len(c.thresholds) for c in shallow.comparisons)
     deep_count = sum(len(c.thresholds) for c in deep.comparisons)
     check.expect(
-        shallow_count == 0 and deep_count > 10,
+        deep_count > shallow_count + 10,
         "window",
         "the Essential Eight patching windows need the deeper analysis set (%d vs %d)"
         % (shallow_count, deep_count),
-        "they rank around 110 for their own topic, so a payload built from the visible "
-        "page reported that nobody states a patching timeframe",
+        "current patching thresholds extend beyond the visible page; the 2017 ASD "
+        "strategy also states a timeframe and can now appear in the first page",
     )
 
     off = [t for t in deep.off_subject]

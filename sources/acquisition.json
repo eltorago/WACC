@@ -547,6 +547,20 @@
       "urls": [
         "https://audit.wa.gov.au/reports-and-publications/reports/information-systems-audit-state-government-2021-22/"
       ]
+    },
+    {
+      "filename": "asd-strategies-2017.html",
+      "method": "automatic",
+      "urls": [
+        "https://www.cyber.gov.au/business-government/asds-cyber-security-frameworks/mitigating-cyber-security-incidents/strategies-to-mitigate-cybersecurity-incidents"
+      ]
+    },
+    {
+      "filename": "asd-strategies-details-2017.html",
+      "method": "automatic",
+      "urls": [
+        "https://www.cyber.gov.au/business-government/asds-cyber-security-frameworks/mitigating-cyber-security-incidents/strategies-to-mitigate-cyber-security-incidents-mitigation-details"
+      ]
     }
   ]
 }

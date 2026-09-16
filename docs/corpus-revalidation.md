@@ -2,7 +2,7 @@
 
 Review date: 2026-09-16
 
-7,358 source records across 22 loaded frameworks; 84 practical controls, 58 technical checks and 13 dated OAG reports.
+7,395 source records across 23 loaded frameworks; 84 practical controls, 58 technical checks and 13 dated OAG reports.
 
 ## Integrity checks
 

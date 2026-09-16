@@ -483,6 +483,16 @@ FRAMEWORKS: List[Framework] = [
 
 
 FRAMEWORKS.extend([
+    Framework(key='asd-strategies',name='ASD Strategies to Mitigate Cyber Security Incidents',short_name='ASD mitigation strategies',
+        publisher='Australian Signals Directorate',jurisdiction=Jurisdiction.AU_COMMONWEALTH,
+        tier=Tier.CATALOGUE,intra_tier_order=2,fidelity=Fidelity.PUBLISHER_IMPORT,
+        licence=Licence.SHIPPABLE,revision='February 2017',levels=_levels('Strategy'),
+        revision_source='Publisher last-updated date and February 2017 attachment edition',
+        source_file='asd-strategies-2017.html',
+        source_url='https://www.cyber.gov.au/business-government/asds-cyber-security-frameworks/mitigating-cyber-security-incidents/strategies-to-mitigate-cybersecurity-incidents',
+        attribution='Australian Signals Directorate, Commonwealth of Australia 2017. CC BY 4.0. Strategy wording preserved; WACC adds row locators and local mappings.',
+        notes=['37 strategies in five categories. S01-S37 are WACC locators, not ASD identifiers.',
+               'February 2017 edition: legacy software references and thresholds are historical. Current ISM and Essential Eight requirements must be assessed separately.']),
     Framework(key='scuba',name='CISA SCuBA Microsoft 365 security baselines',short_name='SCuBA M365',
         publisher='CISA',jurisdiction=Jurisdiction.US,tier=Tier.SPECIFICATION,intra_tier_order=1,
         fidelity=Fidelity.PUBLISHER_IMPORT,licence=Licence.SHIPPABLE,

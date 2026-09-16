@@ -389,6 +389,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Essential Eight ML3 > Patch operating systems. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "asd-strategies:s02",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Patch applications. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s19",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Patch operating systems. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
     }
   ],
   "MF-01": [
@@ -685,6 +697,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Essential Eight ML3 > Multi-factor authentication. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "asd-strategies:s20",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Multi-factor authentication. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
     }
   ],
   "PA-04": [
@@ -1023,6 +1041,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Essential Eight ML3 > Restrict administrative privileges. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "asd-strategies:s18",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Restrict administrative privileges. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s21",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Disable local administrator accounts. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
     }
   ],
   "AP-01": [
@@ -1241,6 +1271,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Essential Eight ML3 > Application control. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "asd-strategies:s01",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Application control. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
     }
   ],
   "OM-01": [
@@ -1363,6 +1399,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Essential Eight ML3 > Restrict Microsoft Office macros. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "asd-strategies:s03",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Configure Microsoft Office macro settings. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "nist-800-53:cm-7.5",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "NIST SP 800-53A cm-7.5_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
     }
   ],
   "UH-01": [
@@ -1683,6 +1731,60 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Essential Eight ML3 > User application hardening. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "asd-strategies:s04",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "User application hardening. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s05",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Automated dynamic analysis of email and web content run in a sandbox. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s06",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Email content filtering. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s07",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Web content filtering. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s12",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Antivirus software using heuristics and reputation ratings. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s14",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Block spoofed emails. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s16",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Antivirus software with up-to-date signatures. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s24",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Non-persistent virtualised sandboxed environment. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "nist-800-53:cm-6",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "NIST SP 800-53A cm-6_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
     }
   ],
   "BR-01": [
@@ -1835,6 +1937,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Essential Eight ML3 > Regular backups. This workspace control addresses the strategy; inspect the individual requirement and selected maturity level. A successful test does not establish the whole maturity level."
+    },
+    {
+      "uid": "asd-strategies:s34",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Regular backups. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
     }
   ],
   "GV-01": [
@@ -1851,6 +1959,12 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "SCF meta-framework context for this subject. SCF mappings do not substitute for the underlying publisher requirements."
+    },
+    {
+      "uid": "nist-800-53:sr-6",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "NIST SP 800-53A sr-6_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
     }
   ],
   "SC-02": [
@@ -1867,6 +1981,18 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "SCF meta-framework context for this subject. SCF mappings do not substitute for the underlying publisher requirements."
+    },
+    {
+      "uid": "asd-strategies:s22",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Network segmentation. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "nist-800-53:sc-7",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "NIST SP 800-53A sc-7_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
     }
   ],
   "SM-01": [
@@ -1875,6 +2001,602 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "SCF meta-framework context for this subject. SCF mappings do not substitute for the underlying publisher requirements."
+    },
+    {
+      "uid": "asd-strategies:s28",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Continuous incident detection and response. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s30",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Endpoint detection and response software. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s32",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Network-based intrusion detection/prevention system. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s33",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Capture network traffic. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "nist-800-53:au-2",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "NIST SP 800-53A au-2_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    }
+  ],
+  "AP-02": [
+    {
+      "uid": "asd-strategies:s01",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Application control. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "nist-800-53:cm-7.5",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "NIST SP 800-53A cm-7.5_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    }
+  ],
+  "VM-01": [
+    {
+      "uid": "asd-strategies:s02",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Patch applications. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s16",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Antivirus software with up-to-date signatures. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s19",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Patch operating systems. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "OM-02": [
+    {
+      "uid": "asd-strategies:s03",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Configure Microsoft Office macro settings. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "nist-800-53:si-3",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "NIST SP 800-53A si-3_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    }
+  ],
+  "UH-02": [
+    {
+      "uid": "asd-strategies:s04",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "User application hardening. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s09",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Operating system generic exploit mitigation. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s12",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Antivirus software using heuristics and reputation ratings. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s24",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Non-persistent virtualised sandboxed environment. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s29",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Host-based intrusion detection/prevention system. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "nist-800-53:cm-7",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "NIST SP 800-53A cm-7_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    }
+  ],
+  "NA-02": [
+    {
+      "uid": "asd-strategies:s07",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Web content filtering. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s08",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Deny corporate computers direct internet connectivity. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s22",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Network segmentation. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s25",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Software-based application firewall, blocking incoming network traffic. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s26",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Software-based application firewall, blocking outgoing network traffic. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s32",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Network-based intrusion detection/prevention system. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "NA-03": [
+    {
+      "uid": "asd-strategies:s08",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Deny corporate computers direct internet connectivity. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "nist-800-53:pl-8",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "NIST SP 800-53A pl-8_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    }
+  ],
+  "AM-02": [
+    {
+      "uid": "asd-strategies:s09",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Operating system generic exploit mitigation. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s10",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Server application hardening. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s11",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Operating system hardening. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s25",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Software-based application firewall, blocking incoming network traffic. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s26",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Software-based application firewall, blocking outgoing network traffic. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "SD-01": [
+    {
+      "uid": "asd-strategies:s10",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Server application hardening. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "SD-03": [
+    {
+      "uid": "asd-strategies:s10",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Server application hardening. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "AD-01": [
+    {
+      "uid": "asd-strategies:s11",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Operating system hardening. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s23",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Protect authentication credentials. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "DP-03": [
+    {
+      "uid": "asd-strategies:s13",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Control removable storage media and connected devices. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s27",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Outbound web and email data loss prevention. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "MW-02": [
+    {
+      "uid": "asd-strategies:s13",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Control removable storage media and connected devices. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "AW-01": [
+    {
+      "uid": "asd-strategies:s15",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "User education. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s37",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Personnel management. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "CK-01": [
+    {
+      "uid": "asd-strategies:s17",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "TLS encryption between email servers. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "DP-02": [
+    {
+      "uid": "asd-strategies:s17",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "TLS encryption between email servers. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "PA-01": [
+    {
+      "uid": "asd-strategies:s18",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Restrict administrative privileges. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "PA-02": [
+    {
+      "uid": "asd-strategies:s18",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Restrict administrative privileges. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "MF-02": [
+    {
+      "uid": "asd-strategies:s20",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Multi-factor authentication. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "nist-800-53:ia-5",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "NIST SP 800-53A ia-5_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    }
+  ],
+  "PA-03": [
+    {
+      "uid": "asd-strategies:s20",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Multi-factor authentication. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "PW-03": [
+    {
+      "uid": "asd-strategies:s21",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Disable local administrator accounts. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s23",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Protect authentication credentials. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "OT-02": [
+    {
+      "uid": "asd-strategies:s22",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Network segmentation. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "nist-800-53:sc-7",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "NIST SP 800-53A sc-7_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    }
+  ],
+  "PW-01": [
+    {
+      "uid": "asd-strategies:s23",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Protect authentication credentials. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "nist-800-53:ia-5.1",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "NIST SP 800-53A ia-5.1_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    }
+  ],
+  "PW-02": [
+    {
+      "uid": "asd-strategies:s23",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Protect authentication credentials. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "PI-02": [
+    {
+      "uid": "asd-strategies:s27",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Outbound web and email data loss prevention. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "SM-02": [
+    {
+      "uid": "asd-strategies:s28",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Continuous incident detection and response. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "SM-03": [
+    {
+      "uid": "asd-strategies:s28",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Continuous incident detection and response. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s29",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Host-based intrusion detection/prevention system. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s30",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Endpoint detection and response software. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s31",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Hunt to discover incidents. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "IR-02": [
+    {
+      "uid": "asd-strategies:s28",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Continuous incident detection and response. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s30",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Endpoint detection and response software. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s33",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Capture network traffic. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "ST-02": [
+    {
+      "uid": "asd-strategies:s31",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Hunt to discover incidents. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "BR-02": [
+    {
+      "uid": "asd-strategies:s34",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Regular backups. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "BR-03": [
+    {
+      "uid": "asd-strategies:s34",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Regular backups. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s36",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "System recovery capabilities. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "BC-01": [
+    {
+      "uid": "asd-strategies:s35",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Business continuity and disaster recovery plans. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "BC-02": [
+    {
+      "uid": "asd-strategies:s35",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Business continuity and disaster recovery plans. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-strategies:s36",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "System recovery capabilities. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "BC-03": [
+    {
+      "uid": "asd-strategies:s35",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Business continuity and disaster recovery plans. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "PS-01": [
+    {
+      "uid": "asd-strategies:s37",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Personnel management. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "PS-02": [
+    {
+      "uid": "asd-strategies:s37",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Personnel management. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    }
+  ],
+  "SC-03": [
+    {
+      "uid": "nist-800-53:sa-9",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "NIST SP 800-53A sa-9_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    }
+  ],
+  "OT-03": [
+    {
+      "uid": "nist-800-53:ir-8",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "NIST SP 800-53A ir-8_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    }
+  ],
+  "AD-04": [
+    {
+      "uid": "nist-800-53:ia-5",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "NIST SP 800-53A ia-5_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    }
+  ],
+  "OT-01": [
+    {
+      "uid": "nist-800-53:cm-8",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "NIST SP 800-53A cm-8_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    }
+  ],
+  "CK-02": [
+    {
+      "uid": "nist-800-53:sc-12",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "NIST SP 800-53A sc-12_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    }
+  ],
+  "IN-03": [
+    {
+      "uid": "nist-800-53:ir-6",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "NIST SP 800-53A ir-6_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    }
+  ],
+  "PH-01": [
+    {
+      "uid": "nist-800-53:pe-14",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "NIST SP 800-53A pe-14_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    }
+  ],
+  "IN-02": [
+    {
+      "uid": "nist-800-53:ir-6",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "NIST SP 800-53A ir-6_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    }
+  ],
+  "MD-01": [
+    {
+      "uid": "nist-800-53:mp-6",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "NIST SP 800-53A mp-6_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    }
+  ],
+  "AD-03": [
+    {
+      "uid": "nist-800-53:ac-6",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "NIST SP 800-53A ac-6_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    }
+  ],
+  "IN-01": [
+    {
+      "uid": "nist-800-53:ir-4",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "NIST SP 800-53A ir-4_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
     }
   ]
 }

@@ -35,9 +35,13 @@ WACC checks files directly in that folder, copies recognised reviewed files and 
 attempts the remaining automatic downloads. Originals and unmatched files are untouched.
 The destination respects `WACC_SOURCES`, or `--destination` when supplied.
 
-There are 64 configured automatic routes and 10 manual acquisitions. The live review
-verified 59 automatic downloads; four were blocked by their publishers and one requires
+There are 66 configured automatic routes and 10 manual acquisitions. The live reviews
+verified 61 automatic downloads, including both ACSC mitigation-strategy pages; four were blocked by their publishers and one requires
 an edition review. See [the acquisition review](../docs/source-acquisition-review.md).
+
+The mitigation-strategy table and companion details are acquired as original publisher
+HTML and imported as 37 strategies from February 2017. WACC assigns S01–S37 row locators
+and keeps the historical edition visible. These are not publisher-issued control IDs.
 
 To retry or acquire one file:
 

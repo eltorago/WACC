@@ -1138,6 +1138,34 @@
         "reviewed_on": "2026-09-16",
         "scope": "Full report header and body including report text, date, links and images. Dynamic site forms, analytics, navigation and nonces outside these sections are excluded. Publisher HTML is saved unchanged and never served as executable HTML."
       }
+    },
+    {
+      "filename": "asd-strategies-2017.html",
+      "status": "local-reference-only",
+      "policy_group": "extended",
+      "license": "ASD; CC BY 4.0",
+      "permission_url": "https://www.cyber.gov.au/about-us/copyright",
+      "basis_and_conditions": "Attribute ASD, Commonwealth of Australia 2017. Exclude logos. Preserve publisher strategy wording and historical edition; WACC row locators and mappings are local additions.",
+      "source_url": "https://www.cyber.gov.au/business-government/asds-cyber-security-frameworks/mitigating-cyber-security-incidents/strategies-to-mitigate-cybersecurity-incidents",
+      "sha256": "0755efe83c0074af21376d6ea6de325fb7dc6489ce134d0365f68e6884436d08",
+      "bytes": 341526,
+      "reviewed_on": "2026-09-16",
+      "modified": false,
+      "provenance": "Downloaded unchanged from the official publisher page. Hash pins the reviewed February 2017 edition web page."
+    },
+    {
+      "filename": "asd-strategies-details-2017.html",
+      "status": "local-reference-only",
+      "policy_group": "extended",
+      "license": "ASD; CC BY 4.0",
+      "permission_url": "https://www.cyber.gov.au/about-us/copyright",
+      "basis_and_conditions": "Attribute ASD, Commonwealth of Australia 2017. Exclude logos. Preserve publisher strategy wording and historical edition; WACC row locators and mappings are local additions.",
+      "source_url": "https://www.cyber.gov.au/business-government/asds-cyber-security-frameworks/mitigating-cyber-security-incidents/strategies-to-mitigate-cyber-security-incidents-mitigation-details",
+      "sha256": "d6c6df9c250b730b78bf4d9bd5cbc2e9fea17ba8590e544e1de25eca1238846f",
+      "bytes": 445668,
+      "reviewed_on": "2026-09-16",
+      "modified": false,
+      "provenance": "Downloaded unchanged from the official publisher page. Hash pins the reviewed February 2017 edition web page."
     }
   ]
 }

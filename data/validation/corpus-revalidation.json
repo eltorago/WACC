@@ -1,7 +1,7 @@
 {
   "reviewed_on": "2026-09-16",
-  "records": 7358,
-  "frameworks": 22,
+  "records": 7395,
+  "frameworks": 23,
   "framework_counts": {
     "soci-act": 910,
     "cirmp-rules": 85,
@@ -15,6 +15,7 @@
     "ztmm": 46,
     "c2m2": 409,
     "ism": 1192,
+    "asd-strategies": 37,
     "nist-800-53": 1196,
     "cis-controls": 171,
     "scf": 1534,
@@ -68,6 +69,7 @@
       ],
       "mention_counts_by_framework": {
         "aescsf": 1,
+        "asd-strategies": 1,
         "c2m2": 1,
         "cis-controls": 1,
         "ism": 9,
@@ -179,6 +181,7 @@
         "mcsb:pv-2"
       ],
       "mention_counts_by_framework": {
+        "asd-strategies": 1,
         "cis-controls": 1,
         "ism": 9,
         "mcsb": 8,

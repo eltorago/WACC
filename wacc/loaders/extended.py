@@ -132,6 +132,101 @@ def essential_eight(corpus, framework, path):
     return {'controls':len(parser.records),'strategy_levels':len(counters)}
 
 
+class StrategiesParser(HTMLParser):
+    """Only the five-column strategy table, with its publisher category rows."""
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.cell = None; self.row = []; self.category = ''; self.records = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag == 'tr': self.row = []
+        if tag in ('td', 'th'): self.cell = []
+        if tag in ('br', 'p') and self.cell is not None: self.cell.append(' ')
+
+    def handle_data(self, text):
+        if self.cell is not None: self.cell.append(text)
+
+    def handle_endtag(self, tag):
+        if tag in ('td', 'th') and self.cell is not None:
+            self.row.append(' '.join(''.join(self.cell).split())); self.cell = None
+        if tag == 'tr':
+            if len(self.row) == 1 and self.row[0].startswith('Mitigation strateg'):
+                self.category = self.row[0].rstrip(':')
+            elif len(self.row) == 5 and self.row[0] in ('Essential', 'Excellent', 'Very Good', 'Good', 'Limited'):
+                if not self.category: raise ValueError('Strategy without category')
+                self.records.append((self.category, *self.row))
+
+
+class StrategyDetailsParser(HTMLParser):
+    """Preserve each strategy's rationale/guidance under its own heading."""
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.heading = None; self.active = False; self.title = None; self.records = {}
+
+    def handle_starttag(self, tag, attrs):
+        if tag in ('h2', 'h3'): self.heading = []
+        if tag in ('p', 'li', 'h4', 'br') and self.title: self.records[self.title].append('\n')
+
+    def handle_data(self, text):
+        if self.heading is not None: self.heading.append(text)
+        elif self.title: self.records[self.title].append(text)
+
+    def handle_endtag(self, tag):
+        if tag in ('h2', 'h3') and self.heading is not None:
+            heading = ' '.join(''.join(self.heading).split()); self.heading = None
+            if tag == 'h2':
+                self.active = heading.startswith('Mitigation strateg'); self.title = None
+            elif self.active:
+                self.title = heading; self.records[heading] = []
+
+
+STRATEGY_TITLES = [
+    'Application control', 'Patch applications', 'Configure Microsoft Office macro settings',
+    'User application hardening', 'Automated dynamic analysis of email and web content run in a sandbox',
+    'Email content filtering', 'Web content filtering', 'Deny corporate computers direct internet connectivity',
+    'Operating system generic exploit mitigation', 'Server application hardening', 'Operating system hardening',
+    'Antivirus software using heuristics and reputation ratings', 'Control removable storage media and connected devices',
+    'Block spoofed emails', 'User education', 'Antivirus software with up-to-date signatures',
+    'TLS encryption between email servers', 'Restrict administrative privileges', 'Patch operating systems',
+    'Multi-factor authentication', 'Disable local administrator accounts', 'Network segmentation',
+    'Protect authentication credentials', 'Non-persistent virtualised sandboxed environment',
+    'Software-based application firewall, blocking incoming network traffic',
+    'Software-based application firewall, blocking outgoing network traffic',
+    'Outbound web and email data loss prevention', 'Continuous incident detection and response',
+    'Host-based intrusion detection/prevention system', 'Endpoint detection and response software',
+    'Hunt to discover incidents', 'Network-based intrusion detection/prevention system', 'Capture network traffic',
+    'Regular backups', 'Business continuity and disaster recovery plans', 'System recovery capabilities',
+    'Personnel management',
+]
+
+
+def strategies(corpus, framework, path):
+    parser = StrategiesParser(); parser.feed(Path(path).read_text(encoding='utf-8'))
+    if len(parser.records) != 37 or len({r[0] for r in parser.records}) != 5:
+        raise ValueError('Expected 37 strategies in five categories in the February 2017 table')
+    details_path = Path(path).with_name('asd-strategies-details-2017.html')
+    details = StrategyDetailsParser()
+    if details_path.exists():
+        details.feed(details_path.read_text(encoding='utf-8'))
+        if set(details.records) != set(STRATEGY_TITLES):
+            raise ValueError('Mitigation details headings do not match the reviewed 37 strategies')
+    for i, (category, rating, text, resistance, upfront, ongoing) in enumerate(parser.records):
+        title = STRATEGY_TITLES[i]
+        if not text.startswith(title): raise ValueError('Strategy table order/content changed: '+title)
+        attributes = {'source_url': framework.source_url,
+            'identifier_note': 'S01-S37 are WACC row locators, not publisher control identifiers.',
+            'edition_note': 'February 2017 guidance. Historical software examples and timeframes are preserved; use current ISM and Essential Eight requirements for present-day assessments.',
+            'relative_effectiveness': rating, 'user_resistance': resistance,
+            'upfront_cost': upfront, 'ongoing_cost': ongoing}
+        if title in details.records:
+            attributes['implementation_examples'] = '\n'.join(' '.join(line.split()) for line in ''.join(details.records[title]).splitlines() if line.strip())
+            attributes['implementation_source_url'] = framework.source_url.replace('strategies-to-mitigate-cybersecurity-incidents', 'strategies-to-mitigate-cyber-security-incidents-mitigation-details')
+        corpus.add_control(Control(framework_key=framework.key, identifier='S%02d' % (i+1),
+            title=title, text=text, section_ref=category, origin=Origin.GENERATED,
+            attributes=attributes, publisher_tags={'effectiveness_2017': rating}))
+    return {'controls': 37, 'categories': 5, 'mitigation_details': len(details.records)}
+
+
 def scuba(corpus, framework, path):
     """Read the seven current baselines; exclude superseded/removed policies."""
     products = {'aad','exo','powerbi','powerplatform','securitysuite','sharepoint','teams'}
