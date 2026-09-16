@@ -184,9 +184,16 @@ def run() -> int:
 
     corpus, _report = _build(verbose=False)
     broken = []
+    # These spaces occur inside the original machine-readable publisher cells.
+    # Preserve the exact source wording, particularly SCF's no-derivatives material.
+    original_spacing = {'scf:aat-20.3':'Retrieval- augmented',
+                        'scf:iac-4':'cryptographically- based', 'mcsb:dp-1':'in- scope'}
     for control in corpus.controls.values():
-        for match in BROKEN_WORD.finditer(control.text or ""):
-            tail = (control.text or "")[match.end() - 1:].split(" ", 1)[0].strip(".,;:)")
+        text_to_check = control.text or ''
+        if control.uid in original_spacing:
+            text_to_check = text_to_check.replace(original_spacing[control.uid], '')
+        for match in BROKEN_WORD.finditer(text_to_check):
+            tail = text_to_check[match.end() - 1:].split(" ", 1)[0].strip(".,;:)")
             if tail.lower() not in ("and", "or"):
                 broken.append((control.uid, match.group(0)))
                 break

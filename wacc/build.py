@@ -26,6 +26,7 @@ from .loaders import (
     wa,
     c2m2,
     ztmm,
+    extended,
 )
 
 # WACC_SOURCES points to the local cache of publisher files used to build the live corpus.
@@ -257,6 +258,15 @@ def build(verbose: bool = True) -> Tuple[Corpus, LoadReport]:
             report.record("ztmm", ztmm.load(corpus, ztmm_framework, ztmm_path, verbose))
         else:
             report.skip("ztmm", "extract not present; run tools/extract_ztmm.py")
+
+    for key, loader in (('scf',extended.scf),('mcsb',extended.mcsb),
+                        ('essential-eight',extended.essential_eight),('scuba',extended.scuba)):
+        framework = corpus.frameworks[key]
+        path = _doc(framework.source_file)
+        if _exists(path):
+            report.record(key,loader(corpus,framework,path))
+        else:
+            report.skip(key,'Source not present; run python -m wacc sources')
 
     # -- product detail, which is not a framework column -------------------
     #

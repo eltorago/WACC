@@ -1,0 +1,466 @@
+{
+  "reviewed_on": "2026-09-16",
+  "sources": {
+    "ad": [
+      "ASD: AD compromise guidance (September 2026)",
+      "https://www.cyber.gov.au/business-government/detecting-responding-to-threats/detecting-and-mitigating-active-directory-compromises"
+    ],
+    "pc": [
+      "PingCastle public rules: engine 3.3.0.1, 13 November 2024",
+      "https://pingcastle.com/PingCastleFiles/ad_hc_rules_list.html"
+    ],
+    "pk": [
+      "Purple Knight public indicators: 4.2 Community",
+      "https://www.semperis.com/purple-knight/security-indicators/"
+    ],
+    "uac": [
+      "Microsoft: UserAccountControl flags",
+      "https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/useraccountcontrol-manipulate-account-properties"
+    ],
+    "adcmd": [
+      "Microsoft: Get-ADObject",
+      "https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-adobject?view=windowsserver2025-ps"
+    ],
+    "ldap": [
+      "Microsoft: LDAP security settings",
+      "https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/ldap-session-security-settings-requirements-adv190023"
+    ],
+    "smb": [
+      "Microsoft: SMB signing",
+      "https://learn.microsoft.com/en-us/windows-server/storage/file-server/smb-signing"
+    ],
+    "smbcmd": [
+      "Microsoft: Get-SmbServerConfiguration",
+      "https://learn.microsoft.com/en-us/powershell/module/smbshare/get-smbserverconfiguration?view=windowsserver2025-ps"
+    ],
+    "dc": [
+      "Microsoft: identity infrastructure assessments",
+      "https://learn.microsoft.com/en-us/defender-for-identity/security-posture-assessments/identity-infrastructure"
+    ],
+    "adcs": [
+      "Microsoft: certificate security assessments",
+      "https://learn.microsoft.com/en-us/defender-for-identity/security-posture-assessments/certificates"
+    ],
+    "adminsd": [
+      "Microsoft: protected accounts and groups",
+      "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/appendix-c--protected-accounts-and-groups-in-active-directory"
+    ],
+    "keycred": [
+      "Microsoft: msDS-KeyCredentialLink",
+      "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/f70afbcc-780e-4d91-850c-cfadce5bb15c"
+    ]
+  },
+  "checks": [
+    {
+      "id": "AD-CHECK-01",
+      "title": "Require Kerberos pre-authentication on accounts",
+      "parents": [
+        "AD-04"
+      ],
+      "platform": "Active Directory / Windows Server",
+      "statement": "Require Kerberos pre-authentication on accounts.",
+      "prerequisites": "RSAT ActiveDirectory module and approved directory read access; run against each in-scope domain and record the domain, DC, time and query errors.",
+      "artifacts": [
+        "Directory objects with the DONT_REQ_PREAUTH flag",
+        "Account type, enabled state, owner and effective privileges"
+      ],
+      "steps": [
+        "Query all account objects for the pre-authentication exemption flag, including disabled accounts and computers.",
+        "Resolve each result to an owner and current use; prioritise privileged and service accounts and inspect nested membership.",
+        "After an approved configuration fix, repeat the same query and confirm application authentication still works through normal monitoring."
+      ],
+      "expected": "No unexplained pre-authentication exemptions remain. Any returned object requires review; a failed or incomplete query is unknown, not a pass.",
+      "limitations": "No tickets or password hashes are requested or cracked. A documented exception remains an exposure, not a cleared finding.",
+      "sources": [
+        "uac",
+        "adcmd",
+        "pc",
+        "pk"
+      ],
+      "references": [],
+      "command": "Get-ADObject -LDAPFilter '(userAccountControl:1.2.840.113556.1.4.803:=4194304)' -Properties userAccountControl,servicePrincipalName | Select-Object DistinguishedName,ObjectClass,userAccountControl,servicePrincipalName",
+      "vendor_context": "Related criteria: PingCastle S-NoPreAuth / S-NoPreAuthAdmin; Purple Knight’s pre-authentication indicator. WACC reviews all account objects, not the vendor scoring model."
+    },
+    {
+      "id": "AD-CHECK-02",
+      "title": "Disable reversible account password storage",
+      "parents": [
+        "AD-04",
+        "PW-03"
+      ],
+      "platform": "Active Directory / Windows Server",
+      "statement": "Disable reversible account password storage.",
+      "prerequisites": "RSAT ActiveDirectory module and approved directory read access; run against each in-scope domain and record the domain, DC, time and query errors.",
+      "artifacts": [
+        "Account flags and resultant password policy",
+        "Configuration change and subsequent password-change metadata"
+      ],
+      "steps": [
+        "Identify objects with the reversible-storage flag; inspect default and fine-grained password policies separately.",
+        "Determine whether each affected credential was changed after the storage policy was corrected; inspect timestamps only.",
+        "Re-query flags and resultant policy following the approved remediation and verify application compatibility."
+      ],
+      "expected": "Neither account flags nor effective policy enable reversible storage; affected credentials have been replaced under the approved process.",
+      "limitations": "Removing the flag alone does not prove existing stored material was replaced. Never retrieve password material to test this.",
+      "sources": [
+        "uac",
+        "adcmd",
+        "pc",
+        "pk"
+      ],
+      "references": [],
+      "command": "Get-ADObject -LDAPFilter '(userAccountControl:1.2.840.113556.1.4.803:=128)' -Properties userAccountControl | Select-Object DistinguishedName,ObjectClass,userAccountControl",
+      "vendor_context": "Related criteria: PingCastle S-Reversible / S-C-Reversible; Purple Knight’s reversible-storage indicator."
+    },
+    {
+      "id": "AD-CHECK-03",
+      "title": "Remove unconstrained delegation from non-DC accounts",
+      "parents": [
+        "AD-03"
+      ],
+      "platform": "Active Directory / Windows Server",
+      "statement": "Remove unconstrained delegation from non-DC accounts.",
+      "prerequisites": "RSAT ActiveDirectory module and approved directory read access; run against each in-scope domain and record the domain, DC, time and query errors.",
+      "artifacts": [
+        "Trusted-for-delegation flags, SPNs and account state",
+        "Authoritative DC inventory and service dependencies"
+      ],
+      "steps": [
+        "Query user and computer accounts with unrestricted delegation, retaining disabled accounts in the review.",
+        "Join results to the authoritative DC inventory; review non-DC objects, SPNs and service owners rather than excluding computers by name.",
+        "Inspect the approved replacement design and retest normal service authentication after any separately approved change."
+      ],
+      "expected": "No non-DC account has unexplained unrestricted delegation; required DC behaviour is identified separately.",
+      "limitations": "This is a configuration review, not a forced-authentication test. Constrained delegation also needs a separate review.",
+      "sources": [
+        "uac",
+        "adcmd",
+        "pc",
+        "pk"
+      ],
+      "references": [],
+      "command": "Get-ADObject -LDAPFilter '(userAccountControl:1.2.840.113556.1.4.803:=524288)' -Properties userAccountControl,servicePrincipalName | Select-Object DistinguishedName,ObjectClass,userAccountControl,servicePrincipalName",
+      "vendor_context": "Related criterion: PingCastle P-UnconstrainedDelegation; Purple Knight’s unrestricted-delegation indicator. WACC does not reproduce the vendor’s exclusions or score."
+    },
+    {
+      "id": "AD-CHECK-04",
+      "title": "Review constrained delegation targets and RBCD permissions",
+      "parents": [
+        "AD-03"
+      ],
+      "platform": "Active Directory / Windows Server",
+      "statement": "Review constrained delegation targets and RBCD permissions.",
+      "prerequisites": "RSAT ActiveDirectory module and approved directory read access; run against each in-scope domain and record the domain, DC, time and query errors.",
+      "artifacts": [
+        "msDS-AllowedToDelegateTo and resource-based delegation descriptors",
+        "Resolved SPNs, target accounts and effective writers"
+      ],
+      "steps": [
+        "Export constrained delegation and resource-based delegation on users and computers; include protocol-transition flags.",
+        "Resolve every target SPN and delegated principal, flag missing targets and any path to DCs, KRBTGT or hybrid SSO infrastructure.",
+        "Inspect who can change the delegation attributes and DACLs, including nested groups and inherited permissions; compare with approved service flows."
+      ],
+      "expected": "Delegation is confined to justified services and cannot be changed by unapproved principals; high-impact targets require explicit investigation.",
+      "limitations": "Presence is not automatically compromise. An unresolved descriptor, SID or cross-domain target leaves the conclusion unknown.",
+      "sources": [
+        "adcmd",
+        "ad",
+        "pk"
+      ],
+      "references": [],
+      "command": "Get-ADObject -LDAPFilter '(|(msDS-AllowedToDelegateTo=*)(msDS-AllowedToActOnBehalfOfOtherIdentity=*))' -Properties msDS-AllowedToDelegateTo,msDS-AllowedToActOnBehalfOfOtherIdentity,userAccountControl",
+      "vendor_context": "Related Purple Knight criteria address delegation to sensitive or missing targets and resource-based delegation."
+    },
+    {
+      "id": "AD-CHECK-05",
+      "title": "Require LDAP signing on each domain controller",
+      "parents": [
+        "AD-04"
+      ],
+      "platform": "Active Directory / Windows Server",
+      "statement": "Require LDAP signing on each domain controller.",
+      "prerequisites": "Approved local registry and effective-policy read access on every DC; a directory read alone may not allow these checks.",
+      "artifacts": [
+        "Per-DC LDAPServerIntegrity value and OS/build",
+        "Resultant DC security policy and LDAP diagnostic events"
+      ],
+      "steps": [
+        "Read the effective signing setting on every writable and read-only DC, including newly promoted servers.",
+        "Compare the registry, effective GPO and documented OS behaviour; investigate missing settings rather than assuming the default.",
+        "Review unsigned-client events and, in an approved lab, verify a supported signed connection succeeds while an unsigned SASL connection fails."
+      ],
+      "expected": "The effective policy requires signing on every scoped DC and the tested connection behaviour agrees.",
+      "limitations": "TLS and SASL affect interpretation; do not confuse signing with channel binding. Missing registry data is not proof of a weak or strong effective default.",
+      "sources": [
+        "ldap",
+        "pk"
+      ],
+      "references": [],
+      "command": "Get-ItemProperty 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\NTDS\\Parameters' -Name LDAPServerIntegrity",
+      "vendor_context": "Related Purple Knight criterion: DC LDAP signing. This check requires enforcement, not only capability."
+    },
+    {
+      "id": "AD-CHECK-06",
+      "title": "Require LDAP channel binding on domain controllers",
+      "parents": [
+        "AD-04"
+      ],
+      "platform": "Active Directory / Windows Server",
+      "statement": "Require LDAP channel binding on domain controllers.",
+      "prerequisites": "Approved local registry and policy read access on each DC; compatible LDAPS clients and a lab for negative tests.",
+      "artifacts": [
+        "Per-DC LdapEnforceChannelBinding and build/patch level",
+        "Client compatibility review and channel-binding events"
+      ],
+      "steps": [
+        "Read the channel-binding setting on each DC and compare it with effective policy and the current Windows version.",
+        "Identify clients that cannot supply channel-binding tokens and review owned remediation instead of silently accepting a relaxed setting.",
+        "In the lab, verify a compatible TLS/SASL client succeeds and a deliberately incompatible approved test fails; inspect associated DC events."
+      ],
+      "expected": "Required channel binding is enforced across scope, with no unexplained compatibility exclusions.",
+      "limitations": "Setting 1 checks capable clients but is not equivalent to Always/2. A plain simple-bind test does not exercise all channel-binding cases.",
+      "sources": [
+        "ldap",
+        "pk"
+      ],
+      "references": [],
+      "command": "Get-ItemProperty 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\NTDS\\Parameters' -Name LdapEnforceChannelBinding",
+      "vendor_context": "Related Purple Knight criterion: DC LDAP channel binding."
+    },
+    {
+      "id": "AD-CHECK-07",
+      "title": "Require SMB server signing on domain controllers",
+      "parents": [
+        "AD-01",
+        "AD-04"
+      ],
+      "platform": "Active Directory / Windows Server",
+      "statement": "Require SMB server signing on domain controllers.",
+      "prerequisites": "Read access to SMB server configuration on every DC; execute the example locally through an approved administrative session.",
+      "artifacts": [
+        "RequireSecuritySignature value",
+        "Effective policy and a normal signed test connection"
+      ],
+      "steps": [
+        "Read the server-side setting for each DC and compare it with the applied security baseline.",
+        "Check that signing is required rather than merely enabled; inspect any policy overriding the baseline.",
+        "Use a normal approved client connection to verify negotiation and validate an unsigned negative test only in a lab."
+      ],
+      "expected": "RequireSecuritySignature is true across all DCs and connection evidence agrees.",
+      "limitations": "Client-side signing and server-side requirements are distinct. This checks SMB signing, not LDAP signing or SMB encryption.",
+      "sources": [
+        "smb",
+        "smbcmd",
+        "pc",
+        "pk"
+      ],
+      "references": [],
+      "command": "Get-SmbServerConfiguration | Select-Object RequireSecuritySignature",
+      "vendor_context": "Related criterion: PingCastle A-SMB2SignatureNotRequired; Purple Knight’s SMB-signing indicator."
+    },
+    {
+      "id": "AD-CHECK-08",
+      "title": "Disable SMBv1 on domain controllers",
+      "parents": [
+        "AD-01"
+      ],
+      "platform": "Active Directory / Windows Server",
+      "statement": "Disable SMBv1 on domain controllers.",
+      "prerequisites": "Approved local SMB configuration read access on every DC.",
+      "artifacts": [
+        "EnableSMB1Protocol value and installed component inventory",
+        "Legacy dependency register"
+      ],
+      "steps": [
+        "Read SMB server configuration on every DC and reconcile with the DC inventory.",
+        "Inspect any remaining legacy application dependency and its migration owner.",
+        "After an approved removal, repeat the configuration query and confirm normal supported SMB access remains functional."
+      ],
+      "expected": "SMBv1 server support is disabled on each scoped DC.",
+      "limitations": "Do not enable SMBv1 to construct a negative test. Client feature installation and server protocol availability are separate observations.",
+      "sources": [
+        "smbcmd",
+        "pk",
+        "dc"
+      ],
+      "references": [],
+      "command": "Get-SmbServerConfiguration | Select-Object EnableSMB1Protocol",
+      "vendor_context": "Related Purple Knight criterion: SMBv1 on domain controllers."
+    },
+    {
+      "id": "AD-CHECK-09",
+      "title": "Stop and disable the DC Print Spooler service",
+      "parents": [
+        "AD-01"
+      ],
+      "platform": "Active Directory / Windows Server",
+      "statement": "Stop and disable the DC Print Spooler service.",
+      "prerequisites": "Approved local service/CIM read access on each DC; printing dependencies reviewed by the service owner.",
+      "artifacts": [
+        "Spooler state and start mode",
+        "Effective service policy and exception history"
+      ],
+      "steps": [
+        "Read service state and startup configuration on all DCs, including offline exceptions in the coverage record.",
+        "Investigate a stopped service that remains configured for automatic/manual start; verify the approved baseline prevents restart.",
+        "After the normal change process, re-query and review service-start monitoring without attempting coercion."
+      ],
+      "expected": "The service is stopped and disabled on each scoped DC.",
+      "limitations": "A query error or inaccessible DC is unknown. This assessment never coerces authentication or extracts credentials.",
+      "sources": [
+        "dc",
+        "pc",
+        "pk"
+      ],
+      "references": [],
+      "command": "Get-CimInstance Win32_Service -Filter \"Name='Spooler'\" | Select-Object Name,State,StartMode",
+      "vendor_context": "Related criterion: PingCastle A-DC-Spooler; Purple Knight’s DC Spooler indicator."
+    },
+    {
+      "id": "AD-CHECK-10",
+      "title": "Review protected-account permission templates",
+      "parents": [
+        "AD-02"
+      ],
+      "platform": "Active Directory / Windows Server",
+      "statement": "Review protected-account permission templates.",
+      "prerequisites": "RSAT AD provider and rights to read DACLs; approved baseline of AdminSDHolder and protected groups.",
+      "artifacts": [
+        "AdminSDHolder owner/DACL and inheritance flag",
+        "Protected-group memberships and change events"
+      ],
+      "steps": [
+        "Read the AdminSDHolder security descriptor and compare it with the reviewed baseline.",
+        "Resolve every non-default write, ownership and DACL-change permission through nested groups; distinguish read permissions from takeover rights.",
+        "Trace deviations to an authorised change and inspect affected protected accounts; confirm the monitoring process detects a benign lab ACL change."
+      ],
+      "expected": "No unexplained writer or inheritance change affects protected accounts; approved customisation is narrowly scoped.",
+      "limitations": "adminCount alone is not proof an account is currently privileged. A differing ACL needs analysis, not an automatic compromise claim.",
+      "sources": [
+        "adminsd",
+        "pk"
+      ],
+      "references": [],
+      "command": "$taskDomainDN = (Get-ADDomain).DistinguishedName\nGet-Acl -Path (\"AD:\\CN=AdminSDHolder,CN=System,\" + $taskDomainDN) | Format-List Owner,AreAccessRulesProtected,Access",
+      "vendor_context": "Related Purple Knight criteria: changes to AdminSDHolder permissions and inheritance."
+    },
+    {
+      "id": "AD-CHECK-11",
+      "title": "Review AD CS templates for requester-controlled identities",
+      "parents": [
+        "AD-04",
+        "CK-02"
+      ],
+      "platform": "Active Directory / Windows Server",
+      "statement": "Review AD CS templates for requester-controlled identities.",
+      "prerequisites": "Read access to published certificate templates, issuing CA configuration and enrolment ACLs; PKI owner interprets effective rights.",
+      "artifacts": [
+        "Published templates and issuing CAs",
+        "Subject-name flags, EKUs, approval/signature requirements",
+        "Effective enrolment rights including nested groups"
+      ],
+      "steps": [
+        "Enumerate templates actually published by issuing CAs and correlate subject-supply options with authentication-capable EKUs.",
+        "Check manager approval, authorised-signature requirements and whether an unprivileged principal can effectively enrol.",
+        "Have the PKI owner review each dangerous combination and retest configuration after remediation; use synthetic certificate requests only in an isolated lab."
+      ],
+      "expected": "No unapproved low-privilege enrolment path can request an authentication certificate for another identity.",
+      "limitations": "ESC1 requires a combination of settings and effective access. A single template flag is insufficient, and other ESC classes remain outside this check.",
+      "sources": [
+        "adcs",
+        "pk"
+      ],
+      "references": [],
+      "command": "",
+      "vendor_context": "Related Purple Knight criterion: AD CS ESC1. WACC assesses the effective exposure rather than cloning the vendor detector."
+    },
+    {
+      "id": "AD-CHECK-12",
+      "title": "Review key-credential changes and write permissions",
+      "parents": [
+        "AD-06"
+      ],
+      "platform": "Active Directory / Windows Server",
+      "statement": "Review key-credential changes and write permissions.",
+      "prerequisites": "RSAT directory/DACL read access, approved Windows Hello/key-trust design and protected change-event access.",
+      "artifacts": [
+        "Objects with msDS-KeyCredentialLink values",
+        "Attribute-write permissions and trusted enrolment identities",
+        "5136 change events and key-enrolment records"
+      ],
+      "steps": [
+        "Inventory objects carrying key-credential values and reconcile them with legitimate enrolment records without exporting private keys.",
+        "Inspect explicit and inherited rights to write the attribute or change the object’s DACL; resolve service-account and nested-group access.",
+        "Trace unexplained recent modifications to actor and source; in a lab, verify a legitimate enrolment is logged and an unapproved write is denied."
+      ],
+      "expected": "Key registrations and attribute writers are explainable and sensitive changes reach monitoring.",
+      "limitations": "A non-empty attribute is normal in legitimate key-trust deployments. Do not clear values merely because this inventory returns them.",
+      "sources": [
+        "ad",
+        "keycred",
+        "adcmd"
+      ],
+      "references": [],
+      "command": "Get-ADObject -LDAPFilter '(msDS-KeyCredentialLink=*)' -Properties msDS-KeyCredentialLink | Select-Object DistinguishedName,ObjectClass",
+      "vendor_context": "ASD September 2026 shadow-credential guidance; complementary to public vendor certificate-persistence checks."
+    },
+    {
+      "id": "AD-CHECK-13",
+      "title": "Verify KRBTGT recovery and credential-rotation readiness",
+      "parents": [
+        "AD-04",
+        "AD-05"
+      ],
+      "platform": "Active Directory / Windows Server",
+      "statement": "Verify KRBTGT recovery and credential-rotation readiness.",
+      "prerequisites": "Read access to KRBTGT metadata, replication health, approved rotation history and forest-recovery runbooks.",
+      "artifacts": [
+        "KRBTGT PasswordLastSet and account metadata",
+        "Replication health and approved rotation schedule",
+        "Isolated forest-recovery exercise record"
+      ],
+      "steps": [
+        "Compare rotation history with the six-month and suspected-compromise triggers in this control and its ASD/ISM sources. Trace both password changes to change records and replication evidence; PasswordLastSet alone cannot establish that both occurred. Review RODC-specific account procedures separately where applicable.",
+        "Check the runbook requires two coordinated password changes, domain-controller replication between changes, and planning for ticket lifetime and replication convergence after suspected compromise or the scheduled interval.",
+        "Review or observe an isolated recovery exercise with identity dependencies and validation; do not reset production KRBTGT as a test."
+      ],
+      "expected": "Evidence demonstrates two coordinated KRBTGT password changes within the required six-month interval and after suspected domain compromise, with replication between changes and a tested recovery procedure. Missing change history is unknown, not a pass.",
+      "limitations": "Age alone does not prove compromise. Rotation without replication and ticket-lifetime planning can disrupt authentication.",
+      "sources": [
+        "ad",
+        "pk"
+      ],
+      "references": ["ism:ism-1847", "asd-ad:appendix a §mitigating a golden ticket#1"],
+      "command": "Get-ADUser -Identity krbtgt -Properties PasswordLastSet,Enabled | Select-Object DistinguishedName,Enabled,PasswordLastSet",
+      "vendor_context": "Related Purple Knight criterion: KRBTGT credential age. WACC applies the linked ASD/ISM criteria; it does not reproduce the vendor threshold or scoring."
+    },
+    {
+      "id": "AD-CHECK-14",
+      "title": "Inspect trust boundaries and SID filtering",
+      "parents": [
+        "AD-04"
+      ],
+      "platform": "Active Directory / Windows Server",
+      "statement": "Inspect trust boundaries and SID filtering.",
+      "prerequisites": "RSAT AD read access in each trusted domain, trust design and approved migration exceptions.",
+      "artifacts": [
+        "Trust direction/type and SID filtering settings",
+        "Selective-authentication and allowed-to-authenticate permissions",
+        "Migration exceptions and privileged SID-history review"
+      ],
+      "steps": [
+        "Inventory all trusts and compare their purpose and direction with approved business relationships.",
+        "Assess SID filtering in the context of forest versus external trust semantics; inspect selective authentication and target-system permissions.",
+        "Review migration exceptions and privileged SID history with the domain owner; use a synthetic cross-trust account to validate authorised and denied access."
+      ],
+      "expected": "No unexplained trust permits a lower-trust identity to exercise privileged access across the boundary.",
+      "limitations": "Do not judge a forest trust from SIDFilteringQuarantined alone; forest-aware filtering and migration settings differ.",
+      "sources": [
+        "ad"
+      ],
+      "references": [],
+      "command": "Get-ADTrust -Filter * | Select-Object Name,Direction,TrustType,ForestTransitive,SelectiveAuthentication,SIDFilteringForestAware,SIDFilteringQuarantined",
+      "vendor_context": "Complements public vendor trust/SID-filtering criteria; interpretation follows the actual trust type."
+    }
+  ]
+}

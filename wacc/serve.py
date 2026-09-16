@@ -134,6 +134,10 @@ def _handler(state: State):
             if parsed.path == "/library" or (parsed.path in ("/", "/index.html") and not params):
                 return self._send(control_workspace.render(state.corpus, params), "text/html")
 
+            if parsed.path == "/frameworks":
+                from .framework_review import render
+                return self._send(render(state.corpus), "text/html")
+
             if parsed.path == "/control":
                 return self._panel((params.get("uid") or [""])[0])
 

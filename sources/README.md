@@ -60,3 +60,19 @@ update its corpus where needed, and then update the hash and acquisition record.
 
 These records do not relicense publisher material. WACC's source cache is always local,
 including when a publisher permits redistribution.
+
+## Cloud frameworks and WA audit context
+
+The acquisition catalogue includes SCF 2026.2, Microsoft Cloud Security Benchmark v1,
+the November 2023 Essential Eight model, and a pinned revision of CISA's Microsoft 365
+SCuBA baselines. Editions matter: a mapping to an older ISM, CIS or NIST edition is not
+automatically transferred to a different edition in WACC.
+
+SCF text is imported unchanged for local reference under its recorded terms. Generated
+SCF extracts are excluded from distribution. WACC's technical assessments are separately
+authored from their cited guidance; they are not adaptations of SCF control text.
+
+Thirteen OAG report pages are also acquired for local reference. Their HTML and images
+are not redistributed. The application provides brief, independently written commentary,
+report dates and links to the publisher. Reports inform assessment priorities; their
+historical findings do not establish an organisation's present condition.

@@ -65,8 +65,8 @@ NAMED_DOCUMENTS: List[Tuple[str, Optional[str], str]] = [
     (
         "Essential Eight Maturity Model",
         None,
-        "not loaded as a document — the ISM carries ASD's published maturity level "
-        "profiles, which is the nearest thing the corpus holds",
+        "not linked — WACC can import the November 2023 model, but the edition and "
+        "maturity level required by this provision need a separate incorporation review",
     ),
     (
         "AS ISO/IEC 27001",
@@ -259,7 +259,7 @@ def load_into(corpus: Corpus, framework: Framework, path: str) -> Dict[str, obje
     counts["unresolved_documents"] = sorted(set(unresolved))
     if unresolved:
         corpus.load_warnings.append(
-            "%s: %d framework-table rows name documents the corpus does not hold: %s"
+            "%s: %d framework-table rows lack resolved links to the required document editions: %s"
             % (framework.key, len(unresolved), "; ".join(sorted(set(unresolved))[:6]))
         )
     return counts

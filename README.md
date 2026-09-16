@@ -13,14 +13,24 @@ topics**. Each control has:
 
 - a plain-English control statement and business risk;
 - an ATT&CK assessment explaining relevant attack techniques and how the control helps;
-- guidance on what to examine and who to interview;
-- a four-step testing method and expected result;
+- a **GRC Focused** assessment covering documents, interviews, testing and expected results;
+- a **Technical** assessment with platform-specific checks, artefacts, collection examples and interpretation limits;
 - reviewed links to relevant publisher requirements; and
 - links to other controls that address the same problem.
 
-The wider source browser contains **more than 5,300 records from 18 frameworks, WA CSP included**. You can search by
+The wider source browser contains **7,358 records from 22 frameworks** when the reviewed sources are loaded. These include SCF, the Essential Eight, Microsoft Cloud Security Benchmark v1 and CISA's Microsoft 365 baselines. You can search by
 subject or identifier, inspect the source wording and published assessment material, move
 between linked controls, limit results to selected frameworks and export mappings to CSV.
+
+The Technical view provides **58 individual checks**, including **14 Active Directory
+checks** informed by selected public PingCastle and Purple Knight criteria. Microsoft 365,
+Entra ID and Windows checks include configuration evidence and practical test steps.
+WACC does not run these checks or reproduce vendor scanners and scores. Thirteen dated
+WA Auditor General reports provide local context without treating historical findings as
+current findings about an organisation.
+
+Topics and controls are listed alphabetically. Open **Framework coverage & checks** in
+the workspace to review new frameworks and navigate directly to a technical check.
 
 ## Run the application
 
@@ -43,12 +53,17 @@ troubleshooting.
 | `wacc/` | Loads the corpus, finds controls, builds relationships and serves the web and command-line interfaces. |
 | `data/library/` | The 84 locally written workspace controls, grouped into one JSON file per topic. |
 | `data/workspace-attack.json` | Local ATT&CK assessments for every workspace control, including explanations and MITRE mitigation references. |
+| `data/workspace-technical*.json` | Individual technical assessments and their publisher references. |
+| `data/workspace-frameworks.json` | Reviewed links from workspace controls to additional source requirements. |
+| `data/wa-audit-context.json` | Dated WA audit findings and their relevance to assessments. |
+| `data/framework-review.json` | SCF mapping inventory and cloud framework priorities. |
 | `data/corpus/` | Curated extracts used when a publisher does not provide a suitable machine-readable source. |
 | `data/validation/` | Search expectations and the topic-frequency report used to check coverage and ranking. |
 | `sources/acquisition.json` | Publisher download locations and instructions for sources that need manual acquisition. |
 | `sources/permissions.json` | File hashes, source links, permissions and attribution evidence for reviewed documents. |
 | `sources/files/` | Ignored local cache populated by `python -m wacc sources`; publisher files are not distributed with WACC. |
 | `tools/` | Import and verification utilities used to rebuild or check parts of the corpus. |
+| `docs/` | Framework coverage review and corpus revalidation, including proposed additional controls. |
 | `tests/` | Regression checks for source permissions, loading, search, relationships, assessments and rendering. |
 
 ## How to read the results
@@ -81,11 +96,17 @@ acquisition and edition checks.
 Run the complete regression suite from the repository root:
 
 ```powershell
+$env:PYTHONUTF8 = '1'
 python tests\run_all.py
 ```
 
 For changes to the Control workspace, the focused check is:
 
 ```powershell
-python -m unittest tests.test_control_workspace tests.test_terms
+python -m unittest tests.test_control_workspace tests.test_extended tests.test_terms
 ```
+
+Run `python tools/revalidate_corpus.py` to check source hashes, corpus links and workspace
+coverage. See [the revalidation report](docs/corpus-revalidation.md) for remaining source
+limitations and seven proposed additional controls, and [the framework review](docs/framework-coverage-review.md)
+for missing frameworks and acquisition considerations.

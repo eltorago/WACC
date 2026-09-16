@@ -6,20 +6,28 @@ import json
 from pathlib import Path
 import re
 from urllib.parse import urlencode
-from . import workspace_attack
+from . import workspace_attack, workspace_technical, wa_audit_context
 
 LIBRARY_DIR = Path(__file__).resolve().parents[1] / 'data/library'
 CONTROLS = []
-for library_file in sorted(LIBRARY_DIR.glob('*.json'), key=lambda p: (p.stem != 'privileged-access', p.name)):
+for library_file in sorted(LIBRARY_DIR.glob('*.json')):
     library = json.loads(library_file.read_text(encoding='utf-8'))
     CONTROLS.extend({**c, 'topic': library['topic']} for c in library['controls'])
+CONTROLS.sort(key=lambda c:(c['title'].casefold(),c['id']))
+_extra_mappings=json.loads((LIBRARY_DIR.parent/'workspace-frameworks.json').read_text(encoding='utf-8'))
+for _control in CONTROLS:
+    _existing={m.get('uid') for m in _control['mappings']}
+    for _mapping in workspace_technical.source_mappings(_control['id'])+_extra_mappings.get(_control['id'],[]):
+        if _mapping['uid'] not in _existing:
+            _control['mappings'].append(_mapping)
+            _existing.add(_mapping['uid'])
 # Related-control navigation works from either end of a reviewed connection.
 _by_id = {c['id']: c for c in CONTROLS}
 for _control in CONTROLS:
     for _related in list(_control['related']):
         if _related in _by_id and _control['id'] not in _by_id[_related]['related']:
             _by_id[_related]['related'].append(_control['id'])
-TOPICS = list(dict.fromkeys(c['topic'] for c in CONTROLS))
+TOPICS = sorted({c['topic'] for c in CONTROLS},key=str.casefold)
 def mapping_source_key(mapping):
     """Return the scope key for either a control or a named guidance document."""
     return mapping['uid'].split(':')[0] if 'uid' in mapping else 'guidance'
@@ -47,14 +55,16 @@ def matching(query, selected, topic="", corpus=None):
         if not workspace_attack.matches_identifiers(c['id'], identifiers):
             continue
         text = (json.dumps({**c, 'mappings': refs}, ensure_ascii=False) + ' ' +
-                workspace_attack.search_text(c['id'], corpus)).lower()
+                workspace_attack.search_text(c['id'], corpus)+' '+workspace_technical.search_text(c['id'])).lower()
         if all(token in text for token in tokens):
             found.append(c)
     return found
 
 
-def url(selected, control=None, query='', topic=''):
+def url(selected, control=None, query='', topic='', assessment='grc'):
     pairs = [('scope','1')] + [('fw', f) for f in sorted(selected)]
+    if assessment == 'technical':
+        pairs.append(('assessment','technical'))
     if topic:
         pairs.append(('topic', topic))
     if control:
@@ -77,6 +87,7 @@ def export_csv(params, corpus=None):
 
 
 STYLE = '''
+.technical-check h4{margin:16px 0 6px}.technical-check li{margin:8px 0}.technical-check pre{white-space:pre-wrap;overflow-wrap:anywhere;background:var(--bg);padding:14px;border-radius:6px;font-size:13px}.assessment-tabs a{padding:8px 14px;border:1px solid var(--line);border-radius:6px;text-decoration:none}.assessment-tabs a[aria-current=true]{background:var(--soft);border-color:var(--accent);font-weight:700}
 .attack-connection{border-top:1px solid var(--line);padding:16px 0 4px}.attack-connection h4{font-size:16px;margin:0 0 8px}
 :root{color-scheme:light dark;--bg:#f4f6f8;--paper:#fff;--ink:#172b40;--quiet:#586879;--line:#d9e1e8;--accent:#146d70;--soft:#e8f3f2}
 @media(prefers-color-scheme:dark){:root{--bg:#101820;--paper:#17232e;--ink:#e3edf4;--quiet:#a9bbc9;--line:#324552;--accent:#7ccbc3;--soft:#203d3d}}
@@ -91,6 +102,7 @@ def render(corpus, params):
     selected = scope(params)
     query = (params.get('q') or [''])[0]
     topic = (params.get('topic') or [''])[0]
+    assessment = 'technical' if (params.get('assessment') or ['grc'])[0] == 'technical' else 'grc'
     found = matching(query, selected, topic, corpus)
     requested = (params.get('control') or [''])[0]
     chosen = next((c for c in CONTROLS if c['id'] == requested), None) if requested else (found[0] if found else None)
@@ -98,10 +110,11 @@ def render(corpus, params):
     checkboxes=''.join('<label><input type="checkbox" name="fw" value="%s"%s>%s</label>' %
                       (esc(f),' checked' if f in selected else '',esc(corpus.frameworks[f].short_name if f in corpus.frameworks else 'Guidance' if f == 'guidance' else f)) for f in FRAMEWORKS)
     listing=''.join('<a class="control-link" href="%s"%s><small>%s</small><strong>%s</strong><small>%d source references</small></a>' %
-                    (esc(url(selected,c['id'],query,topic)), ' aria-current="page"' if chosen and chosen['id']==c['id'] else '',c['id'],esc(c['title']),len(mappings(c,selected))) for c in found)
+                    (esc(url(selected,c['id'],query,topic,assessment)), ' aria-current="page"' if chosen and chosen['id']==c['id'] else '',c['id'],esc(c['title']),len(mappings(c,selected))) for c in found)
     topic_options = '<option value="">All topics</option>' + ''.join('<option%s>%s</option>' % (' selected' if t==topic else '',esc(t)) for t in TOPICS)
     sidebar='<aside class="sidebar"><form class="filters" action="/library"><label for="library-q">Find a control</label><input id="library-q" type="search" name="q" value="%s" placeholder="A subject or source identifier"><label for="topic">Topic</label><select id="topic" name="topic" onchange="this.form.requestSubmit()">%s</select><input type="hidden" name="scope" value="1"><div class="controls"><small>%d controls in scope</small>%s</div><p class="muted">%s</p><fieldset><legend>Framework scope</legend>%s</fieldset><button>Apply framework scope</button></form><a href="%s">Export scoped mappings (CSV)</a></aside>' % (esc(query),topic_options,len(found),listing,'' if found else 'No controls match this scope and search.',checkboxes,esc(url(selected,query=query,topic=topic).replace('/library?','/library/export.csv?')))
     main='<section class="box empty"><h2>No control selected</h2><p>Choose frameworks and a control from the list, or search the full source corpus.</p><a href="/?q=%s">Search source corpus</a></section>' % esc(query or 'privileged access')
+    sidebar=sidebar.replace('<input type="hidden" name="scope"', '<input type="hidden" name="assessment" value="%s"><input type="hidden" name="scope"'%assessment)
     if chosen:
         c=chosen
         refs=mappings(c,selected)
@@ -121,10 +134,13 @@ def render(corpus, params):
                 if statements:
                     body+='<details><summary>Published assessment material (%d)</summary>%s</details>' % (len(statements),''.join('<p><strong>%s</strong></p><p class="source-text">%s</p>'%(esc(s.published_by),esc(s.text)) for s in statements))
             rows.append('<details><summary><strong>%s</strong> <span class="badge">%s</span></summary><p>%s</p><small>%s</small>%s</details>'%(esc(label),esc(m['relationship']),esc(m['basis']),esc(m['provenance']),body))
-        related=' · '.join('<a href="%s">%s — %s</a>'%(esc(url(selected,uid)),uid,esc(next(x['title'] for x in CONTROLS if x['id']==uid))) for uid in c['related'])
+        related=' · '.join('<a href="%s">%s — %s</a>'%(esc(url(selected,uid,assessment=assessment)),uid,esc(next(x['title'] for x in CONTROLS if x['id']==uid))) for uid in c['related'])
+        tabs='<nav class="assessment-tabs" aria-label="Assessment focus">'+''.join('<a href="%s#assessment" aria-current="%s">%s</a>'%(esc(url(selected,c['id'],query,topic,mode)),str(assessment==mode).lower(),label) for mode,label in [('grc','GRC Focused'),('technical','Technical')])+'</nav>'
+        grc='<dl class="steps"><dt>Examine</dt><dd>%s</dd><dt>Interview</dt><dd>%s</dd><dt>Test</dt><dd>%s</dd><dt>Expected result</dt><dd>%s</dd></dl><small>Suggested assessment for this control. Check the source-specific conditions below.</small>'%(esc(c['examine']),esc(c['interview']),test_method,esc(c['expected']))
+        assessment_body=workspace_technical.render(c['id'],corpus,selected) if assessment=='technical' else grc
         main='''<article><section class="box"><div class="eyebrow">%s · %s</div><h2>%s</h2><p>%s</p><p class="muted"><strong>Scope:</strong> %s</p>%s<div class="risk"><strong>Business risk</strong><br>%s</div><nav><a href="#attack">ATT&amp;CK techniques</a><a href="#assessment">Assessment</a><a href="#sources">Source requirements</a></nav></section>
 %s
-<section class="box" id="assessment"><h3>Assess this control</h3><dl class="steps"><dt>Examine</dt><dd>%s</dd><dt>Interview</dt><dd>%s</dd><dt>Test</dt><dd>%s</dd><dt>Expected result</dt><dd>%s</dd></dl><small>Suggested assessment for this control. Check the source-specific conditions below.</small></section>
+<section class="box" id="assessment"><h3>Assess this control</h3>%s%s</section>%s
 <section class="box" id="sources"><h3>Source requirements · %d references in scope</h3><p class="muted">These locally reviewed connections describe overlap, not compliance. An effective control does not automatically satisfy every linked requirement.</p>%s</section><section class="box"><h3>Related controls</h3><p>%s</p></section></article>''' % (
-            c['id'],esc(c['topic']),esc(c['title']),esc(c['statement']),esc(c['scope']),'<p class="muted">This control has no references in the selected framework scope.</p>' if not refs else '',esc(c['risk']),workspace_attack.render(c['id'],corpus),esc(c['examine']),esc(c['interview']),test_method,esc(c['expected']),len(refs),''.join(rows) or '<p>No source references selected.</p>',related)
-    return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>WACC · Control workspace</title><style>%s</style></head><body><header><div><div class="eyebrow">WA Control Crosswalk</div><h1>Control workspace</h1></div><a href="%s">Browse source corpus →</a></header><p class="workspace-summary">Control library · %d controls across %d topics, with reviewed source connections. The full corpus remains available in the source browser.</p><div class="workspace">%s<main>%s</main></div></body></html>' % (STYLE,esc(source_url),len(CONTROLS),len(TOPICS),sidebar,main)
+            c['id'],esc(c['topic']),esc(c['title']),esc(c['statement']),esc(c['scope']),'<p class="muted">This control has no references in the selected framework scope.</p>' if not refs else '',esc(c['risk']),workspace_attack.render(c['id'],corpus),tabs,assessment_body,wa_audit_context.render(c['id']),len(refs),''.join(rows) or '<p>No source references selected.</p>',related)
+    return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>WACC · Control workspace</title><style>%s</style></head><body><header><div><div class="eyebrow">WA Control Crosswalk</div><h1>Control workspace</h1></div><nav><a href="/frameworks">Framework coverage &amp; checks</a><a href="%s">Browse source corpus →</a></nav></header><p class="workspace-summary">Control library · %d controls across %d topics, with reviewed source connections. The full corpus remains available in the source browser.</p><div class="workspace">%s<main>%s</main></div><script>function openCheck(){const el=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(el && el.tagName==="DETAILS")el.open=true;}addEventListener("hashchange",openCheck);openCheck();</script></body></html>' % (STYLE,esc(source_url),len(CONTROLS),len(TOPICS),sidebar,main)

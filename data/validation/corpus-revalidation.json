@@ -1,0 +1,212 @@
+{
+  "reviewed_on": "2026-09-16",
+  "records": 7358,
+  "frameworks": 22,
+  "framework_counts": {
+    "soci-act": 910,
+    "cirmp-rules": 85,
+    "wa-csp": 109,
+    "wa-circular": 12,
+    "pspf": 252,
+    "oag-wa": 68,
+    "essential-eight": 304,
+    "aescsf": 408,
+    "csf": 134,
+    "ztmm": 46,
+    "c2m2": 409,
+    "ism": 1192,
+    "nist-800-53": 1196,
+    "cis-controls": 171,
+    "scf": 1534,
+    "mcsb": 86,
+    "asd-ad": 113,
+    "nist-800-63": 91,
+    "nist-800-131a": 63,
+    "scuba": 109,
+    "nist-800-57pt1": 39,
+    "nist-800-88": 27
+  },
+  "workspace_controls": 84,
+  "technical_checks": 58,
+  "oag_reports": 13,
+  "published_and_local_links": 2718,
+  "problems": [],
+  "load_warnings": [
+    "cis-controls: 5 safeguard identifiers were rebuilt from position because the workbook stores them as numbers and cannot tell 3.10 from 3.1",
+    "cis mapping names safeguard 2.8, which the v8 catalogue does not contain; the mapping workbook is v8.1",
+    "cis mapping names safeguard 6.9, which the v8 catalogue does not contain; the mapping workbook is v8.1",
+    "cis mapping names safeguard 7.8, which the v8 catalogue does not contain; the mapping workbook is v8.1",
+    "cis mapping names safeguard 7.9, which the v8 catalogue does not contain; the mapping workbook is v8.1",
+    "cis mapping names safeguard 12.9, which the v8 catalogue does not contain; the mapping workbook is v8.1",
+    "csf: PR.IP is marked withdrawn but names no replacement",
+    "csf: PR.PT is marked withdrawn but names no replacement",
+    "csf: DE.DP is marked withdrawn but names no replacement",
+    "aescsf: 45 references name ISM controls not in the loaded ISM (12 distinct, e.g. ISM-1185, ISM-1388, ISM-1433, ISM-1435, ISM-1651). AESCSF cites the revision current when it was published; these have since been retired.",
+    "pspf: requirement numbers are not contiguous — 113 absent from the published table. Nothing downstream may assume a dense range.",
+    "cirmp-rules: 6 framework-table rows lack resolved links to the required document editions: Australian Standard AS ISO/IEC 27001:2015; Australian Standard AS ISO/IEC 27001:2023; Essential Eight Maturity Model published by the Australian Signals Directorate; Framework for Improving Critical Infrastructure Cybersecurity published by the National Institute of Standards and Technology of the United States of America; The 202021 AESCSF Framework Core published by Australian Energy Market Operator Limited (ACN 072 010 327)",
+    "benchmark detail for cis-win11 not extracted; run tools/extract_cis_benchmark.py",
+    "benchmark detail for cis-m365 not extracted; run tools/extract_cis_benchmark.py",
+    "benchmark detail for cis-azure not extracted; run tools/extract_cis_benchmark.py",
+    "benchmark detail for cis-office not extracted; run tools/extract_cis_benchmark.py",
+    "benchmark detail for cis-edge not extracted; run tools/extract_cis_benchmark.py",
+    "benchmark detail for cis-chrome not extracted; run tools/extract_cis_benchmark.py"
+  ],
+  "candidates": [
+    {
+      "title": "Email authentication and message protection",
+      "priority": "High",
+      "existing_controls": [
+        "UH-01",
+        "UH-02",
+        "DP-03"
+      ],
+      "source_uids": [
+        "scuba:ms.exo.2.2v3",
+        "scuba:ms.exo.3.1v1",
+        "scuba:ms.exo.4.1v1",
+        "scuba:ms.securitysuite.2.3v1"
+      ],
+      "mention_counts_by_framework": {
+        "aescsf": 1,
+        "c2m2": 1,
+        "cis-controls": 1,
+        "ism": 9,
+        "scf": 3,
+        "scuba": 6
+      },
+      "reason": "Create a dedicated workspace topic and control covering domain authentication, impersonation, attachment/link protection and mail-flow exceptions. Technical checks exist, but they currently sit beneath broad application-hardening controls."
+    },
+    {
+      "title": "Application identities and consent",
+      "priority": "High",
+      "existing_controls": [
+        "IA-02",
+        "IA-03",
+        "SD-01"
+      ],
+      "source_uids": [
+        "scuba:ms.aad.5.2v1",
+        "scuba:ms.aad.5.3v1",
+        "mcsb:im-3"
+      ],
+      "mention_counts_by_framework": {
+        "ism": 5,
+        "mcsb": 1,
+        "oag-wa": 2,
+        "pspf": 1,
+        "scuba": 2,
+        "ztmm": 1
+      },
+      "reason": "Add a dedicated control for non-human identity ownership, permissions, consent, credentials and retirement. Existing identity controls cover parts of the lifecycle; users need a direct route to these cloud-specific checks."
+    },
+    {
+      "title": "External collaboration and guest access",
+      "priority": "High",
+      "existing_controls": [
+        "IA-01",
+        "IA-02",
+        "DP-03",
+        "SC-03"
+      ],
+      "source_uids": [
+        "scuba:ms.aad.8.2v1",
+        "scuba:ms.sharepoint.1.1v1",
+        "scuba:ms.teams.2.1v2"
+      ],
+      "mention_counts_by_framework": {
+        "nist-800-63": 5,
+        "scuba": 7
+      },
+      "reason": "Add a control joining guest sponsorship, cross-tenant trust, sharing links and collaboration expiry. Coverage is currently divided between access, data protection and supplier controls."
+    },
+    {
+      "title": "Low-code applications and public analytics",
+      "priority": "High",
+      "existing_controls": [
+        "SD-01",
+        "DP-03",
+        "PI-02"
+      ],
+      "source_uids": [
+        "scuba:ms.powerplatform.2.1v1",
+        "scuba:ms.powerplatform.3.1v1",
+        "scuba:ms.powerbi.1.1v1"
+      ],
+      "mention_counts_by_framework": {
+        "scuba": 6
+      },
+      "reason": "Create a control for environment ownership, connector boundaries and public publication. This is a distinct business-managed application path, with technical assessment coverage now available."
+    },
+    {
+      "title": "Business application authorisation and data integrity",
+      "priority": "High",
+      "existing_controls": [
+        "IA-02",
+        "SD-03",
+        "PI-02"
+      ],
+      "source_uids": [
+        "mcsb:pa-7",
+        "mcsb:ds-5"
+      ],
+      "mention_counts_by_framework": {
+        "aescsf": 1,
+        "cis-controls": 5,
+        "ism": 11,
+        "nist-800-53": 29,
+        "nist-800-57pt1": 3,
+        "nist-800-63": 1,
+        "oag-wa": 4,
+        "pspf": 3,
+        "scf": 21,
+        "soci-act": 72,
+        "ztmm": 1
+      },
+      "reason": "Add a control for transaction limits, conflicting duties, record-level access and verified data changes. The State Government 2025 and Assist audits provide specific WA examples; configuration and software-testing controls alone do not express this business outcome."
+    },
+    {
+      "title": "Cloud tenant and subscription governance",
+      "priority": "Medium",
+      "existing_controls": [
+        "AM-01",
+        "AM-02",
+        "GV-01",
+        "SC-02"
+      ],
+      "source_uids": [
+        "mcsb:am-2",
+        "mcsb:gs-11",
+        "mcsb:pv-2"
+      ],
+      "mention_counts_by_framework": {
+        "cis-controls": 1,
+        "ism": 9,
+        "mcsb": 8,
+        "oag-wa": 2,
+        "pspf": 2,
+        "scf": 8,
+        "wa-csp": 2
+      },
+      "reason": "Consider a dedicated control joining tenant ownership, approved subscriptions/services, shared responsibility and drift monitoring. Existing controls and the new baseline assessment provide substantial partial coverage."
+    },
+    {
+      "title": "AI agent and assistant access",
+      "priority": "Medium",
+      "existing_controls": [
+        "IA-02",
+        "DP-03",
+        "SD-02"
+      ],
+      "source_uids": [
+        "scuba:ms.aad.9.1v1",
+        "mcsb:im-3"
+      ],
+      "mention_counts_by_framework": {
+        "ism": 5,
+        "scf": 159,
+        "scuba": 1
+      },
+      "reason": "Review a separate control for agent identity, accessible data, consent and risky-agent response. The corpus contains a current SCuBA risky-agent policy, but the older MCSB v1 edition is not an AI security baseline. Further publisher-specific review is needed before creating broad AI claims."
+    }
+  ]
+}
