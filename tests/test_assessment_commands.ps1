@@ -106,4 +106,54 @@ Assert-Check ($result.Count -eq 1 -and $result[0].Review -match 'Expired approva
 $script:csv.suppliers=@($script:csv.suppliers[0],$script:csv.suppliers[0]);$result=@(Run-Example 'TECH-SUPPLIER')
 Assert-Check ($result[0].Review -match 'unique') 'Duplicate supplier approvals cannot silently match'
 
+# Null and non-array Graph payloads must not turn into an empty successful query.
+foreach ($bad in @(@{value=$null},@{value='not an array'},@{value=@{id='object'}})) {
+    $script:pages=@{$first=$bad};$caught=$false
+    try{Read-GraphCollection $first}catch{$caught=$true}
+    Assert-Check $caught 'Graph rejects malformed collection value'
+}
+
+# Extract the actual canonicaliser to test JSON ordering without service calls.
+$ast=[System.Management.Automation.Language.Parser]::ParseInput($data.checks.'TECH-BASELINE'.command,[ref]$tokens,[ref]$parseErrors)
+$function=$ast.Find({param($n) $n -is [System.Management.Automation.Language.FunctionDefinitionAst] -and $n.Name -eq 'ConvertTo-CanonicalValue'},$true)
+. ([scriptblock]::Create($function.Extent.Text))
+$a='{"state":"enabled","conditions":{"users":{"includeUsers":["All"],"excludeUsers":[]}},"grantControls":{"operator":"OR"}}' | ConvertFrom-Json
+$b='{"grantControls":{"operator":"OR"},"conditions":{"users":{"excludeUsers":[],"includeUsers":["All"]}},"state":"enabled"}' | ConvertFrom-Json
+$ca=ConvertTo-CanonicalValue $a | ConvertTo-Json -Depth 100 -Compress
+$cb=ConvertTo-CanonicalValue $b | ConvertTo-Json -Depth 100 -Compress
+Assert-Check ($ca -ceq $cb) 'Property order does not produce configuration drift'
+$b.state='disabled'
+$cb=ConvertTo-CanonicalValue $b | ConvertTo-Json -Depth 100 -Compress
+Assert-Check ($ca -cne $cb) 'Changed enforcement state still produces configuration drift'
+Assert-Check ((ConvertTo-CanonicalValue @()) -is [array]) 'Canonicaliser retains empty arrays'
+
+# Selected DC is passed to the ACL read; no ambient AD provider is consulted.
+function Get-ADRootDSE {param($Server) [pscustomobject]@{defaultNamingContext='DC=fixture,DC=test'} }
+function Get-ADObject {param($Identity,$Server,$Properties,$SearchBase,$LDAPFilter)
+    $script:adServers+=,$Server
+    if ($LDAPFilter) { return }
+    [pscustomobject]@{nTSecurityDescriptor=[pscustomobject]@{Owner='Fixture';AreAccessRulesProtected=$true;Access=@()}}
+}
+$script:answers=@{'FQDN of the intended domain controller'='dc.fixture.test';'Distinguished name of an approved sampled account'='CN=test,DC=fixture,DC=test'}
+$script:adServers=@();$null=Run-Example 'AD-CHECK-10'
+Assert-Check ($script:adServers.Count -eq 1 -and $script:adServers[0] -eq 'dc.fixture.test') 'AdminSDHolder ACL binds to selected DC'
+$script:adServers=@();$null=Run-Example 'AD-CHECK-12'
+Assert-Check ($script:adServers.Count -eq 2 -and @($script:adServers | Where-Object {$_ -ne 'dc.fixture.test'}).Count -eq 0) 'Key-credential inventory and ACL use the same DC'
+
+# The combined encryption check must run only its chosen platform's cmdlets.
+function Get-BitLockerVolume { $script:cryptoCalls+='windows'; [pscustomobject]@{MountPoint='C:';ProtectionStatus='On'} }
+function Get-AzKeyVault {param($VaultName) $script:cryptoCalls+='vault'; [pscustomobject]@{VaultName=$VaultName} }
+function Get-AzKeyVaultKey {param($VaultName,$Name,[switch]$IncludeVersions) $script:cryptoCalls+='key'; [pscustomobject]@{Name=$Name;Enabled=$true} }
+$script:answers=@{'Enter Windows (PowerShell 5.1) or Azure (PowerShell 7)'='Windows'}
+$script:cryptoCalls=@();$null=Run-Example 'TECH-CRYPTO'
+Assert-Check ($script:cryptoCalls.Count -eq 1 -and $script:cryptoCalls[0] -eq 'windows') 'Windows encryption collection does not require Azure modules'
+$script:answers=@{'Enter Windows (PowerShell 5.1) or Azure (PowerShell 7)'='Azure';'Approved Azure Key Vault name'='fixture';'Approved key name (metadata only)'='key'}
+$script:cryptoCalls=@();$null=Run-Example 'TECH-CRYPTO'
+Assert-Check (($script:cryptoCalls -join ',') -eq 'vault,key') 'Azure key collection does not require Windows BitLocker'
+
+$script:answers=@{'Physical-access approvals CSV path'='approvals';'Sampled badge events CSV path'='events'}
+$script:csv=@{approvals=@([pscustomobject]@{BadgeId='A'});events=@([pscustomobject]@{BadgeId='A';Zone='DC';EventUtc='2026-01-15T00:00:00Z';Result='Unknown'})}
+$caught=$false;try{Run-Example 'TECH-PHYSICAL'}catch{$caught=$true}
+Assert-Check $caught 'Unknown badge event result cannot silently pass'
+
 Write-Output ("OFFLINE FIXTURES: $script:passed passed; engine "+$PSVersionTable.PSVersion)

@@ -71,7 +71,7 @@
       "related": ["OT-01", "OT-02", "AW-02"],
       "mappings": [
         {"uid":"oag-wa:report-24 2.8.3","relationship":"Directly addresses","basis":"Calls for OT-specific incident playbooks to be developed and tested because IT plans often overlook OT.","provenance":"Locally reviewed mapping"},
-        {"guidance":"ncsc-ot-connectivity","relationship":"Related only","basis":"NCSC describes isolation strategies and operational resilience considerations that inform OT scenarios but are not an Australian control.","excerpt":"Connectivity should preserve OT safety, reliability and availability, including understanding failure conditions and maintaining tested manual fallback. Well-designed controls enable targeted isolation of affected services and routes.","provenance":"Locally reviewed mapping"}
+        {"guidance":"ncsc-ot-connectivity","relationship":"Related only","basis":"NCSC describes OT isolation, resilience and manual fallback.","excerpt":"Connectivity should preserve OT safety, reliability and availability, including understanding failure conditions and maintaining tested manual fallback. Well-designed controls enable targeted isolation of affected services and routes.","provenance":"Locally reviewed mapping"}
       ]
     }
   ]

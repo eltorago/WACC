@@ -658,12 +658,16 @@ NAMED_SETS: Dict[str, Tuple[str, Optional[str], str]] = {
         None,
         "the Cybersecurity Capability Maturity Model",
     ),
-    "e8": ("ism", "essential_eight_maturity", "the Essential Eight maturity controls"),
+    "e8": ("essential-eight", None, "the Essential Eight maturity model"),
+    "essential 8": ("essential-eight", None, "the Essential Eight maturity model"),
     "essential eight": (
-        "ism",
-        "essential_eight_maturity",
-        "the Essential Eight maturity controls",
+        "essential-eight",
+        None,
+        "the Essential Eight maturity model",
     ),
+    "acsc strategies": ("asd-strategies", None, "the ACSC mitigation strategies"),
+    "asd strategies": ("asd-strategies", None, "the ACSC mitigation strategies"),
+    "strategies to mitigate cyber security incidents": ("asd-strategies", None, "the ACSC mitigation strategies"),
 }
 
 

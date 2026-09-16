@@ -137,20 +137,12 @@
       ],
       "platform": "Entra ID",
       "statement": "Require approved authentication strength and device conditions on actual sign-ins, including privileged and external access.",
-      "prerequisites": "Read access to Conditional Access and sign-in logs; Graph Identity.SignIns module with Policy.Read.All for the example. Conditional Access requires appropriate Entra licensing. Use designated test identities.",
+      "prerequisites": "Conditional Access and sign-in log reader; licensed test accounts and managed/unmanaged devices.",
       "artifacts": [
         "Policy JSON including state, targets, exclusions and grant controls",
         "Authentication-method registrations and strength definitions",
         "What If output and real sign-in correlation IDs"
       ],
-      "steps": [
-        "Resolve nested group membership and exclusions for standard, admin, guest and emergency identities; inspect enabled versus report-only state.",
-        "Run What If for specific resource IDs, platforms, client types and locations. Test Teams dependencies such as Exchange and SharePoint separately.",
-        "Using synthetic accounts, attempt allowed and disallowed sign-ins, including a weaker authentication method. Inspect authentication details and Conditional Access results in logs.",
-        "Repeat for an excluded group and an unmanaged device; confirm each exception has a narrow purpose and monitoring."
-      ],
-      "expected": "Approved combinations succeed; disallowed combinations are denied or require the configured strength, with matching policy IDs in logs.",
-      "limitations": "What If is a simulation and does not cover service dependencies. A registration report or successful MFA prompt alone does not demonstrate coverage. Emergency access has a separate assessment.",
       "sources": [
         "ca",
         "graphca",
@@ -161,8 +153,7 @@
         "mcsb:im-7",
         "scuba:ms.aad.3.6v1",
         "scuba:ms.aad.3.7v1"
-      ],
-      "command": "Get-MgIdentityConditionalAccessPolicy -All | ConvertTo-Json -Depth 20"
+      ]
     },
     {
       "id": "TECH-PIM",
@@ -174,20 +165,12 @@
       ],
       "platform": "Entra ID / Azure",
       "statement": "Use time-limited privileged access with independent approval where required and remove unnecessary standing assignments.",
-      "prerequisites": "PIM read access and an appropriately licensed test identity. Role activation changes access: exercise only an approved low-impact test role.",
+      "prerequisites": "PIM reader; licensed test user, approver and low-impact test role.",
       "artifacts": [
         "Eligible and active role-assignment exports, including role-assignable groups",
         "Role activation policy, approvers and expiry",
         "Request, approval, activation and deactivation audit events"
       ],
-      "steps": [
-        "Join users, groups and service principals to active and eligible roles; include inherited Azure resource roles and direct assignments outside PIM.",
-        "Compare duration, justification, authentication context and approval rules with the approved role design. Identify approver absence or self-approval paths.",
-        "Request a test activation, verify no privilege before approval, approve independently and demonstrate only the intended scope becomes available.",
-        "After expiry, obtain a fresh token and verify the privileged operation fails. Confirm assignment and activation events reach monitoring."
-      ],
-      "expected": "No unexplained permanent privilege; time and resource scope match approval; fresh sessions lose access after expiry.",
-      "limitations": "Entra roles, Azure resource roles and PIM for Groups require separate inspection. Token caching can delay observed revocation.",
       "sources": [
         "pim"
       ],
@@ -196,8 +179,7 @@
         "mcsb:pa-4",
         "scuba:ms.aad.7.4v1",
         "scuba:ms.aad.7.6v1"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-ADMIN",
@@ -208,20 +190,12 @@
       ],
       "platform": "Entra ID / Windows",
       "statement": "Administer cloud and directory services through dedicated identities and trusted administrative workstations.",
-      "prerequisites": "Read access to Entra users, roles, sign-ins and Intune device records; directory administrators provide approved AD group exports.",
+      "prerequisites": "Role and user reader; paired everyday/admin test identities.",
       "artifacts": [
         "Privileged identity register, onPremisesSyncEnabled attribute and assigned services",
         "Administrative device compliance and sign-in device IDs",
         "AD privileged group and logon-right assignments"
       ],
-      "steps": [
-        "Match each administrator to separate daily-use and privileged identities; identify synchronised cloud admin accounts and shared identities.",
-        "Check that privileged identities are excluded from routine email and web use and use the intended secure administrative devices.",
-        "Inspect recent successful administrative sign-ins and correlate device IDs, authentication strength and source with the allowed design.",
-        "Test a privileged test identity from an unapproved device and verify denial; check lower-tier systems cannot administer directory infrastructure."
-      ],
-      "expected": "Administrative access uses separate, appropriately scoped identities and approved devices; ordinary sessions do not carry administrative rights.",
-      "limitations": "Cloud-only identity requirements apply to cloud administration; AD administration still needs appropriately isolated AD identities.",
       "sources": [
         "entra",
         "scuba"
@@ -230,8 +204,7 @@
         "mcsb:pa-1",
         "mcsb:pa-6",
         "scuba:ms.aad.7.3v1"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-EMERGENCY",
@@ -243,27 +216,18 @@
       ],
       "platform": "Entra ID",
       "statement": "Maintain independent emergency access that survives failure of normal administration and produces an alert whenever used.",
-      "prerequisites": "Authorised supervised drill with account custodians; read access to account, role and alert settings. Do not disable production authentication to simulate an outage.",
+      "prerequisites": "Account custodians; emergency-access drill and alert reader.",
       "artifacts": [
         "Emergency account register and custody records",
         "Cloud-only status, authentication methods and Conditional Access exclusions",
         "Drill sign-in, alert delivery and review record"
       ],
-      "steps": [
-        "Verify at least two cloud-only emergency accounts with independent phishing-resistant credentials, permanent emergency role assignment and protected custody.",
-        "Trace dependencies on federation, phones, approvers and devices; check cleanup and credential expiry cannot remove access unexpectedly.",
-        "Perform a supervised sign-in from the designated secure workstation and a harmless authorised administrative read; record the log correlation ID.",
-        "Confirm monitoring notifies the responsible team and a reviewer verifies the reason for use; schedule the next drill."
-      ],
-      "expected": "Emergency access works without normal federation or PIM approval dependencies and every use produces a reviewed alert.",
-      "limitations": "Apply current Microsoft emergency-account guidance deliberately; do not treat these narrowly controlled accounts as ordinary PIM failures or leave unmonitored MFA bypasses.",
       "sources": [
         "emergency"
       ],
       "references": [
         "mcsb:pa-5"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-LEGACY",
@@ -275,20 +239,12 @@
       ],
       "platform": "Entra ID / Exchange Online",
       "statement": "Prevent password-only legacy sign-in routes from bypassing the organisation’s authentication policy.",
-      "prerequisites": "Conditional Access reader and Exchange configuration read access; synthetic mailbox with no real messages. Use ExchangeOnlineManagement with rights to the named read cmdlets. A null mailbox override inherits the tenant setting.",
+      "prerequisites": "Exchange configuration reader; test mailbox and modern/legacy clients.",
       "artifacts": [
         "Legacy-client sign-in report",
         "Exchange tenant and mailbox SMTP AUTH settings",
         "Conditional Access and authentication-policy exports"
       ],
-      "steps": [
-        "Enumerate successful legacy-client sign-ins for an agreed period, including non-interactive sign-ins and service accounts.",
-        "Review tenant defaults and mailbox exceptions for SMTP AUTH plus authentication policies; record an owner and replacement plan for every exception.",
-        "Attempt a benign legacy sign-in with the synthetic mailbox and confirm failure is attributable to policy rather than a bad password or network fault.",
-        "Check modern supported application flows still work and monitor new legacy attempts after policy changes."
-      ],
-      "expected": "No unapproved legacy route succeeds; exceptions are explicit and covered by a separately tested design.",
-      "limitations": "Availability of legacy protocols changes over time. A lack of recent traffic is not proof a route is blocked.",
       "sources": [
         "scuba",
         "exo",
@@ -297,8 +253,7 @@
       "references": [
         "scuba:ms.aad.1.1v1",
         "scuba:ms.exo.5.1v1"
-      ],
-      "command": "Get-TransportConfig | Select-Object SmtpClientAuthenticationDisabled\nGet-CASMailbox -ResultSize Unlimited | Select-Object Identity,SmtpClientAuthenticationDisabled"
+      ]
     },
     {
       "id": "TECH-LIFECYCLE",
@@ -311,28 +266,19 @@
       ],
       "platform": "Entra ID / Microsoft 365",
       "statement": "Remove unneeded identities and entitlements across cloud, directory and application layers when people leave or change roles.",
-      "prerequisites": "Read-only HR/contractor joiner-mover-leaver extract, directory and application account exports; pseudonymise personal fields.",
+      "prerequisites": "HR/contractor departure export; directory reader and test leaver.",
       "artifacts": [
         "HR and contractor end dates",
         "Entra/AD enabled state, role and group membership, app assignments",
         "Disablement, token revocation and access-review decision timestamps"
       ],
-      "steps": [
-        "Join authoritative staff and contractor populations to cloud-only, synchronised, guest and local application accounts by stable identifiers; list unmatched records.",
-        "Sample departures and transfers, compare end times with disablement and entitlement removal, and inspect subsequent successful sign-ins.",
-        "For an authorised synthetic departure, verify fresh cloud sign-in, existing-session access and downstream application access are removed as designed.",
-        "Trace denied access-review decisions through to actual removal rather than accepting completed review status."
-      ],
-      "expected": "No unexplained orphan access; removals meet the entity’s approved timeframes and connected applications reflect the decision.",
-      "limitations": "Disabling Entra does not by itself prove every existing application session or local account is revoked.",
       "sources": [
         "entra"
       ],
       "references": [
         "mcsb:pa-3",
         "mcsb:pa-4"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-CONSENT",
@@ -345,20 +291,12 @@
       ],
       "platform": "Entra ID",
       "statement": "Approve application permissions and control credentials for applications that can read or change organisational data.",
-      "prerequisites": "Application and consent-policy read permissions; application owners assist with permissions not visible to the reviewer.",
+      "prerequisites": "Consent-policy and application reader; tenant-owned test app.",
       "artifacts": [
         "App registrations, enterprise applications and owners",
         "Delegated grants, application roles and credential expiry metadata",
         "User-consent policy and administrator consent decisions"
       ],
-      "steps": [
-        "Inventory service principals separately from user accounts; identify high-impact application permissions, unused grants, missing owners and unbounded secrets.",
-        "Compare user-consent settings and admin workflow with approved permission classifications; include multi-tenant and publisher-verified apps.",
-        "Using a benign test application without data access, attempt an unapproved permission request; verify it cannot self-consent and routes to the correct reviewer.",
-        "Review recent permission and credential additions, confirm monitored events, and retest removal using a fresh token in the test app."
-      ],
-      "expected": "High-impact grants have explicit approval and owners; unapproved requests fail; credential metadata demonstrates rotation or a secretless design.",
-      "limitations": "Do not export secret values. Delegated permissions and application permissions have different effective access and require separate reviews.",
       "sources": [
         "consent"
       ],
@@ -367,8 +305,7 @@
         "mcsb:im-8",
         "scuba:ms.aad.5.2v1",
         "scuba:ms.aad.5.3v1"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-GUEST",
@@ -380,20 +317,12 @@
       ],
       "platform": "Entra ID / Microsoft 365",
       "statement": "Limit external access to approved partners and keep guest entitlements current.",
-      "prerequisites": "External identity configuration reader, guest and group export access, and approved partner test accounts.",
+      "prerequisites": "External-identity reader; allowed and disallowed partner test accounts.",
       "artifacts": [
         "Invitation restrictions and cross-tenant inbound/outbound settings",
         "Guest sponsor, expiry and access reviews",
         "Partner MFA/device trust settings and sign-in evidence"
       ],
-      "steps": [
-        "Compare permitted inviters and external domains with the partnership register; include guest-to-guest invitations and existing guests.",
-        "Review partner-specific cross-tenant overrides and whether external MFA/device claims are trusted; confirm the partner assurance supporting that trust.",
-        "Try invitations and resource access from approved and disallowed partner test identities; distinguish successful invitation from actual resource authorisation.",
-        "Expire a test entitlement through the normal workflow and verify access to its Teams and SharePoint resources is removed."
-      ],
-      "expected": "Only approved invitations and entitlements succeed; inherited partner trust and exceptions are documented and tested.",
-      "limitations": "Domain allowlists alone do not validate the security posture or identity lifecycle of a partner.",
       "sources": [
         "guest"
       ],
@@ -401,8 +330,7 @@
         "scuba:ms.aad.8.1v1",
         "scuba:ms.aad.8.2v1",
         "scuba:ms.aad.8.3v1"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-MAIL-AUTH",
@@ -414,20 +342,12 @@
       ],
       "platform": "Exchange Online / DNS",
       "statement": "Authenticate legitimate senders and reject unauthorised use of organisational mail domains.",
-      "prerequisites": "DNS read access and Exchange reader; controlled internal and external test mailboxes. Obtain sender approval before simulated impersonation tests. Use an authenticated ExchangeOnlineManagement session with read rights for DKIM configuration.",
+      "prerequisites": "DNS/Exchange reader; controlled sending and receiving mailboxes.",
       "artifacts": [
         "Accepted-domain and approved-sender inventory",
         "SPF, DKIM selectors and DMARC DNS records",
         "Raw received headers and DMARC aggregate reports"
       ],
-      "steps": [
-        "Reconcile every active, parked and third-party sending domain with DNS policy and ownership; inspect SPF mechanisms, lookup limits and obsolete senders.",
-        "Send benign mail through each authorised route and inspect Authentication-Results, DKIM signature and DMARC alignment at an external recipient.",
-        "In an approved test environment, send a deliberately unauthorised test message using an owned test domain and verify the expected disposition.",
-        "Inspect aggregate reporting and exception handling; confirm forwarding and mailing-list routes are evaluated before changing enforcement."
-      ],
-      "expected": "Legitimate routes authenticate and align; unauthorised test messages receive the intended quarantine/reject action and reporting is reviewed.",
-      "limitations": "DNS presence alone is insufficient. SCuBA’s US federal reporting address is not a WA reporting destination.",
       "sources": [
         "mailauth",
         "dkimCmd"
@@ -436,8 +356,7 @@
         "scuba:ms.exo.2.2v3",
         "scuba:ms.exo.3.1v1",
         "scuba:ms.exo.4.1v1"
-      ],
-      "command": "Get-DkimSigningConfig | Select-Object Domain,Enabled,Status,Selector1CNAME,Selector2CNAME"
+      ]
     },
     {
       "id": "TECH-MAIL-PROTECT",
@@ -449,20 +368,12 @@
       ],
       "platform": "Defender for Office 365 / Exchange",
       "statement": "Apply effective phishing, attachment and link protection to all intended recipients and prevent unapproved external forwarding.",
-      "prerequisites": "Read access to threat policies, recipient scopes and Exchange rules. Safe Attachments/Safe Links require suitable licences; use vendor-provided safe test content.",
+      "prerequisites": "Defender for Office 365/Exchange reader; licensed test recipient.",
       "artifacts": [
         "Preset/custom policy assignments, precedence and exclusions",
         "Impersonation protection list and allowlists",
         "Outbound forwarding policy, mailbox forwarding and inbox rules"
       ],
-      "steps": [
-        "Resolve policy precedence for standard, executive, shared and exception mailboxes; review user/domain impersonation settings and broad allow entries.",
-        "Reconcile external forwarding configured in mailbox settings, inbox rules and transport rules with approved cases.",
-        "Send safe vendor test messages to the sample mailboxes; retain message trace, policy decision and quarantine results.",
-        "Attempt forwarding of a synthetic message to an owned external mailbox and verify the intended block; check security alerts reach an operator."
-      ],
-      "expected": "Each sample receives its intended effective protection; bypasses and forwarding exceptions are justified and monitored.",
-      "limitations": "Built-in protection, Standard and Strict presets differ. Never use live malware or real sensitive content for testing.",
       "sources": [
         "mail",
         "exo",
@@ -472,8 +383,7 @@
         "scuba:ms.exo.1.1v2",
         "scuba:ms.securitysuite.2.1v1",
         "scuba:ms.securitysuite.2.3v1"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-SHARING",
@@ -485,20 +395,12 @@
       ],
       "platform": "SharePoint Online / OneDrive",
       "statement": "Restrict sensitive content to intended people and prevent anonymous or unapproved external sharing.",
-      "prerequisites": "SharePoint configuration and site-permission read access; synthetic documents and approved external test identities. For PowerShell use the SharePoint Online Management Shell with authorised SharePoint/site administration access. Fetch each site by identity: list results can omit security properties.",
+      "prerequisites": "SharePoint Administrator; test site, synthetic file and external identity.",
       "artifacts": [
         "Tenant and per-site sharing settings",
         "Site owners, guests and existing sharing links",
         "Sensitivity-label settings and external sharing audit events"
       ],
-      "steps": [
-        "Compare tenant defaults with site-level settings, labels and existing links; include OneDrive, private/shared-channel sites and sites with exceptions.",
-        "Use a synthetic sensitive document to test specific-person sharing, anonymous links and an unapproved external domain.",
-        "Open the link as the intended guest, another guest and an anonymous browser; verify actual read/edit rights and download behaviour.",
-        "Revoke the link or test entitlement and confirm fresh access fails; correlate creation and revocation with audit records."
-      ],
-      "expected": "Only intended identities receive the permitted operations; broad links and stale permissions do not bypass the approved sharing design.",
-      "limitations": "Changing a default link type is not proof that old links have been removed. Site access and file sensitivity-label protection are separate.",
       "sources": [
         "sharing",
         "spoCmd"
@@ -507,8 +409,7 @@
         "scuba:ms.sharepoint.1.1v1",
         "scuba:ms.sharepoint.1.2v1",
         "scuba:ms.sharepoint.2.1v1"
-      ],
-      "command": "Get-SPOSite -Limit All -IncludePersonalSite $true | ForEach-Object { Get-SPOSite -Identity $_.Url } | Select-Object Url,SharingCapability,DefaultSharingLinkType,ConditionalAccessPolicy"
+      ]
     },
     {
       "id": "TECH-UNMANAGED",
@@ -520,20 +421,12 @@
       ],
       "platform": "Intune / Entra / SharePoint / OneDrive",
       "statement": "Apply the approved access or session restriction to devices that do not meet management and compliance requirements.",
-      "prerequisites": "Intune and Conditional Access read access; managed compliant, noncompliant and unmanaged test devices; synthetic files.",
+      "prerequisites": "SharePoint/Conditional Access reader; managed and unmanaged test devices.",
       "artifacts": [
         "Compliance policy assignments and exclusions",
         "SharePoint limited-access settings and relevant CA policies",
         "Sign-in device details and endpoint/app-protection reports"
       ],
-      "steps": [
-        "Check compliance handling for devices without an assigned policy, stale check-ins, exclusions and grace periods; do not equate enrolment with compliance.",
-        "Attempt browser viewing, file download, OneDrive sync and supported mobile-app access from each test device state.",
-        "Review actual sign-in device claims and session controls; test direct file URLs and application routes within the approved test scope.",
-        "Repeat with an approved guest to check whether partner device trust changes the outcome."
-      ],
-      "expected": "Access and data movement follow the approved device-state matrix; unmanaged clients cannot obtain unrestricted copies through alternate routes.",
-      "limitations": "Web-only access may still permit some formats or functionality. Validate actual behaviour and document platform-specific limitations.",
       "sources": [
         "unmanaged",
         "intune"
@@ -541,8 +434,7 @@
       "references": [
         "mcsb:im-7",
         "scuba:ms.aad.3.7v1"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-DLP",
@@ -555,20 +447,12 @@
       ],
       "platform": "Microsoft Purview",
       "statement": "Detect and control movement of locally relevant sensitive information across the organisation’s supported workloads.",
-      "prerequisites": "Purview policy/report read access, appropriate workload licences and an isolated test group; use synthetic Australian identifiers and dummy documents.",
+      "prerequisites": "Purview DLP reader; licensed test locations and synthetic sensitive data.",
       "artifacts": [
         "Sensitive-information types, classifiers and label definitions",
         "DLP policy locations, rule priority, modes, thresholds and exceptions",
         "Test matches, blocked actions, override justifications and alert records"
       ],
-      "steps": [
-        "Map the information register to detection types and locations; include Exchange, SharePoint, OneDrive, Teams and endpoints where applicable.",
-        "Prepare positive and negative samples with known expected matches, including near-miss formats; run simulation to tune false positives.",
-        "With an approved test policy in enforcement mode, attempt external email, sharing and endpoint transfer; verify block, notification and permitted override behaviour.",
-        "Check the alert contains enough context for investigation without exposing unnecessary personal data; repeat for excluded users and unmanaged routes."
-      ],
-      "expected": "Expected data types are detected and the intended action occurs across each selected location; negative samples remain usable.",
-      "limitations": "Simulation records matches but does not prove blocking. US SSN/ITIN examples in SCuBA do not define Australian data requirements.",
       "sources": [
         "dlp",
         "purview"
@@ -577,8 +461,7 @@
         "mcsb:dp-1",
         "scuba:ms.securitysuite.3.1v1",
         "scuba:ms.securitysuite.3.2v1"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-AUDIT",
@@ -591,20 +474,12 @@
       ],
       "platform": "Entra ID / Purview / Sentinel",
       "statement": "Collect attributable cloud security events, retain them for the required period and demonstrate operational review.",
-      "prerequisites": "Audit search and SIEM read roles, licence inventory and approved retention schedule; no content export beyond the agreed test records. Use Security & Compliance PowerShell with rights to read retention policies. This command does not return default retention policies.",
+      "prerequisites": "Audit Reader; retention requirements, known event IDs and SIEM reader.",
       "artifacts": [
         "Audit and diagnostic settings, connector health and collection filters",
         "Retention policy priority, user licensing and archive configuration",
         "Known event IDs, query results, alerts and investigation tickets"
       ],
-      "steps": [
-        "List required event types per workload and principal type, including guests and administrators; trace each source to its monitoring destination.",
-        "Generate harmless test events such as a test-file share or approved test-role change; locate actor, target, timestamp and result in source and central logs.",
-        "Retrieve a known historical record near the required retention boundary; test archived retrieval and access restrictions separately from interactive search.",
-        "Trigger an agreed benign alert and trace delivery, triage and closure. Compare timestamps with the response target and investigate gaps."
-      ],
-      "expected": "Required events are searchable or recoverable for their approved retention period and reach accountable reviewers.",
-      "limitations": "Retention varies by workload, licence, user type and policy priority. Do not assume SCuBA’s minimum or a tenant default satisfies the entity’s retention obligations.",
       "sources": [
         "audit",
         "audit"
@@ -614,8 +489,7 @@
         "mcsb:lt-5",
         "mcsb:lt-6",
         "scuba:ms.securitysuite.5.1v1"
-      ],
-      "command": "Get-UnifiedAuditLogRetentionPolicy | Sort-Object Priority | Select-Object Name,Priority,RecordTypes,UserIds,RetentionDuration"
+      ]
     },
     {
       "id": "TECH-TEAMS",
@@ -627,20 +501,12 @@
       ],
       "platform": "Microsoft Teams",
       "statement": "Limit external interaction, meeting participation and app access to the organisation’s approved collaboration model.",
-      "prerequisites": "Teams policy read access and test organisers; approved external managed and unmanaged identities. Use MicrosoftTeams PowerShell with an authorised configuration-reading role.",
+      "prerequisites": "Teams configuration reader; organiser, partner and anonymous test participants.",
       "artifacts": [
         "External access domains, guest settings and cross-tenant trust",
         "Effective meeting policies and lobby settings",
         "App availability/permission assignments and installed-app inventory"
       ],
-      "steps": [
-        "Resolve each sample user’s effective policies, including group and direct assignments; distinguish federation, guest access and shared channels.",
-        "Run a synthetic meeting: verify anonymous participants cannot start it, lobby rules work and external participants cannot unexpectedly control the presenter’s desktop.",
-        "Test chat initiation from approved, disallowed and unmanaged external identities; check shared-channel access separately.",
-        "Attempt installation of an unapproved harmless test app and inspect permissions on an approved one, including access to backing SharePoint files."
-      ],
-      "expected": "Meeting, messaging and application behaviour matches the approved matrix with no unmanaged path around restrictions.",
-      "limitations": "Tenant defaults do not prove every user’s effective policy. Recording controls and retention depend on business requirements and licences.",
       "sources": [
         "teams",
         "scuba",
@@ -651,8 +517,7 @@
         "scuba:ms.teams.1.2v2",
         "scuba:ms.teams.2.1v2",
         "scuba:ms.teams.5.2v2"
-      ],
-      "command": "Get-CsTenantFederationConfiguration | Format-List"
+      ]
     },
     {
       "id": "TECH-POWER",
@@ -664,20 +529,12 @@
       ],
       "platform": "Power Platform / Power BI",
       "statement": "Keep business data within approved connector combinations, environments and publication channels.",
-      "prerequisites": "Power Platform and Power BI configuration read access; a dedicated non-production environment containing synthetic data.",
+      "prerequisites": "Power Platform administrator; non-production environment and synthetic data.",
       "artifacts": [
         "Environment inventory, owners and security groups",
         "Tenant/environment data policies and connector groups",
         "Public Power Pages sites and Power BI publish-to-web inventory"
       ],
-      "steps": [
-        "Identify default, developer, trial and production environments and their data-policy coverage, including exclusions and custom connectors.",
-        "Compare business, non-business and blocked connector groups plus endpoint restrictions with approved data flows; examine tenant isolation separately.",
-        "In the test environment, attempt a flow combining a business source and disallowed destination and confirm the intended failure.",
-        "Review anonymous site/table permissions and publish-to-web links using synthetic content; verify unapproved public disclosure is prevented."
-      ],
-      "expected": "Every environment has the intended restrictions; disallowed connector combinations and public publication cannot expose protected data.",
-      "limitations": "Connector DLP classifies connectors, not the sensitivity of each payload; combine it with identity, table permissions and content controls.",
       "sources": [
         "power",
         "scuba"
@@ -686,8 +543,7 @@
         "scuba:ms.powerplatform.2.1v1",
         "scuba:ms.powerplatform.2.2v1",
         "scuba:ms.powerbi.1.1v1"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-BASELINE",
@@ -701,20 +557,12 @@
       ],
       "platform": "Microsoft 365 / Azure",
       "statement": "Maintain reviewed configuration snapshots and prove that unapproved changes are detected and reversible.",
-      "prerequisites": "Read-only configuration exports from the relevant services, a versioned baseline, and an isolated test tenant or resource for restoration.",
+      "prerequisites": "Approved configuration JSON; policy reader and test tenant.",
       "artifacts": [
         "Timestamped configuration exports with tenant/resource IDs",
         "Baseline version, approved exceptions and change tickets",
         "Drift report, alert and test restoration comparison"
       ],
-      "steps": [
-        "Enumerate configuration surfaces that the export tool covers and those requiring manual capture; include CA, mail protection, sharing, DLP and administrative assignments.",
-        "Compare a fresh export with the approved baseline after normalising volatile IDs and timestamps; verify every material delta has a valid change or exception.",
-        "Make a benign approved deviation in the isolated test scope and confirm detection, ownership and escalation.",
-        "Restore that test configuration using the reviewed procedure; re-export and compare effective behaviour as well as settings."
-      ],
-      "expected": "Material drift is detected and accountable; a known configuration can be restored without losing required exceptions or locking out administration.",
-      "limitations": "Do not import ASD DSC templates into production as an assessment. Exports may omit secrets and dependencies; a config snapshot is not a content backup.",
       "sources": [
         "entra",
         "mcsb"
@@ -723,8 +571,7 @@
         "mcsb:pv-1",
         "mcsb:pv-2",
         "mcsb:br-4"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-INVENTORY",
@@ -737,20 +584,12 @@
       ],
       "platform": "Azure / Intune / Defender / hybrid estate",
       "statement": "Find resources missing from security management by comparing independent asset populations.",
-      "prerequisites": "Read access to Azure Resource Graph, Intune, Defender and configuration records; OT owner supplies passive inventory without active scanning.",
+      "prerequisites": "Intune/Azure reader; independent asset inventory.",
       "artifacts": [
         "Azure subscription/resource export",
         "Intune and Defender device IDs, last-seen times and onboarding state",
         "Network discovery, server/virtualisation and OT inventory"
       ],
-      "steps": [
-        "Build an independent expected population from subscriptions, procurement, virtualisation and network records; record excluded estates and owners.",
-        "Join inventory sources by stable IDs and explicitly report missing agents, duplicate devices, stale records and unknown owners.",
-        "For sampled missing and stale devices, verify actual operating state with the owner and determine whether security updates and telemetry are received.",
-        "Compare coverage denominators before and after remediation; retain unresolved gaps as findings rather than removing assets from the denominator."
-      ],
-      "expected": "Every expected active resource has an accountable owner and an appropriate management/protection path; unexplained coverage gaps are visible.",
-      "limitations": "Cloud and endpoint tools cannot inventory every OT component. Use passive, vendor-approved verification for safety-critical environments.",
       "sources": [
         "mcsb",
         "intune"
@@ -758,8 +597,7 @@
       "references": [
         "mcsb:am-1",
         "mcsb:es-3"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-APP-CONTROL",
@@ -770,28 +608,19 @@
       ],
       "platform": "Windows / App Control for Business",
       "statement": "Prevent unapproved executables, libraries and scripts from running in user-writable locations.",
-      "prerequisites": "Read access to active policy and event logs; approved isolated Windows test device and harmless unsigned sample programs.",
+      "prerequisites": "Policy/event reader; representative Windows test endpoints, standard user and harmless allowed/denied fixtures.",
       "artifacts": [
         "Deployed App Control policies and managed-installer configuration",
         "Effective policy mode and device coverage",
         "CodeIntegrity/Operational and AppLocker script/MSI events"
       ],
-      "steps": [
-        "Compare active policies with the approved baseline, including supplemental policies, signer rules and audit-only settings.",
-        "Inspect ACLs of allowed paths and managed-installer trust; check a standard user cannot place unapproved code into a trusted location.",
-        "On the test device, attempt benign unsigned executable and script execution from profile, Downloads, Temp and a writable network share; also test an approved business application.",
-        "Correlate denied executable loads with Code Integrity event 3077; audit event 3076 alone is not enforcement. Review script/MSI telemetry separately."
-      ],
-      "expected": "Unapproved code is blocked across tested paths while approved workloads function; coverage includes all intended device classes.",
-      "limitations": "No policy guarantees coverage from a single executable test. Match tests to the selected Essential Eight maturity requirements.",
       "sources": [
         "appcontrol",
         "e8"
       ],
       "references": [
         "mcsb:am-5"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-MACROS",
@@ -802,28 +631,19 @@
       ],
       "platform": "Windows / Microsoft Office",
       "statement": "Permit macros only for approved users and purposes, with protections against internet-sourced or unsafe macro behaviour.",
-      "prerequisites": "Office policy and endpoint read access; approved isolated test device with harmless macro samples and relevant Office versions.",
+      "prerequisites": "Standard test-user session; deployed Office policies and harmless macro files.",
       "artifacts": [
         "Effective user/computer Office policy and exception-group membership",
         "Trusted locations and publisher trust",
         "Macro-block messages, antivirus inspection and ASR events"
       ],
-      "steps": [
-        "Resolve policy conflicts between GPO, Intune and Office cloud policy for standard and approved macro users; inspect user override and trusted-location permissions.",
-        "Test a benign internet-marked macro document, an approved signed macro and an unsigned local macro against their expected policies.",
-        "Verify an ordinary user cannot remove protection through an editable trust location or local Office setting; include alternate Office applications in scope.",
-        "For an approved isolated test, exercise a harmless prohibited child-process or API action and inspect the relevant ASR decision and support impact."
-      ],
-      "expected": "Only approved macro paths function; ordinary users cannot bypass restrictions and prohibited behaviours are logged and blocked.",
-      "limitations": "Do not execute untrusted documents. Macro-blocking and ASR are different protections; assess both against the selected model level.",
       "sources": [
         "e8",
         "asr"
       ],
       "references": [
         "mcsb:pv-4"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-ASR",
@@ -834,20 +654,12 @@
       ],
       "platform": "Windows / Defender for Endpoint",
       "statement": "Enforce the selected attack-surface reduction rules and maintain healthy endpoint protection.",
-      "prerequisites": "Defender read access, suitable endpoint licences and an approved isolated device for Microsoft-provided ASR demonstrations.",
+      "prerequisites": "Defender reader; isolated device and Microsoft safe ASR samples.",
       "artifacts": [
         "ASR rule IDs/actions and per-rule exclusions",
         "Defender health, signature age, tamper protection and EDR onboarding",
         "Local and central detection/block events"
       ],
-      "steps": [
-        "Pair each ASR rule ID with its configured action and compare with the approved baseline; review broad exclusions and audit/warn modes.",
-        "Compare endpoint effective settings with central assignment and investigate conflicting policy or stale check-in state.",
-        "Run approved safe demonstrations for selected rules, such as an Office child-process scenario, and verify enforcement plus central telemetry.",
-        "Check representative servers and workstations for active protection, update health and reporting; do not count a deployed policy as successful coverage."
-      ],
-      "expected": "Applicable rules enforce the intended action; protection is healthy and exceptions are narrow, owned and reviewed.",
-      "limitations": "Rule support and prerequisites vary. Some ASR rules do not honour general exclusions; use the rule-specific documentation.",
       "sources": [
         "asr"
       ],
@@ -855,8 +667,7 @@
         "mcsb:es-1",
         "mcsb:es-2",
         "mcsb:es-3"
-      ],
-      "command": "Get-MpComputerStatus\nGet-MpPreference | Select-Object AttackSurfaceReductionRules_Ids,AttackSurfaceReductionRules_Actions,AttackSurfaceReductionOnlyExclusions"
+      ]
     },
     {
       "id": "TECH-PATCH",
@@ -867,20 +678,12 @@
       ],
       "platform": "Windows / Intune / Azure / applications",
       "statement": "Identify exploitable and unsupported components and verify that remediation reaches the affected assets.",
-      "prerequisites": "Read access to scanner results, deployment reports and device inventories; authenticated scan permissions limited to approved scope.",
+      "prerequisites": "Device/scanner reader; application paths and patch deadlines.",
       "artifacts": [
         "Asset-to-scan coverage reconciliation",
         "CVE, installed build/version, exposure and exploit-status records",
         "Deployment results, restart state and independent rescan"
       ],
-      "steps": [
-        "Reconcile scan targets with inventory, including internet-facing servers, network devices and software outside the main patch manager.",
-        "Determine the applicable remediation deadline from the selected source and exposure conditions; separate deployment age from vulnerability publication and detection dates.",
-        "For overdue and recently closed items, inspect installed version and pending restart state; rerun a safe authenticated check or scanner verification.",
-        "Trace failed/offline devices, superseded patches and unsupported software to owner action; verify compensating controls and residual-risk acceptance."
-      ],
-      "expected": "Remediation is supported by actual version/rescan evidence and coverage is complete; overdue and unsupported items remain visible.",
-      "limitations": "A successful deployment job or Get-HotFix alone does not establish application and operating-system vulnerability closure.",
       "sources": [
         "e8",
         "mcsb"
@@ -888,8 +691,7 @@
       "references": [
         "mcsb:pv-5",
         "mcsb:pv-6"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-LAPS",
@@ -900,28 +702,19 @@
       ],
       "platform": "Windows LAPS / AD / Entra",
       "statement": "Use unique managed local administrator credentials and restrict who can retrieve or rotate them.",
-      "prerequisites": "LAPS policy and event-log read access, authorised custodian demonstration and approved test endpoint; do not collect passwords in assessment output.",
+      "prerequisites": "RSAT and Windows LAPS module; OU reader, custodian and test device.",
       "artifacts": [
         "LAPS destination, rotation and encryption policy",
         "Password-read/reset delegation and administrative role memberships",
         "Local LAPS operational events and rotation timestamps"
       ],
-      "steps": [
-        "Reconcile endpoint inventory with successful password backup and rotation records; include off-network devices and unsupported configurations.",
-        "Resolve effective password-read permissions through AD ACLs or Entra roles; review broad delegated groups and stale staff membership.",
-        "Have an authorised custodian demonstrate retrieval without displaying or recording the secret, and verify a non-authorised test identity is denied.",
-        "Use a scheduled test rotation and confirm backup succeeds and timestamps advance; check access to the local administrator is constrained after use."
-      ],
-      "expected": "Managed devices have current unique credentials; only approved custodians can retrieve them and retrieval/rotation is auditable.",
-      "limitations": "AD-backed encryption depends on supported functional levels and configuration. A policy assignment without a successful backup is insufficient.",
       "sources": [
         "laps"
       ],
       "references": [
         "mcsb:im-8",
         "mcsb:pa-4"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-CREDENTIAL-GUARD",
@@ -932,27 +725,18 @@
       ],
       "platform": "Windows",
       "statement": "Run supported credential-isolation protections on administrative and other in-scope endpoints.",
-      "prerequisites": "Local device inventory and read access to Device Guard WMI/CIM data; review supported edition, hardware and compatibility.",
+      "prerequisites": "Windows device reader; supported test hardware and baseline.",
       "artifacts": [
         "Win32_DeviceGuard runtime state",
         "Secure Boot and virtualisation support",
         "Effective policy and application compatibility exceptions"
       ],
-      "steps": [
-        "Identify the device population that should run Credential Guard and its approved exceptions.",
-        "Read runtime state on sampled devices and distinguish configured settings from a running protected service.",
-        "Investigate devices with configuration present but protection inactive; correlate boot, firmware and policy events.",
-        "After an approved fix and normal restart, re-query runtime state and verify affected authentication workloads remain usable."
-      ],
-      "expected": "Credential Guard is running where required and every unsupported or excluded device has a documented treatment.",
-      "limitations": "Credential Guard protects particular secrets; it does not replace administrative separation or prevent every credential attack.",
       "sources": [
         "guard"
       ],
       "references": [
         "mcsb:im-8"
-      ],
-      "command": "Get-CimInstance -ClassName Win32_DeviceGuard -Namespace root\\Microsoft\\Windows\\DeviceGuard | Select-Object VirtualizationBasedSecurityStatus,SecurityServicesConfigured,SecurityServicesRunning"
+      ]
     },
     {
       "id": "TECH-CRYPTO",
@@ -964,20 +748,12 @@
       ],
       "platform": "Windows / Azure Key Vault / cloud workloads",
       "statement": "Protect sensitive data in storage and transit with approved algorithms and controlled key lifecycle.",
-      "prerequisites": "Read access to storage encryption, TLS configuration, certificate metadata and Key Vault settings. Do not export key material or recovery secrets.",
+      "prerequisites": "BitLocker reader; Azure Reader and Key Vault metadata access.",
       "artifacts": [
         "Storage/volume encryption state and key identifiers",
         "Certificate expiry, TLS endpoint configuration and key rotation history",
         "Key Vault RBAC, soft-delete/purge protection and recovery procedure"
       ],
-      "steps": [
-        "Trace each sensitive data flow through application, database, backup and integration boundaries, identifying where encryption terminates.",
-        "Compare actual algorithms and certificate chains with applicable organisational and source requirements; test negotiated protocols on approved endpoints.",
-        "Resolve identities able to read secrets, use keys, change policy or purge keys; review broad inherited roles and emergency recovery custody.",
-        "In an isolated test vault, demonstrate the approved recovery procedure using a dummy key or secret and confirm unauthorised principals are denied."
-      ],
-      "expected": "Protected data paths use approved cryptography; key access and deletion are constrained and recovery is demonstrated.",
-      "limitations": "At-rest encryption does not stop an authorised application from returning plaintext. Customer-managed keys are conditional on the organisation’s requirements.",
       "sources": [
         "vault",
         "mcsb"
@@ -987,8 +763,7 @@
         "mcsb:dp-4",
         "mcsb:dp-6",
         "mcsb:dp-8"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-NETWORK",
@@ -1001,20 +776,12 @@
       ],
       "platform": "Azure / Windows / hybrid networks",
       "statement": "Permit only approved flows between trust zones, management planes and critical services.",
-      "prerequisites": "Read access to NSGs, routing, firewall and private-endpoint configuration; explicit approval for harmless connection tests between named test hosts.",
+      "prerequisites": "Firewall/network reader; named source, destination and port test matrix.",
       "artifacts": [
         "Current flow matrix, subnet and route diagrams",
         "Effective NSG/firewall rules, public IPs and DNS resolution",
         "Connection-test outcomes and flow/security logs"
       ],
-      "steps": [
-        "Compare deployed effective rules and routes with the approved flow matrix, including inherited rules, peering and hybrid connectivity.",
-        "From approved test hosts in separate zones, test a small named set of allowed and denied connections; record source, destination, port and expected result.",
-        "Verify private endpoints resolve and route as intended and that the corresponding public endpoint cannot bypass the restriction.",
-        "Check management access and OT jump paths separately; correlate blocked tests with logs and review unused or broad allow rules."
-      ],
-      "expected": "Approved flows work and prohibited paths fail for the intended policy reason, with evidence at the enforcement point.",
-      "limitations": "Do not scan production OT. A private endpoint does not automatically disable the service’s public access.",
       "sources": [
         "mcsb"
       ],
@@ -1022,8 +789,7 @@
         "mcsb:ns-1",
         "mcsb:ns-2",
         "mcsb:ns-9"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-BACKUP",
@@ -1039,20 +805,12 @@
       ],
       "platform": "Azure Backup / Microsoft 365 / Windows",
       "statement": "Retain independently protected recovery copies and prove a business service can be restored within its agreed recovery targets.",
-      "prerequisites": "Backup configuration/log reader and service owners; isolated recovery environment and approved restore exercise with no production overwrite.",
+      "prerequisites": "Backup reader; service owner and isolated restore environment.",
       "artifacts": [
         "Business RTO/RPO and dependency map",
         "Backup inventory, job history, retention and deletion protections",
         "Restore timestamps, validation results and supplier attendance"
       ],
-      "steps": [
-        "Reconcile protected objects with data and service inventories; include identity, application configuration, keys and required SaaS content rather than assuming provider replication is backup.",
-        "Inspect backup-admin separation, immutability/soft delete and credential dependencies; verify production operators cannot remove every recovery copy.",
-        "Restore a representative complete service in isolation to an agreed consistent point; measure elapsed time and data loss against RTO/RPO.",
-        "Have the business owner validate records and functions, then record gaps, recovery dependencies and a retest date."
-      ],
-      "expected": "Copies remain recoverable under the assumed failure scenario and the restored service meets the agreed business targets.",
-      "limitations": "Retention, recycle bins, version history and replication are not interchangeable with an independently tested backup strategy.",
       "sources": [
         "backup",
         "mcsb",
@@ -1062,8 +820,7 @@
         "mcsb:br-1",
         "mcsb:br-2",
         "mcsb:br-4"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-INCIDENT",
@@ -1079,20 +836,12 @@
       ],
       "platform": "Defender XDR / Sentinel / incident workflow",
       "statement": "Make a suspected incident actionable with reliable timestamps, evidence, containment and decision records.",
-      "prerequisites": "Read access to an approved synthetic incident and ticket workflow; legal/reporting owner defines applicable triggers and clocks. Containment drills use test identities only.",
+      "prerequisites": "Incident/ticket reader; synthetic incident and reporting contacts.",
       "artifacts": [
         "Incident/alert timestamps, severity and ownership",
         "Evidence-preservation and containment runbooks",
         "Escalation contacts, reporting decision and exercise timeline"
       ],
-      "steps": [
-        "Use a benign synthetic alert to verify event ingestion, triage ownership and escalation outside normal business hours.",
-        "Reconstruct detection, awareness, triage and reporting-decision timestamps; determine which obligation applies and when its clock begins.",
-        "Exercise a test-account containment or isolated host response and verify service dependencies, evidence capture and recovery approval.",
-        "Run a tabletop involving the reporting owner and supplier, record missed handoffs and retest corrective actions."
-      ],
-      "expected": "An operator can follow the case end to end and demonstrate timely decisions against the applicable control and reporting requirements.",
-      "limitations": "Technical timestamps support, but do not decide, statutory reportability. No real regulator notification or production isolation is sent by this assessment.",
       "sources": [
         "mcsb"
       ],
@@ -1101,8 +850,7 @@
         "mcsb:ir-3",
         "mcsb:ir-4",
         "mcsb:ir-7"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-MOBILE",
@@ -1114,20 +862,12 @@
       ],
       "platform": "Intune / iOS / Android / Windows",
       "statement": "Keep organisational information in approved managed applications and remove it when access ends.",
-      "prerequisites": "Intune read access and an organisation-owned test device or consenting test BYOD enrolment containing synthetic content.",
+      "prerequisites": "Intune reader; enrolled/BYOD test device with synthetic content.",
       "artifacts": [
         "App-protection assignments, conditional-launch and data-transfer settings",
         "Device encryption/compliance state and sign-in claims",
         "Selective-wipe or retirement request and device completion status"
       ],
-      "steps": [
-        "Compare app-protection policies with assigned users and supported apps; inspect unassigned users, platform differences and conflicting policies.",
-        "Attempt copying or saving synthetic organisational content into an unmanaged app and verify the intended restriction.",
-        "In an approved test, retire organisational access or issue a selective wipe; verify completion on the device and denial of fresh access.",
-        "Check whether offline content persists until reconnection and confirm that personally owned content is treated according to the selected action."
-      ],
-      "expected": "Organisational content follows approved transfer rules and the tested retirement action removes access/content as designed.",
-      "limitations": "Selective application wipe is not proof of whole-device sanitisation; an offline or lost device may not receive a command.",
       "sources": [
         "intune",
         "mcsb"
@@ -1135,8 +875,7 @@
       "references": [
         "mcsb:am-3",
         "mcsb:im-7"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-WIRELESS",
@@ -1147,28 +886,19 @@
       ],
       "platform": "Windows / enterprise wireless",
       "statement": "Authenticate approved devices and separate guest or unknown clients from protected networks.",
-      "prerequisites": "Wireless/RADIUS configuration reader, approved test clients and a defined connection-test window.",
+      "prerequisites": "Wireless/RADIUS reader; authorised test client and guest network.",
       "artifacts": [
         "SSID-to-network mapping and enterprise authentication configuration",
         "Certificate trust/profile settings and RADIUS/NAC logs",
         "Guest isolation and segmentation test results"
       ],
-      "steps": [
-        "Inspect managed client trust settings and whether users can accept an untrusted authentication server certificate.",
-        "Use approved test identities and devices to confirm enterprise authentication succeeds only for the intended population.",
-        "Connect a test guest/unknown device through its designated network and test only named protected destinations from the approved matrix.",
-        "Verify failed authentication and isolation events reach monitoring and certificates can be revoked through the normal lifecycle."
-      ],
-      "expected": "Managed clients validate server identity; unapproved devices cannot reach protected services and guest isolation works.",
-      "limitations": "Do not set up a rogue access point or intercept production credentials. Use a controlled lab for hostile-network simulation.",
       "sources": [
         "mcsb"
       ],
       "references": [
         "mcsb:ns-1",
         "mcsb:im-4"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-GOVERNANCE",
@@ -1182,20 +912,12 @@
       ],
       "platform": "Microsoft cloud / assurance records",
       "statement": "Use technical coverage and exception evidence to support accountable risk decisions.",
-      "prerequisites": "Read-only resource/tenant inventory, risk register, service criticality and control ownership records.",
+      "prerequisites": "Azure Reader; service, owner and risk registers.",
       "artifacts": [
         "Tenant/subscription and service-owner register",
         "Coverage metrics with named denominators",
         "Configuration exceptions, due dates and risk decisions"
       ],
-      "steps": [
-        "Join each critical service to its tenant, subscriptions, data classification and accountable business/technical owners.",
-        "Trace a sample of major risk treatments to configuration IDs, coverage reports and dated enforcement tests; identify unsupported assurance claims.",
-        "Check expired exceptions and repeat findings against current configuration and escalation records.",
-        "Reproduce one management metric from raw read-only exports; check missing devices or users were not omitted from the denominator."
-      ],
-      "expected": "Risk decisions reflect measured implementation and outstanding gaps have accountable owners and review dates.",
-      "limitations": "Technical exports support governance; they do not replace management judgement or establish statutory applicability.",
       "sources": [
         "mcsb"
       ],
@@ -1203,8 +925,7 @@
         "mcsb:gs-1",
         "mcsb:gs-5",
         "mcsb:gs-11"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-SUPPLIER",
@@ -1216,28 +937,19 @@
       ],
       "platform": "Microsoft 365 / Azure / outsourced services",
       "statement": "Confirm provider assurance covers the actual service and that customer controls and vendor access are implemented.",
-      "prerequisites": "Read access to supplier inventory, assurance reports, service contracts and relevant identity/resource configuration.",
+      "prerequisites": "Directory reader; supplier access register and contract owner.",
       "artifacts": [
         "Assurance report period, scope, exceptions and complementary customer controls",
         "Delegated access, service principals and support-access records",
         "Supplier exit and service-recovery commitments"
       ],
-      "steps": [
-        "Map each critical supplier to the actual product, region, data and dependencies used; inspect report scope and coverage period rather than accepting a logo or certificate.",
-        "Translate customer responsibilities into named configuration/operating checks and verify a sample in the tenant.",
-        "Inspect vendor permissions, support access approval and expiry, including partner delegated roles and app credentials.",
-        "Exercise the documented exit process in a test scope, verifying permissions and credentials are removed and required data remains recoverable."
-      ],
-      "expected": "Provider assurance and customer tests cover the used service; supplier access is attributable and can be terminated.",
-      "limitations": "An assurance report may exclude subservice organisations or periods. Cloud-provider controls do not prove customer tenant settings.",
       "sources": [
         "mcsb"
       ],
       "references": [
         "mcsb:pa-8",
         "mcsb:gs-11"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-PRIVACY",
@@ -1251,20 +963,12 @@
       ],
       "platform": "Purview / Microsoft cloud / applications",
       "statement": "Limit personal information to approved purposes and prevent production data from escaping into less protected environments.",
-      "prerequisites": "Approved data-flow inventory, read access to labels and application permissions, and synthetic records representing personal data.",
+      "prerequisites": "Processing/retention register; data owner and synthetic records.",
       "artifacts": [
         "Data inventory with purpose, location and owner",
         "Application/record-level permission matrix",
         "Test-data masking, retention and request-handling evidence"
       ],
-      "steps": [
-        "Trace sampled personal-data fields through collection, application, analytics, exports and backups; identify undocumented copies and external processors.",
-        "Attempt access to synthetic records as authorised and unrelated users, including direct API routes; verify record-level restrictions rather than menu visibility.",
-        "Inspect non-production refresh procedures and demonstrate that test data is synthetic or appropriately transformed before vendor access.",
-        "Walk a synthetic privacy request or breach scenario through search, preservation, authorised disclosure and escalation, retaining decision timestamps."
-      ],
-      "expected": "Only approved identities and purposes access the data; non-production copies and request workflows reflect the approved privacy design.",
-      "limitations": "Labelling is not automatic access enforcement. Legal retention and deletion decisions remain with the responsible privacy/records owner.",
       "sources": [
         "purview",
         "mcsb"
@@ -1272,8 +976,7 @@
       "references": [
         "mcsb:dp-1",
         "mcsb:gs-3"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-DEVSECOPS",
@@ -1286,20 +989,12 @@
       ],
       "platform": "Azure DevOps / GitHub / cloud applications",
       "statement": "Prevent unreviewed code and unsafe configuration from reaching production while preserving auditable release decisions.",
-      "prerequisites": "Read-only repository/pipeline settings, threat model and a dedicated test branch/environment; no production bypass tests.",
+      "prerequisites": "Azure DevOps read access; test branch and non-production pipeline.",
       "artifacts": [
         "Branch protection, service connections and environment approvals",
         "Dependency, secret, static and dynamic scan outputs",
         "Threat-model abuse cases and release/audit records"
       ],
-      "steps": [
-        "Trace a production release from commit to build artifact, scan results, approver and deployment identity; check the artifact is the reviewed build.",
-        "In the test branch, introduce a harmless known test failure and verify the required gate blocks release; inspect bypass permissions and branch exceptions.",
-        "Check service-connection scope and secretless credentials; verify test identities cannot deploy or read secrets in production.",
-        "Select a threat-model abuse case such as object-level access control and run an authorised synthetic negative test; confirm remediation and regression evidence."
-      ],
-      "expected": "Required gates fail closed, production access is separated and security defects are retested before closure.",
-      "limitations": "Tool success does not prove every threat-model case is covered. Scanner severity thresholds and accepted exceptions must be explicit.",
       "sources": [
         "mcsb"
       ],
@@ -1309,8 +1004,7 @@
         "mcsb:ds-3",
         "mcsb:ds-4",
         "mcsb:ds-5"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-ASSURANCE",
@@ -1322,28 +1016,19 @@
       ],
       "platform": "Cloud / Windows / assurance workflow",
       "statement": "Demonstrate that controls resist the intended failure or attack scenario and that remediation survives retesting.",
-      "prerequisites": "Written test scope, named systems and owners, synthetic accounts/data and recovery arrangements for any active test.",
+      "prerequisites": "Finding register; original test cases, owners and test environment.",
       "artifacts": [
         "Control-to-test traceability and expected outcomes",
         "Tool/version, scope, exclusions and raw test output",
         "Finding owner, fix record and independent retest"
       ],
-      "steps": [
-        "Select representative normal and exception populations from independent inventories; define the specific action that should be allowed or denied.",
-        "Run read-only checks first, then approved benign negative tests; distinguish lack of permission, missing evidence and unsupported tooling from a pass.",
-        "For an attacker-style test, agree the route and stop conditions, validate detection and record only the evidence needed to show the control outcome.",
-        "After remediation, repeat the same test and a nearby variant; verify the scope and coverage did not shrink to remove the failing case."
-      ],
-      "expected": "Each conclusion is reproducible and tied to observed behaviour; unresolved and untested conditions remain explicit.",
-      "limitations": "No single scanner or score establishes compliance. Active penetration testing requires its own approved scope.",
       "sources": [
         "mcsb"
       ],
       "references": [
         "mcsb:pv-7",
         "mcsb:pv-2"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-PERSONNEL",
@@ -1355,27 +1040,18 @@
       ],
       "platform": "Identity / HR / learning systems",
       "statement": "Check that people with access have completed the relevant screening, induction and role-specific security preparation.",
-      "prerequisites": "Read-only minimised HR/contractor, identity and learning exports; HR confirms screening status without exposing sensitive background records.",
+      "prerequisites": "Minimised HR/training export; directory reader.",
       "artifacts": [
         "Account-to-person reconciliation",
         "Screening/induction status and completion timestamps",
         "Role-specific training, simulation follow-up and acknowledgements"
       ],
-      "steps": [
-        "Compare enabled human accounts with employee and contractor records; identify access granted before the approved prerequisites were met.",
-        "Sample administrators, developers, incident responders and temporary staff for training suited to their actual permissions.",
-        "Run an approved benign reporting exercise or inspect recent simulations; verify reported messages reach the correct team and targeted follow-up occurs.",
-        "Check expired training, role changes and contractor renewals generate tracked action without relying on incomplete employee-only lists."
-      ],
-      "expected": "Access populations are accounted for and role-specific preparation is demonstrable; overdue cases have owned action.",
-      "limitations": "These are technical reconciliation checks supporting a people control. No configuration setting proves screening quality or staff competence.",
       "sources": [
         "mcsb"
       ],
       "references": [
         "mcsb:gs-1"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-SANITISE",
@@ -1386,27 +1062,18 @@
       ],
       "platform": "Windows / storage / asset lifecycle",
       "statement": "Match the disposal method to the media and information sensitivity, and verify that no readable organisational data remains.",
-      "prerequisites": "Asset and encryption metadata, disposal procedures and a dedicated sacrificial test device; authorised asset custodian observes any destructive action.",
+      "prerequisites": "Disposal inventory, custody records and sanitisation results.",
       "artifacts": [
         "Device serial/media type, sanitisation method and tool version",
         "Execution result and independent validation",
         "Chain of custody and destruction certificate"
       ],
-      "steps": [
-        "Reconcile retired media with asset and data inventories, including spare disks, failed devices and cloud-provider disposal responsibilities.",
-        "Check whether the chosen method is supported for that media and sensitivity; verify cryptographic erase assumptions including all key copies.",
-        "On an authorised sacrificial device, observe the approved procedure and independent verification; record success or failure by serial number.",
-        "For failed or unsuitable media, trace secure custody to destruction and reconcile the certificate with the original asset."
-      ],
-      "expected": "Every retired item has a valid, verified disposition and unresolved failures remain controlled.",
-      "limitations": "Intune retirement or a queued remote wipe is not proof of sanitisation. WACC supplies no destructive command.",
       "sources": [
         "mcsb"
       ],
       "references": [
         "mcsb:am-3"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-PHYSICAL",
@@ -1417,27 +1084,18 @@
       ],
       "platform": "Facilities / datacentres / hybrid infrastructure",
       "statement": "Restrict physical access and verify environmental controls supporting critical systems.",
-      "prerequisites": "Facilities-approved read access to access-control exports, visitor records, maintenance and alert logs; no unauthorised entry or alarm-disabling tests.",
+      "prerequisites": "Facilities reader; badge approvals, access events and test badge.",
       "artifacts": [
         "Badge permissions and staff/contractor status",
         "Door events, visitor sponsorship and review records",
         "Power/environmental alarm and maintenance evidence"
       ],
-      "steps": [
-        "Reconcile server-room badge holders with current roles and contracts; identify shared credentials, stale access and unrestricted vendor badges.",
-        "Observe an approved test entry and denial, then trace the event to the review/alert process.",
-        "Inspect maintenance records and a safe simulation of environmental alert delivery; verify accountable response and service dependencies.",
-        "Where a provider operates the facility, inspect assurance scope and exceptions covering the actual location and customer responsibilities."
-      ],
-      "expected": "Physical access is justified and traceable; equipment protection and alert response are evidenced for the locations relied upon.",
-      "limitations": "Cloud tenant access does not validate datacentre physical controls. Provider evidence and direct facility tests serve different scopes.",
       "sources": [
         "mcsb"
       ],
       "references": [
         "mcsb:gs-1"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "TECH-PASSWORD",
@@ -1449,20 +1107,12 @@
       ],
       "platform": "AD / Entra ID / applications",
       "statement": "Apply appropriate password and guessing protections without relying on a single default policy.",
-      "prerequisites": "Read access to domain/fine-grained policy, Entra password protection and application authentication settings; isolated synthetic identities for negative tests.",
+      "prerequisites": "AD policy reader; disposable test identity.",
       "artifacts": [
         "Default and resultant fine-grained password policies",
         "Custom banned-password and smart-lockout configuration",
         "Authentication failure events and approved service-account exceptions"
       ],
-      "steps": [
-        "Resolve the effective policy for standard, privileged, service and local application identities; compare length, banned values and recovery paths with applicable requirements.",
-        "In an isolated test identity, attempt a known disallowed dummy password and verify rejection without collecting real passwords.",
-        "Inspect lockout and risk signals using a small approved test sequence within the agreed limit; confirm monitoring and recovery avoid account denial of service.",
-        "Review service-account rotation, ownership and credential storage separately from ordinary user expiration rules."
-      ],
-      "expected": "Resultant policy and application behaviour meet the approved standard; weak test values fail and guessing events are actionable.",
-      "limitations": "Do not spray passwords or test production user credentials. Cloud and AD password controls differ; one policy export does not cover both.",
       "sources": [
         "entra",
         "mcsb"
@@ -1470,8 +1120,7 @@
       "references": [
         "mcsb:im-6",
         "mcsb:im-8"
-      ],
-      "command": ""
+      ]
     }
   ]
 }

@@ -24,7 +24,7 @@
         {"uid":"aescsf:architecture-2b","relationship":"Directly addresses","basis":"Requires IT systems to be separated from OT systems through physical or logical segmentation.","provenance":"Locally reviewed mapping"},
         {"uid":"aescsf:architecture-2d","relationship":"Directly addresses","basis":"Requires important assets to be segmented into security zones based on cybersecurity requirements.","provenance":"Locally reviewed mapping"},
         {"uid":"cis-controls:12.2","relationship":"Partially addresses","basis":"Requires a secure network architecture addressing segmentation, least privilege and availability.","provenance":"Locally reviewed mapping"},
-        {"guidance":"asd-network-segmentation","relationship":"Related only","basis":"ASD describes segmentation and segregation design practices but the document is guidance rather than an auditable control.","excerpt":"Network segmentation partitions a network into smaller networks, while segregation develops and enforces rules controlling communications between hosts and services. Effective measures must be planned, enforced, monitored and unable to be bypassed.","provenance":"Locally reviewed mapping"}
+        {"guidance":"asd-network-segmentation","relationship":"Related only","basis":"ASD describes segmentation and segregation design practices.","excerpt":"Network segmentation partitions a network into smaller networks, while segregation develops and enforces rules controlling communications between hosts and services. Effective measures must be planned, enforced, monitored and unable to be bypassed.","provenance":"Locally reviewed mapping"}
       ]
     },
     {

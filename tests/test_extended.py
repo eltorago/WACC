@@ -73,14 +73,14 @@ class ExtendedTests(unittest.TestCase):
             self.assertGreaterEqual(len(c['steps']),3,c['id'])
             self.assertGreaterEqual(len(c['artifacts']),2,c['id'])
             for key in ('prerequisites','expected','limitations'):
-                self.assertGreater(len(c[key]),35,(c['id'],key))
+                self.assertTrue(c[key].strip(),(c['id'],key))
             for key in c['sources']:
                 self.assertTrue(technical.SOURCES[key][1].startswith('https://'))
             for uid in c['references']:
                 self.assertIsNotNone(self.corpus.control(uid),uid)
         ad=[c for c in technical.CHECKS if c['id'].startswith('AD-CHECK-')]
         self.assertGreaterEqual(len(ad),14)
-        self.assertTrue(all(c.get('vendor_context') for c in ad))
+        self.assertTrue(all(c.get('criteria') for c in ad))
 
     def test_modes_preserve_filters_and_existing_grc(self):
         params={'control':['PA-03'],'assessment':['technical'],'q':['authentication'],'topic':['Privileged access'],'scope':['1'],'fw':['ism','scuba']}
@@ -123,7 +123,7 @@ class ExtendedTests(unittest.TestCase):
             self.assertIn(r['key'],self.corpus.guidance)
         page=workspace.render(self.corpus,{'control':['DP-03']})
         self.assertIn('Read the OAG report',page)
-        self.assertIn('Historical audit context',page)
+        self.assertIn('WA audit context',page)
         self.assertIn('Child Protection Case Management',page)
 
     def test_review_uses_column_counts_not_compliance_scores(self):
@@ -131,14 +131,14 @@ class ExtendedTests(unittest.TestCase):
         self.assertEqual(len(review['inventory']),252)
         self.assertEqual(review['scf_controls'],1534)
         page=render_review(self.corpus)
-        self.assertIn('not target requirements satisfied',page)
+        self.assertIn('SCF controls mapped',page)
         self.assertIn('Licensed source needed',page)
         self.assertIn('AD-CHECK-01',page)
 
     def test_render_all_assessments_without_interpreting_commands_as_html(self):
         for c in workspace.CONTROLS:
             page=workspace.render(self.corpus,{'control':[c['id']],'assessment':['technical']})
-            self.assertIn('Prerequisites and access',page,c['id'])
+            self.assertIn('Before you start',page,c['id'])
             self.assertIn('Expected result',page,c['id'])
         example=technical.CHECKS[0]
         old=example['command']

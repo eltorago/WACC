@@ -3,6 +3,7 @@
 Downloads documentation only; never imports or executes downloaded code.
 """
 import concurrent.futures
+from datetime import date
 import hashlib
 from html.parser import HTMLParser
 import json
@@ -41,7 +42,7 @@ def fetch(item):
         (CACHE / (key + '.txt')).write_text(text, encoding='utf-8')
         missing = [term for term in source.get('verify_terms', []) if term.casefold() not in text.casefold()]
         return key, dict(url=source['url'], final_url=final_url, sha256=hashlib.sha256(body).hexdigest(),
-                         reviewed_on='2026-09-16', status='needs-review' if missing else 'retrieved', missing_terms=missing)
+                         reviewed_on=date.today().isoformat(), status='needs-review' if missing else 'retrieved', missing_terms=missing)
     except Exception as error:
         return key, dict(url=source['url'], status='unavailable', error=str(error))
 

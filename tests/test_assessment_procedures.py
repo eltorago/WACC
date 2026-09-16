@@ -52,7 +52,7 @@ class AssessmentProceduresTests(unittest.TestCase):
             self.assertTrue(statements[0].text.startswith('Examine:'),cid)
             for document in evidence['documents']:
                 self.assertIn(document.casefold(),statements[0].text.casefold(),(cid,document))
-            self.assertGreater(len(evidence['application']),100,cid)
+            self.assertTrue(evidence['application'].strip(),cid)
 
     def test_supplier_risk_register_is_explicit_and_scoped(self):
         page=workspace.render(self.corpus,{'control':['SC-02']})
@@ -69,7 +69,9 @@ class AssessmentProceduresTests(unittest.TestCase):
         self.assertEqual(set(data['checks']),{c['id'] for c in technical.CHECKS})
         self.assertEqual(len(data['checks']),58)
         for cid,procedure in data['checks'].items():
-            self.assertGreaterEqual(len(procedure['run_steps']),4,cid)
+            self.assertGreaterEqual(len(procedure['run_steps']),3,cid)
+            words=' '.join(procedure['run_steps']+[procedure['decision'],procedure['limits']]).split()
+            self.assertLessEqual(len(words),360 if cid=='TECH-APP-CONTROL' else 150,cid)
             self.assertTrue(procedure['command'].startswith("$ErrorActionPreference = 'Stop'"),cid)
             for profile in procedure['profile'].split('+'): self.assertIn(profile,data['profiles'])
             for key in procedure['sources']:
@@ -90,7 +92,7 @@ class AssessmentProceduresTests(unittest.TestCase):
         self.assertIn('does not execute',text)
         page=workspace.render(self.corpus,{'control':['AP-01'],'assessment':['technical']})
         self.assertIn('Copy commands',page)
-        self.assertIn('Run this check',page)
+        self.assertIn('PowerShell commands',page)
         self.assertIn('Validation:',page)
 
     def test_powershell_parsing_and_offline_fixtures(self):
@@ -106,7 +108,7 @@ class AssessmentProceduresTests(unittest.TestCase):
             self.assertTrue(all(not row['errors'] for row in parsed))
             fixtures=subprocess.run(args+['-File',str(ROOT/'tests/test_assessment_commands.ps1')],cwd=ROOT,capture_output=True,text=True,encoding='utf-8',errors='replace',timeout=45)
             self.assertEqual(fixtures.returncode,0,fixtures.stdout+fixtures.stderr)
-            self.assertIn('OFFLINE FIXTURES: 16 passed',fixtures.stdout)
+            self.assertIn('OFFLINE FIXTURES: 27 passed',fixtures.stdout)
 
 
 if __name__=='__main__': unittest.main()

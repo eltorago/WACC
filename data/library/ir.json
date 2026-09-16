@@ -50,7 +50,7 @@
         {"uid":"csf:rs.ma-2","relationship":"Partially addresses","basis":"Requires incident reports to be triaged and validated.","provenance":"Locally reviewed mapping"},
         {"uid":"csf:rs.an-3","relationship":"Partially addresses","basis":"Requires analysis to establish what occurred and its root cause.","provenance":"Locally reviewed mapping"},
         {"uid":"csf:rs.mi-1","relationship":"Partially addresses","basis":"Requires incidents to be contained.","provenance":"Locally reviewed mapping"},
-        {"uid":"c2m2:response-1d","relationship":"Related only","basis":"Correlation of event information supports incident analysis but does not establish the complete handling process.","provenance":"Locally reviewed mapping"}
+        {"uid":"c2m2:response-1d","relationship":"Related only","basis":"Event correlation supports incident analysis.","provenance":"Locally reviewed mapping"}
       ]
     },
     {

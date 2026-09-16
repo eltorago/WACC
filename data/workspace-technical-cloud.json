@@ -33,20 +33,12 @@
       ],
       "platform": "Entra ID Protection",
       "statement": "Apply separate, effective risk controls for user compromise and risky sign-in events.",
-      "prerequisites": "Entra policy/risk report read access and licensing for the features assessed; approved test identity for Microsoft-supported risk simulation.",
+      "prerequisites": "Risk-policy/log reader; Entra risk licensing and test identity.",
       "artifacts": [
         "Enabled user-risk and sign-in-risk Conditional Access policies",
         "Included/excluded users, grant/session controls and licence coverage",
         "Risk event, policy result and remediation/triage record"
       ],
-      "steps": [
-        "Inspect user-risk and sign-in-risk policies separately; identify report-only state, missing resources, broad exclusions and dependence on retiring legacy risk policies.",
-        "Declare the expected response for each risk level: block or approved secure remediation. If SCuBA is the chosen target, assess its blocking requirement explicitly.",
-        "Use What If plus a Microsoft-supported test-identity simulation where approved; verify the resulting policy decision and operator handling from actual logs.",
-        "Confirm workload identities are assessed separately and a remediation flow cannot be completed using only an already compromised password."
-      ],
-      "expected": "The configured response is enforced for each scoped population and matches the explicitly chosen baseline.",
-      "limitations": "Microsoft supports risk remediation where SCuBA specifies blocking for high risk. Do not report these as equivalent. A risk report alone does not prove enforcement.",
       "sources": [
         "risk",
         "ca",
@@ -56,8 +48,7 @@
         "scuba:ms.aad.2.1v1",
         "scuba:ms.aad.2.3v1",
         "mcsb:lt-2"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "CLOUD-CHECK-02",
@@ -68,28 +59,19 @@
       ],
       "platform": "Entra ID",
       "statement": "Protect the initial registration and replacement of authentication factors.",
-      "prerequisites": "Authentication-policy and Conditional Access read access; a synthetic new user and managed/unmanaged test devices.",
+      "prerequisites": "Conditional Access reader; test registration identity and devices.",
       "artifacts": [
         "Policy targeting the Register security information user action",
         "Approved bootstrap/recovery process and temporary credential settings",
         "Registration audit events and sign-in context"
       ],
-      "steps": [
-        "Confirm the registration user action is targeted and that policy state, exclusions and trusted conditions match the approved enrolment design.",
-        "Test initial enrolment from approved and unapproved device/location combinations, including the intended bootstrap path for a user who has no factor yet.",
-        "Test factor replacement and account-recovery handling for the synthetic user; verify support staff require the approved identity proof.",
-        "Trace the resulting factor-change event to monitoring and verify the registered method is the intended one."
-      ],
-      "expected": "Unapproved registration routes fail; legitimate bootstrap and recovery work with controlled proof and an attributable event.",
-      "limitations": "A compliant-device requirement can deadlock initial enrolment if its bootstrap path is not designed. MFA registration is distinct from MFA enforcement at sign-in.",
       "sources": [
         "registration",
         "scuba"
       ],
       "references": [
         "scuba:ms.aad.3.8v1"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "CLOUD-CHECK-03",
@@ -100,20 +82,12 @@
       ],
       "platform": "Entra ID",
       "statement": "Make the current Authentication methods policy the authoritative source for permitted factors.",
-      "prerequisites": "Authentication-method policy and registration-report reader; test identities for each included/excluded population.",
+      "prerequisites": "Authentication-method policy reader; representative test users.",
       "artifacts": [
         "Migration state and current method configuration",
         "Per-method targets and exclusions, including passkeys and temporary access passes",
         "Sample registration and sign-in method details"
       ],
-      "steps": [
-        "Inspect the migration state and identify any remaining per-user MFA or SSPR policy dependencies; compare them with the current method policy.",
-        "Resolve effective eligibility for each enabled method, including emergency and guest users; compare weaker alternatives with the chosen authentication strength.",
-        "Using test identities, verify an unapproved method cannot be newly registered and cannot satisfy a phishing-resistant administrative sign-in.",
-        "Check approved bootstrap credentials expire as designed and that factor changes are visible to the responsible team."
-      ],
-      "expected": "Effective method availability matches the approved design and weaker alternatives cannot satisfy a stronger access requirement.",
-      "limitations": "A method being registered does not mean it is allowed for every sign-in. Emergency credentials and guest email OTP need context-specific treatment.",
       "sources": [
         "methods",
         "ca",
@@ -122,8 +96,7 @@
       "references": [
         "scuba:ms.aad.3.4v1",
         "scuba:ms.aad.3.6v1"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "CLOUD-CHECK-04",
@@ -135,20 +108,12 @@
       ],
       "platform": "Entra application registrations / service principals",
       "statement": "Control application credential creation and expiry while preferring supported secretless authentication.",
-      "prerequisites": "Read access to application-management policies and credential metadata; dedicated test application with no production permissions.",
+      "prerequisites": "Application reader; credential standard and test application owner.",
       "artifacts": [
         "Default and application-specific management policies",
         "Secret/certificate start/end dates and owners, excluding secret values",
         "Rotation, expiry alert and workload-authentication records"
       ],
-      "steps": [
-        "Inventory credential metadata for applications and service principals; identify missing owners, long-lived credentials and near-expiry workload dependencies.",
-        "Resolve the effective application-management policy, including per-app overrides and restrictions on new credentials.",
-        "In a dedicated test application, attempt an out-of-policy credential lifetime through the normal approved administration process and verify denial; discard test credentials securely.",
-        "Inspect a completed rotation and verify the old credential was retired after the replacement was deployed; account for existing credentials that predate the policy."
-      ],
-      "expected": "New credentials obey the selected limits, existing exceptions have treatment plans and rotation does not leave stale secrets active.",
-      "limitations": "SCuBA specifies particular maximum lifetimes; use those only when that baseline is in scope. A new creation policy may not remediate existing credentials.",
       "sources": [
         "credentials",
         "scuba"
@@ -158,8 +123,7 @@
         "scuba:ms.aad.5.6v1",
         "scuba:ms.aad.5.7v1",
         "mcsb:im-3"
-      ],
-      "command": ""
+      ]
     },
     {
       "id": "CLOUD-CHECK-05",
@@ -171,20 +135,12 @@
       ],
       "platform": "Exchange Online / Purview",
       "statement": "Record the mailbox actions needed to investigate owner, delegate and administrator activity.",
-      "prerequisites": "ExchangeOnlineManagement and Purview audit read permissions; synthetic user/shared mailboxes and approved delegate identities.",
+      "prerequisites": "Exchange audit/configuration reader; owner, delegate and admin test identities.",
       "artifacts": [
         "Organisation AuditDisabled state and mailbox default/custom audit sets",
         "Audit-bypass associations for relevant identities",
         "Known mailbox-action events and searchable retention evidence"
       ],
-      "steps": [
-        "Check organisation auditing and sampled mailbox audit configuration; inspect owner, delegate and administrator action coverage instead of relying on one AuditEnabled field.",
-        "Review audit-bypass associations and custom action lists, including shared mailboxes and applications using delegated access.",
-        "Perform benign selected actions in synthetic mailboxes, wait for normal ingestion and retrieve events with actor, mailbox, operation and timestamp.",
-        "Verify the event can be found in the central investigation workflow and its retention meets the applicable requirement."
-      ],
-      "expected": "Required actions generate attributable audit records and no unexplained bypass suppresses them.",
-      "limitations": "Not all actions or mailbox types have identical auditing/licence behaviour. A mailbox-level field alone can misrepresent organisation-level auditing.",
       "sources": [
         "mailaudit",
         "audit",
@@ -193,8 +149,7 @@
       "references": [
         "scuba:ms.exo.13.1v1",
         "mcsb:lt-3"
-      ],
-      "command": "Get-OrganizationConfig | Select-Object AuditDisabled\nGet-Mailbox -ResultSize Unlimited | Select-Object Identity,AuditEnabled,DefaultAuditSet,AuditAdmin,AuditDelegate,AuditOwner"
+      ]
     }
   ]
 }

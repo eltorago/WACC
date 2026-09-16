@@ -10,6 +10,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from wacc.archetypes import classify
 from wacc.control_workspace import TOPICS
 from wacc.serve import State
+from wacc.framework_families import family, preferred_uids
 
 
 # These patterns represent every workspace topic rather than broad security domains.
@@ -208,13 +209,16 @@ def frequency_rating(count):
 def assessable_entries(state):
     entries = []
     seen = set()
+    keep=preferred_uids(state.corpus.controls)
     for control in state.corpus.controls.values():
+        if control.uid not in keep:
+            continue
         if classify(control, state.relations.ancestors(control.uid))[2] is not None:
             continue
         text = state.relations.quotable_text(control.uid)
         if control.title and not control.title_is_shared:
             text = control.title + " " + text
-        fingerprint = (control.framework_key, " ".join(text.casefold().split()))
+        fingerprint = (family(control.framework_key), " ".join(text.casefold().split()))
         if fingerprint in seen:
             continue
         seen.add(fingerprint)
@@ -233,11 +237,11 @@ def measure(state):
             f"missing={missing}, unknown={unknown}"
         )
     entries = assessable_entries(state)
-    framework_totals = Counter(control.framework_key for control, _ in entries)
+    framework_totals = Counter(family(control.framework_key) for control, _ in entries)
     ranked = []
     for code, (topic, pattern) in TOPIC_PATTERNS.items():
         hits = [control for control, text in entries if re.search(pattern, text, re.I)]
-        counts = Counter(control.framework_key for control in hits)
+        counts = Counter(family(control.framework_key) for control in hits)
         score, rating = frequency_rating(len(hits))
         ranked.append({
             "code": code,
@@ -261,7 +265,8 @@ def measure(state):
     return {
         "method": (
             "Explicit phrase matches for each Control workspace topic against "
-            "assessable corpus entries. Duplicate text within a framework is counted once; "
+            "assessable corpus entries. Duplicate text within a framework family is counted once; "
+            "Essential Eight maturity detail replaces the eight broader ACSC strategy rows. "
             "topics overlap. Counts measure how often the corpus states the subject, not its "
             "importance, implementation priority or compliance status."
         ),

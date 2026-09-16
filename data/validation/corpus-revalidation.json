@@ -1,7 +1,8 @@
 {
   "reviewed_on": "2026-09-16",
   "records": 7395,
-  "frameworks": 23,
+  "frameworks": 22,
+  "source_sets": 23,
   "framework_counts": {
     "soci-act": 910,
     "cirmp-rules": 85,

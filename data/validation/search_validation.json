@@ -277,7 +277,7 @@
 
  "abbreviations": [
   {"query": "ISM", "expect_top": "ism", "must_not_rank_above": "nist-800-88", "why": "SP 800-88 Rev 2 abbreviates information storage media as ISM; in this tool ISM is the Information Security Manual"},
-  {"query": "E8", "expect_reaches": "ism essential_eight_maturity tag", "why": "Essential Eight"},
+  {"query": "E8", "expect_reaches": "essential-eight", "why": "Essential Eight maturity model source"},
   {"query": "CIRMP", "expect_top": "cirmp-rules"},
   {"query": "SOCI", "expect_top": "soci-act"},
   {"query": "OAG", "expect_top": "oag-wa"},
