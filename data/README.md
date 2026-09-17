@@ -25,8 +25,6 @@ Paths below are relative to the repository root.
 | Path | Purpose |
 |---|---|
 | `data/library/` | The 84 locally written workspace controls, grouped into one JSON file per topic. |
-| `data/department-assessment-policy.json` | Authored assessment prompts and references for 86 WA policy requirement records. |
-| `data/local/assessments/` | Private assessments, original log exports, validation runs and review history; excluded from Git and distribution. |
 | `data/workspace-attack.json` | Local ATT&CK assessments for every workspace control, including explanations and MITRE mitigation references. |
 | `data/workspace-technical*.json` | Check titles, access requirements, evidence, parent controls and publisher references. |
 | `data/assessment-procedures.json` | The authoritative steps, commands, expected results and validation record for each technical check. |
@@ -39,4 +37,4 @@ Paths below are relative to the repository root.
 | `data/validation/` | Search expectations and the topic-frequency report used to check coverage and ranking. |
 
 For additions or changes, follow the [framework and assessment authoring guide](../sources/add-framework.md).
-Private imports stay under `data/local/`; publisher originals stay in `sources/files/`.
+Private local files stay under `data/local/`; publisher originals stay in `sources/files/`.

@@ -159,14 +159,18 @@ def run() -> int:
     try:
         os.makedirs(os.path.join(staging, "wacc"))
         os.makedirs(os.path.join(staging, "data", "raw"))
+        os.makedirs(os.path.join(staging, "data", "local", "assessments"))
+        os.makedirs(os.path.join(staging, "examples", "assessments"))
         open(os.path.join(staging, "wacc", "model.py"), "w").close()
         open(os.path.join(staging, "a-publisher-standard.pdf"), "w").close()
         open(os.path.join(staging, "wacc", "workbook.xlsx"), "w").close()
         open(os.path.join(staging, "data", "raw", "private-source.pdf"), "w").close()
+        open(os.path.join(staging, "data", "local", "assessments", "records.json"), "w").close()
+        open(os.path.join(staging, "examples", "assessments", "wa-csp-2024-template.xlsx"), "w").close()
         staged = would_ship(staging)
         check_.expect(
             staged == [os.path.join("wacc", "model.py")],
-            "suffix rule", "a source document outside data/raw is still excluded",
+            "suffix rule", "documents and retired templates are excluded; private local records remain excluded",
             "the directory rule reaches every one of them in this tree, so the suffix "
             "rule is never the thing that catches anything and would rot unnoticed",
         )

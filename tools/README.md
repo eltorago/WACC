@@ -1,29 +1,8 @@
 # Scripts
 
-These scripts prepare data, generate examples and review sources or assessment
-commands. Run them from the repository root. Scripts that use publisher documents
+These scripts prepare data and review sources or assessment commands. Run them from
+the repository root. Scripts that use publisher documents
 need the relevant [sources acquired first](../sources/README.md).
-
-## Generate examples
-
-| Script | What it does and where it writes |
-|---|---|
-| `build_telemetry_examples.py` | Creates fictional security events and a scope manifest for each year under `examples/telemetry/2023/`, `2024/` and `2025/`. |
-| `prepare_assessment_examples.py` | Checks policy identifiers and prepares assessment prompts and fictional ratings in `data/department-assessment-policy.json` and `data/department-assessment-examples.json`. |
-| `build_assessment_examples.mjs` | Builds a blank assessment spreadsheet and three completed examples in `examples/assessments/` and `../outputs/department-assessments-20260916/`; saves previews under `data/review/assessment-build/`. |
-
-For example:
-
-```powershell
-python tools/build_telemetry_examples.py
-```
-
-This overwrites the generated log examples and does not connect to a tenant. See the
-[log example guide](../examples/telemetry/README.md) for outputs and usage.
-
-Workbook generation uses Node.js and the `@oai/artifact-tool` authoring dependency.
-See [rebuilding the workbook examples](../docs/department-assessments.md#rebuilding-the-workbook-examples)
-for setup. This dependency is not needed to run the application.
 
 ## Review sources and coverage
 

@@ -9,16 +9,12 @@ in Python so the web and test outputs use the same wording and escaping rules.
 """
 
 import argparse
-import json
-import secrets
 import socket
 import sys
 import urllib.parse
 import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from typing import Dict, Optional
-from email.parser import BytesParser
-from email.policy import default as email_policy
 
 from .analysis import analyse, gather
 from . import control_workspace
@@ -108,11 +104,7 @@ def _limit(params) -> int:
 
 def _handler(initial_state: State):
     from .source_workspace import AcquisitionJob, render as render_sources
-    from . import department_assessments as assessments, department_workspace, telemetry, telemetry_workspace
     states = [initial_state]
-    assessment_store = assessments.Store()
-    assessment_token = secrets.token_urlsafe(32)
-    validation_store = telemetry.ValidationStore(assessment_store)
 
     def reload_corpus():
         replacement = State()
@@ -147,41 +139,6 @@ def _handler(initial_state: State):
             if parsed.path == '/sources':
                 return self._send(render_sources(acquisition), 'text/html')
             params = urllib.parse.parse_qs(parsed.query)
-            if parsed.path.startswith('/assessments/validation'):
-                try:
-                    if parsed.path == '/assessments/validation':
-                        return self._send(telemetry_workspace.render(assessment_store, assessment_token, params), 'text/html')
-                    if parsed.path == '/assessments/validation/example':
-                        year = (params.get('year') or ['2025'])[0]
-                        if year not in ('2023', '2024', '2025'): raise assessments.AssessmentError('Choose 2023, 2024 or 2025.')
-                        return self._send(telemetry.example_bundle(int(year)), 'application/json', f'silly-walks-{year}-telemetry.json')
-                    if parsed.path == '/assessments/validation/guide':
-                        return self._send((assessments.ROOT/'docs/telemetry-validation.md').read_text(encoding='utf-8'), 'text/plain')
-                    if parsed.path == '/assessments/validation/queries':
-                        return self._send((assessments.ROOT/'examples/telemetry/export-sentinel.kql').read_text(encoding='utf-8'), 'text/plain', 'export-sentinel.kql')
-                    if parsed.path == '/assessments/validation/report':
-                        report = validation_store.get((params.get('run') or [''])[0])
-                        if not report: return self.send_error(404, 'no such validation run')
-                        return self._send(json.dumps(report, ensure_ascii=False, indent=2), 'application/json', 'validation-report.json')
-                    return self.send_error(404, 'no such validation page')
-                except assessments.AssessmentError as exc:
-                    return self._send(str(exc), 'text/plain', code=400)
-                except OSError:
-                    return self._send('Validation files are unavailable.', 'text/plain', code=500)
-            if parsed.path == '/assessments':
-                try:
-                    notice = 'Assessment workbooks imported.' if params.get('imported') else ''
-                    return self._send(department_workspace.render(assessment_store, assessment_token, params, notice), 'text/html')
-                except assessments.AssessmentError as exc:
-                    return self._send(str(exc), 'text/plain', code=500)
-            if parsed.path.startswith('/assessments/download/'):
-                name = parsed.path.rsplit('/', 1)[-1]
-                if name not in assessments.DOWNLOADS:
-                    return self.send_error(404, 'no such workbook')
-                path = assessments.ROOT / 'examples/assessments' / name
-                if not path.is_file():
-                    return self.send_error(404, 'example workbook is missing')
-                return self._send(path.read_bytes(), 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', name)
             query = (params.get("q") or [""])[0]
             limit = _limit(params)
 
@@ -235,10 +192,6 @@ def _handler(initial_state: State):
             self.send_error(404, "no such page")
 
         def do_POST(self):
-            if self.path in ('/assessments/validation/import', '/assessments/validation/demo', '/assessments/validation/review'):
-                return self._validate_assessment()
-            if self.path in ('/assessments/import', '/assessments/examples'):
-                return self._import_assessments()
             if self.path != '/sources/acquire':
                 return self.send_error(404, 'no such action')
             try:
@@ -254,104 +207,6 @@ def _handler(initial_state: State):
             self.send_header('Location', '/sources')
             self.send_header('Content-Length', '0')
             self.end_headers()
-
-        def _validate_assessment(self):
-            try:
-                try: size = int(self.headers.get('Content-Length', '0'))
-                except ValueError: size = 0
-                if not 0 < size <= telemetry.MAX_BYTES + 65536:
-                    raise assessments.AssessmentError('Select files totalling less than 20 MB.')
-                origin = self.headers.get('Origin')
-                if origin and urllib.parse.urlparse(origin).netloc != self.headers.get('Host'):
-                    raise assessments.AssessmentError('Reload the validation page before submitting.')
-                body = self.rfile.read(size)
-                if len(body) != size: raise assessments.AssessmentError('The upload was incomplete.')
-                kind = self.headers.get('Content-Type', '')
-                if not kind.startswith('multipart/form-data;'):
-                    raise assessments.AssessmentError('Use the form on the validation page.')
-                message = BytesParser(policy=email_policy).parsebytes(('Content-Type: '+kind+'\r\nMIME-Version: 1.0\r\n\r\n').encode()+body)
-                if not message.is_multipart() or message.defects:
-                    raise assessments.AssessmentError('Malformed file upload.')
-                fields = {}; files = []
-                for part in message.iter_parts():
-                    field = part.get_param('name', header='content-disposition')
-                    data = part.get_payload(decode=True)
-                    if data is None: raise assessments.AssessmentError('Nested uploads are not supported.')
-                    if field == 'files' and part.get_filename(): files.append((part.get_filename(), data))
-                    else:
-                        if field in fields or len(data)>8192: raise assessments.AssessmentError('Invalid form fields.')
-                        fields[field] = data.decode('utf-8', errors='replace')
-                if not secrets.compare_digest(fields.get('token', '').encode(), assessment_token.encode()):
-                    raise assessments.AssessmentError('Reload the validation page before submitting.')
-                if self.path.endswith('/review'):
-                    report = validation_store.review(fields.get('run', ''), fields.get('finding', ''), fields.get('decision', ''), fields.get('reviewer', ''), fields.get('note', ''))
-                else:
-                    key = fields.get('assessment', '')
-                    if self.path.endswith('/demo'):
-                        record = next((a for a in assessment_store.all() if a['key'] == key), None)
-                        if not record or record['department'] != 'Department of Silly Walks' or record['year'] not in (2023, 2024, 2025):
-                            raise assessments.AssessmentError('Select an imported Silly Walks example assessment.')
-                        files = telemetry.example_files(record['year'])
-                    report = validation_store.import_files(files, key)
-                location = '/assessments/validation?' + urllib.parse.urlencode({'run':report['id']})
-                return self._send(json.dumps({'location':location}), 'application/json')
-            except assessments.AssessmentError as exc:
-                return self._send(json.dumps({'error':str(exc)}), 'application/json', code=400)
-            except OSError:
-                return self._send(json.dumps({'error':'Evidence storage is unavailable. Check folder permissions and free space.'}), 'application/json', code=500)
-
-        def _import_assessments(self):
-            try:
-                origin = self.headers.get('Origin')
-                try:
-                    size = int(self.headers.get('Content-Length', '0'))
-                except ValueError:
-                    size = 0
-                if not 0 < size <= 20 * 1024 * 1024:
-                    raise assessments.AssessmentError('Select files totalling less than 20 MB.')
-                body = self.rfile.read(size)
-                if len(body) != size:
-                    raise assessments.AssessmentError('The upload was incomplete. Try again.')
-                if origin and urllib.parse.urlparse(origin).netloc != self.headers.get('Host'):
-                    raise assessments.AssessmentError('Reload the Assessments page before importing.')
-                if self.path == '/assessments/examples':
-                    params = urllib.parse.parse_qs(body.decode('utf-8', errors='replace'))
-                    token = (params.get('token') or [''])[0]
-                    replace = False
-                    files = [(name, (assessments.ROOT/'examples/assessments'/name).read_bytes()) for name in assessments.EXAMPLES]
-                else:
-                    kind = self.headers.get('Content-Type', '')
-                    if not kind.startswith('multipart/form-data;'):
-                        raise assessments.AssessmentError('Use the file picker on the Assessments page.')
-                    message = BytesParser(policy=email_policy).parsebytes(('Content-Type: '+kind+'\r\nMIME-Version: 1.0\r\n\r\n').encode()+body)
-                    if not message.is_multipart() or message.defects:
-                        raise assessments.AssessmentError('The file upload is malformed.')
-                    token=''; replace=False; files=[]
-                    for part in message.iter_parts():
-                        field = part.get_param('name', header='content-disposition')
-                        data = part.get_payload(decode=True)
-                        if data is None:
-                            raise assessments.AssessmentError('Nested uploads are not supported.')
-                        if field == 'token': token=data.decode('ascii',errors='replace')
-                        elif field == 'replace': replace=data == b'1'
-                        elif field == 'files' and part.get_filename(): files.append((part.get_filename(),data))
-                    if len(files)>10:
-                        raise assessments.AssessmentError('Import no more than ten workbooks at once.')
-                if not secrets.compare_digest(token.encode('utf-8'),assessment_token.encode('ascii')):
-                    raise assessments.AssessmentError('Reload the Assessments page before importing.')
-                imported = assessment_store.import_files(files,replace=replace)
-                location = '/assessments?' + urllib.parse.urlencode({'department':imported[0]['department'],'imported':'1'})
-                if self.path == '/assessments/examples':
-                    self.send_response(303)
-                    self.send_header('Location',location)
-                    self.send_header('Content-Length','0')
-                    self.end_headers()
-                else:
-                    return self._send(json.dumps({'location':location}), 'application/json')
-            except assessments.AssessmentError as exc:
-                return self._send(json.dumps({'error':str(exc)}), 'application/json', code=400)
-            except OSError:
-                return self._send(json.dumps({'error':'Assessment storage is unavailable. Check folder permissions and free space.'}), 'application/json', code=500)
 
         def _panel(self, uid: str):
             state = states[0]
