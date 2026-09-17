@@ -483,6 +483,17 @@ FRAMEWORKS: List[Framework] = [
 
 
 FRAMEWORKS.extend([
+    Framework(key='asd-principles',name='ASD Cyber Security Principles',short_name='ASD Cyber Security Principles',
+        publisher='Australian Signals Directorate',jurisdiction=Jurisdiction.AU_COMMONWEALTH,
+        tier=Tier.OUTCOME,intra_tier_order=0,fidelity=Fidelity.OFFICIAL_MACHINE_READABLE,
+        licence=Licence.SHIPPABLE,revision='September 2026',levels=_levels('Principle'),
+        published='2026-09-03',retrieved='2026-09-17',
+        revision_source='ASD principles page and September 2026 attachment; statements verified against ISM OSCAL 2026.09.4',
+        source_file='ISM_catalog.json',source_files=['asd-cyber-security-principles-2026-09.html'],
+        source_url='https://www.cyber.gov.au/business-government/asds-cyber-security-frameworks/ism/cyber-security-principles',
+        attribution='Australian Signals Directorate, Commonwealth of Australia 2026. CC BY 4.0. Principle titles, identifiers and statements preserved; workspace mappings are WACC additions.',
+        notes=['49 principles across Govern, Identify, Protect, Detect, Respond and Recover.',
+               'Loaded from the ISM-principle class in the official ISM OSCAL catalogue and displayed once in this separate framework.']),
     Framework(key='asd-strategies',name='ASD Strategies to Mitigate Cyber Security Incidents',short_name='ASD mitigation strategies',
         publisher='Australian Signals Directorate',jurisdiction=Jurisdiction.AU_COMMONWEALTH,
         tier=Tier.CATALOGUE,intra_tier_order=2,fidelity=Fidelity.PUBLISHER_IMPORT,

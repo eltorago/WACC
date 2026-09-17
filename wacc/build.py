@@ -28,6 +28,7 @@ from .loaders import (
     c2m2,
     ztmm,
     extended,
+    principles,
 )
 
 # WACC_SOURCES points to the local cache of publisher files used to build the live corpus.
@@ -121,9 +122,13 @@ def build(verbose: bool = True) -> Tuple[Corpus, LoadReport]:
                 counts["e8_%s" % level] = oscal.apply_profile_tag(
                     corpus, ism, profile, "essential_eight_maturity", level
                 )
+        principle_counts = principles.partition(corpus, FRAMEWORKS_BY_KEY['asd-principles'])
+        counts['controls'] -= principle_counts['controls']
+        report.record('asd-principles', principle_counts)
         report.record(ism.key, counts)
     else:
         report.skip(ism.key, "ISM_catalog.json not present")
+        report.skip('asd-principles', 'ISM_catalog.json not present; run python -m wacc sources')
 
     n53 = FRAMEWORKS_BY_KEY["nist-800-53"]
     n53_catalog = _sources("nist-800-53", "NIST_SP-800-53_rev5_catalog.json")

@@ -33,3 +33,15 @@ Use Sources in the app to download and reload, `python -m wacc sources --status`
 ## ACSC mitigation strategies addition
 
 The subsequent assessment review added two automatic source routes: the official February 2017 strategy table and its companion mitigation details. Both downloads succeeded and their original bytes were pinned in the permissions manifest. The current catalogue therefore has 76 documents: 66 automatic routes (61 verified across the two reviews) and 10 manual acquisitions. Publisher files remain in the ignored local cache.
+
+## ASD Cyber Security Principles addition — 17 September 2026
+
+The September 2026 principles page adds one automatic source route: 77 documents,
+67 automatic routes and 10 manual acquisitions. Two downloads returned the same
+reviewed SHA-256. All 49 identifiers, titles, complete statements and publisher
+ordering match the already acquired ISM OSCAL 2026.09.4 catalogue. Runtime text
+comes from the catalogue's `ISM-principle` records, presented once as a separate
+outcome framework. The principles page remains in the ignored local cache.
+The publisher's September 2026 PDF copyright page confirms CC BY 4.0.
+`tools/review_asd_principles.py` reproduces the comparison and writes the review
+record to `data/validation/asd-principles-review.json`.

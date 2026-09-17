@@ -604,6 +604,7 @@ class Corpus:
     mitigates: List[Mitigates] = field(default_factory=list)
     threat_sources: Dict[str, ThreatSource] = field(default_factory=dict)
     controls: Dict[str, Control] = field(default_factory=dict)
+    control_aliases: Dict[str, str] = field(default_factory=dict)
     links: List[Link] = field(default_factory=list)
     statements: List[Statement] = field(default_factory=list)
     details: Dict[str, Detail] = field(default_factory=dict)
@@ -677,7 +678,7 @@ class Corpus:
         return [c for c in self.controls.values() if c.framework_key == framework_key]
 
     def control(self, uid: str) -> Optional[Control]:
-        return self.controls.get(uid)
+        return self.controls.get(self.control_aliases.get(uid, uid))
 
     def mark_shared_titles(self) -> None:
         """Flag every title that more than one control in the same framework carries.

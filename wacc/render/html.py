@@ -589,7 +589,8 @@ def _interpretation(subject: str) -> str:
     returned on a word nobody typed looks like a bug until the expansion is on screen,
     and scoring is in Python precisely so this can be shown.
     """
-    if not subject:
+    from ..terms import named_set
+    if not subject or named_set(subject):
         return ""
     prepared = prepare(subject)
     core = {s for s in prepared.stems} | {s for s in prepared.alias_stems}

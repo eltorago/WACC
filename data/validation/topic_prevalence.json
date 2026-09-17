@@ -167,14 +167,14 @@
         "ztmm": 2
       },
       "sample_uids": [
-        "ism:gov-9",
-        "ism:gov-11",
-        "ism:pro-16",
         "ism:ism-731",
         "ism:ism-1631",
         "ism:ism-1452",
         "ism:ism-1567",
-        "ism:ism-1568"
+        "ism:ism-1568",
+        "ism:ism-1882",
+        "ism:ism-1632",
+        "ism:ism-1569"
       ],
       "rank": 1
     },
@@ -205,14 +205,14 @@
         "ztmm": 3
       },
       "sample_uids": [
-        "ism:pro-6",
         "ism:ism-1163",
         "ism:ism-213",
         "ism:ism-216",
         "ism:ism-217",
         "ism:ism-1366",
         "ism:ism-1606",
-        "ism:ism-1643"
+        "ism:ism-1643",
+        "ism:ism-1143"
       ],
       "rank": 2
     },
@@ -240,14 +240,14 @@
         "wa-csp": 1
       },
       "sample_uids": [
-        "ism:pro-15",
         "ism:ism-2071",
         "ism:ism-2126",
         "ism:ism-1146",
         "ism:ism-1554",
         "ism:ism-1555",
         "ism:ism-1556",
-        "ism:ism-383"
+        "ism:ism-383",
+        "ism:ism-380"
       ],
       "rank": 3
     },
@@ -278,14 +278,14 @@
         "ztmm": 7
       },
       "sample_uids": [
-        "ism:pro-12",
-        "ism:det-4",
         "ism:ism-1565",
         "ism:ism-2128",
         "ism:ism-846",
         "ism:ism-1927",
         "ism:ism-1928",
-        "ism:ism-1835"
+        "ism:ism-1835",
+        "ism:ism-1620",
+        "ism:ism-1952"
       ],
       "rank": 4
     },
@@ -350,14 +350,14 @@
         "ztmm": 1
       },
       "sample_uids": [
-        "ism:det-1",
         "ism:ism-1163",
         "ism:ism-580",
         "ism:ism-1983",
         "ism:ism-1984",
         "ism:ism-1985",
         "ism:ism-1815",
-        "ism:ism-1959"
+        "ism:ism-1959",
+        "ism:ism-1986"
       ],
       "rank": 6
     },
@@ -386,14 +386,14 @@
         "wa-csp": 9
       },
       "sample_uids": [
-        "ism:pro-16",
-        "ism:res-1",
-        "ism:res-3",
         "ism:ism-576",
         "ism:ism-1784",
         "ism:ism-1819",
         "ism:ism-1970",
-        "ism:ism-43"
+        "ism:ism-43",
+        "ism:ism-1019",
+        "ism:ism-1805",
+        "asd-principles:pro-16"
       ],
       "rank": 7
     },
@@ -419,14 +419,14 @@
         "wa-csp": 1
       },
       "sample_uids": [
-        "ism:pro-15",
         "ism:ism-810",
         "ism:ism-1053",
         "ism:ism-1530",
         "ism:ism-1296",
         "ism:ism-217",
         "ism:ism-1327",
-        "ism:ism-465"
+        "ism:ism-465",
+        "ism:ism-467"
       ],
       "rank": 8
     },
@@ -456,14 +456,14 @@
         "ztmm": 3
       },
       "sample_uids": [
-        "ism:pro-10",
-        "ism:res-1",
         "ism:ism-734",
         "ism:ism-917",
         "ism:ism-1574",
         "ism:ism-1299",
         "ism:ism-1555",
-        "ism:ism-1928"
+        "ism:ism-1928",
+        "ism:ism-1547",
+        "ism:ism-1548"
       ],
       "rank": 9
     },
@@ -488,10 +488,10 @@
         "ztmm": 2
       },
       "sample_uids": [
-        "ism:pro-4",
         "ism:ism-912",
         "ism:ism-1211",
         "ism:ism-1798",
+        "asd-principles:pro-4",
         "nist-800-53:cm-1",
         "nist-800-53:cm-3",
         "nist-800-53:cm-3.4",
@@ -552,14 +552,14 @@
         "ztmm": 2
       },
       "sample_uids": [
-        "ism:pro-8",
         "ism:ism-233",
         "ism:ism-869",
         "ism:ism-1085",
         "ism:ism-2108",
         "ism:ism-702",
         "ism:ism-1059",
-        "ism:ism-1928"
+        "ism:ism-1928",
+        "ism:ism-1984"
       ],
       "rank": 12
     },
@@ -706,9 +706,9 @@
         "wa-csp": 8
       },
       "sample_uids": [
-        "ism:gov-7",
         "ism:ism-1478",
         "ism:ism-1617",
+        "asd-principles:gov-7",
         "nist-800-53:pe-23",
         "nist-800-53:pm-4",
         "nist-800-53:pm-9",
@@ -802,10 +802,10 @@
         "wa-csp": 3
       },
       "sample_uids": [
-        "ism:res-1",
         "ism:ism-734",
         "ism:ism-1732",
         "ism:ism-1511",
+        "asd-principles:res-1",
         "nist-800-53:cp-2",
         "nist-800-53:cp-2.1",
         "nist-800-53:cp-2.3",
@@ -837,13 +837,13 @@
         "ztmm": 1
       },
       "sample_uids": [
-        "ism:pro-18",
         "ism:ism-810",
         "ism:ism-1053",
         "ism:ism-1530",
         "ism:ism-1181",
         "ism:ism-1429",
         "ism:ism-637",
+        "asd-principles:pro-18",
         "nist-800-53:sc-7"
       ],
       "rank": 21
@@ -907,14 +907,14 @@
         "ztmm": 2
       },
       "sample_uids": [
-        "ism:gov-3",
-        "ism:gov-14",
-        "ism:gov-7",
-        "ism:rec-2",
         "ism:ism-1636",
         "ism:ism-1967",
         "ism:ism-1737",
-        "ism:ism-1971"
+        "ism:ism-1971",
+        "ism:ism-1638",
+        "ism:ism-1972",
+        "ism:ism-1563",
+        "ism:ism-1564"
       ],
       "rank": 23
     },
@@ -935,9 +935,9 @@
         "wa-csp": 1
       },
       "sample_uids": [
-        "ism:pro-19",
-        "ism:pro-20",
         "ism:ism-714",
+        "asd-principles:pro-19",
+        "asd-principles:pro-20",
         "oag-wa:report-24 2.4.1",
         "oag-wa:report-24 2.4.3",
         "oag-wa:report-24 2.5.1",
@@ -966,14 +966,14 @@
         "ztmm": 2
       },
       "sample_uids": [
-        "ism:ide-4",
         "ism:ism-2120",
         "ism:ism-2033",
         "ism:ism-2035",
         "ism:ism-2037",
         "ism:ism-401",
         "ism:ism-1238",
-        "ism:ism-2039"
+        "ism:ism-2039",
+        "ism:ism-2042"
       ],
       "rank": 25
     },
@@ -998,12 +998,12 @@
         "wa-csp": 1
       },
       "sample_uids": [
-        "ism:pro-14",
         "ism:ism-2001",
         "ism:ism-2004",
         "ism:ism-735",
         "ism:ism-252",
         "ism:ism-2022",
+        "asd-principles:pro-14",
         "nist-800-53:at-2",
         "nist-800-53:at-2.1"
       ],
@@ -1110,7 +1110,7 @@
         "wa-csp": 5
       },
       "sample_uids": [
-        "ism:res-2",
+        "asd-principles:res-2",
         "nist-800-53:ir-6",
         "nist-800-53:si-3.6",
         "wa-csp:3.4.2a",

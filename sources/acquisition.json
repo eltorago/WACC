@@ -561,6 +561,13 @@
       "urls": [
         "https://www.cyber.gov.au/business-government/asds-cyber-security-frameworks/mitigating-cyber-security-incidents/strategies-to-mitigate-cyber-security-incidents-mitigation-details"
       ]
+    },
+    {
+      "filename": "asd-cyber-security-principles-2026-09.html",
+      "method": "automatic",
+      "urls": [
+        "https://www.cyber.gov.au/business-government/asds-cyber-security-frameworks/ism/cyber-security-principles"
+      ]
     }
   ]
 }
