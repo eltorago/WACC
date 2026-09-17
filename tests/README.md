@@ -11,7 +11,7 @@ python tests/run_all.py
 ```
 
 The suite checks source permissions, loaders, search, relationships, workspace
-assessments, spreadsheet imports, log validation, rendering and package contents.
+assessment guidance, rendering and package contents.
 
 For changes to workspace content or search terms:
 
@@ -43,6 +43,4 @@ remain part of the assessment instructions shown in the application.
 ## Test fixtures
 
 `fixtures/onboarding-catalog.json` is the fictional source used by the
-[framework import guide](../sources/add-framework.md). Spreadsheet and security-log
-samples are in [examples](../examples/README.md). Azure tests use fixtures rather
-than a live storage account.
+[framework import guide](../sources/add-framework.md).

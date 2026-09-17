@@ -1,1 +1,0 @@
-{"TimeGenerated": "2023-12-29T12:00:00Z", "TenantId": "11111111-1111-4111-8111-111111111111", "Type": "DeviceTvmSoftwareInventory", "DeviceId": "3333333333333333333333333333333333333333", "DeviceName": "sw-laptop-01.example.invalid", "OSPlatform": "Windows11", "SoftwareVendor": "fictional_vendor", "SoftwareName": "demo_records_client", "SoftwareVersion": "2.0"}

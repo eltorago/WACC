@@ -241,12 +241,6 @@ def main(argv: Optional[List[str]] = None) -> int:
                          help="download again even when reviewed bytes are already present")
     sources.set_defaults(func=cmd_sources)
 
-    from .telemetry_azure import command as telemetry_command
-    telemetry = subs.add_parser('telemetry', help='validate an assessment against Sentinel event files')
-    telemetry.add_argument('--manifest', required=True, help='path to the evidence manifest.json')
-    telemetry.add_argument('--adls', action='store_true', help='read listed ADLS Gen2 files using the current Azure CLI login')
-    telemetry.set_defaults(func=telemetry_command)
-
     args = parser.parse_args(argv)
     if not getattr(args, "func", None):
         parser.print_help()

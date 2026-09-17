@@ -2,10 +2,12 @@
 from pathlib import Path
 import csv
 import io
+import subprocess
 import sys
 import unittest
 from http.server import ThreadingHTTPServer
 import threading
+import urllib.error
 import urllib.request
 from dataclasses import replace
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -30,6 +32,57 @@ class ControlWorkspaceTests(unittest.TestCase):
         with urllib.request.urlopen(self.base+path,timeout=15) as response:
             self.assertEqual(response.status,200)
             return response.read().decode('utf-8')
+
+    def test_navigation_keeps_controls_sources_and_assessment_guidance(self):
+        for path in ('/', '/library?control=AP-01&assessment=grc',
+                     '/library?control=AP-01&assessment=technical'):
+            with self.subTest(path=path):
+                page = self.get(path)
+                self.assertNotIn('href="/assessments', page)
+                self.assertIn('href="/sources"', page)
+                self.assertIn('href="/frameworks"', page)
+                self.assertIn('Assess this control', page)
+                self.assertIn('>GRC</a>', page)
+                self.assertIn('>Technical</a>', page)
+        self.assertIn('AppLocker', self.get('/library?control=AP-01&assessment=technical'))
+        self.get('/sources')
+        self.get('/frameworks')
+
+    def test_retired_assessment_pages_and_uploads_are_unavailable(self):
+        routes = {
+            'GET': ('/assessments', '/assessments?department=example&year=2025',
+                    '/assessments/download/wa-csp-2024-template.xlsx',
+                    '/assessments/validation', '/assessments/validation/example?year=2025',
+                    '/assessments/validation/guide', '/assessments/validation/queries',
+                    '/assessments/validation/report?run=example'),
+            'POST': ('/assessments/import', '/assessments/examples',
+                     '/assessments/validation/import', '/assessments/validation/demo',
+                     '/assessments/validation/review'),
+        }
+        for method, paths in routes.items():
+            for path in paths:
+                with self.subTest(method=method, path=path):
+                    request = urllib.request.Request(
+                        self.base + path, method=method,
+                        data=b'token=example' if method == 'POST' else None)
+                    with self.assertRaises(urllib.error.HTTPError) as caught:
+                        urllib.request.urlopen(request, timeout=15)
+                    self.assertEqual(caught.exception.code, 404)
+                    caught.exception.close()
+
+    def test_cli_does_not_offer_or_accept_log_imports(self):
+        root = Path(__file__).resolve().parents[1]
+        help_result = subprocess.run([sys.executable, '-m', 'wacc', '--help'],
+                                     cwd=root, capture_output=True, text=True, timeout=15)
+        self.assertEqual(help_result.returncode, 0, help_result.stderr)
+        self.assertNotIn('telemetry', help_result.stdout)
+        self.assertIn('sources', help_result.stdout)
+        removed = subprocess.run([sys.executable, '-m', 'wacc', 'telemetry',
+                                  '--manifest', 'manifest.json'],
+                                 cwd=root, capture_output=True, text=True, timeout=15)
+        self.assertEqual(removed.returncode, 2)
+        self.assertIn('invalid choice', removed.stderr)
+
     def test_all_sources_exist_and_anti_patterns_are_not_requirements(self):
         ids={c['id'] for c in workspace.CONTROLS}
         self.assertEqual(len(ids),84)

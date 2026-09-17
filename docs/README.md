@@ -3,9 +3,6 @@
 ## Use the application
 
 - [Run locally and troubleshoot](../HOW-TO-RUN.md)
-- [Import annual self-assessments](../examples/assessments/README.md)
-- [Generate and use example security logs](../examples/telemetry/README.md)
-- [Collect, import and review security-log evidence](telemetry-validation.md)
 
 ## Maintain the repository
 
@@ -15,7 +12,6 @@
 - [Framework relationships and editions](../sources/framework-notes.md)
 - [Add a framework, controls and assessments](../sources/add-framework.md)
 - [Run tests and data checks](../tests/README.md)
-- [Assessment data model and workbook generation](department-assessments.md)
 
 ## Review reports
 

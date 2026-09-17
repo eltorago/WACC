@@ -21,10 +21,6 @@ __pycache__/
 *.swp
 *.tmp
 MANIFEST.json
-# Authored evidence scope manifests (Git ignores case on Windows)
-!/examples/telemetry/2023/manifest.json
-!/examples/telemetry/2024/manifest.json
-!/examples/telemetry/2025/manifest.json
 
 # Excluded in full, whatever they hold
 /data/local/
@@ -32,7 +28,7 @@ MANIFEST.json
 /data/corpus/detail/
 /data/review/
 
-# Publisher files require an explicit reviewed exception
+# Publisher document formats are excluded from distribution
 *.doc
 *.DOC
 *.docx
@@ -49,11 +45,6 @@ MANIFEST.json
 *.XLSX
 *.zip
 *.ZIP
-# Authored assessment templates and fictional examples
-!/examples/assessments/department-of-silly-walks-2023.xlsx
-!/examples/assessments/department-of-silly-walks-2024.xlsx
-!/examples/assessments/department-of-silly-walks-2025.xlsx
-!/examples/assessments/wa-csp-2024-template.xlsx
 
 # Extracts of publisher text that has not been licensed for reuse
 aescsf.json
