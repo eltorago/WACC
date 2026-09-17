@@ -1,5 +1,8 @@
 # Publisher sources
 
+For a new source framework, follow the [complete import and assessment workflow](add-framework.md).
+See [framework notes](framework-notes.md) for source relationships and edition details.
+
 WACC does not distribute publisher files. Public sources are downloaded from their
 publisher when needed, and files that require a sign-in or an interactive export stay on
 the user's machine.
@@ -35,9 +38,9 @@ WACC checks files directly in that folder, copies recognised reviewed files and 
 attempts the remaining automatic downloads. Originals and unmatched files are untouched.
 The destination respects `WACC_SOURCES`, or `--destination` when supplied.
 
-There are 66 configured automatic routes and 10 manual acquisitions. The live reviews
-verified 61 automatic downloads, including both ACSC mitigation-strategy pages; four were blocked by their publishers and one requires
-an edition review. See [the acquisition review](../docs/source-acquisition-review.md).
+Use `--list` and `--status` for the current acquisition inventory. The
+[dated acquisition review](../docs/source-acquisition-review.md) records the
+downloads tested and the publisher restrictions found during that review.
 
 The mitigation-strategy table and companion details are acquired as original publisher
 HTML and imported as 37 strategies from February 2017. WACC assigns S01–S37 row locators

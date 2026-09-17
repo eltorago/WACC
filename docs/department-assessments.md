@@ -1,5 +1,7 @@
 # Department assessment design and validation
 
+For spreadsheet fields and import steps, see the [assessment user guide](../examples/assessments/README.md).
+
 The Assessments page imports the WACC XLSX template for the WA Cyber Security Policy
 2024. It retains the department, reporting year, assessment date, assessor, scope,
 approval and AIR details, requirement ratings, evidence, actions and owners.

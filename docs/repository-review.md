@@ -11,7 +11,7 @@ counts, workspace content, rendering, validation tools, tests and operating docu
 | GRC and risk context | Kept specific documents and review actions, removed repeated qualification paragraphs, and shortened vague backup/remediation results and mapping explanations. Publisher requirement text remains intact. |
 | Framework overlap | Modelled Essential Eight as part of the ACSC strategy family; updated workspace references, topical search, exports, frequency analysis and framework counts. Preserved source editions and exact navigation. |
 | Search | Fixed the stale `E8` alias; added names for the ACSC strategies. Excluded internal execution/validation metadata from workspace search. |
-| Framework onboarding | Added the full README workflow, a local OSCAL preview tool and an executable fictional example with rejection tests. |
+| Framework onboarding | Added a complete import guide, a local OSCAL preview tool and an executable fictional example with rejection tests. |
 | Test quality | Removed minimum prose-length rules that encouraged padding. Added import and family-overlap regression cases and expanded the command fixtures from 16 to 27. |
 | Test reporting | Count unittest results in the combined total and show failure locations; suites no longer appear as zero tests despite running assertions. |
 | Source maintenance | Documentation reviews use the actual run date instead of a hard-coded date. Refreshed all 107 command references and the corpus/frequency reports. |
@@ -27,7 +27,7 @@ counts, workspace content, rendering, validation tools, tests and operating docu
    support CI, while a second job could validate a reviewed private source cache.
 3. **Centralise framework registration.** Registry definitions, loader dispatch and search
    aliases are still separate edits. A declarative framework manifest could make future
-   imports less repetitive; the README documents the current working path.
+   imports less repetitive; the import guide documents the current working path.
 4. **Track edition changes at requirement level.** Source hashes detect changed files.
    A reviewed diff of added, removed and changed requirements would make mapping and
    assessment updates easier to target.
@@ -36,4 +36,4 @@ counts, workspace content, rendering, validation tools, tests and operating docu
    and add service-specific examples when a representative environment is available.
 
 Manual import instructions are in the
-[README](../README.md#add-a-framework-manually-from-source-to-workspace).
+[framework import guide](../sources/add-framework.md).
