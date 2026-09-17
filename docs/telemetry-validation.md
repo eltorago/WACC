@@ -1,5 +1,7 @@
 # Validate an annual assessment with security logs
 
+For the example generator, output locations and demo steps, see [example security logs](../examples/telemetry/README.md).
+
 WACC compares fourteen checks with the selected department/year workbook. Each finding
 links to the control workspace, WA policy requirement, Microsoft reference and
 underlying events. A reviewer can accept evidence, confirm a gap, explain an

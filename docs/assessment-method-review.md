@@ -42,7 +42,7 @@ search caps, OS defaults and KRBTGT reset evidence.
 | Offline behaviour | 27 fixture cases passed in both engines: Graph paging/errors, SMTP inheritance, credential lifetime, badge validity, findings, supplier expiry, JSON comparison, DC selection and encryption branches. |
 | GRC source matching | All 84 document selections match their published NIST SP 800-53A Examine procedures. SC-02 retains its specific supplier risk-register review. |
 | Regression | Full suite: 494 passed, zero failed, 19 recorded plan corrections. Corpus and packaging checks: zero problems. |
-| Import guide | The README example imports one control and one published assessment; tests reject duplicate IDs, missing text, empty files and wrong counts. |
+| Import guide | The [framework import example](../sources/add-framework.md) imports one control and one published assessment; tests reject duplicate IDs, missing text, empty files and wrong counts. |
 
 These are documentation, syntax and offline checks. Live AD, Microsoft 365 and Azure
 behaviour has not been tested against an organisation's environment. The application
