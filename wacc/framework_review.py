@@ -13,7 +13,7 @@ def render(corpus):
     esc=html.escape
     review=json.loads((Path(__file__).resolve().parents[1]/'data/framework-review.json').read_text(encoding='utf-8'))
     rows=[]
-    for key in ('asd-principles','asd-strategies','mcsb','scuba','scf'):
+    for key in ('wa-pris','asd-principles','asd-strategies','mcsb','scuba','scf'):
         fw=corpus.frameworks[key]
         count=len(corpus.controls_for(key))
         if key=='asd-strategies':
@@ -21,6 +21,8 @@ def render(corpus):
             rows.append('<li><strong>%s</strong><ul><li><a href="%s">37 strategies</a> · %s · %d records loaded</li><li><a href="%s">Essential Eight maturity detail</a> · %s · %d records loaded</li></ul></li>'%(esc(ASD_LABEL),esc(fw.source_url),esc(fw.revision),count,esc(e8.source_url),esc(e8.revision),len(corpus.controls_for(e8.key))))
         else:
             rows.append('<li><a href="%s">%s</a> · %s · %s</li>'%(esc(fw.source_url),esc(fw.name),esc(fw.revision),('%d records loaded'%count if count else 'Source not loaded — run python -m wacc sources')))
+            if key == 'wa-pris':
+                rows.append('<li>PRIS breach notification provisions are not in this consolidation. The Government has announced 1 January 2027 for the scheme. <a href="https://www.wa.gov.au/organisation/office-of-the-information-commissioner/privacy-western-australia">Commencement guidance</a>.</li>')
     priorities=''.join('<tr><td><a href="%s">%s</a></td><td>%s</td><td>%d</td><td>%s</td></tr>'%(esc(x['source_url']),esc(x['title']),esc(x['status']),x['mapped_scf_controls'],esc(x['reason'])) for x in review['priorities'])
     checks=''.join('<li><a href="/library?%s#%s">%s — %s</a><small> · %s</small></li>'%(esc(urlencode({'control':c['parents'][0],'assessment':'technical'})),esc(c['id']),esc(c['id']),esc(c['title']),esc(c['platform'])) for c in sorted(CHECKS,key=lambda c:c['title'].casefold()))
     reports=''.join('<li><a href="%s">%s</a> · %s · %s</li>'%(esc(r['url']),esc(r['title']),esc(r['date']),esc(r['sector'])) for r in REPORTS)

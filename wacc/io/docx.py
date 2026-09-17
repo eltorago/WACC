@@ -130,4 +130,6 @@ def _paragraph_text(para: ET.Element) -> str:
             parts.append(node.text or "")
         elif tag in (_q("tab"), _q("br")):
             parts.append(" ")
+        elif tag == _q("noBreakHyphen"):
+            parts.append("-")
     return re.sub(r"[ \t ]+", " ", "".join(parts)).strip()

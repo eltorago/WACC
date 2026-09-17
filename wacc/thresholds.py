@@ -78,6 +78,8 @@ _BOUNDS: Sequence[Tuple[str, str, bool]] = (
     ("not set to greater than", AT_MOST, True),
     ("no greater than", AT_MOST, True),
     ("not longer than", AT_MOST, True),
+    ("no later than", AT_MOST, True),
+    ("not later than", AT_MOST, True),
     ("must not exceed", AT_MOST, True),
     ("not more than", AT_MOST, True),
     ("no more than", AT_MOST, True),

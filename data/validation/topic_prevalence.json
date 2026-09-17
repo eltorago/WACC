@@ -9,8 +9,8 @@
   },
   "rating_distribution": {
     "Very high": 3,
-    "High": 8,
-    "Medium": 14,
+    "High": 9,
+    "Medium": 13,
     "Low": 4,
     "Very low": 1
   },
@@ -136,18 +136,18 @@
       "pattern": "\\b(business continuity|continuity plans?|contingency plans?|continuity of operations|business impact analysis|recovery objectives?|minimum operations|essential (?:mission|business) functions)\\b"
     }
   },
-  "loaded_controls": 7395,
-  "eligible_entries": 6201,
-  "eligible_frameworks": 22,
+  "loaded_controls": 7728,
+  "eligible_entries": 6431,
+  "eligible_frameworks": 23,
   "topics": [
     {
       "code": "SC",
       "topic": "Supply chain and third-party risk",
-      "controls": 421,
-      "frameworks": 16,
+      "controls": 441,
+      "frameworks": 17,
       "frequency_score": 5,
       "frequency_rating": "Very high",
-      "mean_framework_share": 7.12,
+      "mean_framework_share": 7.19,
       "per_framework": {
         "aescsf": 26,
         "asd-strategies": 28,
@@ -164,6 +164,7 @@
         "scuba": 2,
         "soci-act": 6,
         "wa-csp": 21,
+        "wa-pris": 20,
         "ztmm": 2
       },
       "sample_uids": [
@@ -185,7 +186,7 @@
       "frameworks": 16,
       "frequency_score": 5,
       "frequency_rating": "Very high",
-      "mean_framework_share": 3.72,
+      "mean_framework_share": 3.55,
       "per_framework": {
         "aescsf": 21,
         "asd-ad": 1,
@@ -223,7 +224,7 @@
       "frameworks": 13,
       "frequency_score": 5,
       "frequency_rating": "Very high",
-      "mean_framework_share": 3.0,
+      "mean_framework_share": 2.87,
       "per_framework": {
         "aescsf": 3,
         "asd-ad": 4,
@@ -258,7 +259,7 @@
       "frameworks": 16,
       "frequency_score": 4,
       "frequency_rating": "High",
-      "mean_framework_share": 4.82,
+      "mean_framework_share": 4.61,
       "per_framework": {
         "aescsf": 9,
         "asd-ad": 17,
@@ -292,11 +293,11 @@
     {
       "code": "DP",
       "topic": "Data protection",
-      "controls": 149,
-      "frameworks": 13,
+      "controls": 150,
+      "frameworks": 14,
       "frequency_score": 4,
       "frequency_rating": "High",
-      "mean_framework_share": 2.86,
+      "mean_framework_share": 2.75,
       "per_framework": {
         "aescsf": 5,
         "asd-strategies": 4,
@@ -310,6 +311,7 @@
         "scf": 72,
         "scuba": 5,
         "wa-csp": 2,
+        "wa-pris": 1,
         "ztmm": 5
       },
       "sample_uids": [
@@ -331,7 +333,7 @@
       "frameworks": 15,
       "frequency_score": 4,
       "frequency_rating": "High",
-      "mean_framework_share": 1.73,
+      "mean_framework_share": 1.66,
       "per_framework": {
         "aescsf": 5,
         "asd-strategies": 6,
@@ -368,7 +370,7 @@
       "frameworks": 14,
       "frequency_score": 4,
       "frequency_rating": "High",
-      "mean_framework_share": 3.16,
+      "mean_framework_share": 3.02,
       "per_framework": {
         "aescsf": 15,
         "asd-strategies": 2,
@@ -404,7 +406,7 @@
       "frameworks": 11,
       "frequency_score": 4,
       "frequency_rating": "High",
-      "mean_framework_share": 1.84,
+      "mean_framework_share": 1.76,
       "per_framework": {
         "aescsf": 16,
         "c2m2": 15,
@@ -437,7 +439,7 @@
       "frameworks": 15,
       "frequency_score": 4,
       "frequency_rating": "High",
-      "mean_framework_share": 2.96,
+      "mean_framework_share": 2.83,
       "per_framework": {
         "aescsf": 9,
         "asd-ad": 4,
@@ -468,13 +470,42 @@
       "rank": 9
     },
     {
+      "code": "PI",
+      "topic": "Privacy and personal information",
+      "controls": 131,
+      "frameworks": 7,
+      "frequency_score": 4,
+      "frequency_rating": "High",
+      "mean_framework_share": 1.48,
+      "per_framework": {
+        "aescsf": 9,
+        "ism": 2,
+        "nist-800-53": 53,
+        "pspf": 1,
+        "scf": 6,
+        "soci-act": 3,
+        "wa-pris": 57
+      },
+      "sample_uids": [
+        "ism:ism-821",
+        "ism:ism-2107",
+        "nist-800-53:ac-3.14",
+        "nist-800-53:at-3.5",
+        "nist-800-53:au-3.3",
+        "nist-800-53:au-12.4",
+        "nist-800-53:ir-8.1",
+        "nist-800-53:pe-8.3"
+      ],
+      "rank": 10
+    },
+    {
       "code": "AM",
       "topic": "Asset inventory and configuration/change management",
       "controls": 100,
       "frameworks": 10,
       "frequency_score": 4,
       "frequency_rating": "High",
-      "mean_framework_share": 1.59,
+      "mean_framework_share": 1.52,
       "per_framework": {
         "aescsf": 19,
         "c2m2": 15,
@@ -497,7 +528,7 @@
         "nist-800-53:cm-3.4",
         "nist-800-53:cm-3.6"
       ],
-      "rank": 10
+      "rank": 11
     },
     {
       "code": "MW",
@@ -506,7 +537,7 @@
       "frameworks": 9,
       "frequency_score": 4,
       "frequency_rating": "High",
-      "mean_framework_share": 0.56,
+      "mean_framework_share": 0.53,
       "per_framework": {
         "aescsf": 1,
         "asd-strategies": 1,
@@ -528,7 +559,7 @@
         "ism:ism-1482",
         "ism:ism-874"
       ],
-      "rank": 11
+      "rank": 12
     },
     {
       "code": "CK",
@@ -537,7 +568,7 @@
       "frameworks": 11,
       "frequency_score": 3,
       "frequency_rating": "Medium",
-      "mean_framework_share": 4.67,
+      "mean_framework_share": 4.47,
       "per_framework": {
         "aescsf": 1,
         "c2m2": 1,
@@ -561,7 +592,7 @@
         "ism:ism-1928",
         "ism:ism-1984"
       ],
-      "rank": 12
+      "rank": 13
     },
     {
       "code": "MD",
@@ -570,7 +601,7 @@
       "frameworks": 11,
       "frequency_score": 3,
       "frequency_rating": "Medium",
-      "mean_framework_share": 4.05,
+      "mean_framework_share": 3.87,
       "per_framework": {
         "aescsf": 1,
         "asd-strategies": 2,
@@ -594,7 +625,7 @@
         "ism:ism-1742",
         "ism:ism-1218"
       ],
-      "rank": 13
+      "rank": 14
     },
     {
       "code": "AD",
@@ -603,7 +634,7 @@
       "frameworks": 6,
       "frequency_score": 3,
       "frequency_rating": "Medium",
-      "mean_framework_share": 3.33,
+      "mean_framework_share": 3.19,
       "per_framework": {
         "asd-ad": 53,
         "ism": 34,
@@ -622,7 +653,7 @@
         "ism:ism-1828",
         "ism:ism-1931"
       ],
-      "rank": 14
+      "rank": 15
     },
     {
       "code": "RM",
@@ -631,7 +662,7 @@
       "frameworks": 10,
       "frequency_score": 3,
       "frequency_rating": "Medium",
-      "mean_framework_share": 1.89,
+      "mean_framework_share": 1.8,
       "per_framework": {
         "aescsf": 5,
         "c2m2": 4,
@@ -654,16 +685,16 @@
         "nist-800-53:au-3.3",
         "nist-800-53:pe-8.3"
       ],
-      "rank": 15
+      "rank": 16
     },
     {
       "code": "PS",
       "topic": "Personnel security",
-      "controls": 83,
-      "frameworks": 9,
+      "controls": 84,
+      "frameworks": 10,
       "frequency_score": 3,
       "frequency_rating": "Medium",
-      "mean_framework_share": 1.81,
+      "mean_framework_share": 1.75,
       "per_framework": {
         "aescsf": 1,
         "c2m2": 1,
@@ -673,7 +704,8 @@
         "oag-wa": 2,
         "pspf": 47,
         "scf": 8,
-        "soci-act": 1
+        "soci-act": 1,
+        "wa-pris": 1
       },
       "sample_uids": [
         "ism:ism-2104",
@@ -685,16 +717,16 @@
         "nist-800-53:ma-5.2",
         "nist-800-53:ma-5.4"
       ],
-      "rank": 16
+      "rank": 17
     },
     {
       "code": "GV",
       "topic": "Governance and cybersecurity program management",
-      "controls": 81,
-      "frameworks": 8,
+      "controls": 82,
+      "frameworks": 9,
       "frequency_score": 3,
       "frequency_rating": "Medium",
-      "mean_framework_share": 1.43,
+      "mean_framework_share": 1.38,
       "per_framework": {
         "aescsf": 21,
         "c2m2": 18,
@@ -703,7 +735,8 @@
         "nist-800-53": 6,
         "pspf": 19,
         "scf": 1,
-        "wa-csp": 8
+        "wa-csp": 8,
+        "wa-pris": 1
       },
       "sample_uids": [
         "ism:ism-1478",
@@ -715,7 +748,7 @@
         "nist-800-53:pm-14",
         "nist-800-53:pm-29"
       ],
-      "rank": 17
+      "rank": 18
     },
     {
       "code": "MF",
@@ -724,7 +757,7 @@
       "frameworks": 15,
       "frequency_score": 3,
       "frequency_rating": "Medium",
-      "mean_framework_share": 1.98,
+      "mean_framework_share": 1.89,
       "per_framework": {
         "aescsf": 2,
         "asd-ad": 2,
@@ -752,34 +785,6 @@
         "ism:ism-1919",
         "ism:ism-1173"
       ],
-      "rank": 18
-    },
-    {
-      "code": "PI",
-      "topic": "Privacy and personal information",
-      "controls": 74,
-      "frameworks": 6,
-      "frequency_score": 3,
-      "frequency_rating": "Medium",
-      "mean_framework_share": 0.43,
-      "per_framework": {
-        "aescsf": 9,
-        "ism": 2,
-        "nist-800-53": 53,
-        "pspf": 1,
-        "scf": 6,
-        "soci-act": 3
-      },
-      "sample_uids": [
-        "ism:ism-821",
-        "ism:ism-2107",
-        "nist-800-53:ac-3.14",
-        "nist-800-53:at-3.5",
-        "nist-800-53:au-3.3",
-        "nist-800-53:au-12.4",
-        "nist-800-53:ir-8.1",
-        "nist-800-53:pe-8.3"
-      ],
       "rank": 19
     },
     {
@@ -789,7 +794,7 @@
       "frameworks": 9,
       "frequency_score": 3,
       "frequency_rating": "Medium",
-      "mean_framework_share": 0.83,
+      "mean_framework_share": 0.8,
       "per_framework": {
         "aescsf": 12,
         "asd-strategies": 2,
@@ -820,7 +825,7 @@
       "frameworks": 13,
       "frequency_score": 3,
       "frequency_rating": "Medium",
-      "mean_framework_share": 0.99,
+      "mean_framework_share": 0.95,
       "per_framework": {
         "aescsf": 4,
         "asd-strategies": 1,
@@ -855,7 +860,7 @@
       "frameworks": 15,
       "frequency_score": 3,
       "frequency_rating": "Medium",
-      "mean_framework_share": 1.98,
+      "mean_framework_share": 1.89,
       "per_framework": {
         "aescsf": 2,
         "asd-ad": 10,
@@ -892,7 +897,7 @@
       "frameworks": 11,
       "frequency_score": 3,
       "frequency_rating": "Medium",
-      "mean_framework_share": 0.98,
+      "mean_framework_share": 0.94,
       "per_framework": {
         "aescsf": 1,
         "c2m2": 1,
@@ -925,7 +930,7 @@
       "frameworks": 6,
       "frequency_score": 3,
       "frequency_rating": "Medium",
-      "mean_framework_share": 1.29,
+      "mean_framework_share": 1.23,
       "per_framework": {
         "aescsf": 24,
         "c2m2": 20,
@@ -953,7 +958,7 @@
       "frameworks": 9,
       "frequency_score": 3,
       "frequency_rating": "Medium",
-      "mean_framework_share": 0.9,
+      "mean_framework_share": 0.86,
       "per_framework": {
         "aescsf": 4,
         "c2m2": 4,
@@ -984,7 +989,7 @@
       "frameworks": 10,
       "frequency_score": 2,
       "frequency_rating": "Low",
-      "mean_framework_share": 0.58,
+      "mean_framework_share": 0.56,
       "per_framework": {
         "aescsf": 8,
         "c2m2": 7,
@@ -1016,7 +1021,7 @@
       "frameworks": 11,
       "frequency_score": 2,
       "frequency_rating": "Low",
-      "mean_framework_share": 0.77,
+      "mean_framework_share": 0.74,
       "per_framework": {
         "aescsf": 1,
         "asd-ad": 1,
@@ -1049,7 +1054,7 @@
       "frameworks": 3,
       "frequency_score": 2,
       "frequency_rating": "Low",
-      "mean_framework_share": 0.51,
+      "mean_framework_share": 0.49,
       "per_framework": {
         "asd-strategies": 15,
         "ism": 14,
@@ -1074,7 +1079,7 @@
       "frameworks": 3,
       "frequency_score": 2,
       "frequency_rating": "Low",
-      "mean_framework_share": 0.41,
+      "mean_framework_share": 0.4,
       "per_framework": {
         "asd-strategies": 12,
         "ism": 11,
@@ -1099,7 +1104,7 @@
       "frameworks": 7,
       "frequency_score": 1,
       "frequency_rating": "Very low",
-      "mean_framework_share": 0.91,
+      "mean_framework_share": 0.87,
       "per_framework": {
         "ism": 1,
         "mcsb": 2,

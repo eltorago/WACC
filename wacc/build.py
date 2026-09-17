@@ -29,6 +29,7 @@ from .loaders import (
     ztmm,
     extended,
     principles,
+    wa_pris,
 )
 
 # WACC_SOURCES points to the local cache of publisher files used to build the live corpus.
@@ -265,7 +266,7 @@ def build(verbose: bool = True) -> Tuple[Corpus, LoadReport]:
         else:
             report.skip("ztmm", "extract not present; run tools/extract_ztmm.py")
 
-    for key, loader in (('asd-strategies',extended.strategies),('scf',extended.scf),('mcsb',extended.mcsb),
+    for key, loader in (('wa-pris',wa_pris.load_into),('asd-strategies',extended.strategies),('scf',extended.scf),('mcsb',extended.mcsb),
                         ('essential-eight',extended.essential_eight),('scuba',extended.scuba)):
         framework = corpus.frameworks[key]
         path = _doc(framework.source_file)

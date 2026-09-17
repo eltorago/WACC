@@ -29,6 +29,7 @@ FRAMEWORK_WORDS: Dict[str, str] = {
     "asd": "ism",
     "pspf": "pspf",
     "soci": "soci-act",
+    "pris": "wa-pris",
     "cirmp": "cirmp-rules",
     "csf": "csf",
     "nist": "nist-800-53",
@@ -165,14 +166,16 @@ class IdentifierIndex:
                                     matches=[direct], matched_form=normalised,
                                     framework_filter=framework_key)
         forms = identifier_variants(stripped)
+        if re.match(r'[a-z]', normalised):
+            # A labelled requirement is not an unlabelled number. In particular,
+            # an absent PSPF 'Req 113' must not resolve to a statute's 's 113'.
+            forms = [form for form in forms if not form[:1].isdigit()]
 
         uids, matched_form = self._collect(forms)
         controls = [self.corpus.controls[u] for u in uids if u in self.corpus.controls]
 
         if framework_key:
-            narrowed = [c for c in controls if c.framework_key == framework_key]
-            if narrowed:
-                controls = narrowed
+            controls = [c for c in controls if c.framework_key == framework_key]
 
         if controls:
             controls = order_controls_governance_first(self.corpus, controls)

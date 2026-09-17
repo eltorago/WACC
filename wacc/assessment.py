@@ -7,7 +7,24 @@ import re
 
 # Specific topics precede broader ones. Do not match framework names or query terms:
 # an assessment must follow the requirement, not the search that retrieved it.
-PROFILES = [('(?=.*\\bprivileg\\w*\\b)(?=.*\\b(request\\w*|validat\\w*|approv\\w*)\\b)',
+PROFILES = [
+ (r'(?=.*\bpersonal information\b)(?=.*\b(?:request\w*|denial)\b)(?=.*\b(?:access|correction)\b)(?=.*\b(?:individual|person)\b)',
+  'People may be unable to obtain or correct their records, leaving decisions based on inaccurate information or requests unresolved.',
+  'Sample access and correction case files. Check identity, the applicable legal route, receipt date, decision, reasons and response date. '
+  'Trace corrections into the affected records and inspect any refusal or delay reasons. Compare each response with the period and permitted outcomes stated in the provision.',
+  ('nist-800-53:si-18',)),
+ (r'\b(?:privacy impact assessment|automated decision.making process)\b',
+  'A new use of personal information or an automated decision could harm people if privacy impacts are missed or remain untreated.',
+  'Inspect the written impact assessment, affected information, potential harm, recommendations and approvals. '
+  'Check it predates the activity or significant change where required, and trace recommendations to completed actions. '
+  'For automated decisions, inspect harm and bias reviews, notices, human-review requests and periodic evaluations.',
+  ('nist-800-53:ra-8',)),
+ (r'(?=.*\bpersonal information\b)(?=.*\b(?:collect\w*|secondary purpose|primary purpose|policies on its handling)\b)',
+  'Unnecessary collection or use of personal information beyond its authorised purpose could harm people and expose the organisation to complaints.',
+  'Compare sampled collection fields, uses and disclosures with written purposes, collection notices and the applicable consent or legal basis. '
+  'Check necessity, exceptions and actual data flows. Inspect the privacy policy and records of changed or secondary uses.',
+  ('nist-800-53:pt-2', 'nist-800-53:pt-3')),
+ ('(?=.*\\bprivileg\\w*\\b)(?=.*\\b(request\\w*|validat\\w*|approv\\w*)\\b)',
   'Granting administrator access without checking the need could allow unauthorised changes, disclosure of '
   'sensitive information or disruption of services.',
   'Examine a sample of initial privileged-access requests, including rejected requests and exceptions. '

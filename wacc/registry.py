@@ -30,6 +30,35 @@ def _levels(*names: str) -> List[Level]:
 
 FRAMEWORKS: List[Framework] = [
     Framework(
+        key="wa-pris",
+        name="Privacy and Responsible Information Sharing Act 2024 (WA)",
+        short_name="WA PRIS Act",
+        publisher="State of Western Australia",
+        jurisdiction=Jurisdiction.WA,
+        tier=Tier.STATUTE,
+        fidelity=Fidelity.PUBLISHER_IMPORT,
+        licence=Licence.SHIPPABLE,
+        levels=_levels("Part or schedule", "Division or principle", "Subdivision or subclause", "Section"),
+        revision="00-g0-01 (1 July 2026)",
+        revision_source="WA Legislation current consolidation and compilation table",
+        published="2026-07-01",
+        retrieved="2026-09-17",
+        source_file="wa-pris-act-2026-07.docx",
+        source_url="https://www.legislation.wa.gov.au/legislation/statutes.nsf/law_a147470.html",
+        attribution=(
+            "© State of Western Australia 2026. CC BY 4.0. Based on content from the "
+            "Western Australian Legislation website at 17 September 2026. For the latest "
+            "information on Western Australian legislation, visit www.legislation.wa.gov.au. "
+            "WACC structures the provisions and adds local control mappings."
+        ),
+        notes=[
+            "July 2026 consolidation: 11 Information Privacy Principles and five responsible sharing principles, with supporting sections.",
+            "Part 2 Division 6, Division 10 Subdivision 4, sections 134–136 and Part 3 Division 6 are uncommenced and excluded from this consolidation.",
+            "The Government has announced 1 January 2027 for the notifiable information breach scheme; recheck commencement before importing those provisions.",
+            "Entity scope and exceptions are in sections 6–8, 14 and 17–27; transitional rules for existing information are in sections 223–228.",
+        ],
+    ),
+    Framework(
         key="soci-act",
         name="Security of Critical Infrastructure Act 2018",
         short_name="SOCI Act",

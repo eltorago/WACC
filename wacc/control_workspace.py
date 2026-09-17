@@ -149,6 +149,11 @@ def render(corpus, params):
                 if statements:
                     body+='<details><summary>Published assessment material (%d)</summary>%s</details>' % (len(statements),''.join('<p><strong>%s</strong></p><p class="source-text">%s</p>'%(esc(s.published_by),esc(s.text)) for s in statements))
             rows.append('<details><summary><strong>%s</strong> <span class="badge">%s</span></summary><p>%s</p><small>%s</small>%s</details>'%(esc(label),esc(m['relationship']),esc(m['basis']),esc(m['provenance']),body))
+        attributed = sorted({m['uid'].split(':')[0] for m in refs if 'uid' in m})
+        for key in attributed:
+            framework = corpus.frameworks.get(key)
+            if framework and framework.attribution and corpus.controls_for(key):
+                rows.append('<p class="muted">%s</p>' % esc(framework.attribution))
         related=' · '.join('<a href="%s">%s — %s</a>'%(esc(url(selected,uid,assessment=assessment)),uid,esc(next(x['title'] for x in CONTROLS if x['id']==uid))) for uid in c['related'])
         tabs='<nav class="assessment-tabs" aria-label="Assessment focus">'+''.join('<a href="%s#assessment" aria-current="%s">%s</a>'%(esc(url(selected,c['id'],query,topic,mode)),str(assessment==mode).lower(),label) for mode,label in [('grc','GRC'),('technical','Technical')])+'</nav>'
         grc='<dl class="steps"><dt>Examine</dt><dd>%s</dd><dt>Interview</dt><dd>%s</dd><dt>Test</dt><dd>%s</dd><dt>Expected result</dt><dd>%s</dd></dl>'%(esc(c['examine']),esc(c['interview']),test_method,esc(c['expected']))
