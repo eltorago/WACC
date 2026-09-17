@@ -1,5 +1,5 @@
 {
-  "reviewed_on": "2026-09-16",
+  "reviewed_on": "2026-09-17",
   "scope": "WACC corpus development for solely non-commercial use, confirmed by the owner on 13 September 2026. New editions or commercial use require a fresh review. Source permissions do not relicense WACC code.",
   "distribution": "Publisher files are local inputs. WACC does not commit them to Git or include them in release packages, even when redistribution permission exists.",
   "files": [
@@ -1166,6 +1166,20 @@
       "reviewed_on": "2026-09-16",
       "modified": false,
       "provenance": "Downloaded unchanged from the official publisher page. Hash pins the reviewed February 2017 edition web page."
+    },
+    {
+      "filename": "asd-cyber-security-principles-2026-09.html",
+      "status": "local-reference-only",
+      "policy_group": "asd-principles",
+      "license": "ASD; CC BY 4.0",
+      "permission_url": "https://www.cyber.gov.au/about-us/copyright",
+      "basis_and_conditions": "Attribute Australian Signals Directorate, Commonwealth of Australia 2026, under CC BY 4.0. Exclude logos. Preserve publisher identifiers, titles and statements. Workspace mappings are WACC additions.",
+      "source_url": "https://www.cyber.gov.au/business-government/asds-cyber-security-frameworks/ism/cyber-security-principles",
+      "sha256": "48736e22ec87d7965c287f3ce97811c61a343555034068f8876c32ad00782e20",
+      "bytes": 327007,
+      "reviewed_on": "2026-09-17",
+      "modified": false,
+      "provenance": "Official September 2026 page. All 49 principles were compared with the existing official ISM OSCAL 2026.09.4 catalogue: identifiers, titles, statements and order match. Runtime text comes from that catalogue; this page is the cross-check and publisher reference."
     }
   ]
 }

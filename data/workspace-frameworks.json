@@ -401,6 +401,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Patch operating systems. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-principles:gov-14",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "GOV-14 — Risk treatment and verified compensating controls support legacy-system operation until replacement."
+    },
+    {
+      "uid": "asd-principles:pro-6",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-06 — Inventory-aligned scanning and verified remediation address the vulnerability lifecycle."
     }
   ],
   "MF-01": [
@@ -703,6 +715,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Multi-factor authentication. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-principles:pro-13",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-13 — Identity lifecycle, approved access and protected authenticators support secure access management."
     }
   ],
   "PA-04": [
@@ -1053,6 +1071,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Disable local administrator accounts. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-principles:pro-12",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-12 — Access approvals and reviews restrict permissions to current duties."
     }
   ],
   "AP-01": [
@@ -1277,6 +1301,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Application control. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-principles:pro-7",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-07 — Application allow rules and exception reviews restrict execution to authorised code."
     }
   ],
   "OM-01": [
@@ -1785,6 +1815,12 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "NIST SP 800-53A cm-6_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    },
+    {
+      "uid": "asd-principles:pro-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-04 — Approved baselines and drift checks maintain secure system and application settings."
     }
   ],
   "BR-01": [
@@ -1943,6 +1979,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Regular backups. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-principles:pro-10",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-10 — Scheduled protected backups and measured restore tests demonstrate usable recovery copies."
     }
   ],
   "GV-01": [
@@ -1951,6 +1993,36 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "SCF meta-framework context for this subject. SCF mappings do not substitute for the underlying publisher requirements."
+    },
+    {
+      "uid": "asd-principles:gov-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "GOV-01 — Executive accountability and approved decision rights establish cyber security oversight."
+    },
+    {
+      "uid": "asd-principles:gov-8",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "GOV-08 — Executive governance provides an owner for AI accountability; AI security, human supervision and ethical-use checks need their own assessment."
+    },
+    {
+      "uid": "asd-principles:gov-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "GOV-02 — Leadership, risk reporting and programme oversight support the CISO responsibility."
+    },
+    {
+      "uid": "asd-principles:gov-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "GOV-04 — Governance and role-based capability planning support security staffing and resources."
+    },
+    {
+      "uid": "asd-principles:gov-9",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "GOV-09 — Named risk owners and supplier assessments document shared security responsibilities."
     }
   ],
   "SC-01": [
@@ -1965,6 +2037,12 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "NIST SP 800-53A sr-6_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    },
+    {
+      "uid": "asd-principles:pro-16",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-16 — Supplier inventories, due diligence and access controls protect the cyber supply chain."
     }
   ],
   "SC-02": [
@@ -1973,6 +2051,30 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "SCF meta-framework context for this subject. SCF mappings do not substitute for the underlying publisher requirements."
+    },
+    {
+      "uid": "asd-principles:gov-9",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "GOV-09 — Named risk owners and supplier assessments document shared security responsibilities."
+    },
+    {
+      "uid": "asd-principles:gov-6",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "GOV-06 — Risk records and supplier reviews support communication of retained and shared risks."
+    },
+    {
+      "uid": "asd-principles:gov-11",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "GOV-11 — Supplier due diligence and continuing risk reviews support assurance over delivered systems."
+    },
+    {
+      "uid": "asd-principles:pro-16",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-16 — Supplier inventories, due diligence and access controls protect the cyber supply chain."
     }
   ],
   "NA-01": [
@@ -1993,6 +2095,18 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "NIST SP 800-53A sc-7_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    },
+    {
+      "uid": "asd-principles:pro-18",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-18 — Security zones and managed boundary rules control communications between trust levels."
+    },
+    {
+      "uid": "asd-principles:pro-19",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-19 — IT/OT separation and controlled gateways isolate operational technology."
     }
   ],
   "SM-01": [
@@ -2031,6 +2145,12 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "NIST SP 800-53A au-2_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    },
+    {
+      "uid": "asd-principles:det-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "DET-01 — Central event collection and protected retention preserve records for detection and investigation."
     }
   ],
   "AP-02": [
@@ -2045,6 +2165,12 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "NIST SP 800-53A cm-7.5_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    },
+    {
+      "uid": "asd-principles:pro-7",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-07 — Application allow rules and exception reviews restrict execution to authorised code."
     }
   ],
   "VM-01": [
@@ -2065,6 +2191,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Patch operating systems. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-principles:pro-6",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-06 — Inventory-aligned scanning and verified remediation address the vulnerability lifecycle."
     }
   ],
   "OM-02": [
@@ -2155,6 +2287,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Network-based intrusion detection/prevention system. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-principles:pro-18",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-18 — Security zones and managed boundary rules control communications between trust levels."
+    },
+    {
+      "uid": "asd-principles:pro-9",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-09 — Boundary inspection and data-movement controls examine traffic crossing security domains."
     }
   ],
   "NA-03": [
@@ -2201,6 +2345,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Software-based application firewall, blocking outgoing network traffic. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-principles:pro-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-04 — Approved baselines and drift checks maintain secure system and application settings."
     }
   ],
   "SD-01": [
@@ -2209,6 +2359,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Server application hardening. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-principles:ide-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "IDE-03 — Risk criteria and development requirements document the security needed for systems."
+    },
+    {
+      "uid": "asd-principles:pro-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-01 — Secure development, release assurance, controlled change and sanitisation support the system lifecycle."
     }
   ],
   "SD-03": [
@@ -2217,6 +2379,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Server application hardening. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-principles:pro-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-01 — Secure development, release assurance, controlled change and sanitisation support the system lifecycle."
     }
   ],
   "AD-01": [
@@ -2245,6 +2413,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Outbound web and email data loss prevention. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-principles:gov-10",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "GOV-10 — Disclosure controls restrict and monitor external release of sensitive system information."
+    },
+    {
+      "uid": "asd-principles:pro-9",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-09 — Boundary inspection and data-movement controls examine traffic crossing security domains."
     }
   ],
   "MW-02": [
@@ -2267,6 +2447,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Personnel management. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-principles:pro-14",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-14 — Recurring and role-specific training addresses duties, access and current threats."
     }
   ],
   "CK-01": [
@@ -2275,6 +2461,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "TLS encryption between email servers. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-principles:pro-8",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-08 — Data protection, approved algorithms and key management support encryption at rest and in transit."
+    },
+    {
+      "uid": "asd-principles:pro-17",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-17 — Algorithm and key inventories inform cryptographic transition planning; migration readiness requires a separate change exercise."
     }
   ],
   "DP-02": [
@@ -2283,6 +2481,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "TLS encryption between email servers. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-principles:pro-8",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-08 — Data protection, approved algorithms and key management support encryption at rest and in transit."
     }
   ],
   "PA-01": [
@@ -2291,6 +2495,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Restrict administrative privileges. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-principles:pro-12",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-12 — Access approvals and reviews restrict permissions to current duties."
     }
   ],
   "PA-02": [
@@ -2299,6 +2509,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Restrict administrative privileges. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-principles:pro-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-05 — Dedicated accounts, protected authentication and activity records secure system administration."
     }
   ],
   "MF-02": [
@@ -2313,6 +2529,12 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "NIST SP 800-53A ia-5_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    },
+    {
+      "uid": "asd-principles:det-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "DET-04 — Identity, authentication and privileged-activity records support baseline comparison and anomaly review."
     }
   ],
   "PA-03": [
@@ -2321,6 +2543,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Multi-factor authentication. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-principles:pro-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-05 — Dedicated accounts, protected authentication and activity records secure system administration."
     }
   ],
   "PW-03": [
@@ -2349,6 +2577,18 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "NIST SP 800-53A sc-7_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    },
+    {
+      "uid": "asd-principles:pro-19",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-19 — IT/OT separation and controlled gateways isolate operational technology."
+    },
+    {
+      "uid": "asd-principles:pro-20",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-20 — Brokered OT connections and monitored supplier access control remote entry paths."
     }
   ],
   "PW-01": [
@@ -2387,6 +2627,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Continuous incident detection and response. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-principles:det-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "DET-01 — Central event collection and protected retention preserve records for detection and investigation."
     }
   ],
   "SM-03": [
@@ -2413,6 +2659,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Hunt to discover incidents. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-principles:det-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "DET-04 — Identity, authentication and privileged-activity records support baseline comparison and anomaly review."
+    },
+    {
+      "uid": "asd-principles:det-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "DET-02 — Event review investigates anomalous behaviour and tracks follow-up decisions."
     }
   ],
   "IR-02": [
@@ -2433,6 +2691,24 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Capture network traffic. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-principles:det-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "DET-03 — Incident analysis and triage distinguish security incidents from other events."
+    },
+    {
+      "uid": "asd-principles:res-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "RES-03 — Incident handling contains harm, removes the cause and restores operations."
+    },
+    {
+      "uid": "asd-principles:rec-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "REC-02 — Restore verification and incident recovery checks confirm service operation and integrity."
     }
   ],
   "ST-02": [
@@ -2441,6 +2717,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Hunt to discover incidents. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-principles:det-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "DET-05 — Adversarial exercises and verified fixes test and improve detection coverage."
     }
   ],
   "BR-02": [
@@ -2449,6 +2731,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Regular backups. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-principles:pro-10",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-10 — Scheduled protected backups and measured restore tests demonstrate usable recovery copies."
     }
   ],
   "BR-03": [
@@ -2463,6 +2751,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "System recovery capabilities. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-principles:pro-10",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-10 — Scheduled protected backups and measured restore tests demonstrate usable recovery copies."
+    },
+    {
+      "uid": "asd-principles:rec-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "REC-02 — Restore verification and incident recovery checks confirm service operation and integrity."
     }
   ],
   "BC-01": [
@@ -2471,6 +2771,24 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Business continuity and disaster recovery plans. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-principles:ide-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "IDE-05 — Asset context and service dependency analysis identify how a compromise can affect dependent operations."
+    },
+    {
+      "uid": "asd-principles:ide-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "IDE-02 — Business impact and data classification inform system criticality ratings."
+    },
+    {
+      "uid": "asd-principles:ide-6",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "IDE-06 — Business impact analysis defines continuity, recovery time and recovery point requirements."
     }
   ],
   "BC-02": [
@@ -2485,6 +2803,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "System recovery capabilities. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-principles:res-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "RES-01 — Integrated response and continuity plans coordinate sustained operations and recovery."
     }
   ],
   "BC-03": [
@@ -2501,6 +2825,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Personnel management. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "asd-principles:gov-12",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "GOV-12 — Pre-access screening and repeat checks establish and review personnel suitability."
     }
   ],
   "PS-02": [
@@ -2517,6 +2847,18 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "NIST SP 800-53A sa-9_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    },
+    {
+      "uid": "asd-principles:pro-16",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-16 — Supplier inventories, due diligence and access controls protect the cyber supply chain."
+    },
+    {
+      "uid": "asd-principles:pro-20",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-20 — Brokered OT connections and monitored supplier access control remote entry paths."
     }
   ],
   "OT-03": [
@@ -2525,6 +2867,12 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "NIST SP 800-53A ir-8_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    },
+    {
+      "uid": "asd-principles:gov-13",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "GOV-13 — OT playbooks assess safety and availability consequences of isolation, response and recovery."
     }
   ],
   "AD-04": [
@@ -2541,6 +2889,12 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "NIST SP 800-53A cm-8_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    },
+    {
+      "uid": "asd-principles:ide-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "IDE-05 — Asset context and service dependency analysis identify how a compromise can affect dependent operations."
     }
   ],
   "CK-02": [
@@ -2549,6 +2903,18 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "NIST SP 800-53A sc-12_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    },
+    {
+      "uid": "asd-principles:pro-8",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-08 — Data protection, approved algorithms and key management support encryption at rest and in transit."
+    },
+    {
+      "uid": "asd-principles:pro-17",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-17 — Algorithm and key inventories inform cryptographic transition planning; migration readiness requires a separate change exercise."
     }
   ],
   "IN-03": [
@@ -2557,6 +2923,12 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "NIST SP 800-53A ir-6_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    },
+    {
+      "uid": "asd-principles:res-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "RES-02 — Notification procedures and tracked reporting obligations support timely stakeholder communication."
     }
   ],
   "PH-01": [
@@ -2565,6 +2937,12 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "NIST SP 800-53A pe-14_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    },
+    {
+      "uid": "asd-principles:pro-15",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-15 — Facility safeguards and access-log review restrict and monitor physical entry."
     }
   ],
   "IN-02": [
@@ -2573,6 +2951,12 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "NIST SP 800-53A ir-6_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    },
+    {
+      "uid": "asd-principles:res-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "RES-02 — Notification procedures and tracked reporting obligations support timely stakeholder communication."
     }
   ],
   "MD-01": [
@@ -2581,6 +2965,12 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "NIST SP 800-53A mp-6_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    },
+    {
+      "uid": "asd-principles:pro-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-01 — Secure development, release assurance, controlled change and sanitisation support the system lifecycle."
     }
   ],
   "AD-03": [
@@ -2597,6 +2987,260 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "NIST SP 800-53A ir-4_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    },
+    {
+      "uid": "asd-principles:det-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "DET-03 — Incident analysis and triage distinguish security incidents from other events."
+    }
+  ],
+  "GV-02": [
+    {
+      "uid": "asd-principles:gov-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "GOV-02 — Leadership, risk reporting and programme oversight support the CISO responsibility."
+    }
+  ],
+  "AW-02": [
+    {
+      "uid": "asd-principles:gov-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "GOV-04 — Governance and role-based capability planning support security staffing and resources."
+    },
+    {
+      "uid": "asd-principles:pro-14",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-14 — Recurring and role-specific training addresses duties, access and current threats."
+    }
+  ],
+  "RM-01": [
+    {
+      "uid": "asd-principles:gov-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "GOV-03 — The risk method and control-assessment programme support ongoing risk-management assurance."
+    },
+    {
+      "uid": "asd-principles:ide-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "IDE-03 — Risk criteria and development requirements document the security needed for systems."
+    }
+  ],
+  "ST-01": [
+    {
+      "uid": "asd-principles:gov-3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "GOV-03 — The risk method and control-assessment programme support ongoing risk-management assurance."
+    }
+  ],
+  "RM-03": [
+    {
+      "uid": "asd-principles:gov-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "GOV-05 — Risk owners approve residual risks and track treatment and reassessment before system authorisation."
+    },
+    {
+      "uid": "asd-principles:gov-6",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "GOV-06 — Risk records and supplier reviews support communication of retained and shared risks."
+    },
+    {
+      "uid": "asd-principles:gov-14",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "GOV-14 — Risk treatment and verified compensating controls support legacy-system operation until replacement."
+    },
+    {
+      "uid": "asd-principles:rec-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "REC-01 — Recorded residual-risk acceptance supports the decision to resume business operations."
+    }
+  ],
+  "ST-03": [
+    {
+      "uid": "asd-principles:gov-7",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "GOV-07 — Verified assessment fixes and exercised incident lessons drive control improvements."
+    },
+    {
+      "uid": "asd-principles:det-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "DET-05 — Adversarial exercises and verified fixes test and improve detection coverage."
+    },
+    {
+      "uid": "asd-principles:res-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "RES-04 — Incident lessons and verified corrective actions address recurrence and control gaps."
+    }
+  ],
+  "IR-03": [
+    {
+      "uid": "asd-principles:gov-7",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "GOV-07 — Verified assessment fixes and exercised incident lessons drive control improvements."
+    },
+    {
+      "uid": "asd-principles:res-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "RES-05 — Defined response roles and exercises test internal and external incident coordination."
+    },
+    {
+      "uid": "asd-principles:res-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "RES-04 — Incident lessons and verified corrective actions address recurrence and control gaps."
+    }
+  ],
+  "AM-01": [
+    {
+      "uid": "asd-principles:ide-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "IDE-01 — Asset, identity and information inventories identify the systems and data requiring protection."
+    },
+    {
+      "uid": "asd-principles:ide-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "IDE-05 — Asset context and service dependency analysis identify how a compromise can affect dependent operations."
+    }
+  ],
+  "IA-01": [
+    {
+      "uid": "asd-principles:ide-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "IDE-01 — Asset, identity and information inventories identify the systems and data requiring protection."
+    },
+    {
+      "uid": "asd-principles:pro-13",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-13 — Identity lifecycle, approved access and protected authenticators support secure access management."
+    }
+  ],
+  "DP-01": [
+    {
+      "uid": "asd-principles:ide-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "IDE-01 — Asset, identity and information inventories identify the systems and data requiring protection."
+    },
+    {
+      "uid": "asd-principles:ide-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "IDE-02 — Business impact and data classification inform system criticality ratings."
+    }
+  ],
+  "RM-02": [
+    {
+      "uid": "asd-principles:ide-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "IDE-04 — Threat analysis and threat modelling identify system risks and inform recorded decisions."
+    }
+  ],
+  "SD-02": [
+    {
+      "uid": "asd-principles:ide-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "IDE-04 — Threat analysis and threat modelling identify system risks and inform recorded decisions."
+    }
+  ],
+  "AM-03": [
+    {
+      "uid": "asd-principles:pro-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-01 — Secure development, release assurance, controlled change and sanitisation support the system lifecycle."
+    }
+  ],
+  "IA-02": [
+    {
+      "uid": "asd-principles:pro-13",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-13 — Identity lifecycle, approved access and protected authenticators support secure access management."
+    },
+    {
+      "uid": "asd-principles:pro-12",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-12 — Access approvals and reviews restrict permissions to current duties."
+    }
+  ],
+  "IA-03": [
+    {
+      "uid": "asd-principles:pro-13",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-13 — Identity lifecycle, approved access and protected authenticators support secure access management."
+    }
+  ],
+  "PA-05": [
+    {
+      "uid": "asd-principles:pro-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-05 — Dedicated accounts, protected authentication and activity records secure system administration."
+    },
+    {
+      "uid": "asd-principles:det-4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "DET-04 — Identity, authentication and privileged-activity records support baseline comparison and anomaly review."
+    }
+  ],
+  "AD-02": [
+    {
+      "uid": "asd-principles:pro-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-05 — Dedicated accounts, protected authentication and activity records secure system administration."
+    }
+  ],
+  "PH-02": [
+    {
+      "uid": "asd-principles:pro-15",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "PRO-15 — Facility safeguards and access-log review restrict and monitor physical entry."
+    }
+  ],
+  "IR-01": [
+    {
+      "uid": "asd-principles:res-1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "RES-01 — Integrated response and continuity plans coordinate sustained operations and recovery."
+    },
+    {
+      "uid": "asd-principles:res-5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "RES-05 — Defined response roles and exercises test internal and external incident coordination."
+    },
+    {
+      "uid": "asd-principles:res-2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "RES-02 — Notification procedures and tracked reporting obligations support timely stakeholder communication."
     }
   ]
 }

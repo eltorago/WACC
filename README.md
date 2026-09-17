@@ -17,7 +17,7 @@ topics**. Each control has:
 - reviewed links to relevant publisher requirements; and
 - links to other controls that address the same problem.
 
-The source browser contains **7,395 records across 22 framework families (23 source sets)** when the reviewed sources are loaded. These include the ACSC mitigation strategies, SCF, Microsoft Cloud Security Benchmark v1 and CISA's Microsoft 365 baselines. You can search by
+The source browser contains **7,395 records across 22 framework families (24 source sets)** when the reviewed sources are loaded. These include ASD's Cyber Security Principles, the ACSC mitigation strategies, SCF, Microsoft Cloud Security Benchmark v1 and CISA's Microsoft 365 baselines. You can search by
 subject or identifier, inspect the source wording and published assessment material, move
 between linked controls, limit results to selected frameworks and export mappings to CSV.
 
@@ -41,6 +41,17 @@ count of distinct controls. [ACSC describes the relationship here](https://www.c
 
 Topics and controls are listed alphabetically. Open **Framework coverage & checks** in
 the workspace to review new frameworks and navigate directly to a technical check.
+
+**ASD Cyber Security Principles** is a separate framework scope option. It contains
+the 49 September 2026 principles across Govern, Identify, Protect, Detect, Respond
+and Recover, with 101 reviewed links to workspace controls. Search **ASD principles**
+for the whole source set, or a source identifier such as `asd-principles:PRO-12`.
+The principles load from ASD's official ISM OSCAL download and are counted once;
+the ISM scope contains the remaining 1,143 numbered security controls. Existing
+`ism:gov-1`-style links still resolve. Both source sets belong to the ISM family.
+The [ASD principles page](https://www.cyber.gov.au/business-government/asds-cyber-security-frameworks/ism/cyber-security-principles)
+is also acquired automatically for source review. Reproduce the comparison with
+`python tools/review_asd_principles.py` after acquiring sources.
 
 ## Run the application
 

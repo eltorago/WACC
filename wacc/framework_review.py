@@ -13,7 +13,7 @@ def render(corpus):
     esc=html.escape
     review=json.loads((Path(__file__).resolve().parents[1]/'data/framework-review.json').read_text(encoding='utf-8'))
     rows=[]
-    for key in ('asd-strategies','mcsb','scuba','scf'):
+    for key in ('asd-principles','asd-strategies','mcsb','scuba','scf'):
         fw=corpus.frameworks[key]
         count=len(corpus.controls_for(key))
         if key=='asd-strategies':

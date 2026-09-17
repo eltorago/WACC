@@ -667,6 +667,12 @@ NAMED_SETS: Dict[str, Tuple[str, Optional[str], str]] = {
     ),
     "acsc strategies": ("asd-strategies", None, "the ACSC mitigation strategies"),
     "asd strategies": ("asd-strategies", None, "the ACSC mitigation strategies"),
+    "asd principles": ("asd-principles", None, "the ASD Cyber Security Principles"),
+    "acsc principles": ("asd-principles", None, "the ASD Cyber Security Principles"),
+    "ism principles": ("asd-principles", None, "the ASD Cyber Security Principles"),
+    "cyber security principles": ("asd-principles", None, "the ASD Cyber Security Principles"),
+    "cybersecurity principles": ("asd-principles", None, "the ASD Cyber Security Principles"),
+    "asd cyber security principles": ("asd-principles", None, "the ASD Cyber Security Principles"),
     "strategies to mitigate cyber security incidents": ("asd-strategies", None, "the ACSC mitigation strategies"),
 }
 

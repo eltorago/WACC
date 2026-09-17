@@ -11,7 +11,9 @@ SUBSET_SOURCE = 'https://www.cyber.gov.au/business-government/asds-cyber-securit
 
 
 def family(key):
-    return ASD_FAMILY if key == 'essential-eight' else key
+    if key == 'essential-eight': return ASD_FAMILY
+    if key == 'asd-principles': return 'ism'
+    return key
 
 
 def count(keys):

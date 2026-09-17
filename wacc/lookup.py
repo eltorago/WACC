@@ -153,7 +153,17 @@ class IdentifierIndex:
             )
 
         framework_key, stripped = self._framework_qualifier(raw)
+        if ':' in raw:
+            prefix, identifier = raw.split(':', 1)
+            if prefix.casefold() in self.corpus.frameworks:
+                framework_key, stripped = prefix.casefold(), identifier
         normalised = normalise_identifier(stripped)
+        if framework_key:
+            direct = self.corpus.control(framework_key + ':' + normalised)
+            if direct is not None:
+                return LookupResult(query=raw, normalised=normalised, status=Status.UNIQUE,
+                                    matches=[direct], matched_form=normalised,
+                                    framework_filter=framework_key)
         forms = identifier_variants(stripped)
 
         uids, matched_form = self._collect(forms)
