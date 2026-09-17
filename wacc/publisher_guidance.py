@@ -15,6 +15,12 @@ def render(control):
         result+='<p class="muted"><strong>Source edition:</strong> %s</p>'%esc(attributes['edition_note'])
     if attributes.get('identifier_note'):
         result+='<p class="muted">%s</p>'%esc(attributes['identifier_note'])
+    if attributes.get('scope_note'):
+        result+='<p class="muted">%s</p>'%esc(attributes['scope_note'])
+    if attributes.get('legal_context'):
+        result+='<p>'+' · '.join('<a href="/?%s">%s</a>' % (
+            esc(urlencode({'q':ref['uid'],'view':'cards'})),esc(ref['label']))
+            for ref in attributes['legal_context'])+'</p>'
     if attributes.get('implementation_examples'):
         text=attributes['implementation_examples']
         url=attributes.get('implementation_source_url') or attributes.get('source_url')

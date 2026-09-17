@@ -2,7 +2,7 @@
 
 Review date: 2026-09-17
 
-7,395 source records across 22 framework families (24 source sets); 84 practical controls, 58 technical checks and 13 dated OAG reports.
+7,728 source records across 23 framework families (25 source sets); 84 practical controls, 58 technical checks and 13 dated OAG reports.
 
 ## Integrity checks
 
@@ -41,7 +41,7 @@ The JSON companion records distinct source records matching each declared topic 
 - csf: DE.DP is marked withdrawn but names no replacement
 - aescsf: 45 references name ISM controls not in the loaded ISM (12 distinct, e.g. ISM-1185, ISM-1388, ISM-1433, ISM-1435, ISM-1651). AESCSF cites the revision current when it was published; these have since been retired.
 - pspf: requirement numbers are not contiguous — 113 absent from the published table. Nothing downstream may assume a dense range.
-- cirmp-rules: 6 framework-table rows lack resolved links to the required document editions: Australian Standard AS ISO/IEC 27001:2015; Australian Standard AS ISO/IEC 27001:2023; Essential Eight Maturity Model published by the Australian Signals Directorate; Framework for Improving Critical Infrastructure Cybersecurity published by the National Institute of Standards and Technology of the United States of America; The 202021 AESCSF Framework Core published by Australian Energy Market Operator Limited (ACN 072 010 327)
+- cirmp-rules: 6 framework-table rows lack resolved links to the required document editions: Australian Standard AS ISO/IEC 27001:2015; Australian Standard AS ISO/IEC 27001:2023; Essential Eight Maturity Model published by the Australian Signals Directorate; Framework for Improving Critical Infrastructure Cybersecurity published by the National Institute of Standards and Technology of the United States of America; The 2020-21 AESCSF Framework Core published by Australian Energy Market Operator Limited (ACN 072 010 327)
 - benchmark detail for cis-win11 not extracted; run tools/extract_cis_benchmark.py
 - benchmark detail for cis-m365 not extracted; run tools/extract_cis_benchmark.py
 - benchmark detail for cis-azure not extracted; run tools/extract_cis_benchmark.py

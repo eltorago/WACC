@@ -17,7 +17,7 @@ topics**. Each control has:
 - reviewed links to relevant publisher requirements; and
 - links to other controls that address the same problem.
 
-The source browser contains **7,395 records across 22 framework families (24 source sets)** when the reviewed sources are loaded. These include ASD's Cyber Security Principles, the ACSC mitigation strategies, SCF, Microsoft Cloud Security Benchmark v1 and CISA's Microsoft 365 baselines. You can search by
+The source browser contains **7,728 records across 23 framework families (25 source sets)** when the reviewed sources are loaded. These include the WA PRIS Act, ASD's Cyber Security Principles, the ACSC mitigation strategies, SCF, Microsoft Cloud Security Benchmark v1 and CISA's Microsoft 365 baselines. You can search by
 subject or identifier, inspect the source wording and published assessment material, move
 between linked controls, limit results to selected frameworks and export mappings to CSV.
 
@@ -52,6 +52,16 @@ the ISM scope contains the remaining 1,143 numbered security controls. Existing
 The [ASD principles page](https://www.cyber.gov.au/business-government/asds-cyber-security-frameworks/ism/cyber-security-principles)
 is also acquired automatically for source review. Reproduce the comparison with
 `python tools/review_asd_principles.py` after acquiring sources.
+
+**WA PRIS Act** is also available as a framework scope option. It uses the official
+1 July 2026 consolidation of the Privacy and Responsible Information Sharing Act 2024,
+including all 11 Information Privacy Principles and five responsible-sharing principles.
+There are 73 reviewed links to 16 workspace controls. Search **WA PRIS Act** or an
+identifier such as `PRIS IPP 4.1`, `PRIS RSP 3.1` or `wa-pris:s 79`.
+The source downloads automatically. The uncommenced breach notification provisions are
+excluded; the Government has announced 1 January 2027 for that scheme.
+See [the PRIS framework review](docs/wa-pris-framework.md) for scope, source validation
+and update steps.
 
 ## Run the application
 

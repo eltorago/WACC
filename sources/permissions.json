@@ -1180,6 +1180,20 @@
       "reviewed_on": "2026-09-17",
       "modified": false,
       "provenance": "Official September 2026 page. All 49 principles were compared with the existing official ISM OSCAL 2026.09.4 catalogue: identifiers, titles, statements and order match. Runtime text comes from that catalogue; this page is the cross-check and publisher reference."
+    },
+    {
+      "filename": "wa-pris-act-2026-07.docx",
+      "status": "local-reference-only",
+      "policy_group": "wa-pris",
+      "license": "State of Western Australia; CC BY 4.0",
+      "permission_url": "https://www.legislation.wa.gov.au/legislation/statutes.nsf/copyright.html",
+      "basis_and_conditions": "The source copyright page confirms CC BY 4.0. Attribute State of Western Australia 2026 and download date; WACC structures text and adds local mappings. Exclude the crest. Publisher originals remain in the local cache.",
+      "source_url": "https://www.legislation.wa.gov.au/legislation/statutes.nsf/law_a147470.html",
+      "sha256": "e8354bcce6be68901e64101aabca8809906fd1d9f73dd7d95ee3e02a8223d4d7",
+      "bytes": 205272,
+      "reviewed_on": "2026-09-17",
+      "modified": false,
+      "provenance": "Official current consolidation 00-g0-01, effective 1 July 2026. The uncommenced provisions table excludes Part 2 Division 6, Division 10 Subdivision 4, sections 134-136 and Part 3 Division 6."
     }
   ]
 }

@@ -30,7 +30,7 @@ class PrinciplesTests(unittest.TestCase):
         self.assertEqual(Counter(c.attributes['function'] for c in records),
                          dict(Govern=14, Identify=6, Protect=17, Detect=5, Respond=5, Recover=2))
         self.assertEqual(len(corpus.controls_for('ism')), 1143)
-        self.assertEqual(len(corpus.controls), 7395)
+        self.assertEqual(sum(c.framework_key != 'wa-pris' for c in corpus.controls.values()), 7395)
         self.assertEqual(framework_families.count(['ism', 'asd-principles']), 1)
         self.assertFalse(any(c.attributes.get('class') == 'ISM-principle' for c in corpus.controls_for('ism')))
         self.assertEqual([c.identifier for c in records], list(principles.IDENTIFIERS))

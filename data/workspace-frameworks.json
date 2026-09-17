@@ -2023,6 +2023,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "GOV-09 — Named risk owners and supplier assessments document shared security responsibilities."
+    },
+    {
+      "uid": "wa-pris:s 151",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · S 151. Inspect the designation of a senior privacy officer and notification of name and contact changes."
+    },
+    {
+      "uid": "wa-pris:s 210",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · S 210. Inspect the designation of an information sharing officer and notification to the Chief Data Officer."
     }
   ],
   "SC-01": [
@@ -2043,6 +2055,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-16 — Supplier inventories, due diligence and access controls protect the cyber supply chain."
+    },
+    {
+      "uid": "wa-pris:rsp 2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · RSP 2. Assess the recipient’s capability, governance, support needs and other interests before sharing."
     }
   ],
   "SC-02": [
@@ -2075,6 +2093,42 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-16 — Supplier inventories, due diligence and access controls protect the cyber supply chain."
+    },
+    {
+      "uid": "wa-pris:s 129",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · S 129. Check whether the State services contract opts the provider into PRIS privacy obligations; this section permits the clause rather than requiring it in every contract."
+    },
+    {
+      "uid": "wa-pris:s 130",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · S 130. For an opted-in contract, review how the outsourcing entity’s privacy requirements apply to the provider."
+    },
+    {
+      "uid": "wa-pris:ipp 9.1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 9.1. Inspect the basis and recipient protections for overseas personal-information disclosures."
+    },
+    {
+      "uid": "wa-pris:s 170",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · S 170. Inspect the sharing agreement’s parties, purpose, term, information, responsibilities and exit terms."
+    },
+    {
+      "uid": "wa-pris:s 175",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · S 175. Inspect the recipient-specific sharing assessment and agreed safeguards."
+    },
+    {
+      "uid": "wa-pris:rsp 2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · RSP 2. Review recipient security capability, access restrictions, systems and governance."
     }
   ],
   "NA-01": [
@@ -2425,6 +2479,24 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-09 — Boundary inspection and data-movement controls examine traffic crossing security domains."
+    },
+    {
+      "uid": "wa-pris:ipp 4.1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 4.1. Test restrictions on unauthorised export and disclosure of personal information."
+    },
+    {
+      "uid": "wa-pris:ipp 9.1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 9.1. Verify overseas disclosure routes match the approved basis and recipient safeguards."
+    },
+    {
+      "uid": "wa-pris:rsp 5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · RSP 5. Check approvals and recipient restrictions before releasing derived information or analytics outputs."
     }
   ],
   "MW-02": [
@@ -2487,6 +2559,24 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-08 — Data protection, approved algorithms and key management support encryption at rest and in transit."
+    },
+    {
+      "uid": "wa-pris:ipp 4.1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 4.1. Inspect protection of stored and transmitted personal information against loss, misuse and unauthorised access or changes."
+    },
+    {
+      "uid": "wa-pris:ipp 11.1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 11.1. Check de-identified data is protected from unauthorised access, changes and re-identification."
+    },
+    {
+      "uid": "wa-pris:rsp 4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · RSP 4. Check the locations, environments, transfer methods and protective systems used for shared information."
     }
   ],
   "PA-01": [
@@ -2619,6 +2709,180 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Outbound web and email data loss prevention. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "wa-pris:ipp 1.1",
+      "relationship": "Directly addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 1.1. Check each collected field is necessary for a function or activity."
+    },
+    {
+      "uid": "wa-pris:ipp 1.2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 1.2. Check sensitive-information collection has both a necessary purpose and an applicable consent or legal basis."
+    },
+    {
+      "uid": "wa-pris:ipp 1.4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 1.4. Review fair and reasonable collection against the factors listed in the provision."
+    },
+    {
+      "uid": "wa-pris:ipp 1.5",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 1.5. Apply the stated exceptions when reviewing the fair-and-reasonable collection test."
+    },
+    {
+      "uid": "wa-pris:ipp 1.8",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 1.8. Check collection is from the individual or meets a listed exception."
+    },
+    {
+      "uid": "wa-pris:ipp 1.9",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 1.9. Compare collection notices with the required information and when the person receives it."
+    },
+    {
+      "uid": "wa-pris:ipp 1.10",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 1.10. Check notices for personal information collected from another person, including the stated exceptions."
+    },
+    {
+      "uid": "wa-pris:ipp 2.1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 2.1. Trace secondary uses and disclosures to a permitted basis; keep the provision’s exceptions with the decision."
+    },
+    {
+      "uid": "wa-pris:ipp 2.2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 2.2. Review fair and reasonable use or disclosure against the listed factors."
+    },
+    {
+      "uid": "wa-pris:ipp 2.3",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 2.3. Apply the stated exceptions to the fair-and-reasonable use or disclosure test."
+    },
+    {
+      "uid": "wa-pris:ipp 2.4",
+      "relationship": "Directly addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 2.4. Inspect the written secondary purpose recorded before use or disclosure."
+    },
+    {
+      "uid": "wa-pris:ipp 2.5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 2.5. Inspect written records for the law-enforcement uses or disclosures specified in this provision."
+    },
+    {
+      "uid": "wa-pris:ipp 3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 3. Sample personal records for accuracy, completeness and currency before use or disclosure."
+    },
+    {
+      "uid": "wa-pris:ipp 4.2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 4.2. Compare retention schedules and disposal records with ongoing purpose and other legal retention requirements."
+    },
+    {
+      "uid": "wa-pris:ipp 5.1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 5.1. Inspect the personal-information handling policy and how it is supplied on request."
+    },
+    {
+      "uid": "wa-pris:ipp 5.2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 5.2. Check the handling policy is current, concise and understandable."
+    },
+    {
+      "uid": "wa-pris:ipp 7.1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 7.1. Check why unique identifiers are needed for the business function."
+    },
+    {
+      "uid": "wa-pris:ipp 7.2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 7.2. Check the permitted basis before adopting another entity’s identifier."
+    },
+    {
+      "uid": "wa-pris:ipp 7.3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 7.3. Check the permitted basis for using or disclosing another entity’s identifier."
+    },
+    {
+      "uid": "wa-pris:ipp 7.4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 7.4. Check a service does not require an identifier without the stated legal or purpose connection."
+    },
+    {
+      "uid": "wa-pris:ipp 8.1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 8.1. Test whether a person can use the service anonymously."
+    },
+    {
+      "uid": "wa-pris:ipp 8.2",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 8.2. Check the legal or practical reason when anonymous service is not available."
+    },
+    {
+      "uid": "wa-pris:ipp 9.1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 9.1. Review overseas disclosures against the permitted bases, recipient safeguards and contracts."
+    },
+    {
+      "uid": "wa-pris:ipp 9.2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 9.2. Check overseas recipients protect de-identified data and restrict re-identification and onward disclosure."
+    },
+    {
+      "uid": "wa-pris:ipp 10.2",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 10.2. Privacy notices support this principle; the automated-decision notice, explanation and human-review process need a separate walkthrough."
+    },
+    {
+      "uid": "wa-pris:ipp 11.2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 11.2. Check re-identification is authorised for the specified purpose or falls within a stated exception."
+    },
+    {
+      "uid": "wa-pris:rsp 1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · RSP 1. Inspect the sharing assessment for permitted purpose, necessity, public benefit and risks."
+    },
+    {
+      "uid": "wa-pris:rsp 3.2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · RSP 3.2. Check the basis for including personal information in the proposed sharing activity."
+    },
+    {
+      "uid": "wa-pris:rsp 5",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · RSP 5. Review proposed analytics outputs for recipients and the risk of identifying individuals."
     }
   ],
   "SM-02": [
@@ -2859,6 +3123,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-20 — Brokered OT connections and monitored supplier access control remote entry paths."
+    },
+    {
+      "uid": "wa-pris:s 170",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · S 170. Check handling of shared information when a party withdraws or the agreement ends."
+    },
+    {
+      "uid": "wa-pris:rsp 4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · RSP 4. Check retention, access removal and disposal of shared information after use."
     }
   ],
   "OT-03": [
@@ -2971,6 +3247,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-01 — Secure development, release assurance, controlled change and sanitisation support the system lifecycle."
+    },
+    {
+      "uid": "wa-pris:ipp 4.2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 4.2. Inspect sanitisation and deletion evidence, accounting for legal retention requirements and all copies."
     }
   ],
   "AD-03": [
@@ -3063,6 +3345,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "REC-01 — Recorded residual-risk acceptance supports the decision to resume business operations."
+    },
+    {
+      "uid": "wa-pris:s 175",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · S 175. Trace identified sharing risks to safeguards included in the agreement and actions for safeguard breaches."
     }
   ],
   "ST-03": [
@@ -3145,6 +3433,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "IDE-02 — Business impact and data classification inform system criticality ratings."
+    },
+    {
+      "uid": "wa-pris:rsp 3.1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · RSP 3.1. Verify the classification and inventory identify sensitive information and re-identification risk before sharing."
+    },
+    {
+      "uid": "wa-pris:s 177",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · S 177. Use classification to identify sensitive Aboriginal information; inspect the separate Aboriginal information assessment and any required consultation, consent and safeguards."
     }
   ],
   "RM-02": [
@@ -3153,6 +3453,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "IDE-04 — Threat analysis and threat modelling identify system risks and inform recorded decisions."
+    },
+    {
+      "uid": "wa-pris:s 79",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · S 79. Inspect the written assessment of likelihood, privacy impact and recommended treatments for high-impact activities."
+    },
+    {
+      "uid": "wa-pris:s 175",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · S 175. Inspect the written assessment of all five sharing principles for each proposed recipient."
     }
   ],
   "SD-02": [
@@ -3183,6 +3495,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-12 — Access approvals and reviews restrict permissions to current duties."
+    },
+    {
+      "uid": "wa-pris:ipp 4.1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 4.1. Sample access approvals and removal of personal-information access when no longer needed."
+    },
+    {
+      "uid": "wa-pris:rsp 2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · RSP 2. Check recipients restrict shared information to appropriately authorised people."
     }
   ],
   "IA-03": [
@@ -3241,6 +3565,126 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "RES-02 — Notification procedures and tracked reporting obligations support timely stakeholder communication."
+    },
+    {
+      "uid": "wa-pris:rsp 4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · RSP 4. Check the recipient’s response plan covers a breach involving shared information."
+    }
+  ],
+  "PI-01": [
+    {
+      "uid": "wa-pris:ipp 1.7",
+      "relationship": "Directly addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 1.7. Compare the processing inventory with the written purpose recorded before collection."
+    },
+    {
+      "uid": "wa-pris:ipp 5.3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 5.3. Use the inventory and data-flow map to explain holdings, handling, purposes and automated decision-making."
+    },
+    {
+      "uid": "wa-pris:s 14",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · S 14. Check whether the organisation is an IPP entity, including the contract conditions for service providers."
+    },
+    {
+      "uid": "wa-pris:s 223",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · S 223. Record collection dates: IPPs 1, 7, 8 and 10 apply only to information collected on or after 1 July 2026."
+    },
+    {
+      "uid": "wa-pris:rsp 3.1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · RSP 3.1. Check the proposed sharing dataset, its necessity, quality, sensitivity and re-identification risk."
+    }
+  ],
+  "PI-03": [
+    {
+      "uid": "wa-pris:s 27",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · S 27. Check whether access and correction use IPP 6 or the applicable FOI route before applying its response period."
+    },
+    {
+      "uid": "wa-pris:ipp 6.1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 6.1. Sample access requests against the required process and documented grounds for withholding information."
+    },
+    {
+      "uid": "wa-pris:ipp 6.5",
+      "relationship": "Directly addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 6.5. Trace correction requests to evidence that inaccurate, incomplete or out-of-date records were corrected."
+    },
+    {
+      "uid": "wa-pris:ipp 6.6",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 6.6. Check disputed records carry the individual’s requested statement."
+    },
+    {
+      "uid": "wa-pris:ipp 6.7",
+      "relationship": "Directly addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 6.7. Check refusal letters give reasons for denying access or correction."
+    },
+    {
+      "uid": "wa-pris:ipp 6.8",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 6.8. For IPP 6 requests, verify access, correction, refusal reasons or delay reasons are provided within 45 days."
+    },
+    {
+      "uid": "wa-pris:s 79",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · S 79. Inspect the written privacy impact assessment before a high-impact activity starts or its handling changes significantly."
+    },
+    {
+      "uid": "wa-pris:s 227",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · S 227. Distinguish activities already operating before commencement from new activities and significant changes."
+    },
+    {
+      "uid": "wa-pris:s 151",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · S 151. Check the designated privacy officer, complaint ownership and notification of officer details to the Commissioner."
+    },
+    {
+      "uid": "wa-pris:s 176",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · S 176. Inspect the sharing privacy impact assessment and publication decision where an activity has significant privacy impact, involves linkage/integration or an external recipient."
+    },
+    {
+      "uid": "wa-pris:ipp 10.1",
+      "relationship": "Related only",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 10.1. Privacy risk review supports the impact assessment; separately check automated-decision bias, harm, human intervention, periodic review and changes."
+    },
+    {
+      "uid": "wa-pris:rsp 4",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · RSP 4. Assess the receiving environment’s security and ability to respond to an information breach."
+    }
+  ],
+  "MD-02": [
+    {
+      "uid": "wa-pris:ipp 4.2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "WA PRIS Act · IPP 4.2. Check destruction records for personal-information media that cannot be safely sanitised."
     }
   ]
 }

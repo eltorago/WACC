@@ -305,7 +305,7 @@ def run() -> int:
         "silent and absent are different answers and a reader acts on them differently",
     )
     check.expect(
-        absent_payload.frameworks_present == 21,  # 22 families, with SOCI absent; ISM/principles and strategies/E8 share families.
+        absent_payload.frameworks_present == 22,  # 23 families, with SOCI absent; ISM/principles and strategies/E8 share families.
         "absent", "the framework count counts the build, not the registry",
         "'across 12 of 18 frameworks' read as coverage when nine of the eighteen were "
         "not loaded at all",
