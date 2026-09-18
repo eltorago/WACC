@@ -113,7 +113,7 @@ class FrameworkCoverage:
 
     @property
     def is_empty(self) -> bool:
-        return not self.controls
+        return self.total == 0
 
     @property
     def hidden(self) -> int:
@@ -203,6 +203,7 @@ class Analysis:
     off_subject: List[Threshold] = field(default_factory=list)
     depth: int = 0
     corpus_frameworks: Dict[str, Framework] = field(default_factory=dict)
+    lookup_note: str = ""
 
     @property
     def incompatible_bounds(self) -> List[Disagreement]:

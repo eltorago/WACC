@@ -62,6 +62,8 @@ def to_csv(corpus: Corpus, analysis: Analysis) -> str:
     buffer = io.StringIO()
     writer = csv.writer(buffer, lineterminator="\n")
     writer.writerow(["subject", analysis.subject])
+    if analysis.lookup_note:
+        writer.writerow(["identifier status", analysis.lookup_note])
     writer.writerow(
         ["controls shown", len(analysis.controls), "controls read", analysis.depth]
     )

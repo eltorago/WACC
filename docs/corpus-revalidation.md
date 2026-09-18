@@ -1,6 +1,6 @@
 # Corpus revalidation and additional control candidates
 
-Review date: 2026-09-17
+Review date: 2026-09-18
 
 7,728 source records across 23 framework families (25 source sets); 84 practical controls, 58 technical checks and 13 dated OAG reports.
 
@@ -31,11 +31,6 @@ The JSON companion records distinct source records matching each declared topic 
 ## Remaining source limitations
 
 - cis-controls: 5 safeguard identifiers were rebuilt from position because the workbook stores them as numbers and cannot tell 3.10 from 3.1
-- cis mapping names safeguard 2.8, which the v8 catalogue does not contain; the mapping workbook is v8.1
-- cis mapping names safeguard 6.9, which the v8 catalogue does not contain; the mapping workbook is v8.1
-- cis mapping names safeguard 7.8, which the v8 catalogue does not contain; the mapping workbook is v8.1
-- cis mapping names safeguard 7.9, which the v8 catalogue does not contain; the mapping workbook is v8.1
-- cis mapping names safeguard 12.9, which the v8 catalogue does not contain; the mapping workbook is v8.1
 - csf: PR.IP is marked withdrawn but names no replacement
 - csf: PR.PT is marked withdrawn but names no replacement
 - csf: DE.DP is marked withdrawn but names no replacement

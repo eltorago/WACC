@@ -171,7 +171,7 @@ class IdentifierIndex:
             # an absent PSPF 'Req 113' must not resolve to a statute's 's 113'.
             forms = [form for form in forms if not form[:1].isdigit()]
 
-        uids, matched_form = self._collect(forms)
+        uids, matched_form = self._collect(forms, framework_key)
         controls = [self.corpus.controls[u] for u in uids if u in self.corpus.controls]
 
         if framework_key:
@@ -225,13 +225,13 @@ class IdentifierIndex:
 
     # -- internals ---------------------------------------------------------
 
-    def _collect(self, forms: Sequence[str]) -> Tuple[List[str], Optional[str]]:
-        for form in forms:
-            if form in self.primary:
-                return list(self.primary[form]), form
-        for form in forms:
-            if form in self.alias:
-                return list(self.alias[form]), form
+    def _collect(self, forms: Sequence[str], framework_key: Optional[str] = None) -> Tuple[List[str], Optional[str]]:
+        for table in (self.primary, self.alias):
+            for form in forms:
+                matches = [uid for uid in table.get(form, [])
+                           if framework_key is None or self.corpus.controls[uid].framework_key == framework_key]
+                if matches:
+                    return matches, form
         return [], None
 
     def _withdrawn(

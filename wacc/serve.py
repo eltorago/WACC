@@ -9,6 +9,7 @@ in Python so the web and test outputs use the same wording and escaping rules.
 """
 
 import argparse
+import errno
 import socket
 import sys
 import urllib.parse
@@ -61,6 +62,14 @@ class State:
                     self.corpus, query, controls, evidence="exact identifier lookup",
                     display=controls,
                 )
+            if found.status == Status.WITHDRAWN:
+                replacements = {c.uid: c for redirect in found.redirects for c in redirect.resolved}
+                controls = list(replacements.values())
+                result = analyse(self.corpus, query, controls, evidence="publisher replacement links",
+                                 display=controls)
+                result.lookup_note = found.note or "This identifier was withdrawn by its publisher."
+                result.notes.insert(0, result.lookup_note)
+                return result
         deep = gather(self.corpus, self.index, query)
         shown = [hit.control for hit in self.index.search(query, limit=limit).hits]
         return analyse(self.corpus, query, deep, display=shown)
@@ -230,31 +239,48 @@ def _handler(initial_state: State):
     return Handler
 
 
-def free_port(preferred: int, host: str = "127.0.0.1", span: int = 20) -> int:
-    """The first free port at or after the preferred one.
+class LocalHTTPServer(ThreadingHTTPServer):
+    allow_reuse_address = False
+    allow_reuse_port = False
 
-    A second copy of the tool on the same machine is a normal thing to want and refusing
-    to start because 8765 is taken is not a useful answer. Returns the preferred port if
-    nothing in the span is free, so the bind failure is reported by the bind rather than
-    swallowed here.
-    """
-    for port in range(preferred, preferred + span):
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as probe:
-            probe.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-            try:
-                probe.bind((host, port))
-                return port
-            except OSError:
-                continue
-    return preferred
+    def server_bind(self):
+        # Windows SO_REUSEADDR can bind an occupied port and serve the old instance.
+        if hasattr(socket, "SO_EXCLUSIVEADDRUSE"):
+            self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_EXCLUSIVEADDRUSE, 1)
+        super().server_bind()
+
+
+class IPv6LocalHTTPServer(LocalHTTPServer):
+    address_family = socket.AF_INET6
+
+
+def bind_server(host, preferred, handler, span=20):
+    """Bind the actual listener, retaining it so there is no probe/bind race."""
+    if not 0 <= preferred <= 65535 or span < 1:
+        raise ValueError("Port must be between 0 and 65535 and span must be positive.")
+    server_type = IPv6LocalHTTPServer if host == "::1" else LocalHTTPServer
+    ports = [0] if preferred == 0 else range(preferred, min(preferred + span, 65536))
+    for port in ports:
+        try:
+            return server_type((host, port), handler)
+        except OSError as error:
+            if error.errno not in (errno.EADDRINUSE, errno.EACCES):
+                raise
+            last_error = error
+    raise last_error
+
+
+def free_port(preferred: int, host: str = "127.0.0.1", span: int = 20) -> int:
+    """Inspect port availability; serving uses bind_server to keep the port reserved."""
+    with bind_server(host, preferred, BaseHTTPRequestHandler, span) as server:
+        return server.server_port
 
 
 def serve(host: str = "127.0.0.1", port: int = 8765, verbose: bool = True,
           open_browser: bool = False) -> None:
     state = State(verbose=verbose)
-    port = free_port(port, host)
-    server = ThreadingHTTPServer((host, port), _handler(state))
-    url = "http://%s:%d/" % (host, port)
+    server = bind_server(host, port, _handler(state))
+    url = "http://%s:%d/" % ("[::1]" if host == "::1" else host, server.server_port)
     from .framework_families import count as family_count
     loaded={c.framework_key for c in state.corpus.controls.values()}
     print("WACC on %s  (%d source records, %d framework families). Ctrl-C to stop."
