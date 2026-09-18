@@ -137,7 +137,7 @@
     }
   },
   "loaded_controls": 7728,
-  "eligible_entries": 6431,
+  "eligible_entries": 6478,
   "eligible_frameworks": 23,
   "topics": [
     {
@@ -147,7 +147,7 @@
       "frameworks": 17,
       "frequency_score": 5,
       "frequency_rating": "Very high",
-      "mean_framework_share": 7.19,
+      "mean_framework_share": 7.16,
       "per_framework": {
         "aescsf": 26,
         "asd-strategies": 28,
@@ -182,7 +182,7 @@
     {
       "code": "VM",
       "topic": "Vulnerability management",
-      "controls": 231,
+      "controls": 232,
       "frameworks": 16,
       "frequency_score": 5,
       "frequency_rating": "Very high",
@@ -201,7 +201,7 @@
         "oag-wa": 2,
         "pspf": 3,
         "scf": 45,
-        "soci-act": 8,
+        "soci-act": 9,
         "wa-csp": 4,
         "ztmm": 3
       },
@@ -259,7 +259,7 @@
       "frameworks": 16,
       "frequency_score": 4,
       "frequency_rating": "High",
-      "mean_framework_share": 4.61,
+      "mean_framework_share": 4.6,
       "per_framework": {
         "aescsf": 9,
         "asd-ad": 17,
@@ -327,6 +327,42 @@
       "rank": 5
     },
     {
+      "code": "IR",
+      "topic": "Incident response and management",
+      "controls": 147,
+      "frameworks": 14,
+      "frequency_score": 4,
+      "frequency_rating": "High",
+      "mean_framework_share": 3.08,
+      "per_framework": {
+        "aescsf": 15,
+        "asd-strategies": 2,
+        "c2m2": 13,
+        "cis-controls": 7,
+        "csf": 11,
+        "ism": 10,
+        "mcsb": 6,
+        "nist-800-53": 30,
+        "oag-wa": 1,
+        "pspf": 1,
+        "scf": 29,
+        "soci-act": 11,
+        "wa-circular": 2,
+        "wa-csp": 9
+      },
+      "sample_uids": [
+        "ism:ism-576",
+        "ism:ism-1784",
+        "ism:ism-1819",
+        "ism:ism-1970",
+        "ism:ism-43",
+        "ism:ism-1019",
+        "ism:ism-1805",
+        "asd-principles:pro-16"
+      ],
+      "rank": 6
+    },
+    {
       "code": "SM",
       "topic": "Security monitoring",
       "controls": 143,
@@ -361,42 +397,6 @@
         "ism:ism-1959",
         "ism:ism-1986"
       ],
-      "rank": 6
-    },
-    {
-      "code": "IR",
-      "topic": "Incident response and management",
-      "controls": 141,
-      "frameworks": 14,
-      "frequency_score": 4,
-      "frequency_rating": "High",
-      "mean_framework_share": 3.02,
-      "per_framework": {
-        "aescsf": 15,
-        "asd-strategies": 2,
-        "c2m2": 13,
-        "cis-controls": 7,
-        "csf": 11,
-        "ism": 10,
-        "mcsb": 6,
-        "nist-800-53": 30,
-        "oag-wa": 1,
-        "pspf": 1,
-        "scf": 29,
-        "soci-act": 5,
-        "wa-circular": 2,
-        "wa-csp": 9
-      },
-      "sample_uids": [
-        "ism:ism-576",
-        "ism:ism-1784",
-        "ism:ism-1819",
-        "ism:ism-1970",
-        "ism:ism-43",
-        "ism:ism-1019",
-        "ism:ism-1805",
-        "asd-principles:pro-16"
-      ],
       "rank": 7
     },
     {
@@ -406,7 +406,7 @@
       "frameworks": 11,
       "frequency_score": 4,
       "frequency_rating": "High",
-      "mean_framework_share": 1.76,
+      "mean_framework_share": 1.75,
       "per_framework": {
         "aescsf": 16,
         "c2m2": 15,
@@ -435,8 +435,8 @@
     {
       "code": "BR",
       "topic": "Backup and recovery",
-      "controls": 134,
-      "frameworks": 15,
+      "controls": 135,
+      "frameworks": 16,
       "frequency_score": 4,
       "frequency_rating": "High",
       "mean_framework_share": 2.83,
@@ -454,6 +454,7 @@
         "nist-800-88": 1,
         "oag-wa": 3,
         "scf": 27,
+        "soci-act": 1,
         "wa-csp": 3,
         "ztmm": 3
       },
@@ -694,7 +695,7 @@
       "frameworks": 10,
       "frequency_score": 3,
       "frequency_rating": "Medium",
-      "mean_framework_share": 1.75,
+      "mean_framework_share": 1.73,
       "per_framework": {
         "aescsf": 1,
         "c2m2": 1,
@@ -757,7 +758,7 @@
       "frameworks": 15,
       "frequency_score": 3,
       "frequency_rating": "Medium",
-      "mean_framework_share": 1.89,
+      "mean_framework_share": 1.88,
       "per_framework": {
         "aescsf": 2,
         "asd-ad": 2,
@@ -926,14 +927,15 @@
     {
       "code": "OT",
       "topic": "Operational technology security",
-      "controls": 57,
-      "frameworks": 6,
+      "controls": 58,
+      "frameworks": 7,
       "frequency_score": 3,
       "frequency_rating": "Medium",
-      "mean_framework_share": 1.23,
+      "mean_framework_share": 1.31,
       "per_framework": {
         "aescsf": 24,
         "c2m2": 20,
+        "cirmp-rules": 1,
         "ism": 3,
         "oag-wa": 8,
         "scf": 1,

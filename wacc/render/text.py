@@ -85,7 +85,7 @@ def render(corpus: Corpus, analysis: Analysis, width: int = 78, show: int = 3) -
                 out.append(head + (wrapped[0] if wrapped else ""))
                 for line in wrapped[1:2]:
                     out.append(" " * len(head) + line)
-            more = (len(coverage.controls) - show) + coverage.hidden
+            more = max(0, len(coverage.controls) - show) + coverage.hidden
             if more > 0:
                 out.append("      %-18s and %d more" % ("", more))
 

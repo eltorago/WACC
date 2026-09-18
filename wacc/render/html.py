@@ -405,7 +405,7 @@ def _cell(corpus: Corpus, coverage, typed: Sequence[str], widened: Sequence[str]
         return '<td class="col missing">not in this build<div class="why">%s</div></td>' % esc(
             coverage.absent
         )
-    if coverage.is_empty:
+    if not coverage.controls:
         if coverage.total:
             return '<td class="col none">nothing in the shown set</td>'
         return '<td class="col none">says nothing on this subject</td>'
@@ -556,7 +556,7 @@ def _cards_view(
                 esc(framework.short_name),
                 esc(
                     "not in this build" if absent
-                    else "%d shown of %d read" % (len(controls), total) if controls
+                    else "%d shown of %d read" % (len(controls), total) if total
                     else "says nothing on this subject"
                 ),
             )
@@ -564,6 +564,9 @@ def _cards_view(
         if absent:
             body = ('<div class="card"><div class="note">Not in this build. %s</div>'
                     "</div>" % esc(absent))
+        elif total and not controls:
+            body = ('<div class="card"><div class="note">%d matching controls are outside '
+                    'the displayed results. Increase the result limit to see more.</div></div>') % total
         elif not controls:
             body = ('<div class="card"><div class="note">This framework is loaded and '
                     "says nothing on this subject.</div></div>")
@@ -629,7 +632,7 @@ def _coverage_strip(analysis: Analysis) -> str:
                 absent = absent or coverage.absent
         if absent:
             css, label = "absent", "not in this build"
-        elif shown:
+        elif total:
             css, label = "says", "%d shown of %d read" % (shown, total)
         else:
             css, label = "silent", "says nothing on this subject"
@@ -781,10 +784,10 @@ def _toolbar(subject: str, view: str, limit: int) -> str:
         "Show as %(other)s</a>"
         '<button type="button" data-set-density="comfortable">Comfortable</button>'
         '<button type="button" data-set-density="compact">Compact</button>'
-        '<a class="btn" href="/export.csv?q=%(url)s">CSV</a>'
-        '<a class="btn" href="/export.md?q=%(url)s">Markdown</a>'
-        '<button type="button" data-copy="/exec.md?q=%(url)s">Copy risk summary</button>'
-        '<button type="button" data-copy="/plan.md?q=%(url)s">Copy test plan</button>'
+        '<a class="btn" href="/export.csv?q=%(url)s&amp;limit=%(limit)d">CSV</a>'
+        '<a class="btn" href="/export.md?q=%(url)s&amp;limit=%(limit)d">Markdown</a>'
+        '<button type="button" data-copy="/exec.md?q=%(url)s&amp;limit=%(limit)d">Copy risk summary</button>'
+        '<button type="button" data-copy="/plan.md?q=%(url)s&amp;limit=%(limit)d">Copy test plan</button>'
         "</form>"
         % {
             "query": esc(subject),
@@ -819,13 +822,20 @@ def render(
         furniture = ""
     else:
         furniture = ("" if focused is not None else
-                     _interpretation(analysis.subject) + _coverage_strip(analysis)
+                     ("" if analysis.lookup_note else _interpretation(analysis.subject)) + _coverage_strip(analysis)
                      + _framework_bar(analysis))
         main = (
             _cards_view(corpus, analysis, frameworks, typed, widened, risks, breadcrumbs)
             if view == "cards"
             else _grid_view(corpus, analysis, frameworks, typed, widened)
         )
+
+    if analysis.lookup_note:
+        links = ' · '.join('<a href="/?q=%s&amp;view=cards">%s %s</a>' % (
+            esc(urllib.parse.quote(c.uid, safe="")), esc(corpus.frameworks[c.framework_key].short_name), esc(c.identifier)
+        ) for c in analysis.controls)
+        main = '<div class="note" role="status">%s%s</div>%s' % (
+            esc(analysis.lookup_note), '<p>Replacement controls: %s</p>' % links if links else '', main)
 
     from ..framework_families import count as family_count
     speaking = family_count(c.framework.key for b in analysis.bands for c in b.coverage if c.total)

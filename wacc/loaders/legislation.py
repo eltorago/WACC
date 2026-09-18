@@ -195,9 +195,14 @@ def load_into(corpus: Corpus, framework: Framework, path: str) -> Dict[str, obje
                 part_uid = control.uid
                 division_uid = None
             counts["parts"] += 1
+            section_number = section_uid = None
+            current_subsection = None
             continue
 
         if style.startswith("ActHead 5") or style.startswith("ActHead 6"):
+            # An unsupported heading (for example a schedule) ends the prior body.
+            section_number = section_uid = None
+            current_subsection = None
             match = _SECTION_ID.match(block.text)
             if not match:
                 continue
@@ -223,6 +228,12 @@ def load_into(corpus: Corpus, framework: Framework, path: str) -> Dict[str, obje
         if style == "subsection" and section_number:
             match = _SUBSECTION_ID.match(block.text)
             if not match:
+                # A section with no numbered subsections states its requirement here.
+                current_subsection = corpus.control(section_uid)
+                current_subsection.text = (current_subsection.text + "\n" + block.text).strip()
+                current_subsection.attributes.pop("structural", None)
+                current_subsection.obligation = obligation_of(current_subsection.text)
+                current_subsection.obligation_provenance = Provenance.DERIVED
                 continue
             number, text = match.group(1), match.group(2).strip()
             control = Control(
@@ -242,7 +253,7 @@ def load_into(corpus: Corpus, framework: Framework, path: str) -> Dict[str, obje
             counts["subsections"] += 1
             continue
 
-        if style in ("paragraph", "paragraph(sub)") and current_subsection is not None:
+        if style in ("subsection2", "paragraph", "paragraph(sub)", "Definition", "Penalty") and current_subsection is not None:
             # Lettered paragraphs continue the obligation their subsection opens, so
             # they extend its text rather than becoming controls of their own. Splitting
             # them would produce fragments that state no obligation on their own.

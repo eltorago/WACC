@@ -5,8 +5,9 @@ Import only. No CIS text ships.
 One trap dominates this file. Safeguard identifiers are stored as numbers, so 3.10
 arrives as the float 3.1 and collides with safeguard 3.1 — two different safeguards,
 one value. The workbook cannot distinguish them and neither can any reader that trusts
-the cell. Identifiers are therefore rebuilt from position: the nth safeguard listed
-under control C is C.n, and the stored value is used only to confirm it.
+the cell. The catalogue rebuilds identifiers from position: the nth safeguard under
+control C is C.n. The mapping workbook can repeat safeguards, so it resolves numeric
+values against that catalogue and uses titles to distinguish collisions.
 """
 
 import re
@@ -145,7 +146,7 @@ def load_essential_eight_mapping(
     wb = Workbook(path)
     header, body = wb.table("All CIS Controls & Safeguards")
     idx = {name: i for i, name in enumerate(header)}
-    for column in ("CIS Control", "CIS Safeguard", "Relationship"):
+    for column in ("CIS Control", "CIS Safeguard", "Title", "Relationship"):
         if column not in idx:
             raise ValueError("CIS mapping workbook is missing column %r" % column)
     strategy_col = _security_control_column(header, idx["Relationship"])
@@ -156,7 +157,12 @@ def load_essential_eight_mapping(
         "relationships": {},
         "strategies": {},
     }
-    ordinal: Dict[str, int] = {}
+    # Numeric workbook cells collapse 3.1 and 3.10. Resolve against catalogue IDs,
+    # using titles to distinguish collisions; repeated mapping rows keep their ID.
+    candidates: Dict[str, List[Control]] = {}
+    for control in corpus.controls_for(framework.key):
+        if control.depth == 1:
+            candidates.setdefault(_stored_safeguard(control.identifier), []).append(control)
     relationships: Dict[str, int] = {}
     strategies: Dict[str, int] = {}
 
@@ -164,8 +170,7 @@ def load_essential_eight_mapping(
         number = _control_number(row[idx["CIS Control"]])
         if not number or not _clean(row[idx["CIS Safeguard"]]):
             continue
-        ordinal[number] = ordinal.get(number, 0) + 1
-        identifier = "%s.%d" % (number, ordinal[number])
+        identifier = _stored_safeguard(row[idx["CIS Safeguard"]])
         relationship = _clean(row[idx["Relationship"]])
         strategy = _clean(row[strategy_col]) if strategy_col is not None else ""
 
@@ -173,14 +178,17 @@ def load_essential_eight_mapping(
             result["unmapped_safeguards"] += 1
             continue
 
-        uid = "%s:%s" % (framework.key, identifier)
-        control = corpus.control(uid)
-        if control is None:
+        matches = candidates.get(identifier, [])
+        if len(matches) > 1:
+            title = " ".join(_clean(row[idx["Title"]]).casefold().split())
+            matches = [c for c in matches if " ".join((c.title or "").casefold().split()) == title]
+        if len(matches) != 1:
             corpus.load_warnings.append(
-                "cis mapping names safeguard %s, which the v8 catalogue does not "
-                "contain; the mapping workbook is v8.1" % identifier
+                "cis mapping safeguard %s (%s) cannot be resolved uniquely in the v8 catalogue; "
+                "review the v8.1 mapping edition" % (identifier, _clean(row[idx["Title"]]))
             )
             continue
+        control = matches[0]
 
         entries = control.publisher_tags.setdefault("essential_eight", [])
         if isinstance(entries, list):

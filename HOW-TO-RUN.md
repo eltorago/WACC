@@ -40,9 +40,10 @@ Open PowerShell in the repository folder and run:
 python -m wacc serve
 ```
 
-When the terminal reports that WACC is ready, open
-[http://127.0.0.1:8765/](http://127.0.0.1:8765/). Keep the PowerShell window open while you
-use the application. Press `Ctrl+C` in that window to stop it.
+When the terminal reports that WACC is ready, open the address it prints, normally
+[http://127.0.0.1:8765/](http://127.0.0.1:8765/). If that port is occupied, WACC tries the
+next available port. Keep the PowerShell window open while you use the application.
+Press `Ctrl+C` in that window to stop it.
 
 The server binds to `127.0.0.1`, so it is visible only on the computer where it is running.
 
@@ -111,8 +112,9 @@ python tests\run_all.py --injected
   `wacc` directory.
 - **A framework is reported as unavailable** — run `python -m wacc sources`, follow any
   manual instructions, or confirm `WACC_SOURCES` points to the required publisher files.
-- **Port 8765 is already in use** — stop the earlier WACC terminal with `Ctrl+C`, or start
-  this instance with another port, such as `python -m wacc serve --port 8766`.
+- **Port 8765 is already in use** — open the address printed by the new instance. WACC
+  checks up to 20 consecutive ports. You can also choose a starting port with
+  `python -m wacc serve --port 8766`.
 - **The page shows older controls** — stop all earlier WACC processes and restart the
   server so it reloads the library files.
 - **New frameworks are missing from results** — check their source files were acquired,

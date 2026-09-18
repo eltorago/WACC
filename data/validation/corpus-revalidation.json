@@ -1,5 +1,5 @@
 {
-  "reviewed_on": "2026-09-17",
+  "reviewed_on": "2026-09-18",
   "records": 7728,
   "frameworks": 23,
   "source_sets": 25,
@@ -33,15 +33,10 @@
   "workspace_controls": 84,
   "technical_checks": 58,
   "oag_reports": 13,
-  "published_and_local_links": 2718,
+  "published_and_local_links": 2776,
   "problems": [],
   "load_warnings": [
     "cis-controls: 5 safeguard identifiers were rebuilt from position because the workbook stores them as numbers and cannot tell 3.10 from 3.1",
-    "cis mapping names safeguard 2.8, which the v8 catalogue does not contain; the mapping workbook is v8.1",
-    "cis mapping names safeguard 6.9, which the v8 catalogue does not contain; the mapping workbook is v8.1",
-    "cis mapping names safeguard 7.8, which the v8 catalogue does not contain; the mapping workbook is v8.1",
-    "cis mapping names safeguard 7.9, which the v8 catalogue does not contain; the mapping workbook is v8.1",
-    "cis mapping names safeguard 12.9, which the v8 catalogue does not contain; the mapping workbook is v8.1",
     "csf: PR.IP is marked withdrawn but names no replacement",
     "csf: PR.PT is marked withdrawn but names no replacement",
     "csf: DE.DP is marked withdrawn but names no replacement",
@@ -164,7 +159,7 @@
         "oag-wa": 4,
         "pspf": 3,
         "scf": 21,
-        "soci-act": 72,
+        "soci-act": 74,
         "wa-pris": 5,
         "ztmm": 1
       },

@@ -8,11 +8,13 @@ are present, so the catalogues load before the frameworks that cite them.
 """
 
 import os
+from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 from .model import Corpus, Framework, Licence, Tier
 from .framework_families import count as family_count
 from .registry import FRAMEWORKS, GUIDANCE, FRAMEWORKS_BY_KEY
+from .sources import local_path, source_directory
 from .loaders import (
     aescsf,
     attack,
@@ -36,30 +38,19 @@ from .loaders import (
 # The cache is populated with ``python -m wacc sources`` and is never distributed with
 # WACC. A custom folder may use the older development layout with documents and OSCAL
 # catalogues in subfolders. Any framework that cannot be loaded is named as unavailable.
-RAW = os.environ.get("WACC_SOURCES") or os.path.join(
-    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "sources", "files"
-)
+RAW = str(source_directory())
 CORPUS = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "corpus"
 )
 
 
 def _sources(*parts: str) -> str:
-    """A path under the sources folder, tolerating a flat folder as well as subfolders."""
-    nested = os.path.join(RAW, *parts)
-    if os.path.exists(nested) or len(parts) == 1:
-        return nested
-    flat = os.path.join(RAW, parts[-1])
-    return flat if os.path.exists(flat) else nested
-
-
-DOCUMENTS = _sources("documents")
-if not os.path.isdir(DOCUMENTS):
-    DOCUMENTS = RAW
+    """Use the same flat/nested-file resolution as source acquisition and status."""
+    return str(local_path(Path(RAW), parts[-1]))
 
 
 def _doc(name: str) -> str:
-    return os.path.join(DOCUMENTS, name)
+    return _sources(name)
 
 
 def _exists(path: str) -> bool:
