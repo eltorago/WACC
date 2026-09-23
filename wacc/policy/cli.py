@@ -5,16 +5,16 @@ import sys
 
 from . import ENGINE_VERSION
 from .contracts import PolicyError, envelope
-from . import corpus, service, store, reports
+from . import alignment, corpus, service, store, reports
 
-COMMANDS = {"frameworks", "analyse", "open", "requirements", "evidence", "gaps", "mappings", "report", "validate", "corpus", "review", "finalise", "snapshot", "--version"}
+COMMANDS = {"frameworks", "compare", "analyse", "open", "requirements", "evidence", "gaps", "mappings", "report", "validate", "corpus", "review", "finalise", "snapshot", "--version"}
 
 
 def parser():
-    root = argparse.ArgumentParser(prog="wacc", description="Offline policy coverage and evidence review (pilot)")
+    root = argparse.ArgumentParser(prog="wacc", description="Compare policy documents with selected frameworks")
     root.add_argument("--version", action="version", version="WACC " + ENGINE_VERSION)
     commands = root.add_subparsers(dest="command", required=True)
-    for name in ("frameworks", "analyse", "requirements", "evidence", "gaps", "mappings", "validate", "review", "finalise", "snapshot", "corpus"):
+    for name in ("frameworks", "compare", "analyse", "requirements", "evidence", "gaps", "mappings", "validate", "review", "finalise", "snapshot", "corpus"):
         p = commands.add_parser(name)
         p.add_argument("--format", choices=("json", "text"), default="text")
         p.add_argument("--output", default="-")
@@ -28,19 +28,19 @@ def parser():
         if name == "mappings":
             p.add_argument("--target-framework")
             p.add_argument("--requirement")
-        if name == "analyse":
-            p.add_argument("inputs", nargs="+")
+        if name in ("compare", "analyse"):
+            p.add_argument("inputs", nargs="+", help="Files, folders or ZIP archives of policy documents")
             p.add_argument("--framework", default="wa-csp")
             p.add_argument("--framework-version")
             p.add_argument("--corpus-version")
             p.add_argument("--also-assess", action="append", default=[])
             p.add_argument("--recurse", action="store_true")
             p.add_argument("--assessment")
-            p.add_argument("--name", default="Policy assessment")
+            p.add_argument("--name", default="Framework alignment")
             p.add_argument("--organisation", default="")
             p.add_argument("--scope", required=True, help="Describe exactly which documents this assessment covers")
             p.add_argument("--document-status", choices=("approved", "draft", "unknown", "superseded"), default="unknown")
-            p.add_argument("--retention", choices=("evidence", "extracted"), default="evidence")
+            p.add_argument("--retention", choices=("evidence", "extracted"), default="extracted")
         if name == "review":
             p.add_argument("--requirement", required=True)
             p.add_argument("--finding", required=True)
@@ -92,12 +92,20 @@ def execute(args):
             raise PolicyError("Specify a corpus package.", 2)
         result = install(args.package) if args.action == "install" else verify(args.package)
         return envelope(operation, package=result), 0
-    if operation == "analyse":
+    if operation in ("compare", "analyse"):
         run = service.analyse(args.inputs, args.name, args.scope, args.organisation, args.framework,
                               args.framework_version, args.corpus_version, args.also_assess, args.recurse,
                               args.document_status, args.retention)
         if args.assessment:
             store.save(args.assessment, run)
+        if operation == 'compare':
+            data = reports.model(dict(run=run, events=[], metadata={}))
+            data.pop('schemaVersion')
+            result = envelope(operation, assessmentPath=args.assessment, **data)
+            result['warnings'] = run['limitations']
+            if run['limitations']:
+                result['status'] = 'CompletedWithLimitations'
+            return result, 7 if run['limitations'] else 0
         result = envelope(operation, assessmentPath=args.assessment, analysisRunId=run["runId"], scope=run["scope"],
                           versions=run["versions"], summary=service.summary(run), frameworkSummaries=service.framework_summaries(run), requirements=run["requirements"],
                           documents=run["documents"])
@@ -106,8 +114,8 @@ def execute(args):
     state = store.load(args.assessment, args.run)
     run = state["run"]
     if operation == "report":
-        content = reports.render(state, args.format, not args.summary_only, args.report_frameworks)
         if args.output == "-":
+            content = reports.render(state, args.format, not args.summary_only, args.report_frameworks)
             sys.stdout.write(content + "\n")
         else:
             reports.export_report(state,args.output,args.format,not args.summary_only,args.force,args.assessment,args.report_frameworks)
@@ -133,13 +141,14 @@ def execute(args):
     if operation == "mappings":
         values = service.neighbourhood(run, args.requirement) if args.requirement else dict(edges=[m for m in run["mappings"] if not args.target_framework or m["target"].startswith(args.target_framework + ":")])
         return envelope(operation, **values), 0
-    rows = service.apply_reviews(run, state["events"])
-    rows = [r for r in rows if (not args.requirement or r["id"] == args.requirement) and (not args.status or r["automatedFinding"] == args.status)]
+    comparison = reports.model(state)
+    rows = comparison['requirements']
+    rows = [r for r in rows if (not args.requirement or r["id"] == args.requirement) and (not args.status or r['alignment']['status'] == args.status)]
     if operation == "gaps":
-        rows = [r for r in rows if r["missingObligations"] and r["applicability"] != "NotApplicable"]
-    values = dict(evidence=[e for r in rows for e in r["evidence"]]) if operation == "evidence" else dict(requirements=rows)
-    return envelope(operation, scope=run["scope"], versions=run["versions"], summary=service.summary(run, state["events"]),
-                    frameworkSummaries=service.framework_summaries(run, state['events']), **values), 0
+        rows = [r for r in rows if r['alignment']['status'] in ('Not mentioned', 'Unable to check')]
+    values = dict(evidence=[dict(requirementId=r['id'], **e) for r in rows for e in r['alignment']['matches']]) if operation == 'evidence' else dict(requirements=rows)
+    return envelope(operation, scope=run['scope'], versions=run['versions'], summary=comparison['summary'],
+                    frameworkSummaries=comparison['frameworkSummaries'], **values), 0
 
 
 def main(argv=None):

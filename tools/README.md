@@ -41,9 +41,20 @@ Follow the [assessment authoring steps](../sources/add-framework.md#5-add-or-rev
 for the command sequence and required review. See [tests](../tests/README.md) for
 regression checks and offline command fixtures.
 
-## Build the policy-review desktop
+## Build and measure the desktop
 
 `build_policy.py` creates the Windows application folder and its dependency/file
 inventory. `write_policy_schemas.py` regenerates the assessment, corpus and CLI
 JSON contracts. See the [desktop guide](../docs/policy-review/README.md) for use and
 the [deployment notes](../docs/deployment/POLICY-PILOT.md) for build requirements.
+
+`benchmark_policy.py` measures local corpus loading, saved-file opening and report
+rendering. Pass a saved comparison containing synthetic documents:
+
+```powershell
+python tools/benchmark_policy.py comparison.wacc --output timings.json
+```
+
+The JSON includes three timing samples per operation and result hashes for
+before/after comparisons. The script makes no network requests. See
+[optimisation notes](../docs/OPTIMISATION.md).

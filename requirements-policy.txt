@@ -1,4 +1,4 @@
-# Build/development dependencies; framework downloads run only on request.
+# Runtime dependencies for the desktop and command line.
 pdfplumber==0.11.10
 pdfminer.six==20260107
 Pillow==12.3.0
@@ -6,17 +6,5 @@ pypdfium2==5.13.0
 charset-normalizer==3.5.1
 pypdf==6.10.0
 cryptography==50.0.1
-jsonschema==4.26.0
-pyinstaller==6.22.0
-altgraph==0.17.5
-attrs==26.1.0
 cffi==2.1.1
-jsonschema-specifications==2025.9.1
-packaging==26.3
-pefile==2024.8.26
 pycparser==3.0
-pyinstaller-hooks-contrib==2026.7
-pywin32-ctypes==0.2.3
-referencing==0.37.0
-rpds-py==2026.6.3
-setuptools==84.0.0

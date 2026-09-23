@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path, PurePosixPath
 import re
+import stat
 import subprocess
 import sys
 import time
@@ -17,6 +18,7 @@ from .contracts import PolicyError
 MAX_BYTES = 16 * 1024 * 1024
 MAX_TEXT = 2_000_000
 FORMATS = (".txt", ".md", ".docx", ".pdf")
+INPUT_FORMATS = (*FORMATS, '.zip')
 PARSER_VERSION = "bounded-text-1"
 NORMALISER_VERSION = "nfkc-casefold-spans-1"
 
@@ -40,15 +42,40 @@ def select(paths, recurse=False):
         if path.is_dir():
             for directory, subdirs, files in os.walk(path, followlinks=False):
                 subdirs[:] = sorted(d for d in subdirs if not (Path(directory, d).is_symlink() or getattr(Path(directory, d).stat(), "st_file_attributes", 0) & 1024)) if recurse else []
-                found.extend(local_file(Path(directory, name)) for name in sorted(files) if Path(name).suffix.lower() in FORMATS)
+                found.extend(local_file(Path(directory, name)) for name in sorted(files) if Path(name).suffix.lower() in INPUT_FORMATS)
         else:
-            if path.suffix.lower() not in FORMATS:
-                raise PolicyError("Supported documents: PDF, DOCX, TXT and Markdown.")
+            if path.suffix.lower() not in INPUT_FORMATS:
+                raise PolicyError("Select PDF, DOCX, TXT, Markdown or a ZIP containing these documents.")
             found.append(path)
     found = sorted(set(found), key=lambda p: str(p).casefold())
     if not found or len(found) > 250:
         raise PolicyError("Select between 1 and 250 supported documents.")
     return found
+
+
+def expand_inputs(paths):
+    """List archive members without extracting files onto the computer."""
+    inputs, skipped = [], []
+    for path in paths:
+        if path.suffix.lower() != '.zip':
+            inputs.append((path, None))
+            continue
+        if path.stat().st_size > MAX_BYTES:
+            raise PolicyError('ZIP exceeds the 16 MiB input limit.')
+        try:
+            with checked_archive(path.read_bytes()) as archive:
+                for info in sorted(archive.infolist(), key=lambda value: value.filename.casefold()):
+                    if info.is_dir():
+                        continue
+                    if PurePosixPath(info.filename).suffix.lower() in FORMATS:
+                        inputs.append((path, info.filename))
+                    else:
+                        skipped.append(str(path) + ' / ' + info.filename)
+        except zipfile.BadZipFile:
+            raise PolicyError('The selected ZIP cannot be read.')
+    if not inputs or len(inputs) > 250:
+        raise PolicyError('Select between 1 and 250 supported documents, including files inside ZIPs.')
+    return inputs, skipped
 
 
 def normalise(text):
@@ -72,26 +99,45 @@ def checked_archive(data):
     if len(infos) > 2048 or len(set(names)) != len(names) or sum(i.file_size for i in infos) > 32 * 1024 * 1024:
         raise PolicyError("Archive exceeds entry or expansion limits.")
     for info in infos:
-        p = PurePosixPath(info.filename)
-        if p.is_absolute() or ".." in p.parts or "\\" in info.filename or ":" in info.filename or info.file_size > 16 * 1024 * 1024 or info.file_size / max(1, info.compress_size) > 200:
+        # ZipInfo normalises backslashes on Windows and truncates NULs. Check
+        # the original central-directory name before trusting that normalisation.
+        raw_name = info.orig_filename
+        p = PurePosixPath(raw_name)
+        if (p.is_absolute() or ".." in p.parts or "\\" in raw_name or ":" in raw_name or '\x00' in raw_name
+                or stat.S_ISLNK(info.external_attr >> 16) or info.flag_bits & 1
+                or info.file_size > 16 * 1024 * 1024 or info.file_size / max(1, info.compress_size) > 200):
             raise PolicyError("Unsafe or excessively compressed archive entry.")
     return archive
 
 
-def extract(path):
+def extract(path, member=None):
     path = local_file(path)
     if path.stat().st_size > MAX_BYTES:
         raise PolicyError("Document exceeds the 16 MiB input limit.")
     data = path.read_bytes()
+    archive_hash = None
+    if member is not None:
+        archive_hash = hashlib.sha256(data).hexdigest()
+        with checked_archive(data) as archive:
+            if member not in archive.namelist() or PurePosixPath(member).suffix.lower() not in FORMATS:
+                raise PolicyError('Unsupported or missing ZIP member.')
+            data = archive.read(member)
     digest = hashlib.sha256(data).hexdigest()
-    result = dict(id=digest, sha256=digest, name=path.name, path=str(path), format=path.suffix.lower(),
+    result = dict(id=digest, sha256=digest, name=path.name if member is None else path.name + ' / ' + member,
+                  path=str(path), format=PurePosixPath(member).suffix.lower() if member else path.suffix.lower(),
                   status="Ready", approvalStatus="unknown", effectiveDate=None, included=True,
                   warnings=[], passages=[], parserVersion=PARSER_VERSION)
+    if member is not None:
+        result.update(archiveMember=member, archiveHash=archive_hash)
+
+    text_length = 0
 
     def add(text, locator):
+        nonlocal text_length
         if not text.strip():
             return
-        if len(text) > 100_000 or sum(len(p["text"]) for p in result["passages"]) + len(text) > MAX_TEXT:
+        text_length += len(text)
+        if len(text) > 100_000 or text_length > MAX_TEXT:
             raise PolicyError("Extracted text exceeds supported limits.")
         result["passages"].append(dict(id="%s:p%d" % (digest, len(result["passages"]) + 1), text=text, locator=locator))
 
@@ -170,12 +216,12 @@ def extract(path):
     return result
 
 
-def extract_worker(path, cancel=None, timeout=30, framework=None):
+def extract_worker(path, cancel=None, timeout=30, framework=None, member=None):
     args = [sys.executable, "--extract-worker"] if getattr(sys, "frozen", False) else [sys.executable, "-m", "wacc.policy.worker"]
     process = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                                creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
     started = time.monotonic()
-    payload = json.dumps({"path": str(path), "framework": framework}).encode()
+    payload = json.dumps({"path": str(path), "framework": framework, "member": member}).encode()
     release = None
     try:
         from .worker_limits import constrain

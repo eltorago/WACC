@@ -1,5 +1,8 @@
 # Policy review pilot — implementation record
 
+> Historical pilot design. The current workflow compares framework alignment and
+> unmentioned requirements; see the [desktop guide](policy-review/README.md).
+
 **23 September 2026.** This is a working engineering pilot. It is not a signed,
 approved enterprise release.
 

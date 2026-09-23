@@ -6,7 +6,7 @@ import hashlib
 import uuid
 
 from . import ENGINE_VERSION, SCHEMA_VERSION
-from . import corpus, documents, rules
+from . import alignment, corpus, documents, rules
 from .contracts import AUTOMATED, REVIEWED, PolicyError, fingerprint, canonical_payload, validate_run
 
 
@@ -14,30 +14,37 @@ def now():
     return datetime.now(timezone.utc).isoformat()
 
 
-def analyse(paths, name="Policy assessment", scope="Selected policy documents", organisation="", framework="wa-csp",
-            edition=None, corpus_version=None, also=(), recurse=False, approval="unknown", retention="evidence", cancel=None):
+def analyse(paths, name="Framework alignment", scope="Selected policy documents", organisation="", framework="wa-csp",
+            edition=None, corpus_version=None, also=(), recurse=False, approval="unknown", retention="extracted", cancel=None):
     if not scope.strip() or approval not in ("approved", "draft", "unknown", "superseded") or retention not in ("evidence", "extracted"):
         raise PolicyError("Choose a scope, document approval status and supported retention mode.", 2)
     selected = documents.select(paths, recurse)
+    inputs, skipped = documents.expand_inputs(selected)
     baseline = corpus.load(framework, edition, corpus_version, also)
     imported, duplicates = [], []
     seen = set()
-    for path in selected:
+    text_length = 0
+    for path, member in inputs:
         if cancel and cancel.is_set():
             raise KeyboardInterrupt
         try:
-            doc = documents.extract_worker(path, cancel)
+            doc = documents.extract_worker(path, cancel, member=member)
         except PolicyError as error:
             digest = hashlib.sha256(path.read_bytes()).hexdigest() if path.stat().st_size <= documents.MAX_BYTES else "unhashed-" + hashlib.sha256(str(path).encode()).hexdigest()
             doc = dict(id=digest, sha256=digest, path=str(path), name=path.name, format=path.suffix,
                        status="Failed", warnings=[str(error)], passages=[], parserVersion=documents.PARSER_VERSION)
+            if member is not None:
+                identifier = 'unhashed-' + hashlib.sha256((digest + '/' + member).encode()).hexdigest()
+                doc.update(id=identifier, sha256=identifier, name=path.name + ' / ' + member,
+                           format=documents.PurePosixPath(member).suffix.lower(), archiveMember=member, archiveHash=digest)
         if doc["id"] in seen:
-            duplicates.append(dict(path=str(path), documentId=doc["id"]))
+            duplicates.append(dict(path=str(path) + (' / ' + member if member else ''), documentId=doc["id"]))
             continue
         seen.add(doc["id"])
         doc.update(approvalStatus=approval, included=approval != "superseded", retention=retention)
         imported.append(doc)
-        if sum(len(p['text']) for d in imported for p in d['passages']) > 8_000_000:
+        text_length += sum(len(p['text']) for p in doc['passages'])
+        if text_length > 8_000_000:
             raise PolicyError('Selected scope exceeds 8 million extracted characters. Split it into explicitly named assessments.')
     active = [d for d in imported if d["included"]]
     incomplete = not active or any(d["status"] != "Ready" for d in active)
@@ -84,19 +91,23 @@ def analyse(paths, name="Policy assessment", scope="Selected policy documents", 
                    candidateProportion=None if auto in ("NotAssessed", "Ambiguous") else matched / len(states),
                    missingObligations=[a["id"] for a in atom_results if a["state"] != "Matched"])
         findings.append(req)
+    aligned = alignment.compare(findings, imported, cancel)
+    for row in findings:
+        row['alignment'] = aligned[row['id']]
     if retention == "evidence":
         kept = {e["passageId"] for r in findings for e in r["evidence"]}
+        kept.update(m['passageId'] for result in aligned.values() for m in result['matches'])
         for doc in imported:
             doc["extractedPassageCount"] = len(doc["passages"])
             doc["passages"] = [p for p in doc["passages"] if p["id"] in kept]
     run = dict(schemaVersion=SCHEMA_VERSION, runId=str(uuid.uuid4()), createdAt=now(),
-               name=name, organisation=organisation, scope=dict(description=scope, mode="SingleDocument" if len(selected)==1 else "PolicySet",
-               selectedDocumentIds=[d["id"] for d in imported], duplicates=duplicates, retention=retention),
+               name=name, organisation=organisation, scope=dict(description=scope, mode="SingleDocument" if len(imported)==1 else "PolicySet",
+               selectedDocumentIds=[d["id"] for d in imported], duplicates=duplicates, retention=retention, skippedInputs=skipped),
                versions=dict(engine=ENGINE_VERSION, corpus=baseline["version"], frameworks=baseline["frameworks"],
                              rulesHash=baseline["rulesHash"], normaliser=documents.NORMALISER_VERSION,
-                             retrieval="complete-same-sentence-lexical-scan-1", parser=documents.PARSER_VERSION),
+                             retrieval="complete-same-sentence-lexical-scan-1", parser=documents.PARSER_VERSION, alignment=alignment.VERSION),
                documents=imported, requirements=findings, mappings=baseline["mappings"],
-               limitations=["Pilot: accuracy has not been established on independently labelled real policies; draft rules and unsupported requirements need human review."],
+               limitations=(["Some selected documents could not be fully read. Unmatched requirements are marked Unable to check."] if incomplete else []),
                canonicalHash="")
     run["canonicalHash"] = fingerprint(canonical_payload(run))
     validate_run(run)
@@ -110,7 +121,7 @@ def apply_reviews(run, events):
     for row in rows:
         event = latest.get(row["id"])
         if event:
-            row.update(reviewState="Reviewed", reviewerFinding=event["finding"], review=event)
+            row.update(reviewState="Reviewed", reviewerFinding=event["finding"], review=deepcopy(event))
             row["applicability"] = "NotApplicable" if event["finding"] == "NotApplicable" else "InScope"
         elif row["id"] in previous:
             row["reviewState"] = "NeedsReReview"
@@ -121,6 +132,11 @@ def summary(run, events=(), framework=None):
     rows = apply_reviews(run, events)
     if framework is not None:
         rows = [r for r in rows if r['frameworkId'] == framework]
+    return summarise_rows(rows)
+
+
+def summarise_rows(rows):
+    """Aggregate an already reviewed view without copying its evidence again."""
     active = [r for r in rows if r["applicability"] != "NotApplicable"]
     computed = [r for r in active if r["candidateProportion"] is not None]
     numerator = sum(r["candidateProportion"] for r in computed)
@@ -136,8 +152,15 @@ def summary(run, events=(), framework=None):
 
 
 def framework_summaries(run, events=()):
-    return [dict(id=f['id'], title=f['title'], edition=f['edition'], **summary(run, events, f['id']))
-            for f in run['versions']['frameworks']]
+    return summarise_frameworks(run['versions']['frameworks'], apply_reviews(run, events))
+
+
+def summarise_frameworks(frameworks, rows):
+    grouped = {f['id']: [] for f in frameworks}
+    for row in rows:
+        grouped[row['frameworkId']].append(row)
+    return [dict(id=f['id'], title=f['title'], edition=f['edition'], **summarise_rows(grouped[f['id']]))
+            for f in frameworks]
 
 
 def review_event(run, requirement_id, finding, reason, reviewer, confirmed=(), evidence_ids=(), comment="", manual_evidence=()):

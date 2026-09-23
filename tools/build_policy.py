@@ -8,6 +8,8 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from wacc.policy import ENGINE_VERSION
 
 
 def main():
@@ -61,7 +63,7 @@ def main():
                     blockers=['Production signing identity', 'Managed installer', 'Human-approved signed corpus', 'Clean-machine and enforced application-control tests', 'Accessibility acceptance'])
     (output / 'release-manifest.json').write_text(json.dumps(manifest, indent=2), encoding='utf-8')
     (output / 'sbom.cdx.json').write_text(json.dumps(dict(bomFormat='CycloneDX', specVersion='1.5', version=1,
-        metadata={'component': {'type':'application', 'name':'WACC', 'version':'0.1.0-pilot'}}, components=components), indent=2), encoding='utf-8')
+        metadata={'component': {'type':'application', 'name':'WACC', 'version':ENGINE_VERSION}}, components=components), indent=2), encoding='utf-8')
     (output / 'SHA256SUMS.txt').write_text('\n'.join(f['sha256'] + '  ' + f['path'] for f in inventory), encoding='utf-8')
     print(str(payload / 'wacc.exe'))
 

@@ -54,7 +54,14 @@
     "requirements": {
       "type": "array",
       "items": {
-        "$ref": "#/$defs/reviewedFinding"
+        "oneOf": [
+          {
+            "$ref": "#/$defs/reviewedFinding"
+          },
+          {
+            "$ref": "#/$defs/alignmentFinding"
+          }
+        ]
       },
       "maxItems": 20000
     },
@@ -456,170 +463,63 @@
       ],
       "additionalProperties": false
     },
-    "requirement": {
+    "alignmentMatch": {
       "type": "object",
       "properties": {
-        "id": {
+        "documentId": {
           "type": "string",
           "maxLength": 2000000
         },
-        "frameworkId": {
+        "documentHash": {
           "type": "string",
           "maxLength": 2000000
         },
-        "officialReference": {
+        "documentName": {
           "type": "string",
           "maxLength": 2000000
         },
-        "heading": {
+        "passageId": {
           "type": "string",
           "maxLength": 2000000
         },
-        "parentId": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "authoritativeText": {
+        "excerpt": {
           "type": "string",
           "maxLength": 2000000
         },
-        "context": {
-          "type": "string",
-          "maxLength": 2000000
-        },
-        "sourceLocator": {
+        "locator": {
           "$ref": "#/$defs/locator"
         },
-        "obligations": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/atom"
-          },
-          "maxItems": 50
-        }
-      },
-      "required": [
-        "id",
-        "frameworkId",
-        "officialReference",
-        "heading",
-        "parentId",
-        "authoritativeText",
-        "context",
-        "sourceLocator",
-        "obligations"
-      ],
-      "additionalProperties": false
-    },
-    "finding": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "maxLength": 2000000
+        "start": {
+          "type": "integer",
+          "minimum": 0
         },
-        "frameworkId": {
-          "type": "string",
-          "maxLength": 2000000
+        "end": {
+          "type": "integer",
+          "minimum": 1
         },
-        "officialReference": {
-          "type": "string",
-          "maxLength": 2000000
-        },
-        "heading": {
-          "type": "string",
-          "maxLength": 2000000
-        },
-        "parentId": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "authoritativeText": {
-          "type": "string",
-          "maxLength": 2000000
-        },
-        "context": {
-          "type": "string",
-          "maxLength": 2000000
-        },
-        "sourceLocator": {
-          "$ref": "#/$defs/locator"
-        },
-        "obligations": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/atom"
-          },
-          "maxItems": 50
-        },
-        "automatedFinding": {
-          "enum": [
-            "FullCandidate",
-            "PartialCandidate",
-            "NoEvidenceFound",
-            "Ambiguous",
-            "NotAssessed"
-          ]
-        },
-        "applicability": {
-          "enum": [
-            "InScope",
-            "NotApplicable",
-            "Undetermined"
-          ]
-        },
-        "reviewState": {
-          "enum": [
-            "Pending",
-            "Reviewed",
-            "NeedsReReview"
-          ]
-        },
-        "reviewerFinding": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "atomResults": {
+        "matchedSpans": {
           "type": "array",
           "items": {
             "type": "object",
             "properties": {
-              "id": {
-                "type": "string",
-                "maxLength": 2000000
+              "start": {
+                "type": "integer",
+                "minimum": 0
               },
-              "state": {
-                "enum": [
-                  "NotAssessed",
-                  "Conflict",
-                  "Ambiguous",
-                  "Matched",
-                  "Missing"
-                ]
+              "end": {
+                "type": "integer",
+                "minimum": 1
               }
             },
             "required": [
-              "id",
-              "state"
+              "start",
+              "end"
             ],
             "additionalProperties": false
           },
           "maxItems": 20000
         },
-        "evidence": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/evidence"
-          },
-          "maxItems": 20000
-        },
-        "flags": {
+        "matchedTerms": {
           "type": "array",
           "items": {
             "type": "string",
@@ -627,42 +527,84 @@
           },
           "maxItems": 20000
         },
-        "candidateProportion": {
-          "type": [
-            "number",
-            "null"
-          ],
+        "status": {
+          "enum": [
+            "Mentioned",
+            "Related wording"
+          ]
+        },
+        "cautions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 2000000
+          },
+          "maxItems": 20000
+        },
+        "reason": {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        "score": {
+          "type": "number",
           "minimum": 0,
           "maximum": 1
-        },
-        "missingObligations": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "maxLength": 2000000
-          },
-          "maxItems": 20000
         }
       },
       "required": [
-        "id",
-        "frameworkId",
-        "officialReference",
-        "heading",
-        "parentId",
-        "authoritativeText",
-        "context",
-        "sourceLocator",
-        "obligations",
-        "automatedFinding",
-        "applicability",
-        "reviewState",
-        "reviewerFinding",
-        "atomResults",
-        "evidence",
-        "flags",
-        "candidateProportion",
-        "missingObligations"
+        "documentId",
+        "documentHash",
+        "documentName",
+        "passageId",
+        "excerpt",
+        "locator",
+        "start",
+        "end",
+        "matchedSpans",
+        "matchedTerms",
+        "status",
+        "cautions",
+        "reason",
+        "score"
+      ],
+      "additionalProperties": false
+    },
+    "alignment": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "Mentioned",
+            "Related wording",
+            "Not mentioned",
+            "Unable to check"
+          ]
+        },
+        "matches": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/alignmentMatch"
+          },
+          "maxItems": 5
+        },
+        "matchCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "searchComplete": {
+          "type": "boolean"
+        },
+        "method": {
+          "type": "string",
+          "maxLength": 2000000
+        }
+      },
+      "required": [
+        "status",
+        "matches",
+        "matchCount",
+        "searchComplete",
+        "method"
       ],
       "additionalProperties": false
     },
@@ -762,6 +704,14 @@
         },
         "extractedPassageCount": {
           "type": "integer"
+        },
+        "archiveMember": {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        "archiveHash": {
+          "type": "string",
+          "maxLength": 2000000
         }
       },
       "required": [
@@ -863,6 +813,10 @@
         "parser": {
           "type": "string",
           "maxLength": 2000000
+        },
+        "alignment": {
+          "type": "string",
+          "maxLength": 2000000
         }
       },
       "required": [
@@ -924,6 +878,14 @@
             "evidence",
             "extracted"
           ]
+        },
+        "skippedInputs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 2000000
+          },
+          "maxItems": 20000
         }
       },
       "required": [
@@ -932,43 +894,6 @@
         "selectedDocumentIds",
         "duplicates",
         "retention"
-      ],
-      "additionalProperties": false
-    },
-    "mapping": {
-      "type": "object",
-      "properties": {
-        "source": {
-          "type": "string",
-          "maxLength": 2000000
-        },
-        "target": {
-          "type": "string",
-          "maxLength": 2000000
-        },
-        "relationship": {
-          "type": "string",
-          "maxLength": 2000000
-        },
-        "relation": {
-          "const": "MappedOnly"
-        },
-        "provenance": {
-          "type": "string",
-          "maxLength": 2000000
-        },
-        "reviewStatus": {
-          "type": "string",
-          "maxLength": 2000000
-        }
-      },
-      "required": [
-        "source",
-        "target",
-        "relationship",
-        "relation",
-        "provenance",
-        "reviewStatus"
       ],
       "additionalProperties": false
     },
@@ -1234,6 +1159,9 @@
           },
           "maxItems": 20000
         },
+        "alignment": {
+          "$ref": "#/$defs/alignment"
+        },
         "review": {
           "$ref": "#/$defs/review"
         }
@@ -1257,6 +1185,52 @@
         "flags",
         "candidateProportion",
         "missingObligations"
+      ],
+      "additionalProperties": false
+    },
+    "alignmentFinding": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        "frameworkId": {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        "officialReference": {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        "heading": {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        "authoritativeText": {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        "context": {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        "sourceLocator": {
+          "$ref": "#/$defs/locator"
+        },
+        "alignment": {
+          "$ref": "#/$defs/alignment"
+        }
+      },
+      "required": [
+        "id",
+        "frameworkId",
+        "officialReference",
+        "heading",
+        "authoritativeText",
+        "context",
+        "sourceLocator",
+        "alignment"
       ],
       "additionalProperties": false
     }

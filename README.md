@@ -1,56 +1,41 @@
 # WA Control Crosswalk
 
-WA Control Crosswalk (WACC) brings cybersecurity controls, assessment methods and
-source requirements together. Its new offline desktop pilot reviews how selected
-policy documents address those requirements, with source passages and separate
-reviewer decisions.
+WACC brings cybersecurity frameworks, controls and assessment guidance together.
+It also compares policy documents with selected frameworks, showing related
+passages and requirements that are not mentioned.
 
-Use it to find controls by topic, review their business risks, follow related
-requirements and choose which sources to include. Each control provides GRC and
-technical assessment guidance, with documents to inspect, practical tests and
-expected results.
+Choose several documents or a ZIP archive. Results link back to the original
+text and can be exported as a report for the frameworks you select. Comparisons
+run locally, without an AI service. Framework updates download publisher files
+when requested.
 
-The existing control library remains available in the local web interface.
-The scripts acquire and prepare source documents, analyse topic coverage and
-check the integrity of the data and application.
-Assessment commands are provided for users to run in their own environments.
+## Run the desktop
 
-## Run locally
-
-Requires Python 3.9 or later. From the repository folder:
-
-```powershell
-python -m wacc sources
-python -m wacc serve
-```
-
-Open [http://127.0.0.1:8765/](http://127.0.0.1:8765/).
-See [setup and troubleshooting](HOW-TO-RUN.md) for more detail.
-
-## Offline policy review pilot
+Use Python 3.13 on Windows. From the repository folder:
 
 ```powershell
 python -m pip install -r requirements-policy.txt
 python -m wacc open
 ```
 
-The desktop and CLI share one deterministic engine. They work offline with local
-TXT, Markdown, DOCX and text PDF files, save `.wacc` assessments, and export reports.
-No AI service or model runs during analysis. Coverage describes documented policy,
-not implementation or compliance.
+Start with the [plain-English guide](docs/policy-review/README.md) for adding
+frameworks, importing documents and reading the results.
 
-The current pilot automates one draft rule family; other requirements remain
-available for manual review. Human rule approval and enterprise deployment testing
-are still required. Start with the [plain-English desktop guide](docs/policy-review/README.md).
-Command-line and deployment details are linked there.
+The control library is also available through `python -m wacc serve` at
+[http://127.0.0.1:8765/](http://127.0.0.1:8765/).
+See [library setup](HOW-TO-RUN.md) for source preparation and troubleshooting.
 
 ## Repository guide
 
 | Folder | What it contains |
 |---|---|
-| [wacc/](wacc/) | Application code, source loaders, search and web interface. |
-| [data/](data/README.md) | Controls, assessment methods, source mappings and coverage reports. |
-| [sources/](sources/README.md) | Source acquisition records and instructions for adding a framework. |
-| [tools/](tools/README.md) | Data preparation, source reviews and validation scripts. |
+| [wacc/](wacc/) | Application code, document comparison, loaders, search and interfaces. |
+| [data/](data/README.md) | Controls, assessment methods and source mappings. |
+| [sources/](sources/README.md) | Source acquisition records and instructions for adding frameworks. |
+| [tools/](tools/README.md) | Scripts to prepare sources, build the app and measure performance. |
 | [tests/](tests/README.md) | Automated checks and instructions for running them. |
-| [docs/](docs/README.md) | Detailed workflows, design notes and review reports. |
+| [docs/](docs/README.md) | Detailed workflows, design notes and deployment instructions. |
+
+The scripts acquire and prepare source documents, check data quality, test the
+application and build the Windows package. Development and build tools are
+listed separately in `requirements-policy-dev.txt`.

@@ -1,11 +1,7 @@
 """Bounded WA policy structure parser, shared with the reviewed extraction approach."""
-import json
-import os
 import re
-import sys
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Tuple
 
-import pdfplumber
 from .contracts import PolicyError
 
 # The contents list draws its leaders with a font glyph carrying no Unicode
@@ -179,6 +175,7 @@ def build_records(sections: List[Dict[str, object]]) -> List[Dict[str, object]]:
 
 
 def parse(path):
+    import pdfplumber
     with pdfplumber.open(path) as pdf:
         if len(pdf.pages) > 100:
             raise PolicyError('Unsupported policy PDF.')

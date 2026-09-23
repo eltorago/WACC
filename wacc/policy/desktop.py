@@ -1,4 +1,4 @@
-"""Native Tk review adapter. Analysis and decisions use the same services as the CLI."""
+"""Native framework alignment workspace, backed by the shared comparison service."""
 import json
 import os
 from pathlib import Path
@@ -8,8 +8,8 @@ import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 from tkinter.scrolledtext import ScrolledText
 
-from . import ENGINE_VERSION, corpus, service, store, reports
-from .contracts import PolicyError, REVIEWED
+from . import ENGINE_VERSION, alignment, corpus, service, store, reports
+from .contracts import PolicyError
 
 
 class Desktop(ttk.Frame):
@@ -21,22 +21,22 @@ class Desktop(ttk.Frame):
         self.busy = False
         self.cancel = threading.Event()
         self.messages = queue.Queue()
-        master.title("WACC — Policy coverage review (pilot)")
+        master.title("WACC — Framework alignment")
         master.geometry("1350x850")
         master.minsize(1000, 650)
         master.protocol("WM_DELETE_WINDOW", self.close)
         toolbar = ttk.Frame(self)
         toolbar.pack(fill="x")
-        for label, command in [("New assessment", self.new), ("Open", self.open), ("New analysis run", self.new_run),
-                               ("Save snapshot", self.snapshot), ("Finalise snapshot", self.finalise), ("Export report", self.export),
+        for label, command in [("New comparison", self.new), ("Open", self.open), ("Compare new documents", self.new_run),
+                               ("Save a copy", self.snapshot), ("Export report", self.export),
                                ("Cancel analysis", self.cancel.set)]:
             ttk.Button(toolbar, text=label, command=command).pack(side="left", padx=(0, 6))
-        self.status = tk.StringVar(value="Open an assessment or select New assessment. Use Framework updates to prepare missing sources.")
+        self.status = tk.StringVar(value="Open a saved comparison or select New comparison. Use Framework updates to prepare missing sources.")
         ttk.Label(self, textvariable=self.status, wraplength=1250).pack(fill="x", pady=10)
         self.tabs = ttk.Notebook(self)
         self.tabs.pack(fill="both", expand=True)
         self.pages = {}
-        for title in ("Overview", "Requirements", "Potential gaps", "Documents", "Framework relationships", "Reports", "History", "Framework updates", "Settings"):
+        for title in ("Overview", "Requirements", "Not mentioned", "Documents", "Framework relationships", "Reports", "History", "Framework updates", "Settings"):
             frame = ttk.Frame(self.tabs, padding=10)
             self.tabs.add(frame, text=title)
             self.pages[title] = frame
@@ -44,7 +44,7 @@ class Desktop(ttk.Frame):
         self.overview.pack(fill="both", expand=True)
         self.chart = tk.Canvas(self.pages["Overview"], height=100, highlightthickness=0)
         self.chart.pack(fill="x")
-        self.framework_totals = self.tree(self.pages['Overview'], ('Framework', 'In scope', 'Reviewed', 'Confirmed coverage', 'Automatically assessed'))
+        self.framework_totals = self.tree(self.pages['Overview'], ('Framework', 'Requirements', *alignment.STATUSES))
         self.framework_totals.configure(height=4)
         filters = ttk.Frame(self.pages["Requirements"])
         filters.pack(fill="x")
@@ -52,7 +52,7 @@ class Desktop(ttk.Frame):
         self.search = tk.StringVar()
         ttk.Entry(filters, textvariable=self.search).pack(side="left", fill="x", expand=True, padx=8)
         self.filter = tk.StringVar(value="All")
-        ttk.Combobox(filters, textvariable=self.filter, state="readonly", values=("All", "Pending", "Reviewed", "NeedsReReview", *service.AUTOMATED), width=22).pack(side="left")
+        ttk.Combobox(filters, textvariable=self.filter, state="readonly", values=("All", *alignment.STATUSES), width=22).pack(side="left")
         self.search.trace_add("write", lambda *_: self.filter_rows())
         self.filter.trace_add("write", lambda *_: self.filter_rows())
         panes = ttk.Panedwindow(self.pages["Requirements"], orient="horizontal")
@@ -60,14 +60,14 @@ class Desktop(ttk.Frame):
         left, right = ttk.Frame(panes), ttk.Frame(panes)
         panes.add(left, weight=2)
         panes.add(right, weight=3)
-        self.requirements = self.tree(left, ("Reference", "Automated", "Review"))
+        self.requirements = self.tree(left, ("Reference", "Alignment", "Passages"))
         self.requirements.configure(show='tree headings')
         self.requirements.heading('#0', text='Framework / section')
         self.requirements.column('#0', width=180, minwidth=100)
         self.requirements.bind("<<TreeviewSelect>>", self.select_requirement)
         self.detail = ScrolledText(right, wrap="word", height=12)
         self.detail.pack(fill="both", expand=True)
-        ttk.Label(right, text="Evidence passages — select to inspect exact text and recorded rule checks").pack(anchor="w", pady=4)
+        ttk.Label(right, text="Matching policy passages — select to see the original text").pack(anchor="w", pady=4)
         self.evidence = ttk.Combobox(right, state="readonly")
         self.evidence.pack(fill="x")
         self.evidence.bind("<<ComboboxSelected>>", self.show_evidence)
@@ -76,11 +76,10 @@ class Desktop(ttk.Frame):
         self.passage.tag_configure("match", background="#ffe394", foreground="#182229")
         actions = ttk.Frame(right)
         actions.pack(fill="x", pady=6)
-        ttk.Button(actions, text="Review finding / confirm / reject", command=self.review).pack(side="left")
-        ttk.Button(actions, text="Related evidence and frameworks", command=self.relationships).pack(side="left", padx=8)
-        self.gaps = self.tree(self.pages["Potential gaps"], ("Reference", "Missing obligations", "Status"))
+        ttk.Button(actions, text="Related frameworks", command=self.relationships).pack(side="left", padx=8)
+        self.gaps = self.tree(self.pages["Not mentioned"], ("Reference", "Framework requirement", "Status"))
         self.gaps.bind("<<TreeviewSelect>>", self.open_gap)
-        self.doc_tree = self.tree(self.pages["Documents"], ("File", "Status", "Approval", "Retained / extracted passages"))
+        self.doc_tree = self.tree(self.pages["Documents"], ("File", "Read status", "Source", "Retained / extracted passages"))
         self.doc_tree.bind("<<TreeviewSelect>>", self.show_document)
         self.doc_text = ScrolledText(self.pages["Documents"], height=14, wrap="word")
         self.doc_text.pack(fill="both", expand=True)
@@ -90,7 +89,7 @@ class Desktop(ttk.Frame):
         self.edges = self.tree(self.pages["Framework relationships"], ("Source", "Relationship", "Target", "Evidence relation"))
         self.graph_status = tk.StringVar(value="Choose a requirement to see its bounded neighbourhood.")
         ttk.Label(self.pages["Framework relationships"], textvariable=self.graph_status).pack(anchor="w")
-        ttk.Label(self.pages["Reports"], text="Export the selected saved run as JSON, CSV, Markdown or self-contained HTML.\nSummary-only omits evidence excerpts; the saved assessment remains sensitive.\nExporting does not finalise or approve the assessment.", wraplength=900).pack(anchor="w", pady=10)
+        ttk.Label(self.pages["Reports"], text="Export framework alignment and requirements not mentioned as HTML, CSV, Markdown or JSON.\nChoose which frameworks and whether to include the matching policy passages.", wraplength=900).pack(anchor="w", pady=10)
         ttk.Button(self.pages["Reports"], text="Export report", command=self.export).pack(anchor="w")
         self.history = self.tree(self.pages["History"], ("Run", "Created"))
         self.history.bind("<<TreeviewSelect>>", self.open_history)
@@ -112,7 +111,7 @@ class Desktop(ttk.Frame):
             installed = corpus.installed()
         except PolicyError as error:
             installed = {'status': str(error), 'historicalAssessments': 'Can still be opened without the corpus.'}
-        self.set_text(self.settings, "Engine " + ENGINE_VERSION + "\n\nNo listener, telemetry or AI inference. Framework downloads occur only through the explicit update action.\n\nDesktop retention defaults to extracted text for manual review. Original files are not embedded.\n\nAssessment files are ordinary, unencrypted SQLite databases. Store them in an approved local folder.\n\nCorpus: " + json.dumps(installed, ensure_ascii=False, indent=2))
+        self.set_text(self.settings, "Engine " + ENGINE_VERSION + "\n\nNo listener, telemetry or AI inference. Framework downloads occur only through the explicit update action.\n\nComparisons retain extracted text so you can inspect the matching passages. Original files are not embedded.\n\nAssessment files are ordinary, unencrypted SQLite databases. Store them in an approved local folder.\n\nCorpus: " + json.dumps(installed, ensure_ascii=False, indent=2))
         master.bind("<Control-o>", lambda _: self.open())
         master.bind("<Control-n>", lambda _: self.new())
         master.bind("<Control-s>", lambda _: self.snapshot())
@@ -179,23 +178,19 @@ class Desktop(ttk.Frame):
             messagebox.showerror('Frameworks unavailable', 'Prepare a local WA CSP, ASD ISM or AESCSF source collection before creating an assessment.', parent=self)
             return
         dialog = tk.Toplevel(self)
-        dialog.title("Select assessment scope")
+        dialog.title("Select documents and frameworks")
         dialog.geometry("780x750")
         form = ttk.Frame(dialog, padding=18)
         form.pack(fill="both", expand=True)
         values = {}
-        defaults = dict(Name="Policy assessment", Organisation="", Scope="", Approval="unknown", Retention="extracted")
+        defaults = dict(Name="Framework alignment", Organisation="", Scope="")
         if self.state and destination:
             defaults.update(Name=self.state["run"]["name"], Organisation=self.state["run"].get("organisation", ""), Scope=self.state["run"]["scope"]["description"])
         for label, default in defaults.items():
             ttk.Label(form, text=label).pack(anchor="w", pady=(8, 0))
             values[label] = tk.StringVar(value=default)
-            if label in ("Approval", "Retention"):
-                options = ("unknown", "approved", "draft", "superseded") if label == "Approval" else ("evidence", "extracted")
-                ttk.Combobox(form, textvariable=values[label], values=options, state="readonly").pack(fill="x")
-            else:
-                ttk.Entry(form, textvariable=values[label]).pack(fill="x")
-        ttk.Label(form, text='Frameworks to assess — select one or more', wraplength=700).pack(anchor='w', pady=10)
+            ttk.Entry(form, textvariable=values[label]).pack(fill="x")
+        ttk.Label(form, text='Compare against — select one or more frameworks', wraplength=700).pack(anchor='w', pady=10)
         previous = {f['id'] for f in self.state['run']['versions']['frameworks']} if self.state and destination else {next(iter(choices))}
         selected_frameworks = {key: tk.BooleanVar(value=key in previous and key in choices) for key in corpus.REVIEW_FRAMEWORKS}
         for key, variable in selected_frameworks.items():
@@ -205,7 +200,7 @@ class Desktop(ttk.Frame):
         selected = tk.Listbox(form, height=5, selectmode="extended")
         selected.pack(fill="both", expand=True, pady=8)
         def add():
-            for path in filedialog.askopenfilenames(parent=dialog, filetypes=[("Policy documents", "*.pdf *.docx *.txt *.md")]):
+            for path in filedialog.askopenfilenames(parent=dialog, filetypes=[("Documents and ZIP archives", "*.pdf *.docx *.txt *.md *.zip")]):
                 if path not in selected.get(0, "end"):
                     selected.insert("end", path)
         def remove():
@@ -213,13 +208,13 @@ class Desktop(ttk.Frame):
                 selected.delete(index)
         buttons = ttk.Frame(form)
         buttons.pack(fill="x")
-        ttk.Button(buttons, text="Add documents", command=add).pack(side="left")
+        ttk.Button(buttons, text="Add files or ZIP archives", command=add).pack(side="left")
         ttk.Button(buttons, text="Exclude selected", command=remove).pack(side="left", padx=8)
-        ttk.Label(form, text="Evidence mode stores matched passages. Extracted mode stores all text and supports wider manual inspection. Neither mode embeds original files.", wraplength=700).pack(anchor="w", pady=8)
+        ttk.Label(form, text="Select several files at once, add files in batches, or choose a ZIP. Supported documents: PDF, DOCX, TXT and Markdown.", wraplength=700).pack(anchor="w", pady=8)
         def run():
             frameworks = [key for key, variable in selected_frameworks.items() if variable.get()]
             if not frameworks:
-                messagebox.showerror('Choose a framework', 'Select at least one framework to assess.', parent=dialog)
+                messagebox.showerror('Choose a framework', 'Select at least one framework to compare against.', parent=dialog)
                 return
             if not values["Scope"].get().strip() or not selected.size():
                 messagebox.showerror("Scope required", "Describe the scope and select at least one document.", parent=dialog)
@@ -228,16 +223,16 @@ class Desktop(ttk.Frame):
             if not path:
                 return
             options = dict(paths=list(selected.get(0, "end")), name=values["Name"].get(), scope=values["Scope"].get(),
-                           organisation=values["Organisation"].get(), approval=values["Approval"].get(), retention=values["Retention"].get(),
+                           organisation=values["Organisation"].get(), retention="extracted",
                            framework=frameworks[0], also=frameworks[1:])
             dialog.destroy()
             self.start_analysis(path, options)
-        ttk.Button(form, text="Analyse and save", command=run).pack(anchor="e", pady=10)
+        ttk.Button(form, text="Compare and save", command=run).pack(anchor="e", pady=10)
 
     def start_analysis(self, path, options):
         self.busy = True
         self.cancel.clear()
-        self.status.set("Extracting documents and evaluating rules… Cancel analysis leaves saved runs unchanged.")
+        self.status.set("Reading documents and matching passages to the selected frameworks…")
         def work():
             try:
                 run = service.analyse(cancel=self.cancel, **options)
@@ -299,100 +294,97 @@ class Desktop(ttk.Frame):
         threading.Thread(target=work,daemon=True).start()
 
     def refresh(self):
-        run = self.state["run"]
-        totals = service.summary(run, self.state["events"])
-        state_label = 'Historical run (read-only)' if self.state['metadata']['historical'] else 'Finalised' if self.state['metadata']['selectedFinalised'] else 'Working review'
-        self.status.set(run["name"] + " | " + run["scope"]["description"] + " | " + run["scope"]["mode"] + " | " + state_label)
-        def percent(value):
-            return 'N/A' if value['percent'] is None else '%.1f%% (%s / %s)' % (value['percent'],format(value['numerator'],'.2f').rstrip('0').rstrip('.'),value['denominator'])
-        labels={'FullCandidate':'Full evidence candidates','PartialCandidate':'Partial evidence candidates','NoEvidenceFound':'No qualifying evidence found','Ambiguous':'Ambiguous findings','NotAssessed':'Not assessed'}
-        overview = [run['name'], 'Scope: ' + run['scope']['description'] + ' (' + run['scope']['mode'] + ')',
-                    'Baseline: ' + '; '.join(f['edition'] for f in run['versions']['frameworks']),
-                    '', '%d selected documents; %d extracted successfully; %d with extraction issues' %
-                    (len(run['documents']),sum(d['status']=='Ready' for d in run['documents']),sum(d['status']!='Ready' for d in run['documents'])),
-                    '%d requirements in scope; %d excluded' % (totals['inScope'],totals['excluded']),
-                    '%d of %d requirements reviewed' % (totals['reviewed'],totals['reviewable']), '']
-        overview += [labels[k] + ': ' + str(v) for k,v in totals['automatedCounts'].items()]
-        overview += ['', 'Assessment completeness: ' + percent(totals['assessmentCompleteness']),
-                     'Evidence coverage within the computable subset only: ' + percent(totals['assessedScopeCoverage']),
-                     'Reviewer-confirmed evidence floor across the full scope: ' + percent(totals['confirmedEvidenceFloor']),
-                     '', 'Next: review ambiguous evidence and extraction issues, then assess requirements without an automated rule.',
-                     '', *run['limitations'], '', 'Corpus: ' + run['versions']['corpus'], 'Run: ' + run['runId']]
+        run = self.state['run']
+        self.aligned = alignment.for_run(run)
+        self.rows_by_id = {r['id']: r for r in run['requirements']}
+        self.search_text = {r['id']: (r['id'] + ' ' + r['heading'] + ' ' + r['authoritativeText']).casefold()
+                            for r in run['requirements']}
+        totals = alignment.summary(run['requirements'], self.aligned)
+        self.status.set(run['name'] + ' | ' + run['scope']['description'])
+        overview = [run['name'], 'Scope: ' + run['scope']['description'], '', alignment.DESCRIPTION, '',
+                    'Mentioned: clear shared wording about the requirement.',
+                    'Related wording: a possible topic match, reference or qualified statement.',
+                    'Not mentioned: no matching passage was found in the supplied documents.',
+                    'Unable to check: some document text could not be read or was not retained.', '',
+                    '%d documents; %d requirements across %d frameworks' %
+                    (len(run['documents']), totals['requirements'], len(run['versions']['frameworks']))]
+        overview += [status + ': ' + str(count) for status, count in totals['counts'].items()]
+        if run['scope'].get('skippedInputs'):
+            overview.append('Unsupported files skipped: ' + str(len(run['scope']['skippedInputs'])))
+        overview += ['', 'Select a requirement to see its matching policy passages. Use Not mentioned to identify topics to add.',
+                     '', 'Comparison method: ' + run['versions'].get('alignment', alignment.VERSION), 'Run: ' + run['runId']]
         self.set_text(self.overview, '\n'.join(overview))
         self.framework_totals.delete(*self.framework_totals.get_children())
-        for f in service.framework_summaries(run, self.state['events']):
+        for f in alignment.framework_summaries(run, self.aligned):
             self.framework_totals.insert('', 'end', values=(corpus.REVIEW_FRAMEWORKS.get(f['id'], f['title']),
-                f['inScope'], str(f['reviewed']) + ' / ' + str(f['reviewable']), percent(f['confirmedEvidenceFloor']),
-                str(f['computable']) + ' / ' + str(f['inScope'])))
-        self.chart.delete("all")
-        colors = ("#266b47", "#b38519", "#94665c", "#8463a5", "#8b939c")
+                f['requirements'], *(f['counts'][status] for status in alignment.STATUSES)))
+        self.chart.delete('all')
         start, width = 10, max(850, self.chart.winfo_width()-20)
-        for index, (status, count) in enumerate(totals["automatedCounts"].items()):
-            end = start + width * count / max(1, totals["inScope"])
-            self.chart.create_rectangle(start, 8, end, 34, fill=colors[index], outline="white")
-            self.chart.create_text(10 + index*220, 60, text=status + ": " + str(count), anchor="w", fill="black")
+        for index, (status, count) in enumerate(totals['counts'].items()):
+            end = start + width * count / max(1, totals['requirements'])
+            self.chart.create_rectangle(start, 8, end, 34, fill=('#266b47', '#b38519', '#94665c', '#8b939c')[index], outline='white')
+            self.chart.create_text(10 + index*230, 60, text=status + ': ' + str(count), anchor='w', fill='black')
             start = end
         self.filter_rows()
         self.gaps.delete(*self.gaps.get_children())
-        for r in service.apply_reviews(run, self.state["events"]):
-            if r["missingObligations"] and r["applicability"] != "NotApplicable":
-                self.gaps.insert("", "end", iid=r["id"], values=(r["id"], ", ".join(r["missingObligations"]), r["automatedFinding"]))
+        for row in run['requirements']:
+            status = self.aligned[row['id']]['status']
+            if status in ('Not mentioned', 'Unable to check'):
+                self.gaps.insert('', 'end', iid=row['id'], values=(row['id'], row['authoritativeText'], status))
         self.doc_tree.delete(*self.doc_tree.get_children())
-        for d in run["documents"]:
-            self.doc_tree.insert("", "end", iid=d["id"], values=(d["name"], d["status"], d["approvalStatus"], "%d / %d" % (len(d["passages"]), d.get("extractedPassageCount", len(d["passages"])))))
+        for doc in run['documents']:
+            self.doc_tree.insert('', 'end', iid=doc['id'], values=(doc['name'], doc['status'],
+                'ZIP archive' if doc.get('archiveMember') else 'File',
+                '%d / %d' % (len(doc['passages']), doc.get('extractedPassageCount', len(doc['passages'])))))
+        self.set_text(self.doc_text, 'Select a document to inspect its text.' +
+                      ('\n\nFiles skipped (unsupported format):\n' + '\n'.join(run['scope']['skippedInputs']) if run['scope'].get('skippedInputs') else ''))
         self.history.delete(*self.history.get_children())
-        for h in self.state["history"]:
-            self.history.insert("", "end", iid=h["id"], values=(h["id"], h["createdAt"]))
-        self.set_text(self.history_text, json.dumps(self.state["events"], ensure_ascii=False, indent=2))
+        for history in self.state['history']:
+            self.history.insert('', 'end', iid=history['id'], values=(history['id'], history['createdAt']))
+        self.set_text(self.history_text, json.dumps(run['versions'], ensure_ascii=False, indent=2))
 
     def filter_rows(self):
         if not self.state:
             return
         self.requirements.delete(*self.requirements.get_children())
-        for r in service.apply_reviews(self.state["run"], self.state["events"]):
-            if self.search.get().casefold() not in (r["id"] + r["heading"] + r["authoritativeText"]).casefold():
+        query, status = self.search.get().casefold(), self.filter.get()
+        for row in self.rows_by_id.values():
+            result = self.aligned[row['id']]
+            if query not in self.search_text[row['id']] or status != 'All' and status != result['status']:
                 continue
-            if self.filter.get() != "All" and self.filter.get() not in (r["automatedFinding"], r["reviewState"]):
-                continue
-            group = 'group/' + r['frameworkId'] + '/' + str(r['parentId'])
+            group = 'group/' + row['frameworkId'] + '/' + str(row['parentId'])
             if not self.requirements.exists(group):
-                self.requirements.insert('', 'end', iid=group, text=r['frameworkId'] + ' / ' + str(r['parentId']) + ' ' + r['heading'], open=True)
-            self.requirements.insert(group, "end", iid=r["id"], values=(r["officialReference"], r["automatedFinding"], r["reviewState"]))
+                self.requirements.insert('', 'end', iid=group, text=row['frameworkId'] + ' / ' + str(row['parentId']) + ' ' + row['heading'], open=True)
+            self.requirements.insert(group, 'end', iid=row['id'], values=(row['officialReference'], result['status'], result['matchCount']))
 
     def current(self):
         selected = self.requirements.selection()
-        return next((r for r in service.apply_reviews(self.state["run"], self.state["events"]) if selected and r["id"] == selected[0]), None) if self.state else None
+        return self.rows_by_id.get(selected[0]) if self.state and selected else None
 
     def select_requirement(self, _=None):
-        r = self.current()
-        if not r:
+        row = self.current()
+        if not row:
             return
-        self.set_text(self.detail, r["id"] + " — " + r["heading"] + "\n" + r["context"] + "\n" + r["authoritativeText"] +
-                      "\n\nAutomated: " + r["automatedFinding"] + "; review: " + r["reviewState"] + " / " + str(r["reviewerFinding"]) +
-                      "\n\n" + "\n".join(a["interpretation"] + " [" + a["reviewStatus"] + "] — " + next(x["state"] for x in r["atomResults"] if x["id"] == a["id"]) for a in r["obligations"]) +
-                      "\n\nFlags: " + ", ".join(r["flags"]))
-        if r.get('review'):
-            self.set_text(self.detail, self.detail.get('1.0','end') + '\nReviewer decision: ' + r['review']['finding'] +
-                          '\nReason: ' + r['review']['reason'] + '\n' + r['review'].get('comment','') +
-                          '\n\nManually linked evidence:\n' + '\n\n'.join(e['excerpt'] + '\n' + json.dumps(e['locator']) for e in r['review'].get('manualEvidence',[])))
-        self.evidence.configure(values=[e["obligationId"] + " | " + e["state"] + " | " + json.dumps(e["locator"]) for e in r["evidence"]])
-        self.evidence.set("")
-        self.set_text(self.passage, "No qualifying evidence was identified in the selected documents." if not r["evidence"] else "Select a passage above.")
-        if r["evidence"]:
+        result = self.aligned[row['id']]
+        self.set_text(self.detail, row['id'] + ' — ' + row['heading'] + '\n\n' + row['context'] + '\n' + row['authoritativeText'] +
+                      '\n\n' + result['status'] + ' · ' + str(result['matchCount']) + ' matching passages')
+        self.evidence.configure(values=[reports.location(match) for match in result['matches']])
+        self.evidence.set('')
+        self.set_text(self.passage, 'No matching passage found.' if not result['matches'] else 'Select a matching passage above.')
+        if result['matches']:
             self.evidence.current(0)
             self.show_evidence()
 
     def show_evidence(self, _=None):
-        r = self.current()
+        row = self.current()
         index = self.evidence.current()
-        if not r or index < 0:
+        if not row or index < 0:
             return
-        e = r["evidence"][index]
-        self.set_text(self.passage, e["excerpt"] + "\n\nSource: " + e["documentHash"] + "\n" + json.dumps(e["locator"]) +
-                      "\nRule " + e["ruleVersion"] + "; " + e["context"] + "\n" + json.dumps(e["checks"], ensure_ascii=False, indent=2))
-        self.passage.tag_remove("match", "1.0", "end")
-        for span in e["matchedSpans"]:
-            self.passage.tag_add("match", "1.0 + %d chars" % span["start"], "1.0 + %d chars" % span["end"])
+        match = self.aligned[row['id']]['matches'][index]
+        self.set_text(self.passage, match['excerpt'] + '\n\n' + reports.location(match) + '\n' + '\n'.join(match['cautions']))
+        self.passage.tag_remove('match', '1.0', 'end')
+        for span in match['matchedSpans']:
+            self.passage.tag_add('match', '1.0 + %d chars' % span['start'], '1.0 + %d chars' % span['end'])
 
     def open_gap(self, _=None):
         selection = self.gaps.selection()
@@ -402,67 +394,6 @@ class Desktop(ttk.Frame):
             self.requirements.selection_set(selection[0])
             self.requirements.see(selection[0])
             self.tabs.select(self.pages["Requirements"])
-
-    def review(self):
-        r = self.current()
-        if not r:
-            return
-        dialog = tk.Toplevel(self)
-        dialog.title("Review " + r["id"])
-        dialog.geometry("850x760")
-        box = ttk.Frame(dialog, padding=16)
-        box.pack(fill="both", expand=True)
-        fields = {}
-        for title in ("Reviewer", "Finding", "Reason"):
-            ttk.Label(box, text=title).pack(anchor="w", pady=(8, 0))
-            fields[title] = tk.StringVar(value="NotAssessed" if title == "Finding" else "")
-            widget = ttk.Combobox(box, textvariable=fields[title], values=REVIEWED, state="readonly") if title == "Finding" else ttk.Entry(box, textvariable=fields[title])
-            widget.pack(fill="x")
-        ttk.Label(box, text="Select the obligations you have confirmed (Ctrl or Shift for multiple)").pack(anchor="w", pady=8)
-        atoms = tk.Listbox(box, selectmode="extended", exportselection=False, height=5)
-        atoms.pack(fill="x")
-        for a in r["obligations"]:
-            atoms.insert("end", a["id"] + " — " + a["interpretation"])
-        ttk.Label(box, text="Select accepted evidence; leave rejected evidence unselected").pack(anchor="w", pady=8)
-        evidence = tk.Listbox(box, selectmode="extended", exportselection=False, height=5)
-        evidence.pack(fill="x")
-        for e in r["evidence"]:
-            evidence.insert("end", e["state"] + " — " + e["excerpt"][:150])
-        manual = []
-        def link_passage():
-            selected_atoms = atoms.curselection()
-            if not selected_atoms:
-                messagebox.showerror('Choose an obligation', 'Select an obligation above before linking a passage.', parent=dialog)
-                return
-            chooser = tk.Toplevel(dialog)
-            chooser.title('Link retained source passage')
-            chooser.geometry('950x500')
-            choices = [(d, p) for d in self.state['run']['documents'] if d['included'] for p in d['passages']]
-            passages = tk.Listbox(chooser, exportselection=False)
-            passages.pack(fill='both', expand=True)
-            for d,p in choices:
-                passages.insert('end', d['name'] + ' | ' + json.dumps(p['locator']) + ' | ' + p['text'][:250])
-            ttk.Label(chooser, text='Only retained passages are shown. Use a new run with extracted-text retention to inspect other passages.', wraplength=900).pack()
-            def choose():
-                if passages.curselection():
-                    d,p = choices[passages.curselection()[0]]
-                    for i in selected_atoms:
-                        manual.append(dict(documentId=d['id'], passageId=p['id'], obligationId=r['obligations'][i]['id']))
-                    chooser.destroy()
-            ttk.Button(chooser, text='Link selected passage to selected obligations', command=choose).pack(pady=8)
-        ttk.Button(box, text='Link another retained passage', command=link_passage).pack(anchor='w', pady=6)
-        ttk.Label(box, text="Comment / manual review notes").pack(anchor="w", pady=8)
-        comment = ScrolledText(box, height=6)
-        comment.pack(fill="both", expand=True)
-        def save():
-            def perform():
-                event = service.review_event(self.state["run"], r["id"], fields["Finding"].get(), fields["Reason"].get(), fields["Reviewer"].get(),
-                                             [r["obligations"][i]["id"] for i in atoms.curselection()], [r["evidence"][i]["id"] for i in evidence.curselection()], comment.get("1.0", "end").strip(), manual)
-                store.append_review(self.path, event)
-                dialog.destroy()
-                self.load(self.path)
-            self.guarded(perform)
-        ttk.Button(box, text="Save reviewer decision", command=save).pack(anchor="e", pady=10)
 
     def show_document(self, _=None):
         ids = self.doc_tree.selection()
@@ -513,11 +444,6 @@ class Desktop(ttk.Frame):
         if path:
             self.guarded(lambda: store.snapshot(self.path, path))
 
-    def finalise(self):
-        if self.path and messagebox.askyesno("Finalise snapshot", "Lock the current run against further review? Unreviewed requirements will remain unreviewed. A new analysis creates a new revision.", parent=self):
-            self.guarded(lambda: store.finalise(self.path,self.state['run']['runId']))
-            self.load(self.path)
-
     def export(self):
         if not self.state:
             return
@@ -531,7 +457,7 @@ class Desktop(ttk.Frame):
             selected[f['id']] = tk.BooleanVar(value=True)
             ttk.Checkbutton(box, text=corpus.REVIEW_FRAMEWORKS.get(f['id'], f['title']), variable=selected[f['id']]).pack(anchor='w')
         full = tk.BooleanVar(value=True)
-        ttk.Checkbutton(box, text='Include evidence excerpts and review notes', variable=full).pack(anchor='w', pady=12)
+        ttk.Checkbutton(box, text='Include matching policy passages', variable=full).pack(anchor='w', pady=12)
         def save():
             frameworks = [key for key, value in selected.items() if value.get()]
             if not frameworks:

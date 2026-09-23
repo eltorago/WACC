@@ -209,7 +209,7 @@ def verify_sources(state):
     for doc in state["run"]["documents"]:
         try:
             path = local_file(doc["path"])
-            matches = path.stat().st_size <= documents_limit() and hashlib.sha256(path.read_bytes()).hexdigest() == doc["sha256"]
+            matches = path.stat().st_size <= documents_limit() and hashlib.sha256(path.read_bytes()).hexdigest() == doc.get('archiveHash', doc["sha256"])
             status = "Unchanged" if matches else "Changed — source location is stale"
         except (OSError, PolicyError):
             status = "Unavailable"

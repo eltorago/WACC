@@ -57,10 +57,10 @@ def _wa_requirements(edition=None):
     return source_meta, requirements
 
 
-def _library():
+def _library(keys=MANUAL_FRAMEWORKS):
     from ..build import build
     library_root = Path(os.environ.get('WACC_LIBRARY', str(ROOT)))
-    return build(False, source_root=library_root/'sources/files', corpus_root=library_root/'data/corpus')[0]
+    return build(False, source_root=library_root/'sources/files', corpus_root=library_root/'data/corpus', framework_keys=keys)[0]
 
 
 def _controls(existing, key):
@@ -123,7 +123,7 @@ def load(framework="wa-csp", edition=None, corpus_version=None, also=()):
         requirements.extend(wa_rows)
     manual = [key for key in selected if key in MANUAL_FRAMEWORKS and key not in imported]
     if manual:
-        existing = _library()
+        existing = _library(selected)
         for key in manual:
             fw = existing.frameworks[key]
             controls = _controls(existing, key)

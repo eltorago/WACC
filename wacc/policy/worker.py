@@ -12,7 +12,7 @@ def main():
             from .framework_import import parse
             result = parse(request['framework'], request['path'])
         else:
-            result = extract(request["path"])
+            result = extract(request["path"], request.get('member'))
     except PolicyError as error:
         result = {"error": str(error)}
     except Exception:

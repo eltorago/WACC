@@ -133,7 +133,8 @@ class PolicyTests(unittest.TestCase):
                 saved=store.load(path)
                 self.assertEqual(saved['run'],self.baseline)
                 self.assertEqual(service.summary(saved['run'],saved['events'])['reviewed'],1)
-                self.assertIn('Covered',reports.render(saved))
+                reviewed = next(r for r in service.apply_reviews(saved['run'], saved['events']) if r['id'] == row['id'])
+                self.assertEqual(reviewed['reviewerFinding'], 'Covered')
 
     def test_manual_link_preserves_source_and_review_provenance(self):
         r=deepcopy(self.baseline);row=training(r);doc=r['documents'][0];passage=doc['passages'][-1]
@@ -268,7 +269,7 @@ class PolicyTests(unittest.TestCase):
         self.assertNotIn('<script>',reports.render(state,'html'))
         state['run']['name']='=HYPERLINK("evil")'
         self.assertIn("'=HYPERLINK",reports.render(state,'csv'))
-        self.assertFalse(any(r['evidence'] for r in reports.model(state,False)['requirements']))
+        self.assertFalse(any(r['alignment']['matches'] for r in reports.model(state,False)['requirements']))
 
     def test_changed_original_is_stale_without_altering_saved_evidence(self):
         with temporary() as directory:

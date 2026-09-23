@@ -2,6 +2,9 @@
 
 ## Build and launch
 
+Install `requirements-policy-dev.txt` before building. End users running from
+source need only `requirements-policy.txt`.
+
 `python tools/build_policy.py` creates an **unsigned Windows x64 folder build** at
 `data/local/offline-build/dist/wacc/`. Keep its entire directory together; the EXE
 depends on `_internal`. The build bundles Python, Tcl/Tk, SQLite, pypdf and crypto.

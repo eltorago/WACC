@@ -93,224 +93,107 @@ class LoadReport:
         return out
 
 
-def build(verbose: bool = True, *, source_root=None, corpus_root=None) -> Tuple[Corpus, LoadReport]:
-    """Load the library from explicit local roots or the existing configured defaults."""
-    corpus_directory = str(corpus_root or CORPUS)
+def build(verbose: bool = True, *, source_root=None, corpus_root=None, framework_keys=None) -> Tuple[Corpus, LoadReport]:
+    """Load all sources, or only selected frameworks and their source dependencies.
 
-    def _sources(*parts):
-        return str(local_path(Path(source_root or RAW), parts[-1]))
+    AESCSF needs ISM to resolve its published references and maturity tags. Other
+    frameworks and the product/threat layers are skipped in a selective load.
+    Each build owns its metadata; source editions cannot leak between builds.
+    """
+    from copy import deepcopy
 
-    def _doc(name):
-        return _sources(name)
-
-    corpus = Corpus()
-    report = LoadReport()
-
+    selected = None if framework_keys is None else set(framework_keys)
+    if selected is not None:
+        unknown = selected - set(FRAMEWORKS_BY_KEY)
+        if unknown:
+            raise ValueError("Unknown frameworks: " + ", ".join(sorted(unknown)))
+        if selected & {'aescsf', 'asd-principles'}:
+            selected.add('ism')
+        if 'ism' in selected:
+            selected.add('asd-principles')
+    source_directory = Path(source_root or RAW)
+    corpus_directory = Path(corpus_root or CORPUS)
+    corpus, report = Corpus(), LoadReport()
     for framework in FRAMEWORKS:
-        corpus.add_framework(framework)
-    for doc in GUIDANCE:
-        corpus.add_guidance(doc)
+        corpus.add_framework(deepcopy(framework))
+    if selected is None:
+        for doc in GUIDANCE:
+            corpus.add_guidance(deepcopy(doc))
 
-    # -- tier 4 first: everything else cites these -------------------------
+    def source(name):
+        return str(local_path(source_directory, name))
 
-    ism = FRAMEWORKS_BY_KEY["ism"]
-    ism_catalog = _sources("acsc-ism", "ISM_catalog.json")
-    if _exists(ism_catalog):
-        counts = oscal.load_into(corpus, ism, ism_catalog, applicability_prop="applicability")
+    def load(key, path, loader, missing, **options):
+        if selected is not None and key not in selected:
+            return
+        if _exists(path):
+            report.record(key, loader(corpus, corpus.frameworks[key], str(path), **options))
+        else:
+            report.skip(key, missing)
+
+    def ism_loader(corpus, framework, path):
+        counts = oscal.load_into(corpus, framework, path, applicability_prop="applicability")
         for level in ("ML1", "ML2", "ML3"):
-            profile = _sources("acsc-ism", "ISM_E8_%s-baseline_profile.json" % level)
-            if _exists(profile):
-                counts["e8_%s" % level] = oscal.apply_profile_tag(
-                    corpus, ism, profile, "essential_eight_maturity", level
-                )
-        principle_counts = principles.partition(corpus, FRAMEWORKS_BY_KEY['asd-principles'])
-        counts['controls'] -= principle_counts['controls']
-        report.record('asd-principles', principle_counts)
-        report.record(ism.key, counts)
-    else:
-        report.skip(ism.key, "ISM_catalog.json not present")
-        report.skip('asd-principles', 'ISM_catalog.json not present; run python -m wacc sources')
+            profile = source("ISM_E8_%s-baseline_profile.json" % level)
+            if os.path.exists(profile):
+                counts["e8_%s" % level] = oscal.apply_profile_tag(corpus, framework, profile, "essential_eight_maturity", level)
+        partition = principles.partition(corpus, corpus.frameworks['asd-principles'])
+        counts['controls'] -= partition['controls']
+        report.record('asd-principles', partition)
+        return counts
 
-    n53 = FRAMEWORKS_BY_KEY["nist-800-53"]
-    n53_catalog = _sources("nist-800-53", "NIST_SP-800-53_rev5_catalog.json")
-    if _exists(n53_catalog):
-        counts = oscal.load_into(
-            corpus, n53, n53_catalog, assessment_publisher="NIST SP 800-53A Rev 5.2.0"
-        )
+    def nist_loader(corpus, framework, path):
+        counts = oscal.load_into(corpus, framework, path, assessment_publisher="NIST SP 800-53A Rev 5.2.0")
         for level in ("LOW", "MODERATE", "HIGH", "PRIVACY"):
-            profile = _sources(
-                "nist-800-53", "NIST_SP-800-53_rev5_%s-baseline_profile.json" % level
-            )
-            if _exists(profile):
-                counts["baseline_%s" % level.lower()] = oscal.apply_profile_tag(
-                    corpus, n53, profile, "sp800_53b_baseline", level.lower()
-                )
-        report.record(n53.key, counts)
-    else:
-        report.skip(n53.key, "800-53 OSCAL catalog not present")
+            profile = source("NIST_SP-800-53_rev5_%s-baseline_profile.json" % level)
+            if os.path.exists(profile):
+                counts["baseline_%s" % level.lower()] = oscal.apply_profile_tag(corpus, framework, profile, "sp800_53b_baseline", level.lower())
+        return counts
 
-    cis_controls = FRAMEWORKS_BY_KEY["cis-controls"]
-    cis_path = _doc("CIS_Controls_Version_8.xlsx")
-    if _exists(cis_path):
-        counts = cis.load_controls(corpus, cis_controls, cis_path)
-        mapping = _doc("CIS_Controls_v8.1_Mapping_to_ASD_Essential_Eight_2_2025.xlsx")
-        if _exists(mapping):
-            counts["e8_mapping"] = cis.load_essential_eight_mapping(
-                corpus, cis_controls, mapping
-            )
+    def cis_loader(corpus, framework, path):
+        counts = cis.load_controls(corpus, framework, path)
+        mapping = source("CIS_Controls_v8.1_Mapping_to_ASD_Essential_Eight_2_2025.xlsx")
+        if os.path.exists(mapping):
+            counts["e8_mapping"] = cis.load_essential_eight_mapping(corpus, framework, mapping)
             counts["ism_bridge"] = cis.link_safeguards_to_ism(corpus)
-        report.record(cis_controls.key, counts)
-    else:
-        report.skip(cis_controls.key, "CIS Controls workbook not present")
+        return counts
 
-    # -- tier 3 -------------------------------------------------------------
-
-    csf_fw = FRAMEWORKS_BY_KEY["csf"]
-    csf_path = _doc("nist-csf-2.0-cprt-all-olir.xlsx")
-    if _exists(csf_path):
-        report.record(csf_fw.key, csf.load_into(corpus, csf_fw, csf_path))
-    else:
-        report.skip(csf_fw.key, "CSF CPRT export not present")
-
-    oag_fw = FRAMEWORKS_BY_KEY["oag-wa"]
-    oag_path = os.path.join(corpus_directory, "oag-wa.json")
-    if _exists(oag_path):
-        report.record(oag_fw.key, oag.load_into(corpus, oag_fw, oag_path))
-    else:
-        report.skip(oag_fw.key, "oag-wa.json not extracted yet")
-
-    aescsf_fw = FRAMEWORKS_BY_KEY["aescsf"]
-    aescsf_path = _doc("aescsf-framework-core.xlsx")
-    if _exists(aescsf_path):
-        report.record(aescsf_fw.key, aescsf.load_into(corpus, aescsf_fw, aescsf_path))
-    else:
-        report.skip(aescsf_fw.key, "AESCSF workbook not present")
-
-    # C2M2 belongs here rather than with the other tier-3 addition below, because the
-    # CIRMP framework tables name it and tier 1 resolves those tables against frameworks
-    # that are already loaded. Loaded after the legislation it produced no links at all,
-    # and nothing said so.
-    c2m2_framework = corpus.frameworks.get("c2m2")
-    c2m2_path = os.path.join(corpus_directory, "c2m2.json")
-    if c2m2_framework is not None:
-        if os.path.exists(c2m2_path):
-            report.record("c2m2", c2m2.load(corpus, c2m2_framework, c2m2_path, verbose))
+    # Load referenced catalogues before the frameworks that cite them.
+    load('ism', source('ISM_catalog.json'), ism_loader, 'ISM_catalog.json not present')
+    if 'ism' in report.skipped:
+        report.skip('asd-principles', 'ISM_catalog.json not present; run python -m wacc sources')
+    load('nist-800-53', source('NIST_SP-800-53_rev5_catalog.json'), nist_loader, '800-53 OSCAL catalog not present')
+    load('cis-controls', source('CIS_Controls_Version_8.xlsx'), cis_loader, 'CIS Controls workbook not present')
+    load('csf', source('nist-csf-2.0-cprt-all-olir.xlsx'), csf.load_into, 'CSF CPRT export not present')
+    load('oag-wa', corpus_directory/'oag-wa.json', oag.load_into, 'oag-wa.json not extracted yet')
+    load('aescsf', source('aescsf-framework-core.xlsx'), aescsf.load_into, 'AESCSF workbook not present')
+    load('c2m2', corpus_directory/'c2m2.json', c2m2.load, 'extract not present; run tools/extract_c2m2.py', verbose=verbose)
+    load('pspf', corpus_directory/'pspf.json', pspf.load_into, 'pspf.json not extracted yet')
+    load('wa-csp', corpus_directory/'wa-csp.json', wa.load_policy, 'wa-csp.json not extracted yet')
+    load('wa-circular', corpus_directory/'wa-circular.json', wa.load_circular, 'wa-circular.json not extracted yet')
+    load('nist-800-63', corpus_directory/'nist-800-63.json', spec.load_json, 'nist-800-63.json not extracted yet', container='volumes', group_label='volume')
+    for key in ('nist-800-131a', 'nist-800-57pt1', 'nist-800-88', 'asd-ad'):
+        load(key, corpus_directory/(key + '.json'), spec.load_json, 'no parameter table and no curated extract', container='groups', group_label='key')
+    for key in ('soci-act', 'cirmp-rules'):
+        filename = key + '-latest.docx'
+        load(key, source(filename), legislation.load_into, filename + ' not present')
+    load('ztmm', corpus_directory/'ztmm.json', ztmm.load, 'extract not present; run tools/extract_ztmm.py', verbose=verbose)
+    for key, loader in (('wa-pris', wa_pris.load_into), ('asd-strategies', extended.strategies),
+                        ('scf', extended.scf), ('mcsb', extended.mcsb),
+                        ('essential-eight', extended.essential_eight), ('scuba', extended.scuba)):
+        load(key, source(corpus.frameworks[key].source_file), loader, 'Source not present; run python -m wacc sources')
+    if selected is None:
+        detail.load(corpus, str(corpus_directory/'detail'), verbose=verbose)
+        attack_path = source('enterprise-attack-v19.2.xlsx')
+        if os.path.exists(attack_path):
+            attack.load(corpus, attack_path, verbose=verbose)
         else:
-            report.skip("c2m2", "extract not present; run tools/extract_c2m2.py")
-
-    # -- tier 2 -------------------------------------------------------------
-
-    pspf_fw = FRAMEWORKS_BY_KEY["pspf"]
-    pspf_path = os.path.join(corpus_directory, "pspf.json")
-    if _exists(pspf_path):
-        report.record(pspf_fw.key, pspf.load_into(corpus, pspf_fw, pspf_path))
-    else:
-        report.skip(pspf_fw.key, "pspf.json not extracted yet")
-
-    wa_csp = FRAMEWORKS_BY_KEY["wa-csp"]
-    wa_csp_path = os.path.join(corpus_directory, "wa-csp.json")
-    if _exists(wa_csp_path):
-        report.record(wa_csp.key, wa.load_policy(corpus, wa_csp, wa_csp_path))
-    else:
-        report.skip(wa_csp.key, "wa-csp.json not extracted yet")
-
-    wa_circular = FRAMEWORKS_BY_KEY["wa-circular"]
-    wa_circular_path = os.path.join(corpus_directory, "wa-circular.json")
-    if _exists(wa_circular_path):
-        report.record(wa_circular.key, wa.load_circular(corpus, wa_circular, wa_circular_path))
-    else:
-        report.skip(wa_circular.key, "wa-circular.json not extracted yet")
-
-    # -- tier 5 -------------------------------------------------------------
-
-    n63 = FRAMEWORKS_BY_KEY["nist-800-63"]
-    n63_path = os.path.join(corpus_directory, "nist-800-63.json")
-    if _exists(n63_path):
-        report.record(n63.key, spec.load_json(corpus, n63, n63_path, "volumes", "volume"))
-    else:
-        report.skip(n63.key, "nist-800-63.json not extracted yet")
-
-    for key, filename in (
-        ("nist-800-131a", "nist-800-131a.json"),
-        ("nist-800-57pt1", "nist-800-57pt1.json"),
-        ("nist-800-88", "nist-800-88.json"),
-        ("asd-ad", "asd-ad.json"),
-    ):
-        fw = FRAMEWORKS_BY_KEY[key]
-        path = os.path.join(corpus_directory, filename)
-        if _exists(path):
-            report.record(key, spec.load_json(corpus, fw, path, "groups", "key"))
-        else:
-            report.skip(key, "no parameter table and no curated extract")
-
-    # -- tier 1 last, because the frameworks its tables name must exist first
-
-    for key, filename in (
-        ("soci-act", "soci-act-latest.docx"),
-        ("cirmp-rules", "cirmp-rules-latest.docx"),
-    ):
-        fw = FRAMEWORKS_BY_KEY[key]
-        path = _doc(filename)
-        if _exists(path):
-            report.record(key, legislation.load_into(corpus, fw, path))
-        else:
-            report.skip(key, "%s not present" % filename)
-
-    # -- tier 3 addition: a maturity model, not a catalogue ----------------
-
-    ztmm_framework = corpus.frameworks.get("ztmm")
-    ztmm_path = os.path.join(corpus_directory, "ztmm.json")
-    if ztmm_framework is not None:
-        if os.path.exists(ztmm_path):
-            report.record("ztmm", ztmm.load(corpus, ztmm_framework, ztmm_path, verbose))
-        else:
-            report.skip("ztmm", "extract not present; run tools/extract_ztmm.py")
-
-    for key, loader in (('wa-pris',wa_pris.load_into),('asd-strategies',extended.strategies),('scf',extended.scf),('mcsb',extended.mcsb),
-                        ('essential-eight',extended.essential_eight),('scuba',extended.scuba)):
-        framework = corpus.frameworks[key]
-        path = _doc(framework.source_file)
-        if _exists(path):
-            report.record(key,loader(corpus,framework,path))
-        else:
-            report.skip(key,'Source not present; run python -m wacc sources')
-
-    # -- product detail, which is not a framework column -------------------
-    #
-    # A benchmark states how to configure one product. It has no tier and never
-    # appears as a column; it reaches a reader inside the test procedure for the
-    # control it hardens.
-
-    detail.load(corpus, os.path.join(corpus_directory, "detail"), verbose=verbose)
-
-    # -- threat layer, last and separate -----------------------------------
-    #
-    # Loaded after every framework and kept out of the tier bands entirely. ATT&CK
-    # carries no authority over an entity, so placing it in the spine would assert
-    # something about it that is not true.
-
-    attack_path = _doc("enterprise-attack-v19.2.xlsx")
-    if os.path.exists(attack_path):
-        attack.load(corpus, attack_path, verbose=verbose)
-    else:
-        corpus.load_warnings.append(
-            "ATT&CK export not present; the threat layer is empty"
-        )
-
-    # -- everything not yet written ----------------------------------------
-
+            corpus.load_warnings.append('ATT&CK export not present; the threat layer is empty')
     for framework in FRAMEWORKS:
-        if framework.key in report.loaded or framework.key in report.skipped:
-            continue
-        report.skip(framework.key, "loader not written yet")
-
-    # What is registered but not here, and why. Every consumer reads this off the corpus,
-    # because the alternative is each renderer deciding for itself what an empty column
-    # means, and the two meanings are not the same.
+        if framework.key not in report.loaded and framework.key not in report.skipped:
+            report.skip(framework.key, 'Not selected' if selected is not None and framework.key not in selected else 'loader not written yet')
     corpus.absent_frameworks = dict(report.skipped)
-
     corpus.mark_shared_titles()
-
     if verbose:
         print("\n".join(report.lines(corpus)))
     return corpus, report

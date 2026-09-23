@@ -20,6 +20,26 @@ def array(items,maximum=20000):
 def ref(name):return {'$ref':'#/$defs/'+name}
 
 
+def referenced_definitions(schema, definitions):
+    """Keep each standalone contract self-contained without unrelated definitions."""
+    found = set()
+    def visit(value):
+        if isinstance(value, dict):
+            reference = value.get('$ref', '')
+            if reference.startswith('#/$defs/'):
+                name = reference.removeprefix('#/$defs/')
+                if name not in found:
+                    found.add(name)
+                    visit(definitions[name])
+            for child in value.values():
+                visit(child)
+        elif isinstance(value, list):
+            for child in value:
+                visit(child)
+    visit(schema)
+    return {name:definition for name,definition in definitions.items() if name in found}
+
+
 def generate():
     string={'type':'string','maxLength':2000000}
     strings=array(string)
@@ -43,34 +63,47 @@ def generate():
     base=dict(id=string,frameworkId=string,officialReference=string,heading=string,parentId=nullable,authoritativeText=string,
               context=string,sourceLocator=ref('locator'),obligations=array(ref('atom'),50))
     defs['requirement']=obj(base)
+    defs['alignmentMatch']=obj(dict(documentId=string,documentHash=string,documentName=string,passageId=string,
+        excerpt=string,locator=ref('locator'),start={'type':'integer','minimum':0},end={'type':'integer','minimum':1},
+        matchedSpans=array(obj(dict(start={'type':'integer','minimum':0},end={'type':'integer','minimum':1}))),
+        matchedTerms=strings,status={'enum':['Mentioned','Related wording']},cautions=strings,reason=string,
+        score={'type':'number','minimum':0,'maximum':1}))
+    defs['alignment']=obj(dict(status={'enum':['Mentioned','Related wording','Not mentioned','Unable to check']},
+        matches=array(ref('alignmentMatch'),5),matchCount={'type':'integer','minimum':0},searchComplete=boolean,method=string))
     defs['finding']=obj(dict(**base,automatedFinding={'enum':list(AUTOMATED)},applicability={'enum':['InScope','NotApplicable','Undetermined']},
                             reviewState={'enum':['Pending','Reviewed','NeedsReReview']},reviewerFinding=nullable,
                             atomResults=array(obj(dict(id=string,state={'enum':['NotAssessed','Conflict','Ambiguous','Matched','Missing']}))),
                             evidence=array(ref('evidence')),flags=strings,candidateProportion={'type':['number','null'],'minimum':0,'maximum':1},missingObligations=strings))
+    defs['finding']['properties']['alignment']=ref('alignment')
     defs['passage']=obj(dict(id=string,text=string,locator=ref('locator')))
     document=dict(id=string,sha256=string,name=string,path=string,format=string,status={'enum':['Ready','Incomplete','Failed']},
                   approvalStatus={'enum':['approved','draft','unknown','superseded']},effectiveDate=nullable,included=boolean,
                   warnings=strings,passages=array(ref('passage'),100000),parserVersion=string,retention={'enum':['evidence','extracted']},extractedPassageCount={'type':'integer'})
-    defs['document']=obj(document,required=[k for k in document if k not in ('effectiveDate','extractedPassageCount')])
+    document.update(archiveMember=string,archiveHash=string)
+    defs['document']=obj(document,required=[k for k in document if k not in ('effectiveDate','extractedPassageCount','archiveMember','archiveHash')])
     defs['framework']=obj(dict(id=string,title=string,edition=string,sourceFile=nullable,extractHash=string,sourceUri=nullable,licence=string,sourceHash=nullable),required=['id','title','edition','extractHash'])
     defs['versions']=obj(dict(engine=string,corpus=string,frameworks=array(ref('framework'),100),rulesHash=string,normaliser=string,retrieval=string,parser=string))
+    defs['versions']['properties']['alignment']=string
     defs['scope']=obj(dict(description=string,mode={'enum':['SingleDocument','PolicySet']},selectedDocumentIds=strings,
                           duplicates=array(obj(dict(path=string,documentId=string)),250),retention={'enum':['evidence','extracted']}))
+    defs['scope']['properties']['skippedInputs']=strings
     defs['mapping']=obj(dict(source=string,target=string,relationship=string,relation={'const':'MappedOnly'},provenance=string,reviewStatus=string))
     defs['review']=obj(dict(id=string,runId=string,requirementId=string,finding={'enum':['Covered','PartiallyCovered','NotCovered','NotAssessed','NotApplicable']},
                            reason=string,reviewer=string,identitySource=string,timestamp=string,confirmedObligations=strings,selectedEvidence=strings,comment=string,
                            manualEvidence=array(obj(dict(id=string,documentId=string,documentHash=string,passageId=string,obligationId=string,excerpt=string,locator=ref('locator'),relation={'const':'Direct'},provenance=string)))))
     defs['reviewedFinding']=obj(dict(**defs['finding']['properties'],review=ref('review')),required=defs['finding']['required'])
+    defs['alignmentFinding']=obj(dict(id=string,frameworkId=string,officialReference=string,heading=string,
+        authoritativeText=string,context=string,sourceLocator=ref('locator'),alignment=ref('alignment')))
     run=obj(dict(schemaVersion={'const':'1.0'},runId=string,createdAt=string,name=string,organisation=string,
                  scope=ref('scope'),versions=ref('versions'),documents=array(ref('document'),250),requirements=array(ref('finding')),
                  mappings=array(ref('mapping'),100000),limitations=strings,canonicalHash=string))
     corpus=obj(dict(version=string,frameworks=array(ref('framework'),100),requirements=array(ref('requirement')),mappings=array(ref('mapping'),100000),rulesHash=string,status=string))
     cli=obj(dict(schemaVersion={'const':'1.0'},operation=string,status={'enum':['Completed','CompletedWithLimitations','Cancelled','Failed']},warnings=strings,errors=strings,
-                 assessmentPath=nullable,analysisRunId=string,scope=ref('scope'),versions=ref('versions'),summary={'type':'object'},requirements=array(ref('reviewedFinding')),documents=array(ref('document'),250)),
+                 assessmentPath=nullable,analysisRunId=string,scope=ref('scope'),versions=ref('versions'),summary={'type':'object'},requirements=array({'oneOf':[ref('reviewedFinding'),ref('alignmentFinding')]}),documents=array(ref('document'),250)),
             required=['schemaVersion','operation','status','warnings','errors'],extra=True)
     folder=ROOT/'schemas/policy';folder.mkdir(parents=True,exist_ok=True)
     for name,schema in [('run',run),('corpus',corpus),('cli',cli)]:
-        schema.update({'$schema':'https://json-schema.org/draft/2020-12/schema','$id':'https://wacc.local/schemas/policy/'+name+'/1.0','$defs':defs})
+        schema.update({'$schema':'https://json-schema.org/draft/2020-12/schema','$id':'https://wacc.local/schemas/policy/'+name+'/1.0','$defs':referenced_definitions(schema,defs)})
         (folder/(name+'.schema.json')).write_text(json.dumps(schema,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 
 

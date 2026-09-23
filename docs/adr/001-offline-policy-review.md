@@ -1,5 +1,8 @@
 # ADR-001: Preserve Python and add native offline policy review
 
+> Historical pilot design. The current workflow compares framework alignment and
+> unmentioned requirements; see the [desktop guide](../policy-review/README.md).
+
 **Status:** Accepted for engineering pilot; production desktop acceptance pending
 
 **Date:** 23 September 2026
