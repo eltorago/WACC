@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "1.0",
+  "corpusVersion": "2026.09.23-pilot.2",
+  "frameworkEdition": "Western Australian Government Cyber Security Policy 2024",
+  "sourceExtractHash": "418a2406a16fa4a6d6772e0ed59fb234c714537df4075043911fdd4a4fffe211",
+  "reviewStatus": "DraftNeedsHumanReview",
+  "sourceReference": "WA CSP 2024, 3.2a, PDF page 15",
+  "rules": [
+    {
+      "id": "WACC-WA-3.2a-training",
+      "interpretation": "All personnel must undertake cyber security awareness training.",
+      "rule": {
+        "all": [
+          {
+            "pattern": "mandatory"
+          },
+          {
+            "pattern": "universal_staff"
+          },
+          {
+            "phrases": [
+              "cyber security awareness training",
+              "cybersecurity awareness training",
+              "security awareness training"
+            ]
+          },
+          {
+            "pattern": "training_commitment"
+          }
+        ]
+      }
+    },
+    {
+      "id": "WACC-WA-3.2a-annual",
+      "interpretation": "The personnel training commitment is annual.",
+      "rule": {
+        "all": [
+          {
+            "pattern": "mandatory"
+          },
+          {
+            "pattern": "universal_staff"
+          },
+          {
+            "phrases": [
+              "cyber security awareness training",
+              "cybersecurity awareness training",
+              "security awareness training"
+            ]
+          },
+          {
+            "pattern": "training_commitment"
+          },
+          {
+            "pattern": "training_annual"
+          }
+        ]
+      }
+    }
+  ],
+  "trainingRequirementHash": "7c950363a6adb7b52c80c128c667ba103240473a7b3b75e0e235a40d59c34fc0",
+  "reviewedSourceHash": "4fc77e899593bd0086c778d379bea3119270cfda99b9ba49cb0af5c4baee1d9e"
+}

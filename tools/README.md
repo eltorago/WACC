@@ -40,3 +40,10 @@ its opening instructions before running it. Reviewed extracts belong in
 Follow the [assessment authoring steps](../sources/add-framework.md#5-add-or-revise-the-assessments)
 for the command sequence and required review. See [tests](../tests/README.md) for
 regression checks and offline command fixtures.
+
+## Build the policy-review desktop
+
+`build_policy.py` creates the Windows application folder and its dependency/file
+inventory. `write_policy_schemas.py` regenerates the assessment, corpus and CLI
+JSON contracts. See the [desktop guide](../docs/policy-review/README.md) for use and
+the [deployment notes](../docs/deployment/POLICY-PILOT.md) for build requirements.

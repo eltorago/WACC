@@ -3,6 +3,12 @@
 ## Use the application
 
 - [Run locally and troubleshoot](../HOW-TO-RUN.md)
+- [Policy review: plain-English desktop guide](policy-review/README.md)
+- [Policy review: CLI and technical reference](policy-review.md)
+- [Policy pilot deployment](deployment/POLICY-PILOT.md)
+- [Refactor assessment](REFACTOR-ASSESSMENT.md)
+- [Architecture decision](adr/001-offline-policy-review.md)
+- [Policy pilot implementation and validation](POLICY-IMPLEMENTATION.md)
 
 ## Maintain the repository
 

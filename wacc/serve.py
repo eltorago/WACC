@@ -202,6 +202,15 @@ def _handler(initial_state: State):
 
         def do_POST(self):
             if self.path != '/sources/acquire':
+                # Consume small rejected bodies before closing, preventing a Windows
+                # TCP reset from discarding the 404 while the client is still sending.
+                try:
+                    size = int(self.headers.get('Content-Length', '0'))
+                    if 0 < size <= 4096:
+                        self.connection.settimeout(2)
+                        self.rfile.read(size)
+                except (ValueError, OSError):
+                    pass
                 return self.send_error(404, 'no such action')
             try:
                 size = int(self.headers.get('Content-Length', '0'))

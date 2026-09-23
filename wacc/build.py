@@ -93,7 +93,16 @@ class LoadReport:
         return out
 
 
-def build(verbose: bool = True) -> Tuple[Corpus, LoadReport]:
+def build(verbose: bool = True, *, source_root=None, corpus_root=None) -> Tuple[Corpus, LoadReport]:
+    """Load the library from explicit local roots or the existing configured defaults."""
+    corpus_directory = str(corpus_root or CORPUS)
+
+    def _sources(*parts):
+        return str(local_path(Path(source_root or RAW), parts[-1]))
+
+    def _doc(name):
+        return _sources(name)
+
     corpus = Corpus()
     report = LoadReport()
 
@@ -164,7 +173,7 @@ def build(verbose: bool = True) -> Tuple[Corpus, LoadReport]:
         report.skip(csf_fw.key, "CSF CPRT export not present")
 
     oag_fw = FRAMEWORKS_BY_KEY["oag-wa"]
-    oag_path = os.path.join(CORPUS, "oag-wa.json")
+    oag_path = os.path.join(corpus_directory, "oag-wa.json")
     if _exists(oag_path):
         report.record(oag_fw.key, oag.load_into(corpus, oag_fw, oag_path))
     else:
@@ -182,7 +191,7 @@ def build(verbose: bool = True) -> Tuple[Corpus, LoadReport]:
     # that are already loaded. Loaded after the legislation it produced no links at all,
     # and nothing said so.
     c2m2_framework = corpus.frameworks.get("c2m2")
-    c2m2_path = os.path.join(CORPUS, "c2m2.json")
+    c2m2_path = os.path.join(corpus_directory, "c2m2.json")
     if c2m2_framework is not None:
         if os.path.exists(c2m2_path):
             report.record("c2m2", c2m2.load(corpus, c2m2_framework, c2m2_path, verbose))
@@ -192,21 +201,21 @@ def build(verbose: bool = True) -> Tuple[Corpus, LoadReport]:
     # -- tier 2 -------------------------------------------------------------
 
     pspf_fw = FRAMEWORKS_BY_KEY["pspf"]
-    pspf_path = os.path.join(CORPUS, "pspf.json")
+    pspf_path = os.path.join(corpus_directory, "pspf.json")
     if _exists(pspf_path):
         report.record(pspf_fw.key, pspf.load_into(corpus, pspf_fw, pspf_path))
     else:
         report.skip(pspf_fw.key, "pspf.json not extracted yet")
 
     wa_csp = FRAMEWORKS_BY_KEY["wa-csp"]
-    wa_csp_path = os.path.join(CORPUS, "wa-csp.json")
+    wa_csp_path = os.path.join(corpus_directory, "wa-csp.json")
     if _exists(wa_csp_path):
         report.record(wa_csp.key, wa.load_policy(corpus, wa_csp, wa_csp_path))
     else:
         report.skip(wa_csp.key, "wa-csp.json not extracted yet")
 
     wa_circular = FRAMEWORKS_BY_KEY["wa-circular"]
-    wa_circular_path = os.path.join(CORPUS, "wa-circular.json")
+    wa_circular_path = os.path.join(corpus_directory, "wa-circular.json")
     if _exists(wa_circular_path):
         report.record(wa_circular.key, wa.load_circular(corpus, wa_circular, wa_circular_path))
     else:
@@ -215,7 +224,7 @@ def build(verbose: bool = True) -> Tuple[Corpus, LoadReport]:
     # -- tier 5 -------------------------------------------------------------
 
     n63 = FRAMEWORKS_BY_KEY["nist-800-63"]
-    n63_path = os.path.join(CORPUS, "nist-800-63.json")
+    n63_path = os.path.join(corpus_directory, "nist-800-63.json")
     if _exists(n63_path):
         report.record(n63.key, spec.load_json(corpus, n63, n63_path, "volumes", "volume"))
     else:
@@ -228,7 +237,7 @@ def build(verbose: bool = True) -> Tuple[Corpus, LoadReport]:
         ("asd-ad", "asd-ad.json"),
     ):
         fw = FRAMEWORKS_BY_KEY[key]
-        path = os.path.join(CORPUS, filename)
+        path = os.path.join(corpus_directory, filename)
         if _exists(path):
             report.record(key, spec.load_json(corpus, fw, path, "groups", "key"))
         else:
@@ -250,7 +259,7 @@ def build(verbose: bool = True) -> Tuple[Corpus, LoadReport]:
     # -- tier 3 addition: a maturity model, not a catalogue ----------------
 
     ztmm_framework = corpus.frameworks.get("ztmm")
-    ztmm_path = os.path.join(CORPUS, "ztmm.json")
+    ztmm_path = os.path.join(corpus_directory, "ztmm.json")
     if ztmm_framework is not None:
         if os.path.exists(ztmm_path):
             report.record("ztmm", ztmm.load(corpus, ztmm_framework, ztmm_path, verbose))
@@ -272,7 +281,7 @@ def build(verbose: bool = True) -> Tuple[Corpus, LoadReport]:
     # appears as a column; it reaches a reader inside the test procedure for the
     # control it hardens.
 
-    detail.load(corpus, os.path.join(CORPUS, "detail"), verbose=verbose)
+    detail.load(corpus, os.path.join(corpus_directory, "detail"), verbose=verbose)
 
     # -- threat layer, last and separate -----------------------------------
     #
