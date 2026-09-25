@@ -8,6 +8,7 @@ import re
 from urllib.parse import urlencode
 from . import workspace_attack, workspace_technical, workspace_grc, wa_audit_context, publisher_guidance
 from . import framework_families as families
+from .csv_safety import write_row
 
 LIBRARY_DIR = Path(__file__).resolve().parents[1] / 'data/library'
 CONTROLS = []
@@ -81,11 +82,11 @@ def export_csv(params, corpus=None):
     selected = scope(params)
     out = io.StringIO(newline='')
     writer = csv.writer(out)
-    writer.writerow(['Control','Title','Source UID','Relationship','Mapping provenance','Scope conditions'])
+    write_row(writer, ['Control','Title','Source UID','Relationship','Mapping provenance','Scope conditions'])
     for c in matching((params.get('q') or [''])[0], selected, (params.get('topic') or [''])[0], corpus):
         for m in mappings(c, selected):
             source_uid = m['uid'] if 'uid' in m else 'guidance:'+m['guidance']
-            writer.writerow([c['id'],c['title'],source_uid,m['relationship'],m['provenance'],m['basis']])
+            write_row(writer, [c['id'],c['title'],source_uid,m['relationship'],m['provenance'],m['basis']])
     return out.getvalue()
 
 

@@ -27,7 +27,7 @@ LAYERS: List[Tuple[str, str, List[str]]] = [
     ("meaning", "thresholds, the analysis payload, archetypes and derivation",
      ["test_analysis.py", "test_derive.py", "test_assessment.py", "test_corpus_assessment.py", "test_assessment_procedures.py"]),
     ("presentation", "layout arithmetic, the three renderers and the server",
-     ["test_render.py", "test_navigation.py", "test_control_workspace.py", "test_extended.py", "test_audit_regressions.py"]),
+     ["test_render.py", "test_navigation.py", "test_control_workspace.py", "test_extended.py", "test_audit_regressions.py", "test_security_boundaries.py"]),
     ('policy review', 'offline extraction, rules, saved review, CLI, desktop and corpus trust',
      ['test_policy_review.py','test_framework_updates.py','test_policy_alignment.py']),
 ]
