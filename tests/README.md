@@ -13,6 +13,15 @@ python tests/run_all.py
 The suite checks source permissions, loaders, search, relationships, workspace
 assessment guidance, rendering and package contents.
 
+The policy-review suite also checks extraction, deterministic rules, evidence spans,
+review persistence, CLI contracts, corpus signatures and native desktop widgets.
+Install [the development dependencies](../requirements-policy-dev.txt) to exercise PDF and
+signature/schema cases; otherwise those dependency-specific cases are skipped.
+
+```powershell
+python tests/test_policy_review.py
+```
+
 For changes to workspace content or search terms:
 
 ```powershell
@@ -44,3 +53,20 @@ remain part of the assessment instructions shown in the application.
 
 `fixtures/onboarding-catalog.json` is the fictional source used by the
 [framework import guide](../sources/add-framework.md).
+
+Policy review and framework-update checks are included in `run_all.py`. To run
+them directly after installing `requirements-policy-dev.txt`:
+
+```powershell
+python tests/test_policy_review.py
+python tests/test_framework_updates.py
+python tests/test_policy_alignment.py
+```
+
+The policy integration tests need the prepared local WA extract and source files.
+They are skipped when that restricted extract is absent. Update safety tests use
+clearly synthetic catalogues and make no network requests.
+
+The alignment suite uses synthetic requirements and policies. It checks matching,
+ZIP and multiple-file imports, unreadable documents, report selection, saved
+source references and desktop navigation without needing private publisher files.

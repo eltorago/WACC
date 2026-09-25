@@ -185,7 +185,12 @@ def _cmd_sources(args) -> int:
 
 
 def main(argv: Optional[List[str]] = None) -> int:
+    from .policy.cli import COMMANDS, main as policy_main
+    argv = list(sys.argv[1:] if argv is None else argv)
+    if argv and argv[0] in COMMANDS:
+        return policy_main(argv)
     parser = argparse.ArgumentParser(prog="wacc", description=__doc__,
+                                     epilog="Offline policy review: wacc open | analyse | requirements | evidence | gaps | report. See python -m wacc.policy.cli --help.",
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     subs = parser.add_subparsers(dest="command")
 

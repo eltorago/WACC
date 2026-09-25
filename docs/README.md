@@ -3,6 +3,13 @@
 ## Use the application
 
 - [Run locally and troubleshoot](../HOW-TO-RUN.md)
+- [Framework alignment: plain-English desktop guide](policy-review/README.md)
+- [Framework alignment: commands and technical reference](policy-review.md)
+- [Optimisation and validation notes](OPTIMISATION.md)
+- [Policy pilot deployment](deployment/POLICY-PILOT.md)
+- [Refactor assessment](REFACTOR-ASSESSMENT.md)
+- [Architecture decision](adr/001-offline-policy-review.md)
+- [Policy pilot implementation and validation](POLICY-IMPLEMENTATION.md)
 
 ## Maintain the repository
 

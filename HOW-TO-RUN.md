@@ -1,7 +1,11 @@
-# Running WACC locally
+# Running the WACC control library locally
 
-WACC runs with Python 3.9 or later and the Python standard library. There is no package
-installation step. Publisher files are acquired separately and kept out of the repository.
+The control library runs with Python 3.9 or later and the Python standard library.
+There is no package installation step for this web interface. Publisher files are
+acquired separately and kept out of the repository.
+
+For the new offline desktop, use the [policy review guide](docs/policy-review/README.md).
+It has a separate dependency installation step.
 
 ## Acquire source files
 

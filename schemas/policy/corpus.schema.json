@@ -1,0 +1,413 @@
+{
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "maxLength": 2000000
+    },
+    "frameworks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/framework"
+      },
+      "maxItems": 100
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/requirement"
+      },
+      "maxItems": 20000
+    },
+    "mappings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/mapping"
+      },
+      "maxItems": 100000
+    },
+    "rulesHash": {
+      "type": "string",
+      "maxLength": 2000000
+    },
+    "status": {
+      "type": "string",
+      "maxLength": 2000000
+    }
+  },
+  "required": [
+    "version",
+    "frameworks",
+    "requirements",
+    "mappings",
+    "rulesHash",
+    "status"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wacc.local/schemas/policy/corpus/1.0",
+  "$defs": {
+    "locator": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "start": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "end": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "line": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "heading": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "paragraph": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "table": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "row": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "cell": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "page": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "boundingBox": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "section": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reference": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "rule": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "all": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/rule"
+              },
+              "minItems": 1,
+              "maxItems": 16
+            }
+          },
+          "required": [
+            "all"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "any": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/rule"
+              },
+              "minItems": 1,
+              "maxItems": 16
+            }
+          },
+          "required": [
+            "any"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "phrases": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 150
+              },
+              "minItems": 1,
+              "maxItems": 32
+            }
+          },
+          "required": [
+            "phrases"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "pattern": {
+              "enum": [
+                "mandatory",
+                "universal_staff",
+                "training_action",
+                "training_commitment",
+                "training_annual",
+                "annual",
+                "restrict_issuance"
+              ]
+            }
+          },
+          "required": [
+            "pattern"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "atom": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        "interpretation": {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        "rule": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/rule"
+            }
+          ]
+        },
+        "mandatory": {
+          "type": "boolean"
+        },
+        "ruleVersion": {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        "assessmentMethod": {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        "reviewStatus": {
+          "enum": [
+            "DraftNeedsHumanReview",
+            "ManualReviewOnly",
+            "HumanApproved"
+          ]
+        },
+        "provenance": {
+          "type": "string",
+          "maxLength": 2000000
+        }
+      },
+      "required": [
+        "id",
+        "interpretation",
+        "rule",
+        "mandatory",
+        "ruleVersion",
+        "assessmentMethod",
+        "reviewStatus",
+        "provenance"
+      ],
+      "additionalProperties": false
+    },
+    "requirement": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        "frameworkId": {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        "officialReference": {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        "heading": {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        "parentId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "authoritativeText": {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        "context": {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        "sourceLocator": {
+          "$ref": "#/$defs/locator"
+        },
+        "obligations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/atom"
+          },
+          "maxItems": 50
+        }
+      },
+      "required": [
+        "id",
+        "frameworkId",
+        "officialReference",
+        "heading",
+        "parentId",
+        "authoritativeText",
+        "context",
+        "sourceLocator",
+        "obligations"
+      ],
+      "additionalProperties": false
+    },
+    "framework": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        "edition": {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        "sourceFile": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "extractHash": {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        "sourceUri": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "licence": {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        "sourceHash": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "edition",
+        "extractHash"
+      ],
+      "additionalProperties": false
+    },
+    "mapping": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        "target": {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        "relationship": {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        "relation": {
+          "const": "MappedOnly"
+        },
+        "provenance": {
+          "type": "string",
+          "maxLength": 2000000
+        },
+        "reviewStatus": {
+          "type": "string",
+          "maxLength": 2000000
+        }
+      },
+      "required": [
+        "source",
+        "target",
+        "relationship",
+        "relation",
+        "provenance",
+        "reviewStatus"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
