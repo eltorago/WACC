@@ -1,11 +1,15 @@
 """Shared JSON contracts and bounded validation for untrusted saved assessments."""
 import hashlib
 import json
+import ntpath
+from pathlib import PurePosixPath, PureWindowsPath
 
 from . import ENGINE_VERSION, SCHEMA_VERSION
 
 AUTOMATED = ("FullCandidate", "PartialCandidate", "NoEvidenceFound", "Ambiguous", "NotAssessed")
 REVIEWED = ("Covered", "PartiallyCovered", "NotCovered", "NotAssessed", "NotApplicable")
+DOCUMENT_FORMATS = ('.txt', '.md', '.docx', '.pdf')
+INPUT_FORMATS = (*DOCUMENT_FORMATS, '.zip')
 
 
 class PolicyError(Exception):
@@ -27,12 +31,40 @@ def envelope(operation, **values):
                 warnings=[], errors=[], **values)
 
 
+def validate_document_source(doc):
+    """Validate saved source metadata without requiring the original to exist."""
+    raw = doc.get('path')
+    if not isinstance(raw, str) or not raw or any(ord(char) < 32 for char in raw):
+        raise PolicyError('Invalid source document path.')
+    path = PureWindowsPath(raw)
+    parts = path.parts[1:] if path.anchor else path.parts
+    if (raw.startswith(('\\\\', '//')) or ntpath.isreserved(raw)
+            or any(':' in part or (part not in ('.', '..') and part.endswith((' ', '.'))) for part in parts)):
+        raise PolicyError('Use an unambiguous local document path without streams or device names.')
+    suffix = path.suffix.lower()
+    format = doc.get('format')
+    if suffix not in INPUT_FORMATS or not isinstance(format, str) or format.lower() not in DOCUMENT_FORMATS:
+        raise PolicyError('Source must be PDF, DOCX, TXT, Markdown or a supported ZIP archive.')
+    if suffix == '.zip':
+        member = doc.get('archiveMember')
+        if (not isinstance(member, str) or not member or not isinstance(doc.get('archiveHash'), str)
+                or not doc['archiveHash'] or PurePosixPath(member).is_absolute()
+                or '..' in PurePosixPath(member).parts or any(char in member for char in ('\\', ':', '\x00'))
+                or PurePosixPath(member).suffix.lower() != format.lower()):
+            raise PolicyError('Invalid source archive member or format.')
+    elif suffix != format.lower() or 'archiveMember' in doc or 'archiveHash' in doc:
+        raise PolicyError('Source path does not match its recorded document format.')
+    return raw
+
+
 def validate_run(run):
     required = {"schemaVersion", "runId", "versions", "scope", "documents", "requirements", "mappings", "canonicalHash"}
     if not isinstance(run, dict) or not required <= run.keys() or run["schemaVersion"] != SCHEMA_VERSION:
         raise PolicyError("Unsupported or incomplete assessment contract.")
     if len(run["requirements"]) > 20000 or len(run["documents"]) > 250:
         raise PolicyError("Assessment exceeds supported record limits.")
+    for doc in run['documents']:
+        validate_document_source(doc)
     documents = {d["id"]: d for d in run["documents"]}
     passages = {(d['id'], p['id']): p for d in run['documents'] for p in d['passages']}
     requirements = set()

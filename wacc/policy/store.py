@@ -7,7 +7,7 @@ import sqlite3
 import uuid
 from functools import wraps
 
-from .contracts import PolicyError, canonical, validate_run
+from .contracts import PolicyError, canonical, validate_run, validate_document_source
 from .documents import local_file
 from .service import review_event, now
 
@@ -203,15 +203,27 @@ def snapshot(source, target, force=False):
                 stage.unlink()
 
 
-def verify_sources(state):
+def verified_source(doc):
+    """Return the checked local document path, never the saved launch string."""
     import hashlib
+    path = local_file(validate_document_source(doc))
+    if not path.is_file():
+        raise PolicyError('Unavailable')
+    if (path.stat().st_size > documents_limit()
+            or hashlib.sha256(path.read_bytes()).hexdigest() != doc.get('archiveHash', doc['sha256'])):
+        raise PolicyError('Changed — source location is stale')
+    return path
+
+
+def verify_sources(state):
     output = []
     for doc in state["run"]["documents"]:
         try:
-            path = local_file(doc["path"])
-            matches = path.stat().st_size <= documents_limit() and hashlib.sha256(path.read_bytes()).hexdigest() == doc.get('archiveHash', doc["sha256"])
-            status = "Unchanged" if matches else "Changed — source location is stale"
-        except (OSError, PolicyError):
+            verified_source(doc)
+            status = 'Unchanged'
+        except PolicyError as error:
+            status = str(error)
+        except OSError:
             status = "Unavailable"
         output.append(dict(documentId=doc["id"], status=status))
     return output

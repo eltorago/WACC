@@ -13,12 +13,11 @@ import unicodedata
 import zipfile
 from xml.etree import ElementTree as ET
 
-from .contracts import PolicyError
+from .contracts import PolicyError, DOCUMENT_FORMATS, INPUT_FORMATS
 
 MAX_BYTES = 16 * 1024 * 1024
 MAX_TEXT = 2_000_000
-FORMATS = (".txt", ".md", ".docx", ".pdf")
-INPUT_FORMATS = (*FORMATS, '.zip')
+FORMATS = DOCUMENT_FORMATS
 PARSER_VERSION = "bounded-text-1"
 NORMALISER_VERSION = "nfkc-casefold-spans-1"
 

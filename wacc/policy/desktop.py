@@ -407,12 +407,8 @@ class Desktop(ttk.Frame):
         ids = self.doc_tree.selection()
         if not ids:
             return
-        check = next(s for s in store.verify_sources(self.state) if s["documentId"] == ids[0])
-        if check["status"] != "Unchanged":
-            messagebox.showerror("Source unavailable", check["status"], parent=self)
-            return
         doc = next(d for d in self.state["run"]["documents"] if d["id"] == ids[0])
-        self.guarded(lambda: os.startfile(doc["path"]))
+        self.guarded(lambda: os.startfile(str(store.verified_source(doc))))
 
     def relationships(self):
         r = self.current()

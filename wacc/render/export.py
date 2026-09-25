@@ -14,6 +14,7 @@ from typing import Dict, List, Optional, Sequence
 from ..analysis import Analysis
 from ..model import Corpus, Provenance
 from ..framework_families import count as family_count
+from ..csv_safety import write_row
 
 # Jurisdiction.WA is 0, so `if framework.jurisdiction` is False for every Western
 # Australian framework and the export dropped the jurisdiction from exactly the rows a WA
@@ -61,31 +62,31 @@ def _row(corpus: Corpus, control, reading=None) -> List[str]:
 def to_csv(corpus: Corpus, analysis: Analysis) -> str:
     buffer = io.StringIO()
     writer = csv.writer(buffer, lineterminator="\n")
-    writer.writerow(["subject", analysis.subject])
+    write_row(writer, ["subject", analysis.subject])
     if analysis.lookup_note:
-        writer.writerow(["identifier status", analysis.lookup_note])
-    writer.writerow(
+        write_row(writer, ["identifier status", analysis.lookup_note])
+    write_row(writer,
         ["controls shown", len(analysis.controls), "controls read", analysis.depth]
     )
-    writer.writerow([])
-    writer.writerow(COLUMNS)
+    write_row(writer, [])
+    write_row(writer, COLUMNS)
     for band in result_groups(analysis):
         for coverage in band.coverage:
             for control in coverage.controls:
-                writer.writerow(_row(corpus, control))
+                write_row(writer, _row(corpus, control))
 
     if analysis.attributions:
-        writer.writerow([])
-        writer.writerow(["acknowledgements required by the publishers of this content"])
+        write_row(writer, [])
+        write_row(writer, ["acknowledgements required by the publishers of this content"])
         for name, wording in analysis.attributions:
-            writer.writerow([name, wording])
+            write_row(writer, [name, wording])
 
     silent = analysis.frameworks_silent
     if silent:
-        writer.writerow([])
-        writer.writerow(["frameworks that say nothing on this subject"])
+        write_row(writer, [])
+        write_row(writer, ["frameworks that say nothing on this subject"])
         for framework in silent:
-            writer.writerow(
+            write_row(writer,
                 [
                     str(framework.tier.value) if framework.tier is not None else "",
                     framework.tier.label if framework.tier is not None else "",
@@ -97,13 +98,13 @@ def to_csv(corpus: Corpus, analysis: Analysis) -> str:
             )
 
     if analysis.frameworks_absent:
-        writer.writerow([])
-        writer.writerow(
+        write_row(writer, [])
+        write_row(writer,
             ["frameworks registered but not loaded in this build — "
              "nothing above says what these require"]
         )
         for framework, reason in analysis.frameworks_absent:
-            writer.writerow(
+            write_row(writer,
                 [
                     str(framework.tier.value) if framework.tier is not None else "",
                     framework.tier.label if framework.tier is not None else "",

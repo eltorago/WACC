@@ -11,6 +11,7 @@ import uuid
 
 from . import alignment
 from .contracts import PolicyError
+from ..csv_safety import safe_cell
 
 
 def model(state, full=True, framework_ids=None):
@@ -41,11 +42,6 @@ def model(state, full=True, framework_ids=None):
         finalised=state['metadata'].get('selectedFinalised', state['metadata'].get('finalised', False)),
         limitations=['Some documents were not fully read or their text was not retained. Unmatched requirements cannot be treated as missing.']
             if any(not results[row['id']]['searchComplete'] for row in requirements) else [])
-
-
-def safe_cell(value):
-    text = str(value if value is not None else '')
-    return "'" + text if text.lstrip().startswith(('=', '+', '-', '@')) or text.startswith(('\t', '\r', '\n')) else text
 
 
 def location(match):
