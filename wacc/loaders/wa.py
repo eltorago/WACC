@@ -2,12 +2,8 @@
 
 Reads the JSON that tools/extract_wa_csp.py and tools/extract_wa_circular.py produce.
 
-The Policy states its own alignment — "The requirements of this Policy are aligned with
-the advice from the Australian Cyber Security Centre (ACSC) and the Cyber Security
-Framework developed by the United States NIST 2.0" — and then organises itself under
-the six CSF 2.0 function names. DGov asserts the alignment and NIST names the
-functions, so the function-level links are published-tag, with the name match called
-out as this tool's.
+The 2026 policy names NIST CSF as an alignment source. Function-level links match
+its six published function names to CSF 2.0; they do not map individual requirements.
 """
 
 import json
@@ -24,6 +20,7 @@ from ..model import (
     Provenance,
 )
 from .legislation import obligation_of
+from ..wa_policy import SOURCE_SHA256
 
 
 def _load(path: str) -> dict:
@@ -33,85 +30,46 @@ def _load(path: str) -> dict:
 
 def load_policy(corpus: Corpus, framework: Framework, path: str) -> Dict[str, object]:
     data = _load(path)
+    if data.get('edition') != '2026' or data.get('source_sha256') != SOURCE_SHA256:
+        raise ValueError('Re-extract the reviewed 2026 WA CSP before loading its requirements.')
     framework.revision = data.get("title") or framework.revision
     framework.revision_source = "title page of the policy"
+    return _load_2026(corpus, framework, data)
 
-    counts = {"functions": 0, "sections": 0, "requirements": 0, "csf_links": 0}
-    function_uids: Dict[str, str] = {}
-    section_uids: Dict[str, str] = {}
 
-    for number, title in sorted(data.get("functions", {}).items()):
-        control = Control(
-            framework_key=framework.key,
-            identifier=number,
-            title=title,
-            text="",
-            depth=0,
-            attributes={"structural": True},
-            obligation=ObligationStrength.INFORMATIVE,
-            origin=Origin.GENERATED,
-        )
-        corpus.add_control(control)
-        function_uids[number] = control.uid
-        counts["functions"] += 1
-
-    for record in data.get("records", []):
-        section_number = str(record.get("section_number", ""))
-        section_title = str(record.get("section_title", ""))
-        function = section_number.split(".")[0]
-
-        if section_number and section_number not in section_uids:
-            control = Control(
-                framework_key=framework.key,
-                identifier=section_number,
-                title=section_title or None,
-                text=str(record.get("lead_in", "")),
-                depth=1,
-                parent_uid=function_uids.get(function),
-                section_ref=data.get("functions", {}).get(function),
-                obligation=ObligationStrength.INFORMATIVE,
-                origin=Origin.GENERATED,
-            )
-            corpus.add_control(control)
-            section_uids[section_number] = control.uid
-            counts["sections"] += 1
-
-        text = str(record.get("text", "")).strip()
-        if not text:
-            continue
-        identifier = str(record.get("identifier"))
-        if identifier == section_number:
-            # Sections such as 1.6 Secure Device Disposal Governance state their
-            # requirement in one sentence with no lettered items. Skipping the record
-            # to avoid duplicating the section container silently deleted the
-            # requirement, so a search for secure disposal found nothing in the WA CSP.
-            container = corpus.control(section_uids.get(section_number, ""))
-            if container is not None:
-                container.text = text
-                container.obligation = obligation_of(text)
-                container.obligation_provenance = Provenance.DERIVED
-                container.attributes.pop("structural", None)
-                counts["requirements"] += 1
-            continue
-
-        lead_in = str(record.get("lead_in", ""))
-        control = Control(
-            framework_key=framework.key,
-            identifier=identifier,
-            title=None,
-            text=text,
-            depth=2,
-            parent_uid=section_uids.get(section_number),
-            section_ref="%s %s" % (section_number, section_title) if section_title else None,
-            attributes={"lead_in": lead_in} if lead_in else {},
-            obligation=obligation_of("%s %s" % (lead_in, text)),
-            obligation_provenance=Provenance.DERIVED,
-            origin=Origin.GENERATED,
-        )
-        corpus.add_control(control)
-        counts["requirements"] += 1
-
-    counts["csf_links"] = _link_functions_to_csf(corpus, framework, data)
+def _load_2026(corpus, framework, data):
+    """Keep nested clauses under their actual section, including 3.1 and 3.14."""
+    by_section = {}
+    for record in data['records']:
+        by_section.setdefault(record['section_number'], []).append(record)
+    counts = dict(functions=6, sections=0, requirements=len(data['records']), csf_links=0)
+    for number, title in data['contents_sections'].items():
+        rows = by_section.get(number, [])
+        standalone = next((r for r in rows if r['identifier'] == number), None)
+        text = standalone['text'] if standalone else (rows[0].get('lead_in', '') if rows else '')
+        parent = number.rpartition('.')[0]
+        attributes = dict(edition='2026', source_page=rows[0]['page'] if rows else None)
+        if not standalone and not text:
+            attributes['structural'] = True
+        if data['section_notes'].get(number):
+            attributes['source_notes'] = data['section_notes'][number]
+        corpus.add_control(Control(framework_key=framework.key, identifier=number, title=title,
+            text=text, depth=number.count('.'), parent_uid=framework.key + ':' + parent if parent else None,
+            attributes=attributes, obligation=obligation_of(text), obligation_provenance=Provenance.DERIVED,
+            origin=Origin.GENERATED))
+        if parent:
+            counts['sections'] += 1
+        for record in rows:
+            if record['identifier'] == number:
+                continue
+            context = record.get('lead_in', '')
+            corpus.add_control(Control(framework_key=framework.key, identifier=record['identifier'],
+                text=record['text'], depth=number.count('.') + 1, parent_uid=framework.key + ':' + number,
+                section_ref=number + ' ' + title,
+                attributes=dict(edition='2026', source_page=record['page'], source_context=context),
+                obligation=obligation_of(context + ' ' + record['text']),
+                obligation_provenance=Provenance.DERIVED, origin=Origin.GENERATED))
+    counts['csf_links'] = _link_functions_to_csf(corpus, framework, data)
     return counts
 
 
@@ -121,7 +79,7 @@ def _link_functions_to_csf(
     """Match the Policy's six function names to CSF 2.0's.
 
     Nothing here reads the two structures as equivalent below function level. The
-    Policy's 1.5 Data Offshoring Governance has no CSF counterpart, and pretending
+    Policy's 3.5 Data Offshoring has no CSF counterpart, and pretending
     otherwise at section level would manufacture coverage.
     """
     csf_functions = {
@@ -144,7 +102,7 @@ def _link_functions_to_csf(
                 target_uid=target,
                 provenance=Provenance.PUBLISHED_TAG,
                 basis=(
-                    "the Policy states its requirements are aligned with NIST CSF 2.0 "
+                    "the Policy states its requirements are aligned with NIST CSF "
                     "and organises them under the same six function names"
                 ),
                 kind=LinkKind.ALIGNS_WITH,

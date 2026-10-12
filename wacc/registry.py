@@ -114,7 +114,7 @@ FRAMEWORKS: List[Framework] = [
     # ----------------------------------------------------------------------
     Framework(
         key="wa-csp",
-        name="Western Australian Government Cyber Security Policy 2024",
+        name="Western Australian Government Cyber Security Policy 2026",
         short_name="WA CSP",
         publisher="Office of Digital Government, Department of the Premier and Cabinet",
         jurisdiction=Jurisdiction.WA,
@@ -122,11 +122,11 @@ FRAMEWORKS: List[Framework] = [
         intra_tier_order=0,
         fidelity=Fidelity.STRUCTURED_EXTRACT,
         licence=Licence.IMPORT_ONLY,
-        levels=_levels("Function", "Section", "Requirement"),
+        levels=_levels("Function", "Section", "Subsection", "Requirement"),
         source_file="wa-cyber-security-policy.pdf",
         notes=[
-            "Licence to be read off the document's copyright page during extraction, "
-            "not assumed from WA Government's usual CC BY position.",
+            "2026 edition. Publisher PDF and extracted text are retained locally "
+            "under the recorded WA non-commercial use conditions; redistribution is not licensed.",
         ],
     ),
     Framework(

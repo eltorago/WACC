@@ -21,7 +21,7 @@
       "related": ["MD-02"],
       "mappings": [
         {"uid":"nist-800-88:sp 800-88 rev 2 §3.1.2#1","relationship":"Partially addresses","basis":"Defines purge techniques intended to make recovery infeasible while preserving media for reuse.","provenance":"Locally reviewed mapping"},
-        {"uid":"wa-csp:1.6","relationship":"Partially addresses","basis":"Requires oversight of secure disposal for devices, computers and media.","provenance":"Locally reviewed mapping"},
+        {"uid":"wa-csp:3.6","relationship":"Partially addresses","basis":"Requires documented data and device disposal governance so government information is irrecoverable.","provenance":"Locally reviewed mapping"},
         {"uid":"pspf:req 58","relationship":"Partially addresses","basis":"Keeps the originator responsible for controlling sanitisation and approving changes to information classification.","provenance":"Locally reviewed mapping"}
       ]
     },

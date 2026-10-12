@@ -20,7 +20,7 @@
       "expected": "Every sampled account has a current owner and purpose, follows the approved lifecycle process and is disabled or removed when no longer required.",
       "related": ["IA-02", "IA-03", "PA-01"],
       "mappings": [
-        {"uid":"wa-csp:3.6a","relationship":"Directly addresses","basis":"Requires appropriate user lifecycle management supporting personnel management.","provenance":"Locally reviewed mapping"},
+        {"uid":"wa-csp:3.8a","relationship":"Directly addresses","basis":"Requires appropriate user lifecycle management supporting personnel management.","provenance":"Locally reviewed mapping"},
         {"uid":"oag-wa:report-12 2.3.1","relationship":"Directly addresses","basis":"Requires formal, documented and accountable provisioning for human and non-human identities and addresses dormant accounts.","provenance":"Locally reviewed mapping"},
         {"uid":"nist-800-53:ac-2","relationship":"Directly addresses","basis":"Requires approved creation, enablement, modification, monitoring, disabling and removal of accounts.","provenance":"Locally reviewed mapping"},
         {"uid":"cis-controls:5.1","relationship":"Partially addresses","basis":"Requires an account inventory and recurring validation of active accounts, supporting lifecycle control without specifying the full workflow.","provenance":"Locally reviewed mapping"},

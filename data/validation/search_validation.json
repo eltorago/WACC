@@ -101,7 +101,7 @@
     "oag-wa": "Report-24 2.5.3",
     "asd-ad": "Appendix A §Mitigating a Golden Certificate#1"
    },
-   "note": "WA CSP is MAY, not MUST: it mandates the Essential Eight rather than naming multi-factor authentication."
+   "note": "The 2026 WA CSP names MFA explicitly in section 3.1.3."
   },
   "privileged access": {
    "query": "restricting administrative privileges",
@@ -143,7 +143,7 @@
     "aescsf": "THREAT-1",
     "csf": "ID.RA-01",
     "pspf": "Req 99",
-    "wa-csp": "1.7"
+    "wa-csp": "3.1.1a"
    }
   },
   "media sanitisation and disposal": {
@@ -155,7 +155,7 @@
     "ism": "ISM-1742",
     "nist-800-53": "MP-6(7)",
     "nist-800-88": "SP 800-88 Rev 2 §3.1.2#1",
-    "wa-csp": "1.6",
+    "wa-csp": "3.6",
     "pspf": "Req 58"
    },
    "note": "CSF 2.0 has no media sanitisation subcategory, and neither statute mentions it. This is the topic where an empty tier-1 and tier-3 band is the correct answer."
@@ -181,10 +181,10 @@
    "none": ["nist-800-53", "nist-800-63", "nist-800-131a", "nist-800-57pt1", "nist-800-88", "cis-controls", "asd-ad", "oag-wa"],
    "witness": {
     "soci-act": "s 30BC(1)",
-    "wa-csp": "5.1c",
+    "wa-csp": "5.1",
     "wa-circular": "2c"
    },
-   "note": "The Australian side states 12 hours (SOCI s 30BC), 72 hours (s 30BD), 4 hours to triage and 24 hours to report (WA CSP 5.1b, 5.1c). No American publication in this corpus states a counterpart. The comparison must show an empty American column and say so."
+   "note": "The Australian side states 12 hours (SOCI s 30BC), 72 hours (s 30BD), 4 hours to triage, 6 hours to notify DGov and 12 hours to notify ACSC (2026 WA CSP 5.1 and 5.2). No American publication in this corpus states a counterpart. The comparison must show an empty American column and say so."
   },
   "cryptographic keys and algorithms": {
    "query": "approved cryptographic algorithms and key lengths",
@@ -207,13 +207,13 @@
    "witness": {
     "ism": "ISM-0843",
     "pspf": "Req 103",
-    "wa-csp": "3.1.1a",
+    "wa-csp": "3.1.5a",
     "cis-controls": "2.5",
     "asd-ad": "Appendix A §Mitigating a Golden Certificate#2",
     "oag-wa": "Report-24 2.6.4",
     "nist-800-53": "CM-7(5)"
    },
-   "note": "800-53 is MUST and never writes 'application control'; CM-7(5) is titled Authorized Software — Allow-by-exception. The WA CSP witness 3.1.1a does not contain the phrase either — it mandates the Essential Eight, of which application control is one strategy. Reaching it therefore requires expanding 'Essential Eight' into the eight strategy names ASD publishes. That is the hardest cell in this table and it is deliberate: a literal-text search cannot pass it."
+   "note": "800-53 is MUST and never writes 'application control'; CM-7(5) is titled Authorized Software — Allow-by-exception. The 2026 WA CSP names application control explicitly in section 3.1.5."
   },
   "supply chain and third parties": {
    "query": "supply chain and third party risk",
@@ -225,7 +225,7 @@
     "ism": "ISM-1786",
     "nist-800-53": "SR-3",
     "aescsf": "THIRD-PARTIES-2",
-    "wa-csp": "2.1d",
+    "wa-csp": "3.4",
     "cirmp-rules": "s 10A(5)",
     "pspf": "Req 48",
     "oag-wa": "Report-24 2.3.4",
@@ -248,7 +248,7 @@
   {"input": "s 8A(3)", "expect": "cirmp-rules:s 8a.3", "why": "letter inside the section number"},
   {"input": "GV.OC-01", "expect": "csf:gv.oc-01", "why": "dotted alphabetic identifier"},
   {"input": "ID.AM-06", "expect": "WITHDRAWN REDIRECT to GV.RR-02, GV.SC-02", "why": "a retired CSF 1.1 identifier must answer with where the outcome went, not with nothing"},
-  {"input": "3.10", "expect": "cis-controls:3.10", "why": "must not resolve to safeguard 3.1; the workbook cannot tell them apart and the tool must"},
+  {"input": "3.10", "expect": "AMBIGUOUS across cis-controls and wa-csp", "why": "The 2026 WA CSP also has a 3.10. Preserve the zero and show both frameworks."},
   {"input": "6.1", "expect": "AMBIGUOUS across wa-csp, cis-controls, aescsf", "why": "a bare dotted number is not unique; the tool must present the candidates rather than choose"},
   {"input": "AC-6(5).", "expect": "nist-800-53:ac-6.5", "why": "trailing full stop from a pasted sentence"},
   {"input": "  ac-6(5)  ", "expect": "nist-800-53:ac-6.5", "why": "surrounding whitespace"}
@@ -257,7 +257,7 @@
  "vocabulary": [
   {"query": "media sanitization", "must_reach": "ism:ism-1742", "why": "American spelling must reach Australian text"},
   {"query": "media sanitisation", "must_reach": "nist-800-88:sp 800-88 rev 2 §3.1.2#1", "why": "and the reverse"},
-  {"query": "secure disposal of devices", "must_reach": "wa-csp:1.6", "why": "disposal and sanitisation are the same subject in different words"},
+  {"query": "secure disposal of devices", "must_reach": "wa-csp:3.6", "why": "disposal and sanitisation are the same subject in different words"},
   {"query": "event logging", "must_reach": "csf:pr.ps-04", "why": "CSF says 'Log records are generated'"},
   {"query": "application control", "must_reach": "nist-800-53:cm-7.5", "why": "800-53 says 'Authorized Software — Allow-by-exception'"},
   {"query": "software allowlisting", "must_reach": "ism:ism-843", "why": "allowlisting and application control are the same subject"},

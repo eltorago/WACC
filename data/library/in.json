@@ -20,7 +20,7 @@
       "expected": "Triage and an appropriate response decision are recorded within four hours of detection.",
       "related": ["IN-02", "IN-03"],
       "mappings": [
-        {"uid":"wa-csp:5.1b","relationship":"Directly addresses","basis":"Requires incident triage and development of an appropriate response within four hours.","provenance":"Locally reviewed mapping"}
+        {"uid":"wa-csp:5.2b","relationship":"Directly addresses","basis":"Requires incident triage and following the relevant playbook within four hours of a suspected or confirmed incident.","provenance":"Locally reviewed mapping"}
       ]
     },
     {
@@ -47,14 +47,14 @@
     {
       "id": "IN-03",
       "title": "Meet other applicable incident-reporting clocks",
-      "statement": "Identify every external reporting obligation and meet the shortest applicable clock, including seventy-two hours under the SOCI Act and twenty-four hours under the WA Cyber Security Policy.",
+      "statement": "Identify every external reporting obligation and meet the shortest applicable clock, including seventy-two hours under the SOCI Act, and six hours for DGov and twelve hours for ACSC under the 2026 WA Cyber Security Policy.",
       "risk": "An incident could go unreported or be sent to the wrong authority when teams treat different legal and policy clocks as interchangeable.",
-      "scope": "Incidents with a relevant impact on critical infrastructure and confirmed incidents handled by WA Government entities.",
+      "scope": "Incidents with a relevant impact on critical infrastructure and suspected or confirmed incidents handled by WA Government entities.",
       "examine": "Inspect the obligations register, incident classifications, awareness and detection timestamps, notifications, recipients and evidence of submission.",
       "interview": "Ask legal and incident leaders how concurrent obligations are identified and which timestamp starts each clock.",
       "test": "Sample incidents under each regime and independently recalculate the applicable deadline and actual reporting time.",
       "test_steps": [
-        "Create a matrix of reporting regimes, incident classes, triggers, recipients, initial and follow-up deadlines and required content.",
+        "Create a matrix of reporting regimes, incident classes, triggers, recipients and deadlines. For WA CSP, record detection, suspicion and confirmation times: section 5.1 starts the ACSC clock at detection; section 5.2c uses confirmation.",
         "Select incidents under each applicable regime and independently determine which triggers and clocks applied from the underlying facts.",
         "Compare calculated deadlines with submission timestamps, receipts and follow-up reports, including cases where several regimes applied to one incident.",
         "Run a tabletop scenario that changes severity and available information over time and verify staff select, update and meet every applicable reporting path."
@@ -63,7 +63,7 @@
       "related": ["IN-01", "IN-02"],
       "mappings": [
         {"uid":"soci-act:s 30bd.1","relationship":"Directly addresses","basis":"For an applicable critical infrastructure asset, requires reporting of an incident with a relevant impact as soon as practicable and within 72 hours of awareness.","provenance":"Locally reviewed mapping"},
-        {"uid":"wa-csp:5.1c","relationship":"Directly addresses","basis":"Requires reporting a confirmed cyber security incident to DGov within 24 hours of detection.","provenance":"Locally reviewed mapping"},
+        {"uid":"wa-csp:5.1","relationship":"Directly addresses","basis":"Requires DGov notification within six hours of suspicion/confirmation and confirmed-incident notification to ACSC within twelve hours of detection.","provenance":"Locally reviewed mapping"},
         {"uid":"wa-circular:2c","relationship":"Partially addresses","basis":"Requires suspected or confirmed incidents to be reported to the WA portal within the timeframes set by the Policy.","provenance":"Locally reviewed mapping"}
       ]
     }

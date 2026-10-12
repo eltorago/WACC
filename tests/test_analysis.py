@@ -210,9 +210,9 @@ def run() -> int:
 
     check.expect(
         payload.comparisons
-        and payload.comparisons[0].strictest.value == 12
-        and payload.comparisons[0].strictest.control_uid == "soci-act:s 30bc.1",
-        "payload", "the strictest notification deadline is SOCI s 30BC(1) at 12 hours",
+        and payload.comparisons[0].strictest.value == 6
+        and payload.comparisons[0].strictest.control_uid.startswith("wa-csp:"),
+        "payload", "the 2026 WA CSP notification deadline is six hours",
     )
     check.expect(
         bool(payload.disagreements) and not payload.incompatible_bounds,

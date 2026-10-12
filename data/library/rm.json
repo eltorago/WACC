@@ -21,7 +21,7 @@
       "related": ["RM-02", "RM-03", "GV-01", "GV-02"],
       "mappings": [
         {"uid":"nist-800-53:pm-28","relationship":"Directly addresses","basis":"Requires documented assumptions, constraints, priorities, trade-offs and organisational risk tolerance for risk assessment, response and monitoring.","provenance":"Locally reviewed mapping"},
-        {"uid":"wa-csp:2.2a","relationship":"Partially addresses","basis":"Requires the initial cyber risk assessment to take account of the entity's broader risk framework.","provenance":"Locally reviewed mapping"},
+        {"uid":"wa-csp:2.2a","relationship":"Partially addresses","basis":"Requires risk assessment to consider information confidentiality and integrity.","provenance":"Locally reviewed mapping"},
         {"uid":"wa-csp:2.2b","relationship":"Partially addresses","basis":"Requires the initial cyber risk assessment to take account of the entity's cybersecurity context.","provenance":"Locally reviewed mapping"},
         {"uid":"aescsf:risk-1b","relationship":"Partially addresses","basis":"Requires a cyber risk management strategy aligned with the cybersecurity program and enterprise architecture.","provenance":"Locally reviewed mapping"},
         {"uid":"c2m2:risk-1a","relationship":"Partially addresses","basis":"Requires the organisation to have a strategy for cyber risk management.","provenance":"Locally reviewed mapping"},
@@ -52,8 +52,8 @@
         {"uid":"aescsf:risk-2a","relationship":"Partially addresses","basis":"Requires cyber risks to be identified.","provenance":"Locally reviewed mapping"},
         {"uid":"aescsf:risk-3d","relationship":"Partially addresses","basis":"Requires defined analysis methods for higher-priority cyber risks.","provenance":"Locally reviewed mapping"},
         {"uid":"c2m2:risk-3d","relationship":"Partially addresses","basis":"Requires defined methods to analyse higher-priority cyber risks.","provenance":"Locally reviewed mapping"},
-        {"uid":"wa-csp:2.2c","relationship":"Partially addresses","basis":"Requires the initial assessment to consider known vulnerabilities and threats.","provenance":"Locally reviewed mapping"},
-        {"uid":"wa-csp:2.2d","relationship":"Partially addresses","basis":"Requires the initial assessment to consider critical information managed by the entity.","provenance":"Locally reviewed mapping"}
+        {"uid":"wa-csp:2.1b","relationship":"Partially addresses","basis":"Requires understanding vulnerabilities and risks in IT, OT and IoT.","provenance":"Locally reviewed mapping"},
+        {"uid":"wa-csp:2.1c","relationship":"Partially addresses","basis":"Requires using the DGov self-assessment table to determine the risk tier of information holdings.","provenance":"Locally reviewed mapping"}
       ]
     },
     {
@@ -79,7 +79,7 @@
         {"uid":"aescsf:risk-3f","relationship":"Partially addresses","basis":"Requires risks to be removed from the register when they no longer require tracking or response.","provenance":"Locally reviewed mapping"},
         {"uid":"c2m2:risk-2e","relationship":"Directly addresses","basis":"Requires cyber risks and categories to be documented in a risk register or equivalent artefact.","provenance":"Locally reviewed mapping"},
         {"uid":"c2m2:risk-3f","relationship":"Partially addresses","basis":"Requires risks to be removed from the register when tracking or response is no longer needed.","provenance":"Locally reviewed mapping"},
-        {"uid":"wa-csp:2.2f","relationship":"Partially addresses","basis":"Requires reassessment when systems, services, risk posture, threat level or operations materially change, while also considering procurement and supply-chain risk.","provenance":"Locally reviewed mapping"},
+        {"uid":"wa-csp:2.2f","relationship":"Partially addresses","basis":"Calls for risk reassessment when new systems or services are implemented.","provenance":"Locally reviewed mapping"},
         {"uid":"csf:gv.rm-4","relationship":"Partially addresses","basis":"Establishes the response options needed to make consistent treatment decisions.","provenance":"Locally reviewed mapping"}
       ]
     }

@@ -2,6 +2,9 @@
 
 Source-set notes moved from the main README on 17 September 2026.
 
+**WA CSP** uses the 2026 edition. See the [upgrade instructions and edition review](../docs/wa-csp-2026.md)
+for the download command, changed clause numbering and validation checks.
+
 The **Essential Eight is a subset of the 37 ACSC mitigation strategies**. WACC groups
 them as one framework family. Mixed search results, workspace references and frequency
 reports prefer Essential Eight maturity detail over the matching broad strategy row.

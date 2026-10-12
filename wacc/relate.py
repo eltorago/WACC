@@ -351,11 +351,9 @@ class Relations:
     def stem_parts(self, uid: str) -> List[Control]:
         """The ancestors a quotation of this control cannot leave out.
 
-        WA CSP 1.5a is 'the WA Government Data Offshoring Position and Guidance'. On its
-        own that is a document name, not a requirement; its parent supplies 'Each entity
-        must define and understand its risks associated with data ...'. Seventy-four
-        controls in this corpus read as fragments this way and forty-six of them begin
-        with a lower-case letter, which is the tell.
+        Lettered clauses can depend on a parent's introductory sentence. WA CSP 2.2a,
+        for example, names information confidentiality and integrity requirements;
+        section 2.2 supplies the risk-management context.
         """
         control = self.corpus.control(uid)
         if control is None:
@@ -382,6 +380,8 @@ class Relations:
         if control is None:
             return ""
         own = (control.text or "").strip()
+        if 'source_context' in control.attributes:
+            return ' '.join(part for part in (control.attributes['source_context'], own) if part)
         parts = self.stem_parts(uid)
         if not parts:
             return own

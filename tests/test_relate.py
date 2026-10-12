@@ -60,19 +60,19 @@ def run() -> int:
 
     # -- hierarchy ---------------------------------------------------------
 
-    placement = rel.placement("wa-csp:1.5a")
+    placement = rel.placement("wa-csp:2.2a")
     check.expect(
         placement is not None and placement.needs_its_parent,
-        "hierarchy", "WA CSP 1.5a is marked as needing its parent to be quotable",
-        "on its own it reads 'the WA Government Data Offshoring Position and Guidance', "
-        "which is a document name, not a requirement",
+        "hierarchy", "WA CSP 2.2a is marked as needing its parent to be quotable",
+        "on its own it names information confidentiality and integrity, "
+        "which needs the risk-management context",
     )
     check.expect(
         placement is not None and placement.quotable.startswith("Each entity must"),
         "hierarchy", "the quotable text carries the parent's stem",
     )
     check.expect(
-        placement is not None and placement.breadcrumb == ["1", "1.5", "1.5a"],
+        placement is not None and placement.breadcrumb == ["2", "2.2", "2.2a"],
         "hierarchy", "breadcrumb runs root first",
     )
 
@@ -120,7 +120,7 @@ def run() -> int:
         "PSPF, which no publisher maps, says so rather than showing a blank",
         "an empty panel otherwise reads as 'nothing else requires this'",
     )
-    ism = rel.lineage("wa-csp:1.5a")
+    ism = rel.lineage("wa-csp:2.2a")
     check.expect(
         ism is not None and ism.published.is_empty
         and "not in them" in ism.published.note,
@@ -467,8 +467,8 @@ def run() -> int:
         "answer to a typed question and the wrong one here",
     )
     check.expect(
-        rel.subject_neighbours("wa-csp:1.5a", index) == [],
-        "neighbours", "a control nothing resembles gets no neighbours rather than weak ones",
+        all(n.score >= SUBJECT_FLOOR for n in rel.subject_neighbours("wa-csp:3.5", index)),
+        "neighbours", "offshoring neighbours must meet the relevance floor",
     )
 
     # -- round trip --------------------------------------------------------
