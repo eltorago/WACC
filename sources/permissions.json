@@ -774,12 +774,12 @@
       "license": "WA non-commercial use permission",
       "permission_url": "https://www.wa.gov.au/terms-of-use",
       "basis_and_conditions": "The website intellectual-property section permits personal, non-commercial educational and non-commercial intra-organisation copying with attribution. User confirmed solely non-commercial use on 13 September 2026; included for the existing private project. Credit State of Western Australia, Department of the Premier and Cabinet, and retain source/terms. Public redistribution or commercial use needs a fresh review.",
-      "source_url": "https://www.wa.gov.au/system/files/2024-12/wacybersecuritypolicy.pdf",
-      "sha256": "4fc77e899593bd0086c778d379bea3119270cfda99b9ba49cb0af5c4baee1d9e",
-      "bytes": 9437823,
-      "reviewed_on": "2026-09-13",
+      "source_url": "https://www.wa.gov.au/system/files/2026-10/2026.wa_.cyber_.security.policy.v2.pdf",
+      "sha256": "4be54cb6ead0f614ff72f90b65690e5b3ad7fcf891c1c31627922a9d286d1ac9",
+      "bytes": 6123854,
+      "reviewed_on": "2026-10-12",
       "modified": false,
-      "provenance": "User-supplied local file; copied without modification. Source URL is a publisher landing/citation link where identified, not a claim to have freshly downloaded this edition."
+      "provenance": "Downloaded unchanged from the official WA Government policy page on 12 October 2026. 2026 edition, 44 pages. Local use only; PDF and extracted text are excluded from distribution."
     },
     {
       "filename": "wa-premiers-circular-2025-13.pdf",

@@ -141,19 +141,19 @@ def run() -> int:
         "applicability", "a test carries the publisher's own applicability",
     )
 
-    fragment = derive(corpus, corpus.control("wa-csp:1.5a"), relations)
+    fragment = derive(corpus, corpus.control("wa-csp:2.2a"), relations)
     check.expect(
-        "Each entity must define" in fragment.derived_tests[0].text,
+        "Each entity must establish" in fragment.derived_tests[0].text,
         "quote", "a fragment is quoted with the parent stem that makes it a requirement",
-        "'the WA Government Data Offshoring Position and Guidance' alone is a document "
-        "name",
+        "'The entity information confidentiality and integrity requirements' alone is a "
+        "fragment",
     )
     check.expect(
-        "Guidance. Evidence:" in fragment.derived_tests[0].text,
+        "requirements. Evidence:" in fragment.derived_tests[0].text,
         "quote", "the quote is terminated so it does not run into the next sentence",
     )
 
-    for uid in ("ism:ism-1690", "soci-act:s 30bc.1", "wa-csp:1.5a", "nist-800-53:ia-2.1"):
+    for uid in ("ism:ism-1690", "soci-act:s 30bc.1", "wa-csp:2.2a", "nist-800-53:ia-2.1"):
         result = derive(corpus, corpus.control(uid), relations)
         texts = [t.text for t in result.derived_tests] + [result.risk.text]
         offenders = [t[:60] for t in texts if BANNED.search(t)]

@@ -369,7 +369,7 @@ CONCEPTS: List[Concept] = [
         "media-sanitisation",
         [
             "sanitisation", "sanitization", "sanitise", "sanitize",
-            "secure disposal", "media disposal", "disposal of media",
+            "secure disposal", "media disposal", "disposal of media", "device disposal",
             "degauss", "degaussing", "purge", "destruction of media",
             "destroy media", "media destruction", "cryptographic erase",
         ],
@@ -448,8 +448,8 @@ CONCEPTS: List[Concept] = [
         ],
         control_phrases=["essential eight", "essential 8"],
         why=(
-            "the WA CSP mandates the Essential Eight without naming any of the eight, so "
-            "a query for one strategy only reaches WA CSP 3.1.1a through this group"
+            "broad Essential Eight references need to be searchable by individual strategy; "
+            "this group expands those references to the eight published strategy names"
         ),
     ),
     Concept(

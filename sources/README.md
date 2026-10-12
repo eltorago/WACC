@@ -2,6 +2,7 @@
 
 For a new source framework, follow the [complete import and assessment workflow](add-framework.md).
 See [framework notes](framework-notes.md) for source relationships and edition details.
+For an existing WA CSP installation, follow the [2026 policy update steps](../docs/wa-csp-2026.md).
 
 WACC does not distribute publisher files. Public sources are downloaded from their
 publisher when needed, and files that require a sign-in or an interactive export stay on

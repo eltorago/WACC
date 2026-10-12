@@ -46,7 +46,7 @@
       "related": ["AP-01", "AM-03"],
       "mappings": [
         {"uid":"pspf:req 103","relationship":"Partially addresses","basis":"Requires the Essential Eight application-control strategy at Maturity Level Two.","provenance":"Locally reviewed mapping"},
-        {"uid":"wa-csp:3.1.1a","relationship":"Related only","basis":"Requires implementation of the Essential Eight; application control is one member and its detailed conditions must be assessed separately.","provenance":"Locally reviewed mapping"}
+        {"uid":"wa-csp:3.1.5d","relationship":"Directly addresses","basis":"Requires centrally managed application-control rules, reviewed annually and when new threats are identified.","provenance":"Locally reviewed mapping"}
       ]
     }
   ]

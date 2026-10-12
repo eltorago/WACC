@@ -15,6 +15,7 @@ from .model import Corpus, Framework, Licence, Tier
 from .framework_families import count as family_count
 from .registry import FRAMEWORKS, GUIDANCE, FRAMEWORKS_BY_KEY
 from .sources import local_path, source_directory
+from .wa_policy import ensure_current as ensure_current_wa_policy
 from .loaders import (
     aescsf,
     attack,
@@ -200,10 +201,11 @@ def build(verbose: bool = True) -> Tuple[Corpus, LoadReport]:
 
     wa_csp = FRAMEWORKS_BY_KEY["wa-csp"]
     wa_csp_path = os.path.join(CORPUS, "wa-csp.json")
-    if _exists(wa_csp_path):
+    try:
+        ensure_current_wa_policy(wa_csp_path, _doc(wa_csp.source_file))
         report.record(wa_csp.key, wa.load_policy(corpus, wa_csp, wa_csp_path))
-    else:
-        report.skip(wa_csp.key, "wa-csp.json not extracted yet")
+    except (ValueError, OSError) as exc:
+        report.skip(wa_csp.key, str(exc))
 
     wa_circular = FRAMEWORKS_BY_KEY["wa-circular"]
     wa_circular_path = os.path.join(CORPUS, "wa-circular.json")

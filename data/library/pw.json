@@ -51,7 +51,7 @@
       "mappings": [
         {"uid":"ism:ism-2078","relationship":"Directly addresses","basis":"Prohibits passwords found in commonly used or compromised-password lists.","provenance":"Locally reviewed mapping"},
         {"uid":"nist-800-53:ia-5.1","relationship":"Partially addresses","basis":"Requires maintained common and compromised-password lists, password filtering, protected transmission and storage, and secure post-recovery changes.","provenance":"Locally reviewed mapping"},
-        {"uid":"wa-csp:3.6c","relationship":"Partially addresses","basis":"Requires a password-filtering solution for all user accounts as part of account management and monitoring.","provenance":"Locally reviewed mapping"},
+        {"uid":"wa-csp:3.8c","relationship":"Partially addresses","basis":"Requires a password filtering solution for all user accounts.","provenance":"Locally reviewed mapping"},
         {"uid":"nist-800-63:63b §3.2.2#1","relationship":"Partially addresses","basis":"Requires controls against online guessing and limits consecutive failed authentication attempts.","provenance":"Locally reviewed mapping"},
         {"uid":"asd-ad:appendix a §mitigating password spraying#3","relationship":"Partially addresses","basis":"Requires user objects, other than break-glass accounts, to lock after no more than five failed logon attempts.","provenance":"Locally reviewed mapping"}
       ]

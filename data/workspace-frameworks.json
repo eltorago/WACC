@@ -413,6 +413,30 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-06 — Inventory-aligned scanning and verified remediation address the vulnerability lifecycle."
+    },
+    {
+      "uid": "wa-csp:3.1.1a",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Application patch deadlines of fourteen days or forty-eight hours for critical vulnerabilities/exploits."
+    },
+    {
+      "uid": "wa-csp:3.1.2a",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Operating-system update deadlines for internet-facing, important and other systems."
+    },
+    {
+      "uid": "wa-csp:3.7d",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Remediate identified vulnerabilities."
+    },
+    {
+      "uid": "wa-csp:3.7e",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Document risk treatment for vulnerabilities that cannot be remediated."
     }
   ],
   "MF-01": [
@@ -721,6 +745,24 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-13 — Identity lifecycle, approved access and protected authenticators support secure access management."
+    },
+    {
+      "uid": "wa-csp:3.1.3a",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Enterprise-wide MFA for accounts accessing sensitive or official data."
+    },
+    {
+      "uid": "wa-csp:3.1.3b",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "MFA for critical systems, including on internal networks."
+    },
+    {
+      "uid": "wa-csp:3.1.3d",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Disable legacy authentication that cannot enforce MFA."
     }
   ],
   "PA-04": [
@@ -1077,6 +1119,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-12 — Access approvals and reviews restrict permissions to current duties."
+    },
+    {
+      "uid": "wa-csp:3.1.4b",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Annual privileged-account validation and quarterly manager approval."
     }
   ],
   "AP-01": [
@@ -1307,6 +1355,30 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-07 — Application allow rules and exception reviews restrict execution to authorised code."
+    },
+    {
+      "uid": "wa-csp:3.1.5a",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Application allowlisting across all endpoints, including internet-facing servers."
+    },
+    {
+      "uid": "wa-csp:3.1.5b",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Block unapproved executables, scripts, installers and libraries."
+    },
+    {
+      "uid": "wa-csp:3.1.5c",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Enable Microsoft recommended block rules."
+    },
+    {
+      "uid": "wa-csp:3.1.5e",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Prevent non-administrators changing or bypassing allowlisting."
     }
   ],
   "OM-01": [
@@ -1441,6 +1513,12 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "NIST SP 800-53A cm-7.5_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    },
+    {
+      "uid": "wa-csp:3.1.6b",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Disable macros by default with explicit exceptions."
     }
   ],
   "UH-01": [
@@ -1821,6 +1899,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-04 — Approved baselines and drift checks maintain secure system and application settings."
+    },
+    {
+      "uid": "wa-csp:3.1.7b",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Restrict browser features and extensions."
+    },
+    {
+      "uid": "wa-csp:3.1.7d",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Harden PDF readers and block child processes."
     }
   ],
   "BR-01": [
@@ -1985,6 +2075,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-10 — Scheduled protected backups and measured restore tests demonstrate usable recovery copies."
+    },
+    {
+      "uid": "wa-csp:3.1.8a",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Daily or more frequent backups based on continuity needs."
+    },
+    {
+      "uid": "wa-csp:3.1.8b",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Backups meet recovery point and recovery time objectives."
     }
   ],
   "GV-01": [
@@ -2035,6 +2137,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "WA PRIS Act · S 210. Inspect the designation of an information sharing officer and notification to the Chief Data Officer."
+    },
+    {
+      "uid": "wa-csp:1.1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Accountable authority responsibilities and resources."
+    },
+    {
+      "uid": "wa-csp:1.2",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Executive authority and reporting responsibilities."
     }
   ],
   "SC-01": [
@@ -2129,6 +2243,30 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "WA PRIS Act · RSP 2. Review recipient security capability, access restrictions, systems and governance."
+    },
+    {
+      "uid": "wa-csp:3.4a",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Assess supplier security maturity and assurance."
+    },
+    {
+      "uid": "wa-csp:3.4d",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Assess AI security in procurement."
+    },
+    {
+      "uid": "wa-csp:3.4h",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Define the supplier shared-responsibility model."
+    },
+    {
+      "uid": "wa-csp:3.4i",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Assess foreign ownership, control and influence risks."
     }
   ],
   "NA-01": [
@@ -2161,6 +2299,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-19 — IT/OT separation and controlled gateways isolate operational technology."
+    },
+    {
+      "uid": "wa-csp:3.1.11a",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Network segmentation and micro-segmentation."
+    },
+    {
+      "uid": "wa-csp:3.1.11b",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Restrict lateral movement and service connections."
     }
   ],
   "SM-01": [
@@ -2205,6 +2355,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "DET-01 — Central event collection and protected retention preserve records for detection and investigation."
+    },
+    {
+      "uid": "wa-csp:4.1b",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Collect logs that minimise visibility gaps."
+    },
+    {
+      "uid": "wa-csp:4.1c",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Ingest logs into the SIEM promptly."
     }
   ],
   "AP-02": [
@@ -2225,6 +2387,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-07 — Application allow rules and exception reviews restrict execution to authorised code."
+    },
+    {
+      "uid": "wa-csp:3.1.5f",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Central logs of allowed and blocked execution."
     }
   ],
   "VM-01": [
@@ -2251,6 +2419,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-06 — Inventory-aligned scanning and verified remediation address the vulnerability lifecycle."
+    },
+    {
+      "uid": "wa-csp:3.7a",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Daily automated vulnerability scanning where possible."
+    },
+    {
+      "uid": "wa-csp:3.7b",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Alternative vulnerability discovery where automation is not possible."
     }
   ],
   "OM-02": [
@@ -2265,6 +2445,24 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "NIST SP 800-53A si-3_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    },
+    {
+      "uid": "wa-csp:3.1.6a",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Block unsolicited macros."
+    },
+    {
+      "uid": "wa-csp:3.1.6c",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Permit only trusted macros and prevent user bypass."
+    },
+    {
+      "uid": "wa-csp:3.1.6d",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Prevent Office macros calling Win32 APIs or spawning child processes."
     }
   ],
   "UH-02": [
@@ -2303,6 +2501,12 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "NIST SP 800-53A cm-7_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    },
+    {
+      "uid": "wa-csp:3.1.7a",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Remove or disable unsupported user software."
     }
   ],
   "NA-02": [
@@ -2353,6 +2557,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-09 — Boundary inspection and data-movement controls examine traffic crossing security domains."
+    },
+    {
+      "uid": "wa-csp:3.1.11c",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Implement protective DNS."
     }
   ],
   "NA-03": [
@@ -2367,6 +2577,12 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "NIST SP 800-53A pl-8_asm-examine names relevant assessment documents. WACC applies these to this control; the reference supports evidence selection, not full control equivalence or source-specific legal deadlines."
+    },
+    {
+      "uid": "wa-csp:3.1.11d",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Maintain network documentation."
     }
   ],
   "AM-02": [
@@ -2405,6 +2621,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-04 — Approved baselines and drift checks maintain secure system and application settings."
+    },
+    {
+      "uid": "wa-csp:3.1.7f",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Maintain and review secure application settings."
     }
   ],
   "SD-01": [
@@ -2425,6 +2647,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-01 — Secure development, release assurance, controlled change and sanitisation support the system lifecycle."
+    },
+    {
+      "uid": "wa-csp:3.13b",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Apply security controls across development, testing and production."
     }
   ],
   "SD-03": [
@@ -2439,6 +2667,24 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-01 — Secure development, release assurance, controlled change and sanitisation support the system lifecycle."
+    },
+    {
+      "uid": "wa-csp:3.13d",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Integrate security testing, including regular dynamic testing."
+    },
+    {
+      "uid": "wa-csp:3.14.3a",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Validate AI inputs against poisoning and prompt injection."
+    },
+    {
+      "uid": "wa-csp:3.14.3b",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Review AI outputs for hallucinations and malicious content."
     }
   ],
   "AD-01": [
@@ -2453,6 +2699,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Protect authentication credentials. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "wa-csp:3.1.9b",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Give specific attention to domain-controller security."
     }
   ],
   "DP-03": [
@@ -2497,6 +2749,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "WA PRIS Act · RSP 5. Check approvals and recipient restrictions before releasing derived information or analytics outputs."
+    },
+    {
+      "uid": "wa-csp:2.1f",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Use DLP based on static attributes and classification labels."
+    },
+    {
+      "uid": "wa-csp:3.14.1",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Keep Tier 1, Tier 2 and classified information out of public AI services."
     }
   ],
   "MW-02": [
@@ -2505,6 +2769,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Control removable storage media and connected devices. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "wa-csp:3.3e",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Use an entity-controlled VPN for authorised remote access to mission-critical applications where possible."
     }
   ],
   "AW-01": [
@@ -2525,6 +2795,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-14 — Recurring and role-specific training addresses duties, access and current threats."
+    },
+    {
+      "uid": "wa-csp:3.2a",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Annual cyber security awareness training for users accessing entity systems."
     }
   ],
   "CK-01": [
@@ -2545,6 +2821,12 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-17 — Algorithm and key inventories inform cryptographic transition planning; migration readiness requires a separate change exercise."
+    },
+    {
+      "uid": "wa-csp:3.12",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Document a post-quantum cryptography transition approach by December 2027."
     }
   ],
   "DP-02": [
@@ -2577,6 +2859,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "WA PRIS Act · RSP 4. Check the locations, environments, transfer methods and protective systems used for shared information."
+    },
+    {
+      "uid": "wa-csp:3.11c",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Encrypt internal and external traffic."
     }
   ],
   "PA-01": [
@@ -2591,6 +2879,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-12 — Access approvals and reviews restrict permissions to current duties."
+    },
+    {
+      "uid": "wa-csp:3.1.4a",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Written justification and approval for administration."
     }
   ],
   "PA-02": [
@@ -2605,6 +2899,24 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-05 — Dedicated accounts, protected authentication and activity records secure system administration."
+    },
+    {
+      "uid": "wa-csp:3.1.4c",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Technically prevent admin accounts accessing internet and email."
+    },
+    {
+      "uid": "wa-csp:3.1.4d",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Dedicated admin workstations or jump servers."
+    },
+    {
+      "uid": "wa-csp:3.1.4e",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Minimise standing privilege and use non-privileged accounts by default."
     }
   ],
   "MF-02": [
@@ -2625,6 +2937,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "DET-04 — Identity, authentication and privileged-activity records support baseline comparison and anomaly review."
+    },
+    {
+      "uid": "wa-csp:3.1.3c",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Phishing-resistant MFA or the strongest supported form."
+    },
+    {
+      "uid": "wa-csp:3.1.3f",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Central MFA logs and alerts on abnormal patterns."
     }
   ],
   "PA-03": [
@@ -2679,6 +3003,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-20 — Brokered OT connections and monitored supplier access control remote entry paths."
+    },
+    {
+      "uid": "wa-csp:3.15c",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Segregate critical OT networks."
+    },
+    {
+      "uid": "wa-csp:3.15i",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Keep critical systems operationally independent from IT."
     }
   ],
   "PW-01": [
@@ -2897,6 +3233,24 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "DET-01 — Central event collection and protected retention preserve records for detection and investigation."
+    },
+    {
+      "uid": "wa-csp:4.1d",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Protect log integrity and access."
+    },
+    {
+      "uid": "wa-csp:4.1e",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Retain firewall, network, DNS and verbose logs for six months."
+    },
+    {
+      "uid": "wa-csp:4.1f",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Retain endpoint, IAM, Exchange and Office logs for twelve months."
     }
   ],
   "SM-03": [
@@ -2935,6 +3289,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "DET-02 — Event review investigates anomalous behaviour and tracks follow-up decisions."
+    },
+    {
+      "uid": "wa-csp:4.2d",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Review adverse events at least every twenty-four hours during normal operations."
     }
   ],
   "IR-02": [
@@ -2973,6 +3333,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "REC-02 — Restore verification and incident recovery checks confirm service operation and integrity."
+    },
+    {
+      "uid": "wa-csp:4.2c",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Triage and action the incident playbook within four hours."
     }
   ],
   "ST-02": [
@@ -3001,6 +3367,30 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-10 — Scheduled protected backups and measured restore tests demonstrate usable recovery copies."
+    },
+    {
+      "uid": "wa-csp:3.1.8c",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Immutable, isolated backups."
+    },
+    {
+      "uid": "wa-csp:3.1.8d",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Restrict backup deletion and protect deletion credentials."
+    },
+    {
+      "uid": "wa-csp:3.1.8f",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Keep multiple backup generations with an off-network copy."
+    },
+    {
+      "uid": "wa-csp:3.1.8g",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Encrypt backups and verify integrity."
     }
   ],
   "BR-03": [
@@ -3027,6 +3417,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "REC-02 — Restore verification and incident recovery checks confirm service operation and integrity."
+    },
+    {
+      "uid": "wa-csp:3.1.8e",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Scheduled recovery drills including ransomware scenarios."
     }
   ],
   "BC-01": [
@@ -3073,6 +3469,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "RES-01 — Integrated response and continuity plans coordinate sustained operations and recovery."
+    },
+    {
+      "uid": "wa-csp:6.1a",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Maintain disaster recovery plans and procedures for critical systems and information."
     }
   ],
   "BC-03": [
@@ -3081,6 +3483,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "Business continuity and disaster recovery plans. This practical control addresses part of the February 2017 strategy. Historical examples and thresholds are not substituted for current ISM or Essential Eight requirements."
+    },
+    {
+      "uid": "wa-csp:6.1b",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Test disaster recovery annually and report results through the AIR."
     }
   ],
   "PS-01": [
@@ -3095,6 +3503,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "GOV-12 — Pre-access screening and repeat checks establish and review personnel suitability."
+    },
+    {
+      "uid": "wa-csp:3.1.13b",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Background checks on onboarding for people accessing government systems or information."
+    },
+    {
+      "uid": "wa-csp:3.10c",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Risk-based personnel vetting including contractors and third parties."
     }
   ],
   "PS-02": [
@@ -3135,6 +3555,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "WA PRIS Act · RSP 4. Check retention, access removal and disposal of shared information after use."
+    },
+    {
+      "uid": "wa-csp:3.4g",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Retain ownership and arrange secure data return or disposal on termination."
     }
   ],
   "OT-03": [
@@ -3149,6 +3575,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "GOV-13 — OT playbooks assess safety and availability consequences of isolation, response and recovery."
+    },
+    {
+      "uid": "wa-csp:5.2f",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Use MITRE ATT&CK for ICS in OT incident planning."
     }
   ],
   "AD-04": [
@@ -3171,6 +3603,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "IDE-05 — Asset context and service dependency analysis identify how a compromise can affect dependent operations."
+    },
+    {
+      "uid": "wa-csp:3.15j",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Maintain an inventory of critical OT assets."
     }
   ],
   "CK-02": [
@@ -3191,6 +3629,18 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-17 — Algorithm and key inventories inform cryptographic transition planning; migration readiness requires a separate change exercise."
+    },
+    {
+      "uid": "wa-csp:3.11a",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Protect and rotate keys and secrets."
+    },
+    {
+      "uid": "wa-csp:3.11b",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Manage key and certificate issuance and rotation."
     }
   ],
   "IN-03": [
@@ -3205,6 +3655,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "RES-02 — Notification procedures and tracked reporting obligations support timely stakeholder communication."
+    },
+    {
+      "uid": "wa-csp:5.2c",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Incident plans use six hours from detection/suspicion for DGov and twelve hours from confirmation for ACSC."
     }
   ],
   "PH-01": [
@@ -3219,6 +3675,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-15 — Facility safeguards and access-log review restrict and monitor physical entry."
+    },
+    {
+      "uid": "wa-csp:3.9",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Assess and control physical security risks."
     }
   ],
   "IN-02": [
@@ -3283,6 +3745,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "GOV-02 — Leadership, risk reporting and programme oversight support the CISO responsibility."
+    },
+    {
+      "uid": "wa-csp:1.4a",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Documented workplans, resources and implementation roadmaps."
     }
   ],
   "AW-02": [
@@ -3297,6 +3765,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-14 — Recurring and role-specific training addresses duties, access and current threats."
+    },
+    {
+      "uid": "wa-csp:3.13e",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Train developers in secure development and application risks."
+    },
+    {
+      "uid": "wa-csp:3.14.3f",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Train staff on AI-specific threats and mitigations."
     }
   ],
   "RM-01": [
@@ -3351,6 +3831,24 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "WA PRIS Act · S 175. Trace identified sharing risks to safeguards included in the agreement and actions for safeguard breaches."
+    },
+    {
+      "uid": "wa-csp:2.2e",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Reassess risk after two years."
+    },
+    {
+      "uid": "wa-csp:2.2g",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Reassess when security posture or threat level changes."
+    },
+    {
+      "uid": "wa-csp:2.2h",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Reassess after major operating-environment changes."
     }
   ],
   "ST-03": [
@@ -3405,6 +3903,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "IDE-05 — Asset context and service dependency analysis identify how a compromise can affect dependent operations."
+    },
+    {
+      "uid": "wa-csp:2.1a",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Reconciled asset inventory and critical dependencies."
     }
   ],
   "IA-01": [
@@ -3445,6 +3949,12 @@
       "relationship": "Related only",
       "provenance": "Locally reviewed mapping",
       "basis": "WA PRIS Act · S 177. Use classification to identify sensitive Aboriginal information; inspect the separate Aboriginal information assessment and any required consultation, consent and safeguards."
+    },
+    {
+      "uid": "wa-csp:2.1e",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Classify and label information using WA policy."
     }
   ],
   "RM-02": [
@@ -3481,6 +3991,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-01 — Secure development, release assurance, controlled change and sanitisation support the system lifecycle."
+    },
+    {
+      "uid": "wa-csp:3.13a",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Restrict unauthorised production changes."
     }
   ],
   "IA-02": [
@@ -3507,6 +4023,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "WA PRIS Act · RSP 2. Check recipients restrict shared information to appropriately authorised people."
+    },
+    {
+      "uid": "wa-csp:2.1h",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Review access arrangements every two years."
+    },
+    {
+      "uid": "wa-csp:3.8b",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Apply least privilege to access."
     }
   ],
   "IA-03": [
@@ -3529,6 +4057,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "DET-04 — Identity, authentication and privileged-activity records support baseline comparison and anomaly review."
+    },
+    {
+      "uid": "wa-csp:3.1.4f",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Central logging and active monitoring of administrative actions."
     }
   ],
   "AD-02": [
@@ -3545,6 +4079,18 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "PRO-15 — Facility safeguards and access-log review restrict and monitor physical entry."
+    },
+    {
+      "uid": "wa-csp:3.9f",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Electronic access controls."
+    },
+    {
+      "uid": "wa-csp:3.9g",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Surveillance and out-of-hours physical controls."
     }
   ],
   "IR-01": [
@@ -3571,6 +4117,12 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "WA PRIS Act · RSP 4. Check the recipient’s response plan covers a breach involving shared information."
+    },
+    {
+      "uid": "wa-csp:5.3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Maintain playbooks for the main incident types."
     }
   ],
   "PI-01": [
@@ -3685,6 +4237,14 @@
       "relationship": "Partially addresses",
       "provenance": "Locally reviewed mapping",
       "basis": "WA PRIS Act · IPP 4.2. Check destruction records for personal-information media that cannot be safely sanitised."
+    }
+  ],
+  "MW-01": [
+    {
+      "uid": "wa-csp:3.3",
+      "relationship": "Partially addresses",
+      "provenance": "Locally reviewed mapping",
+      "basis": "Establish mobility governance and protections."
     }
   ]
 }

@@ -20,7 +20,7 @@
       "expected": "The current plan is available during disruption, covers the incident lifecycle and gives named roles clear authority, actions and communication paths.",
       "related": ["IR-02", "IR-03", "IN-01", "OT-03"],
       "mappings": [
-        {"uid":"wa-csp:5.1","relationship":"Directly addresses","basis":"Requires each entity to develop and exercise a cyber security incident management and response plan.","provenance":"Locally reviewed mapping"},
+        {"uid":"wa-csp:5.2","relationship":"Directly addresses","basis":"Requires a developed and exercised incident management and response plan.","provenance":"Locally reviewed mapping"},
         {"uid":"nist-800-53:ir-8","relationship":"Directly addresses","basis":"Requires an organisation-specific response plan defining structure, reportable incidents, resources, responsibilities and distribution.","provenance":"Locally reviewed mapping"},
         {"uid":"cis-controls:17.4","relationship":"Directly addresses","basis":"Requires a maintained incident response process covering roles, compliance requirements and communications.","provenance":"Locally reviewed mapping"},
         {"uid":"cis-controls:17.1","relationship":"Partially addresses","basis":"Requires designated primary and backup personnel to coordinate and document incident handling.","provenance":"Locally reviewed mapping"},
@@ -71,7 +71,7 @@
       "expected": "Exercises test realistic decisions and communication paths, and material lessons from exercises and incidents result in completed, verified improvements.",
       "related": ["IR-01", "IR-02", "BC-03", "OT-03"],
       "mappings": [
-        {"uid":"wa-csp:5.2","relationship":"Directly addresses","basis":"Requires annual cyber security incident response testing.","provenance":"Locally reviewed mapping"},
+        {"uid":"wa-csp:5.4","relationship":"Directly addresses","basis":"Requires annual incident response exercises and testing.","provenance":"Locally reviewed mapping"},
         {"uid":"wa-csp:6.2","relationship":"Directly addresses","basis":"Requires lessons learned and a post-incident review following significant incidents or crises.","provenance":"Locally reviewed mapping"},
         {"uid":"nist-800-53:ir-3","relationship":"Directly addresses","basis":"Requires testing the effectiveness of the incident response capability.","provenance":"Locally reviewed mapping"},
         {"uid":"cis-controls:17.7","relationship":"Directly addresses","basis":"Requires routine response exercises testing communications, decisions and workflows.","provenance":"Locally reviewed mapping"},
